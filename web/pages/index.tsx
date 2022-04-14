@@ -1,10 +1,10 @@
 import { Layout, Space } from "antd";
 import type { NextPage } from "next";
-import ConnectButton from "../components/ConnectButton/ConnectButton";
 import styles from "styles/Home.module.scss";
 import { Typography } from "antd";
-import PageContainer from "components/PageContainer/PageContainer";
-import Mix from "components/Mix/Mix";
+import PageContainer from "../components/PageContainer/PageContainer";
+import Mix from "../components/Mix/Mix";
+import { mixes } from "../helpers/mixes";
 
 const { Header, Content, Footer } = Layout;
 const { Title } = Typography;
@@ -18,18 +18,16 @@ const Home: NextPage = () => {
         size="middle"
         className={styles.mixContainer}
       >
-        <Mix title="Singularity" author="Jon Hopkins">
-          Coucou
-        </Mix>
-        <Mix title="Singularity" author="Jon Hopkins">
-          Coucou
-        </Mix>
-        <Mix title="Singularity" author="Jon Hopkins">
-          Coucou
-        </Mix>
-        <Mix title="Singularity" author="Jon Hopkins">
-          Coucou
-        </Mix>
+        {mixes.map((mix, i) => (
+          <Mix
+            key={i}
+            title={mix.name}
+            author={mix.author}
+            ipfsCid={mix.ipfsCid}
+          >
+            Allow
+          </Mix>
+        ))}
       </Space>
     </PageContainer>
   );
