@@ -47,9 +47,12 @@ const Home: NextPage = () => {
     };
 
     console.log("Start - getAllTokenIds");
+    // @ts-ignore
     const res = await Moralis.Web3API.token.getAllTokenIds(options);
     console.log("Response - ", res);
+    // @ts-ignore
     const tokenMetadatas: TokenMetadata[] = res.result?.map(
+      // @ts-ignore
       (item) => JSON.parse(item.metadata) as TokenMetadata
     );
 
