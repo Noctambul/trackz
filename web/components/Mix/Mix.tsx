@@ -1,6 +1,5 @@
 import { Typography, Space, Card } from "antd";
 import styles from "./Mix.module.scss";
-import { WaveSurfer } from "wavesurfer-react";
 import { pinataProvider } from "../../helpers/mixes";
 
 type MixProps = {

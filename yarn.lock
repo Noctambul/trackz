@@ -9521,11 +9521,6 @@ promise@^8.0.0:
   dependencies:
     asap "~2.0.6"
 
-prop-type@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/prop-type/-/prop-type-0.0.1.tgz#4a211359cc622f7d2d1eee14d34afb7dfe7ea64e"
-  integrity sha1-SiETWcxiL30tHu4U00r7ff5+pk4=
-
 prop-types@^15.7.2, prop-types@^15.8.1:
   version "15.8.1"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.8.1.tgz#67d87bf1a694f48435cf332c24af10214a3140b5"
@@ -12137,13 +12132,6 @@ verror@1.10.0:
     assert-plus "^1.0.0"
     core-util-is "1.0.2"
     extsprintf "^1.2.0"
-
-wavesurfer-react@^2.1.3:
-  version "2.1.3"
-  resolved "https://registry.yarnpkg.com/wavesurfer-react/-/wavesurfer-react-2.1.3.tgz#8c8674f6eedb531b1f2ccd664143b9d51482b7f3"
-  integrity sha512-GTOJwK5JQvf95oOHn5TYssnnU3sR4kkuw8AzdL2y+dpoXMTeG6sTQoTh+/cdUURN0KGwrKpC89hRF3/CkmIv+A==
-  dependencies:
-    prop-type "^0.0.1"
 
 web3-bzz@1.2.11:
   version "1.2.11"
