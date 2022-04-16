@@ -21,7 +21,7 @@ export default function PageContainer({
           <ConnectButton />
         </Header>
         <Content>{children}</Content>
-        <Footer>Footer</Footer>
+        <Footer style={{ backgroundColor: "black" }}>Footer</Footer>
       </Layout>
     </>
   );

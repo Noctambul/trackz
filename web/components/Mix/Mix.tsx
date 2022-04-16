@@ -29,12 +29,7 @@ export default function Mix({
     <Card className={styles.card}>
       <div className={styles.top}>
         <div className={styles.left}>
-          <Image
-            alt="cover"
-            src={buildIpfsUrl(coverUri)}
-            width={100}
-            height={100}
-          />
+          <Image alt="cover" src={coverUri} width={100} height={100} />
         </div>
         <div className={styles.right}>
           <div className={styles.cardHeader}>
