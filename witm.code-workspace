@@ -1,3 +1,22 @@
 {
-  "folders": [{"path": "web"}, {"path": "smart-contract"}, {"path": "."}]
+  "folders": [
+    {
+      "path": "web"
+    },
+    {
+      "path": "smart-contract"
+    },
+    {
+      "path": "."
+    }
+  ],
+  "settings": {
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": true    
+    },
+    "search.exclude": {
+      "**/*.md": true,
+      "**/yarn.lock": true
+    }
+  }
 }
