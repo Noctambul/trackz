@@ -1,0 +1,9 @@
+{
+  "search.exclude": {
+    "**/._*": true,
+    "**/yarn.lock": true
+  },
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": true
+  }
+}
