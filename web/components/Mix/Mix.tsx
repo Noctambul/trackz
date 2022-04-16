@@ -20,9 +20,9 @@ export default function Mix({
   author,
 }: MixProps): JSX.Element {
   const buildIpfsUrl = (ipfsUri: string) => {
-    return `https://gateway.moralisipfs.com/ipfs/${
-      ipfsUri.split("ipfs://")[1]
-    }`;
+    return ipfsUri.includes("http")
+      ? ipfsUri
+      : `https://gateway.moralisipfs.com/ipfs/${ipfsUri.split("ipfs://")[1]}`;
   };
 
   return (
