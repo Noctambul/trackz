@@ -1,7 +1,7 @@
 import { Button } from "antd";
 import { useContext } from "react";
 import { Web3Context, Web3ContextInterface } from "../../context/Web3Context";
-import styles from "./ConnectButton.module.scss";
+import styles from "./ConnectButton.module.less";
 
 export default function ConnectButton(): JSX.Element {
   const { connectWallet, disconnectWallet, currentAccount } = useContext(

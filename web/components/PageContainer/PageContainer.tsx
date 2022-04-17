@@ -1,7 +1,7 @@
 import { Layout, Typography } from "antd";
 import React from "react";
 import ConnectButton from "../ConnectButton/ConnectButton";
-import styles from "./PageContainer.module.scss";
+import styles from "./PageContainer.module.less";
 
 const { Header, Content, Footer } = Layout;
 const { Title } = Typography;

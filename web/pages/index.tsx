@@ -3,7 +3,7 @@ import PageContainer from "components/PageContainer/PageContainer";
 import Song from "components/Song/Song";
 import type { NextPage } from "next";
 import { useMoralis } from "react-moralis";
-import styles from "styles/Home.module.scss";
+import styles from "styles/Home.module.less";
 
 import { ThirdwebSDK } from "@thirdweb-dev/sdk";
 import { useState } from "react";

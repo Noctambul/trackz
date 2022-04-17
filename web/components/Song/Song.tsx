@@ -1,6 +1,6 @@
 import { Typography } from "antd";
 import Image from "next/image";
-import styles from "./Song.module.scss";
+import styles from "./Song.module.less";
 
 type MixProps = {
   title: string;
