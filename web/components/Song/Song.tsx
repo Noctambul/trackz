@@ -1,6 +1,6 @@
 import { Typography } from "antd";
 import Image from "next/image";
-import styles from "./Mix.module.scss";
+import styles from "./Song.module.scss";
 
 type MixProps = {
   title: string;
@@ -12,7 +12,7 @@ type MixProps = {
 
 const { Title, Text } = Typography;
 
-export default function Mix({
+export default function Song({
   title,
   children,
   soundUri,

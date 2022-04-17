@@ -1,6 +1,6 @@
 import { Button, Space } from "antd";
-import Mix from "components/Mix/Mix";
 import PageContainer from "components/PageContainer/PageContainer";
+import Song from "components/Song/Song";
 import type { NextPage } from "next";
 import { useMoralis } from "react-moralis";
 import styles from "styles/Home.module.scss";
@@ -95,7 +95,7 @@ const Home: NextPage = () => {
           className={styles.mixContainer}
         >
           {tokens.map((tokenMetadata, i) => (
-            <Mix
+            <Song
               key={i}
               title={tokenMetadata.name}
               author="Noctambul"
@@ -103,7 +103,7 @@ const Home: NextPage = () => {
               coverUri={tokenMetadata.image}
             >
               Allow
-            </Mix>
+            </Song>
           ))}
         </Space>
       </>
