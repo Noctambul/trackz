@@ -1,6 +1,6 @@
-import { Typography, Space, Card } from "antd";
-import styles from "./Mix.module.scss";
+import { Typography } from "antd";
 import Image from "next/image";
+import styles from "./Mix.module.scss";
 
 type MixProps = {
   title: string;
@@ -26,27 +26,26 @@ export default function Mix({
   };
 
   return (
-    <Card className={styles.card}>
-      <div className={styles.top}>
-        <div className={styles.left}>
-          <Image
-            alt="cover"
-            src={buildIpfsUrl(coverUri)}
-            width={100}
-            height={100}
-          />
+    <div className={styles.card}>
+      {/* <div className={styles.left}></div>
+      <div className={styles.right}></div> */}
+      <div className={styles.left}>
+        <Image
+          className={styles.coverImage}
+          alt="cover"
+          src={buildIpfsUrl(coverUri)}
+          layout="fill"
+        />
+      </div>
+      <div className={styles.right}>
+        <div className={styles.cardHeader}>
+          <Title level={5}>{title}</Title>
+          <Text type="secondary">{author}</Text>
         </div>
-        <div className={styles.right}>
-          <div className={styles.cardHeader}>
-            <Title level={5}>{title}</Title>
-            <Text type="secondary">{author}</Text>
-          </div>
+        <div className={styles.player}>
+          <audio controls src={buildIpfsUrl(soundUri)}></audio>
         </div>
       </div>
-
-      <div className={styles.player}>
-        <audio controls src={buildIpfsUrl(soundUri)}></audio>
-      </div>
-    </Card>
+    </div>
   );
 }

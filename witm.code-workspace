@@ -4,15 +4,12 @@
       "path": "web"
     },
     {
-      "path": "smart-contract"
-    },
-    {
       "path": "."
     }
   ],
   "settings": {
     "editor.codeActionsOnSave": {
-      "source.organizeImports": true    
+      "source.organizeImports": true
     },
     "search.exclude": {
       "**/*.md": true,
