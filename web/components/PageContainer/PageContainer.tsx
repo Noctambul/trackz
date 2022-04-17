@@ -1,8 +1,6 @@
-import { Layout } from "antd";
-import type { NextPage } from "next";
-import ConnectButton from "../ConnectButton/ConnectButton";
-import { Typography } from "antd";
+import { Layout, Typography } from "antd";
 import React from "react";
+import ConnectButton from "../ConnectButton/ConnectButton";
 import styles from "./PageContainer.module.scss";
 
 const { Header, Content, Footer } = Layout;
@@ -20,8 +18,8 @@ export default function PageContainer({
           <Title>WhereIsTheMix</Title>
           <ConnectButton />
         </Header>
-        <Content>{children}</Content>
-        <Footer style={{ backgroundColor: "black" }}>Footer</Footer>
+        <Content className={styles.content}>{children}</Content>
+        <Footer className={styles.footer}>Footer</Footer>
       </Layout>
     </>
   );
