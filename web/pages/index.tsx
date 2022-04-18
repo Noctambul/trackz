@@ -1,4 +1,5 @@
-import { Button, Space } from "antd";
+import { SettingOutlined } from "@ant-design/icons";
+import { Button, Dropdown, Menu, Space } from "antd";
 import PageContainer from "components/PageContainer/PageContainer";
 import Song from "components/Song/Song";
 import type { NextPage } from "next";
@@ -38,9 +39,6 @@ const Home: NextPage = () => {
 
   const fetchNFTsWithThirdweb = async () => {
     setIsLoading(true);
-    // const provider = ethers.getDefaultProvider(
-    //   "https://eth-rinkeby.alchemyapi.io/v2/hgGeox9GdHhV1OFeaXKXigkHoJQisOi1"
-    // );
     const provider = await Moralis.enableWeb3();
     const sdk = new ThirdwebSDK(provider);
     const contract = sdk.getEdition(nftCollectionAddress);
@@ -74,6 +72,31 @@ const Home: NextPage = () => {
     setTokens(tokenMetadatas);
   };
 
+  const menu = (
+    <Menu>
+      <Menu.Item>
+        <Button
+          size="small"
+          type="text"
+          onClick={fetchNFTsForContract}
+          loading={isLoading}
+        >
+          Fetch NFTs With Moralis
+        </Button>
+      </Menu.Item>
+      <Menu.Item>
+        <Button
+          size="small"
+          type="text"
+          onClick={fetchNFTsWithThirdweb}
+          loading={isLoading}
+        >
+          Fetch NFTs With Thirdweb
+        </Button>
+      </Menu.Item>
+    </Menu>
+  );
+
   // useEffect(() => {
   //   fetchNFTsForContract();
   // });
@@ -81,12 +104,11 @@ const Home: NextPage = () => {
   return (
     <PageContainer>
       <>
-        <Button onClick={fetchNFTsForContract} loading={isLoading}>
-          Fetch NFTs With Moralis
-        </Button>
-        <Button onClick={fetchNFTsWithThirdweb} loading={isLoading}>
-          Fetch NFTs With Thirdweb
-        </Button>
+        <Dropdown overlay={menu}>
+          <a className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
+            <SettingOutlined />
+          </a>
+        </Dropdown>
         {/* <span>{isLoading}</span> */}
         <Space
           direction="vertical"
