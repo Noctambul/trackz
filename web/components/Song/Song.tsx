@@ -1,4 +1,5 @@
 import { Typography } from "antd";
+import { useIpfs } from "hooks/useIpfs";
 import Image from "next/image";
 import styles from "./Song.module.less";
 
@@ -19,11 +20,7 @@ export default function Song({
   coverUri,
   author,
 }: MixProps): JSX.Element {
-  const buildIpfsUrl = (ipfsUri: string) => {
-    return ipfsUri.includes("http")
-      ? ipfsUri
-      : `https://gateway.moralisipfs.com/ipfs/${ipfsUri.split("ipfs://")[1]}`;
-  };
+  const { resolveLink } = useIpfs();
 
   return (
     <div className={styles.card}>
@@ -33,7 +30,7 @@ export default function Song({
         <Image
           className={styles.coverImage}
           alt="cover"
-          src={buildIpfsUrl(coverUri)}
+          src={resolveLink(coverUri)}
           layout="fill"
         />
       </div>
@@ -43,7 +40,7 @@ export default function Song({
           <Text type="secondary">{author}</Text>
         </div>
         <div className={styles.player}>
-          <audio controls src={buildIpfsUrl(soundUri)}></audio>
+          <audio controls src={resolveLink(soundUri)}></audio>
         </div>
       </div>
     </div>
