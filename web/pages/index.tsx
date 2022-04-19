@@ -9,7 +9,7 @@ import styles from "styles/Home.module.less";
 import { ThirdwebSDK } from "@thirdweb-dev/sdk";
 import { useState } from "react";
 
-type TokenMetadata = {
+export type TokenMetadata = {
   animation_url: string; // "ipfs://QmTFvHz9SqjMXSSLA3ZXBdkXDnXKtWftdf5nYZfMcXsJH5/1.mp3"
   attributes: { trait_type: string; value: string }[];
   background_color: string;
