@@ -1,10 +1,11 @@
-import { Typography } from "antd";
+import { Button, Typography } from "antd";
 import { useIpfs } from "hooks/useIpfs";
 import Image from "next/image";
 import styles from "./Song.module.less";
 
-import { PlaySquareOutlined } from "@ant-design/icons";
-import useAudio from "hooks/useAudio";
+import { PauseOutlined, PlaySquareOutlined } from "@ant-design/icons";
+import { AudioContext, AudioContextInterface } from "context/AudioContext";
+import { useContext } from "react";
 
 type MixProps = {
   title: string;
@@ -22,7 +23,9 @@ export default function Song({
   author,
 }: MixProps): JSX.Element {
   const { resolveLink } = useIpfs();
-  const {} = useAudio();
+  const { play, currentSongUri } = useContext(
+    AudioContext
+  ) as AudioContextInterface;
 
   return (
     <div className={styles.card}>
@@ -42,8 +45,13 @@ export default function Song({
         <div className={styles.player}></div>
       </div>
       <div className={styles.actionContainer}>
-        <PlaySquareOutlined />
-        {/* <PauseOutlined /> */}
+        <Button onClick={() => play(soundUri)}>
+          {currentSongUri === soundUri ? (
+            <PauseOutlined />
+          ) : (
+            <PlaySquareOutlined />
+          )}
+        </Button>
       </div>
     </div>
   );
