@@ -5,25 +5,25 @@ export interface AudioContextInterface {
   isPlaying: boolean;
   currentSongUri: string;
   play: (uri: string) => void;
+  pause: () => void;
 }
 
 export const AudioContext = createContext<AudioContextInterface | null>(null);
 
-let counter = 1;
+let audio: HTMLAudioElement;
+
+if (typeof Audio !== "undefined") {
+  audio = new Audio();
+}
 
 export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
   const { resolveLink } = useIpfs();
-  const audioRef = useRef<HTMLAudioElement>();
+  const audioRef = useRef<HTMLAudioElement>(audio);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentSongUri, setCurrentSongUri] = useState<string>("");
 
-  if (typeof Audio !== "undefined") {
-    audioRef.current = new Audio();
-    audioRef.current.id = "" + counter++;
-    console.log("CREATED audio: ", audioRef.current.id);
-  }
-
   const play = (uri: string) => {
+    console.log("Play");
     if (audioRef.current) {
       console.log(audioRef.current.id);
       audioRef.current.pause();
@@ -31,17 +31,16 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
       audioRef.current.play();
       setCurrentSongUri(uri);
       setIsPlaying(true);
-
-      console.log("ID :", audioRef.current.id);
     }
   };
 
-  // const pause = () => {
-  //   if (isPlaying) {
-  //     audioRef.current?.pause();
-  //     setIsPlaying(false);
-  //   }
-  // };
+  const pause = () => {
+    console.log("Pause");
+    if (isPlaying) {
+      audioRef.current?.pause();
+      setIsPlaying(false);
+    }
+  };
 
   // const toggle = () => {
   //   if (isPlaying) {
@@ -52,7 +51,7 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
   // };
 
   return (
-    <AudioContext.Provider value={{ play, isPlaying, currentSongUri }}>
+    <AudioContext.Provider value={{ play, pause, isPlaying, currentSongUri }}>
       {children}
     </AudioContext.Provider>
   );

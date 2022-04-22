@@ -23,9 +23,11 @@ export default function Song({
   author,
 }: MixProps): JSX.Element {
   const { resolveLink } = useIpfs();
-  const { play, currentSongUri } = useContext(
+  const { play, pause, isPlaying, currentSongUri } = useContext(
     AudioContext
   ) as AudioContextInterface;
+
+  const isPlayingMe = () => isPlaying && currentSongUri === soundUri;
 
   return (
     <div className={styles.card}>
@@ -45,12 +47,8 @@ export default function Song({
         <div className={styles.player}></div>
       </div>
       <div className={styles.actionContainer}>
-        <Button onClick={() => play(soundUri)}>
-          {currentSongUri === soundUri ? (
-            <PauseOutlined />
-          ) : (
-            <PlaySquareOutlined />
-          )}
+        <Button onClick={() => (isPlayingMe() ? pause() : play(soundUri))}>
+          {isPlayingMe() ? <PauseOutlined /> : <PlaySquareOutlined />}
         </Button>
       </div>
     </div>
