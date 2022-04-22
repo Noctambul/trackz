@@ -4,25 +4,17 @@ import Image from "next/image";
 import styles from "./Song.module.less";
 
 import { PlaySquareOutlined } from "@ant-design/icons";
-import useAudio from "hooks/useAudio";
+import { TokenMetadata } from "pages";
 
-type MixProps = {
-  title: string;
-  author: string;
-  soundUri: string;
-  coverUri: string;
-};
+interface SongProps {
+  key: number;
+  metadata: TokenMetadata;
+}
 
 const { Title, Text } = Typography;
 
-export default function Song({
-  title,
-  soundUri,
-  coverUri,
-  author,
-}: MixProps): JSX.Element {
+export default function Song({ metadata }: SongProps): JSX.Element {
   const { resolveLink } = useIpfs();
-  const {} = useAudio();
 
   return (
     <div className={styles.card}>
@@ -30,14 +22,14 @@ export default function Song({
         <Image
           className={styles.coverImage}
           alt="cover"
-          src={resolveLink(coverUri)}
+          src={resolveLink(metadata.image)}
           layout="fill"
         />
       </div>
       <div className={styles.right}>
         <div className={styles.cardHeader}>
-          <Title level={5}>{title}</Title>
-          <Text type="secondary">{author}</Text>
+          <Title level={5}>{metadata.name}</Title>
+          <Text type="secondary">Author</Text>
         </div>
         <div className={styles.player}></div>
       </div>

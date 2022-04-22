@@ -117,15 +117,7 @@ const Home: NextPage = () => {
           className={styles.mixContainer}
         >
           {tokens.map((tokenMetadata, i) => (
-            <Song
-              key={i}
-              title={tokenMetadata.name}
-              author="Noctambul"
-              soundUri={tokenMetadata.animation_url}
-              coverUri={tokenMetadata.image}
-            >
-              Allow
-            </Song>
+            <Song key={i} metadata={tokenMetadata} />
           ))}
         </Space>
       </>
