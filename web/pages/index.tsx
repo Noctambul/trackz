@@ -74,7 +74,7 @@ const Home: NextPage = () => {
 
   const menu = (
     <Menu>
-      <Menu.Item>
+      <Menu.Item key="moralis">
         <Button
           size="small"
           type="text"
@@ -84,7 +84,7 @@ const Home: NextPage = () => {
           Fetch NFTs With Moralis
         </Button>
       </Menu.Item>
-      <Menu.Item>
+      <Menu.Item key="thirdweb">
         <Button
           size="small"
           type="text"

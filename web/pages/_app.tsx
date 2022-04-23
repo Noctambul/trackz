@@ -1,3 +1,4 @@
+import { AudioProvider } from "context/AudioContext";
 import type { AppProps } from "next/app";
 import { MoralisProvider } from "react-moralis";
 import { Web3Provider } from "../context/Web3Context";
@@ -11,7 +12,9 @@ function MyApp({ Component, pageProps }: AppProps) {
       appId="CsZwDbA5d8GV1E6MJdifBT5T1bNWS4NRAPy21UUy"
     >
       <Web3Provider>
-        <Component {...pageProps} />
+        <AudioProvider>
+          <Component {...pageProps} />
+        </AudioProvider>
       </Web3Provider>
     </MoralisProvider>
   );

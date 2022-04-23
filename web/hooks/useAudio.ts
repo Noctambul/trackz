@@ -1,23 +1,40 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { TokenMetadata } from "pages";
 import { useRef, useState } from "react";
 import { useIpfs } from "./useIpfs";
 
-const useAudio = (tokenMetadata: TokenMetadata) => {
+const useAudio = (soundUri: string) => {
   const { resolveLink } = useIpfs();
-  const [audio, setAudio] = useState(url);
-  const [trackIndex, setTrackIndex] = useState(0);
-  const [newSong, setNewSong] = useState(0);
-  const [trackProgress, setTrackProgress] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [volume, setVolume] = useState(1);
   // resolveLink(JSON.parse(audio[trackIndex].metadata).animation_url
-  const audioRef = useRef(new Audio());
+  const audioRef = useRef<HTMLAudioElement>();
 
-  const intervalRef = useRef<any>();
-  const isReady = useRef(false);
+  if (typeof Audio !== "undefined") {
+    audioRef.current = new Audio(resolveLink(soundUri));
+  }
 
-  return {};
+  const play = () => {
+    if (!isPlaying) {
+      audioRef.current?.play();
+      setIsPlaying(true);
+    }
+  };
+
+  const pause = () => {
+    if (isPlaying) {
+      audioRef.current?.pause();
+      setIsPlaying(false);
+    }
+  };
+
+  const toggle = () => {
+    if (isPlaying) {
+      pause();
+    } else {
+      play();
+    }
+  };
+
+  return { toggle, isPlaying };
 };
 
 export default useAudio;
