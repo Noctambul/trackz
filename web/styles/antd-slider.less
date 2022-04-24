@@ -1,25 +1,29 @@
 
 .ant-slider-track {
   background-color: #f6f6f6;
-  height: 0.2rem;
-  transition: height 1s;
 }
 
 .ant-slider:hover {
-  background-color: #f6f6f6;
-  height: 0.3rem;
-
-}
-.ant-slider:hover .ant-slider-rail {
-  background-color: red;
-}
-
-.ant-slider-handle {
-  visibility: hidden;
+  .ant-slider-track {
+    background-color: #f6f6f6;
+  }
+  .ant-slider-rail {
+    background-color: #969696;
+  }
+  .ant-slider-handle  {
+    width: 0.6rem;
+    height: 0.6rem;
+  }
 }
 
 .ant-slider-rail {
-  height: 0.2rem;
   background-color: #969696;
+}
 
+.ant-slider-handle {
+  width: 0;
+  height: 0;
+  background-color: #f6f6f6;
+  transition: width 0.2s, height 0.2s;
+  border: 0px;
 }
