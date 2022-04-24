@@ -20,8 +20,8 @@ export default function AudioPlayer(): JSX.Element {
 
   const url = "";
   const trackIndex = 0;
-  const duration = 3000;
-  const trackProgress = 2000;
+  const duration = 300;
+  const trackProgress = 200;
   const toPrevTrack = () => {};
   const toNextTrack = () => {};
   const onSearch = (val: number) => {};
@@ -38,34 +38,37 @@ export default function AudioPlayer(): JSX.Element {
   };
 
   return (
-    <>
+    <div className={styles.playerContainer}>
       <div className={styles.controlls}>
-        <StepBackwardOutlined className="forback" onClick={toPrevTrack} />
+        <StepBackwardOutlined
+          className={styles.forback}
+          onClick={toPrevTrack}
+        />
         {isPlaying ? (
-          <PauseCircleFilled className="pauseplay" onClick={toggle} />
+          <PauseCircleFilled className={styles.pauseplay} onClick={toggle} />
         ) : (
-          <PlayCircleFilled className="pauseplay" onClick={toggle} />
+          <PlayCircleFilled className={styles.pauseplay} onClick={toggle} />
         )}
-        <StepForwardOutlined className="forback" onClick={toNextTrack} />
+        <StepForwardOutlined className={styles.forback} onClick={toNextTrack} />
       </div>
-      <div className={styles.timeSlider}>
+      <div className={styles.controlls}>
         {minSec(trackProgress)}
         <Slider
           value={trackProgress}
           step={1}
           min={0}
           max={duration ? duration : 0}
-          className="progress"
+          className={styles.progress}
           tooltipVisible={false}
           onChange={(value) => onSearch(value)}
           onAfterChange={onSearchEnd}
         />
         {duration ? minSec(Math.round(duration)) : "00:00"}
       </div>
-      <div className="soundDiv">
+      <div className={styles.controlls}>
         <SoundOutlined />
         <Slider
-          className="volume"
+          className={styles.volume}
           defaultValue={100}
           tooltipVisible={false}
           onChange={(value) => onVolume(value / 100)}
@@ -86,7 +89,7 @@ export default function AudioPlayer(): JSX.Element {
           {/* <div className="songAlbum">{url[trackIndex].name}</div> */}
         </div>
       </div>
-    </>
+    </div>
     // <>
     //   <div
     //     className="buttons"

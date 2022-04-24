@@ -1,5 +1,43 @@
-.controlle {}
+.playerContainer {
+  padding: 10px;
+  display: flex;
+  justify-content: space-around;
+  border-top: solid;
+  align-items: center;
+  width: 100%;
+}
 
-.timeSlider {}
+.controlls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 5px;
+  width: 200px;
 
-.songInfo {}
+  .progress {
+    width: inherit;
+  }
+}
+
+.volume {
+  width: 100px;
+}
+
+.forback {
+  font-size: 16px;
+  transition: transform 0.2s;
+}
+
+.forback:hover {
+  transform: scale(1.4);
+}
+
+.pauseplay {
+  font-size: 35px;
+  transition: transform 0.2s;
+}
+
+.pauseplay:hover {
+  transform: scale(1.1);
+}
