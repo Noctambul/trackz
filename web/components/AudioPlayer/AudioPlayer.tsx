@@ -1,6 +1,6 @@
 import {
-  PauseCircleFilled,
-  PlayCircleFilled,
+  CaretRightOutlined,
+  PauseOutlined,
   SoundOutlined,
   StepBackwardOutlined,
   StepForwardOutlined,
@@ -39,19 +39,25 @@ export default function AudioPlayer(): JSX.Element {
 
   return (
     <div className={styles.playerContainer}>
-      <div className={styles.controlls}>
+      <div className={styles.controls}>
         <StepBackwardOutlined
-          className={styles.forback}
+          className={styles.controlBtn}
           onClick={toPrevTrack}
         />
         {isPlaying ? (
-          <PauseCircleFilled className={styles.pauseplay} onClick={toggle} />
+          <PauseOutlined className={styles.controlBtn} onClick={toggle} />
         ) : (
-          <PlayCircleFilled className={styles.pauseplay} onClick={toggle} />
+          <CaretRightOutlined
+            className={[styles.controlBtn, styles.playBtn]}
+            onClick={toggle}
+          />
         )}
-        <StepForwardOutlined className={styles.forback} onClick={toNextTrack} />
+        <StepForwardOutlined
+          className={styles.controlBtn}
+          onClick={toNextTrack}
+        />
       </div>
-      <div className={styles.controlls}>
+      <div className={styles.controls}>
         {minSec(trackProgress)}
         <Slider
           value={trackProgress}
@@ -65,7 +71,7 @@ export default function AudioPlayer(): JSX.Element {
         />
         {duration ? minSec(Math.round(duration)) : "00:00"}
       </div>
-      <div className={styles.controlls}>
+      <div className={styles.controls}>
         <SoundOutlined />
         <Slider
           className={styles.volume}

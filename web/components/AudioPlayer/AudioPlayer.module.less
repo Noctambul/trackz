@@ -1,18 +1,17 @@
 .playerContainer {
-  padding: 10px;
+  // padding: 0.1rem;
   display: flex;
   justify-content: space-around;
-  border-top: solid;
+  // border-top: solid;
   align-items: center;
   width: 100%;
 }
 
-.controlls {
+.controls {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 15px;
-  margin-bottom: 5px;
   width: 200px;
 
   .progress {
@@ -33,11 +32,16 @@
   transform: scale(1.4);
 }
 
-.pauseplay {
-  font-size: 35px;
+.controlBtn {
+  font-size: 1.2rem;
   transition: transform 0.2s;
 
   &:hover {
     transform: scale(1.1);
   }
+
+}
+
+.playBtn {
+  transform: scale(1.4,1.2);
 }
