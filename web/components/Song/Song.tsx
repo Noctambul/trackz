@@ -1,12 +1,11 @@
-import { Button, Typography } from "antd";
+import { PauseOutlined, PlaySquareOutlined } from "@ant-design/icons";
+import { Typography } from "antd";
+import { AudioContext, AudioContextInterface } from "context/AudioContext";
+import { TokenMetadata } from "context/Web3Context";
 import { useIpfs } from "hooks/useIpfs";
 import Image from "next/image";
-import styles from "./Song.module.less";
-
-import { PauseOutlined, PlaySquareOutlined } from "@ant-design/icons";
-import { AudioContext, AudioContextInterface } from "context/AudioContext";
-import { TokenMetadata } from "pages";
 import { useContext } from "react";
+import styles from "./Song.module.less";
 
 interface SongProps {
   key: number;
@@ -41,9 +40,20 @@ export default function Song({ metadata }: SongProps): JSX.Element {
         <div className={styles.player}></div>
       </div>
       <div className={styles.actionContainer}>
-        <Button onClick={() => (isPlayingMe() ? pause() : play(metadata))}>
+        {isPlayingMe() ? (
+          <PauseOutlined className={styles.pauseplay} onClick={pause} />
+        ) : (
+          <PlaySquareOutlined
+            className={styles.pauseplay}
+            onClick={() => play(metadata)}
+          />
+        )}
+        {/* <Button
+          ghost
+          onClick={() => (isPlayingMe() ? pause() : play(metadata))}
+        >
           {isPlayingMe() ? <PauseOutlined /> : <PlaySquareOutlined />}
-        </Button>
+        </Button> */}
       </div>
     </div>
   );

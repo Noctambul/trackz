@@ -1,5 +1,5 @@
+import { TokenMetadata } from "context/Web3Context";
 import { useIpfs } from "hooks/useIpfs";
-import { TokenMetadata } from "pages";
 import React, { createContext, useRef, useState } from "react";
 
 export interface AudioContextInterface {
