@@ -17,12 +17,12 @@ export default function ConnectButton(): JSX.Element {
               {currentAccount.slice(0, 6)}...{currentAccount.slice(39)}
             </span>
           </div>
-          <Button type="primary" onClick={disconnectWallet}>
+          <Button ghost onClick={disconnectWallet}>
             Logout
           </Button>
         </>
       ) : (
-        <Button type="primary" onClick={connectWallet}>
+        <Button ghost onClick={connectWallet}>
           Login
         </Button>
       )}

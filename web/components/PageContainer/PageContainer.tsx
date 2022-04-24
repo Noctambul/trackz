@@ -1,4 +1,5 @@
 import { Layout, Typography } from "antd";
+import AudioPlayer from "components/AudioPlayer/AudioPlayer";
 import React from "react";
 import ConnectButton from "../ConnectButton/ConnectButton";
 import styles from "./PageContainer.module.less";
@@ -19,7 +20,9 @@ export default function PageContainer({
           <ConnectButton />
         </Header>
         <Content className={styles.content}>{children}</Content>
-        <Footer className={styles.footer}>Footer</Footer>
+        <Footer className={styles.footer}>
+          <AudioPlayer></AudioPlayer>
+        </Footer>
       </Layout>
     </>
   );

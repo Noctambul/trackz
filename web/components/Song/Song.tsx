@@ -17,12 +17,11 @@ const { Title, Text } = Typography;
 
 export default function Song({ metadata }: SongProps): JSX.Element {
   const { resolveLink } = useIpfs();
-  const { play, pause, isPlaying, currentSongUri } = useContext(
+  const { play, pause, isPlaying, currentSongMetadata } = useContext(
     AudioContext
   ) as AudioContextInterface;
 
-  const isPlayingMe = () =>
-    isPlaying && currentSongUri === metadata.animation_url;
+  const isPlayingMe = () => isPlaying && currentSongMetadata === metadata;
 
   return (
     <div className={styles.card}>
@@ -42,11 +41,7 @@ export default function Song({ metadata }: SongProps): JSX.Element {
         <div className={styles.player}></div>
       </div>
       <div className={styles.actionContainer}>
-        <Button
-          onClick={() =>
-            isPlayingMe() ? pause() : play(metadata.animation_url)
-          }
-        >
+        <Button onClick={() => (isPlayingMe() ? pause() : play(metadata))}>
           {isPlayingMe() ? <PauseOutlined /> : <PlaySquareOutlined />}
         </Button>
       </div>

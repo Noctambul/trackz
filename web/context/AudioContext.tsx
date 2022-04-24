@@ -1,11 +1,13 @@
 import { useIpfs } from "hooks/useIpfs";
-import { createContext, useRef, useState } from "react";
+import { TokenMetadata } from "pages";
+import React, { createContext, useRef, useState } from "react";
 
 export interface AudioContextInterface {
   isPlaying: boolean;
-  currentSongUri: string;
-  play: (uri: string) => void;
+  currentSongMetadata?: TokenMetadata;
+  play: (metadata?: TokenMetadata) => void;
   pause: () => void;
+  toggle: () => void;
 }
 
 export const AudioContext = createContext<AudioContextInterface | null>(null);
@@ -20,16 +22,19 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
   const { resolveLink } = useIpfs();
   const audioRef = useRef<HTMLAudioElement>(audio);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [currentSongUri, setCurrentSongUri] = useState<string>("");
+  const [currentSongMetadata, setCurrentSongMetadata] =
+    useState<TokenMetadata>();
+  // const [currentSongUri, setCurrentSongUri] = useState<string>("");
 
-  const play = (uri: string) => {
+  const play = (metadata?: TokenMetadata) => {
     console.log("Play");
     if (audioRef.current) {
-      console.log(audioRef.current.id);
-      audioRef.current.pause();
-      audioRef.current.src = resolveLink(uri);
+      if (metadata) {
+        audioRef.current.pause();
+        audioRef.current.src = resolveLink(metadata.animation_url);
+        setCurrentSongMetadata(metadata);
+      }
       audioRef.current.play();
-      setCurrentSongUri(uri);
       setIsPlaying(true);
     }
   };
@@ -42,16 +47,18 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  // const toggle = () => {
-  //   if (isPlaying) {
-  //     pause();
-  //   } else {
-  //     play();
-  //   }
-  // };
+  const toggle = () => {
+    if (isPlaying) {
+      pause();
+    } else {
+      play();
+    }
+  };
 
   return (
-    <AudioContext.Provider value={{ play, pause, isPlaying, currentSongUri }}>
+    <AudioContext.Provider
+      value={{ play, pause, toggle, isPlaying, currentSongMetadata }}
+    >
       {children}
     </AudioContext.Provider>
   );
