@@ -48,7 +48,7 @@ export default function AudioPlayer(): JSX.Element {
           <PauseOutlined className={styles.controlBtn} onClick={toggle} />
         ) : (
           <CaretRightOutlined
-            className={[styles.controlBtn, styles.playBtn]}
+            className={`${styles.controlBtn} ${styles.playBtn}`}
             onClick={toggle}
           />
         )}
@@ -57,7 +57,7 @@ export default function AudioPlayer(): JSX.Element {
           onClick={toNextTrack}
         />
       </div>
-      <div className={styles.controls}>
+      <div className={[styles.controls, styles.progressContainer].join(" ")}>
         {minSec(trackProgress)}
         <Slider
           value={trackProgress}

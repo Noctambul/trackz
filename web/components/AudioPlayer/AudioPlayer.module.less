@@ -1,8 +1,9 @@
 .playerContainer {
-  // padding: 0.1rem;
+  padding: 0 4rem;
   display: flex;
+  gap: 3rem;
   justify-content: space-around;
-  // border-top: solid;
+  border-top: solid;
   align-items: center;
   width: 100%;
 }
@@ -12,11 +13,14 @@
   align-items: center;
   justify-content: center;
   gap: 15px;
-  width: 200px;
 
   .progress {
-    width: inherit;
+    width: 100%;
   }
+}
+
+.progressContainer {
+  flex-grow: 1;
 }
 
 .volume {
