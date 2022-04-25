@@ -18,6 +18,8 @@ export interface AudioContextInterface {
   play: (metadata?: TokenMetadata) => void;
   pause: () => void;
   toggle: () => void;
+  toPrevTrack: () => void;
+  toNextTrack: () => void;
 }
 
 export const AudioContext = createContext<AudioContextInterface | null>(null);
@@ -71,9 +73,41 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
+  const getCurrentIndex = (): number => {
+    if (currentSongMetadata) {
+      return tokens.findIndex(
+        (metadata) =>
+          metadata.animation_url === currentSongMetadata.animation_url
+      );
+    }
+    return 0;
+  };
+
+  const toPrevTrack = (): void => {
+    const i = getCurrentIndex();
+    if (i > 0 && tokens.length > 1) {
+      play(tokens[i - 1]);
+    }
+  };
+
+  const toNextTrack = (): void => {
+    const i = getCurrentIndex();
+    if (i < tokens.length - 1 && tokens.length > 1) {
+      play(tokens[i + 1]);
+    }
+  };
+
   return (
     <AudioContext.Provider
-      value={{ play, pause, toggle, isPlaying, currentSongMetadata }}
+      value={{
+        play,
+        pause,
+        toggle,
+        toPrevTrack,
+        toNextTrack,
+        isPlaying,
+        currentSongMetadata,
+      }}
     >
       {children}
     </AudioContext.Provider>

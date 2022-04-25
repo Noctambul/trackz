@@ -5,6 +5,16 @@ import { Web3Provider } from "../context/Web3Context";
 import "../styles/antd.less";
 import "../styles/globals.less";
 
+Number.prototype.modulo = function (this: number, n: number) {
+  return ((this % n) + n) % n;
+};
+
+declare global {
+  interface Number {
+    modulo: (n: number) => number;
+  }
+}
+
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <MoralisProvider
