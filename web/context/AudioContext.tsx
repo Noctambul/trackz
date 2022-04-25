@@ -1,6 +1,16 @@
-import { TokenMetadata } from "context/Web3Context";
+import {
+  TokenMetadata,
+  Web3Context,
+  Web3ContextInterface,
+} from "context/Web3Context";
 import { useIpfs } from "hooks/useIpfs";
-import React, { createContext, useRef, useState } from "react";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
 export interface AudioContextInterface {
   isPlaying: boolean;
@@ -21,10 +31,16 @@ if (typeof Audio !== "undefined") {
 export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
   const { resolveLink } = useIpfs();
   const audioRef = useRef<HTMLAudioElement>(audio);
+  const { tokens } = useContext(Web3Context) as Web3ContextInterface;
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentSongMetadata, setCurrentSongMetadata] =
     useState<TokenMetadata>();
-  // const [currentSongUri, setCurrentSongUri] = useState<string>("");
+
+  useEffect(() => {
+    if (tokens.length > 0) {
+      setCurrentSongMetadata(tokens[0]);
+    }
+  }, [tokens]);
 
   const play = (metadata?: TokenMetadata) => {
     console.log("Play");

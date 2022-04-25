@@ -19,10 +19,11 @@ export interface Web3ContextInterface {
   disconnectWallet: () => Promise<void>;
 }
 
+const NFT_COLLECTION_ADDRESS = "0x3fB61AAA31c038E16d3ca27F154F5E88Bc00c67E";
+
 export const Web3Context = createContext<Web3ContextInterface | null>(null);
 
 export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
-  const nftCollectionAddress = "0x3fB61AAA31c038E16d3ca27F154F5E88Bc00c67E";
   const { authenticate, isAuthenticated, isInitialized, user, Moralis } =
     useMoralis();
   const Web3Api = useMoralisWeb3Api();
@@ -56,7 +57,7 @@ export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
     setIsLoading(true);
     const options = {
       chain: "rinkeby",
-      address: "0x3fB61AAA31c038E16d3ca27F154F5E88Bc00c67E",
+      address: NFT_COLLECTION_ADDRESS,
     };
 
     console.log("Start - getAllTokenIds");
