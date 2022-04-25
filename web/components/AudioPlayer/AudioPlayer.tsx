@@ -86,8 +86,8 @@ export default function AudioPlayer(): JSX.Element {
             className="cover"
             src={resolveLink(currentSongMetadata?.image)}
             alt="currentCover"
-            width={100}
-            height={100}
+            width={20}
+            height={20}
           />
         )}
         <div>
