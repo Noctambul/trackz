@@ -14,16 +14,18 @@ import styles from "./AudioPlayer.module.less";
 
 export default function AudioPlayer(): JSX.Element {
   const { resolveLink } = useIpfs();
-  const { isPlaying, toggle, toPrevTrack, toNextTrack, currentSongMetadata } =
-    useContext(AudioContext) as AudioContextInterface;
-
-  const url = "";
-  const trackIndex = 0;
-  const duration = 300;
-  const trackProgress = 200;
-  const onSearch = (val: number) => {};
-  const onSearchEnd = () => {};
-  const onVolume = (val: number) => {};
+  const {
+    isPlaying,
+    trackProgress,
+    duration,
+    toggle,
+    toPrevTrack,
+    toNextTrack,
+    onSearch,
+    onSearchEnd,
+    onVolume,
+    currentSongMetadata,
+  } = useContext(AudioContext) as AudioContextInterface;
 
   const minSec = (secs: number): string => {
     const minutes = Math.floor(secs / 60);
