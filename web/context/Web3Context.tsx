@@ -1,6 +1,6 @@
-import useThirdWeb from "hooks/useThirdWeb";
+// import useThirdWeb from "hooks/useThirdWeb";
 import { createContext, useEffect, useState } from "react";
-import { useMoralis } from "react-moralis";
+// import { useMoralis } from "react-moralis";
 
 export type TokenMetadata = {
   animation_url: string; // "ipfs://QmTFvHz9SqjMXSSLA3ZXBdkXDnXKtWftdf5nYZfMcXsJH5/1.mp3"
@@ -23,9 +23,13 @@ export interface Web3ContextInterface {
 export const Web3Context = createContext<Web3ContextInterface | null>(null);
 
 export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
-  const { authenticate, isAuthenticated, isInitialized, user, Moralis } =
-    useMoralis();
-  const { isLoading, tokens, fetchNFTsForContract } = useThirdWeb();
+  const isAuthenticated = false;
+  const isInitialized = false;
+  const isLoading = false;
+  const tokens: TokenMetadata[] = [];
+  // const { authenticate, isAuthenticated, isInitialized, user, Moralis } =
+  //   useMoralis();
+  // const { isLoading, tokens, fetchNFTsForContract } = useThirdWeb();
   const [currentAccount, setCurrentAccount] = useState<string>("");
 
   useEffect(() => {
@@ -35,14 +39,14 @@ export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     if (isInitialized) {
-      fetchNFTsForContract();
+      // fetchNFTsForContract();
     }
   }, [isInitialized]);
 
   const checkWalletConnection = async () => {
     if (isAuthenticated) {
-      const address = user!.get("ethAddress");
-      setCurrentAccount(address);
+      // const address = user!.get("ethAddress");
+      // setCurrentAccount(address);
     } else {
       setCurrentAccount("");
     }
@@ -51,9 +55,9 @@ export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
   const connectWallet = async () => {
     if (!isAuthenticated) {
       try {
-        await authenticate({
-          signingMessage: "Log in to WITM",
-        });
+        // await authenticate({
+        //   signingMessage: "Log in to WITM",
+        // });
       } catch (error) {
         console.error(error);
       }
@@ -61,7 +65,7 @@ export const Web3Provider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const disconnectWallet = async () => {
-    await Moralis.User.logOut();
+    // await Moralis.User.logOut();
     setCurrentAccount("");
   };
 
