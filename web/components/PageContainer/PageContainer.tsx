@@ -21,7 +21,7 @@ export default function PageContainer({
       <Layout>
         <Header className={styles.header}>
           <Title>
-            <Link href=".">WhereIsTheMix</Link>
+            <Link href="/">WhereIsTheMix</Link>
           </Title>
           <Menu className={styles.rightMenu}>
             {currentAccount && (
