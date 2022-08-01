@@ -1,18 +1,14 @@
-import { PauseOutlined, PlaySquareOutlined } from "@ant-design/icons";
-import { Typography } from "antd";
 import { AudioContext, AudioContextInterface } from "context/AudioContext";
 import { TokenMetadata } from "context/Web3Context";
 import { useIpfs } from "hooks/useIpfs";
 import Image from "next/image";
 import { useContext } from "react";
-import styles from "./Song.module.less";
+import styles from "./Song.module.css";
 
 interface SongProps {
   key: number;
   metadata: TokenMetadata;
 }
-
-const { Title, Text } = Typography;
 
 export default function Song({ metadata }: SongProps): JSX.Element {
   const { resolveLink } = useIpfs();
@@ -34,20 +30,20 @@ export default function Song({ metadata }: SongProps): JSX.Element {
       </div>
       <div className={styles.right}>
         <div className={styles.cardHeader}>
-          <Title level={5}>{metadata.name}</Title>
-          <Text type="secondary">Author</Text>
+          {/* <Title level={5}>{metadata.name}</Title>
+          <Text type="secondary">Author</Text> */}
         </div>
         <div className={styles.player}></div>
       </div>
       <div className={styles.actionContainer}>
-        {isPlayingMe() ? (
+        {/* {isPlayingMe() ? (
           <PauseOutlined className={styles.pauseplay} onClick={pause} />
         ) : (
           <PlaySquareOutlined
             className={styles.pauseplay}
             onClick={() => play(metadata)}
           />
-        )}
+        )} */}
         {/* <Button
           ghost
           onClick={() => (isPlayingMe() ? pause() : play(metadata))}

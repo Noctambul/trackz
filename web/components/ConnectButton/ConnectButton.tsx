@@ -1,7 +1,6 @@
-import { Button } from "antd";
 import { useContext } from "react";
 import { Web3Context, Web3ContextInterface } from "../../context/Web3Context";
-import styles from "./ConnectButton.module.less";
+import styles from "./ConnectButton.module.css";
 
 export default function ConnectButton(): JSX.Element {
   const { connectWallet, disconnectWallet, currentAccount } = useContext(
@@ -10,7 +9,7 @@ export default function ConnectButton(): JSX.Element {
 
   return (
     <div className={styles.container}>
-      {currentAccount ? (
+      {/* {currentAccount ? (
         <>
           <div className={styles.currentAccount}>
             <span className={styles.accountAddress}>
@@ -25,7 +24,7 @@ export default function ConnectButton(): JSX.Element {
         <Button ghost onClick={connectWallet}>
           Login
         </Button>
-      )}
+      )} */}
     </div>
   );
 }

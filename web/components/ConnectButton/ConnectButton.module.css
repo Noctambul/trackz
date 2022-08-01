@@ -16,10 +16,10 @@
   transition-duration: 300ms;
   cursor: pointer;
 
-  &:hover {
+  /* &:hover {
     background-color: rgb(255, 157, 37);
     color: white;
-  }
+  } */
 }
 
 .currentAccount {

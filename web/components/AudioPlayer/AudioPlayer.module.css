@@ -40,9 +40,9 @@
   font-size: 1.2rem;
   transition: transform 0.2s;
 
-  &:hover {
+  /* &:hover {
     transform: scale(1.1);
-  }
+  } */
 
 }
 

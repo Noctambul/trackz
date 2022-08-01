@@ -1,16 +1,8 @@
-import {
-  CaretRightOutlined,
-  PauseOutlined,
-  SoundOutlined,
-  StepBackwardOutlined,
-  StepForwardOutlined,
-} from "@ant-design/icons";
-import { Slider } from "antd";
 import { AudioContext, AudioContextInterface } from "context/AudioContext";
 import { useIpfs } from "hooks/useIpfs";
 import Image from "next/image";
 import { useContext } from "react";
-import styles from "./AudioPlayer.module.less";
+import styles from "./AudioPlayer.module.css";
 
 export default function AudioPlayer(): JSX.Element {
   const { resolveLink } = useIpfs();
@@ -39,7 +31,7 @@ export default function AudioPlayer(): JSX.Element {
   return (
     <div className={styles.playerContainer}>
       <div className={styles.controls}>
-        <StepBackwardOutlined
+        {/* <StepBackwardOutlined
           className={styles.controlBtn}
           onClick={toPrevTrack}
         />
@@ -54,11 +46,11 @@ export default function AudioPlayer(): JSX.Element {
         <StepForwardOutlined
           className={styles.controlBtn}
           onClick={toNextTrack}
-        />
+        /> */}
       </div>
       <div className={[styles.controls, styles.progressContainer].join(" ")}>
         {minSec(trackProgress)}
-        <Slider
+        {/* <Slider
           value={trackProgress}
           step={1}
           min={0}
@@ -67,17 +59,17 @@ export default function AudioPlayer(): JSX.Element {
           tooltipVisible={false}
           onChange={(value) => onSearch(value)}
           onAfterChange={onSearchEnd}
-        />
+        /> */}
         {duration ? minSec(Math.round(duration)) : "00:00"}
       </div>
       <div className={styles.controls}>
-        <SoundOutlined />
+        {/* <SoundOutlined />
         <Slider
           className={styles.volume}
           defaultValue={100}
           tooltipVisible={false}
           onChange={(value) => onVolume(value / 100)}
-        />
+        /> */}
       </div>
       <div className={styles.songInfo}>
         {currentSongMetadata && (

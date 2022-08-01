@@ -1,13 +1,5 @@
-import { Layout, Menu, Typography } from "antd";
-import AudioPlayer from "components/AudioPlayer/AudioPlayer";
 import { Web3Context, Web3ContextInterface } from "context/Web3Context";
-import Link from "next/link";
 import React, { useContext } from "react";
-import ConnectButton from "../ConnectButton/ConnectButton";
-import styles from "./PageContainer.module.less";
-
-const { Header, Content, Footer } = Layout;
-const { Title } = Typography;
 
 export default function PageContainer({
   children,
@@ -18,7 +10,7 @@ export default function PageContainer({
 
   return (
     <>
-      <Layout>
+      {/* <Layout>
         <Header className={styles.header}>
           <Title>
             <Link href="/">WhereIsTheMix</Link>
@@ -36,7 +28,7 @@ export default function PageContainer({
         <Footer className={styles.footer}>
           <AudioPlayer></AudioPlayer>
         </Footer>
-      </Layout>
+      </Layout> */}
     </>
   );
 }

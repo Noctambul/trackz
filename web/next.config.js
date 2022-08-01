@@ -1,12 +1,9 @@
-const withLess = require("next-with-less");
-
 /** @type {import('next').NextConfig} */
-const nextConfig = withLess({
-  lessLoaderOptions: {},
+const nextConfig = {
   reactStrictMode: true,
   images: {
     domains: ["gateway.moralisipfs.com", "gateway.ipfscdn.io"],
   },
-});
+};
 
 module.exports = nextConfig;
