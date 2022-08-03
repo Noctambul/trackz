@@ -1,5 +1,9 @@
+import { Box } from "@chakra-ui/react";
+import { useTheme } from "@emotion/react";
 import { Web3Context, Web3ContextInterface } from "context/Web3Context";
 import React, { useContext } from "react";
+import Footer from "./Footer";
+import Header from "./Header";
 
 export default function PageContainer({
   children,
@@ -8,28 +12,15 @@ export default function PageContainer({
 }): JSX.Element {
   const { currentAccount } = useContext(Web3Context) as Web3ContextInterface;
 
+  const theme = useTheme();
+
   return (
-    <div>
-      {children}
-      {/* <Layout>
-        <Header className={styles.header}>
-          <Title>
-            <Link href="/">WhereIsTheMix</Link>
-          </Title>
-          <Menu className={styles.rightMenu}>
-            {currentAccount && (
-              <Menu.Item key="mint">
-                <Link href="mint">Mint</Link>
-              </Menu.Item>
-            )}
-            <ConnectButton />
-          </Menu>
-        </Header>
-        <Content className={styles.content}>{children}</Content>
-        <Footer className={styles.footer}>
-          <AudioPlayer></AudioPlayer>
-        </Footer>
-      </Layout> */}
-    </div>
+    <>
+      <Header />
+      <Box width="100%" height="550vh" bgColor="bgc">
+        {children}
+      </Box>
+      <Footer />
+    </>
   );
 }
