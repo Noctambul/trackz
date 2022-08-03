@@ -19,6 +19,7 @@ const Home: NextPage = () => {
             <Song key={i} metadata={tokenMetadata} />
           ))}
         </Space> */}
+        Hello World
       </>
     </PageContainer>
   );

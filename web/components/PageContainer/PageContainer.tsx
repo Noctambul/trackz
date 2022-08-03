@@ -9,7 +9,8 @@ export default function PageContainer({
   const { currentAccount } = useContext(Web3Context) as Web3ContextInterface;
 
   return (
-    <>
+    <div>
+      {children}
       {/* <Layout>
         <Header className={styles.header}>
           <Title>
@@ -29,6 +30,6 @@ export default function PageContainer({
           <AudioPlayer></AudioPlayer>
         </Footer>
       </Layout> */}
-    </>
+    </div>
   );
 }
