@@ -1,13 +1,12 @@
 import { TokenMetadata } from "context/Web3Context";
 import { useState } from "react";
-import { useMoralisWeb3Api } from "react-moralis";
 
 const NFT_COLLECTION_ADDRESS = "0x3fB61AAA31c038E16d3ca27F154F5E88Bc00c67E";
 
 const useThirdWeb = () => {
   console.log("USE THIRD WEB");
 
-  const Web3Api = useMoralisWeb3Api();
+  // const Web3Api = useMoralisWeb3Api();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [tokens, setTokens] = useState<TokenMetadata[]>([
     {
