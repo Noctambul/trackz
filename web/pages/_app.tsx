@@ -1,6 +1,4 @@
-import { AudioProvider } from "context/AudioContext";
 import type { AppProps } from "next/app";
-import { Web3Provider } from "../context/Web3Context";
 import "../styles/globals.css";
 
 Number.prototype.modulo = function (this: number, n: number) {
@@ -14,13 +12,7 @@ declare global {
 }
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return (
-    <Web3Provider>
-      <AudioProvider>
-        <Component {...pageProps} />
-      </AudioProvider>
-    </Web3Provider>
-  );
+  return <Component {...pageProps} />;
 }
 
 export default MyApp;
