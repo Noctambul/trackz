@@ -1,4 +1,4 @@
-import { AudioContext } from "context/AudioContext";
+import { AudioContext, AudioContextInterface } from "context/AudioContext";
 import { useContext } from "react";
 import {
   IoPause,
@@ -10,7 +10,9 @@ import {
 const iconSize = 20;
 
 export default function AudioControlls(): JSX.Element {
-  const { isPlaying, play, pause, previous, next } = useContext(AudioContext)!;
+  const { isPlaying, play, pause, previous, next } = useContext(
+    AudioContext
+  ) as AudioContextInterface;
 
   return (
     <div className="flex items-center">

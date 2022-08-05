@@ -1,4 +1,7 @@
-import { AudioContext, AudioContextInterface } from "context/AudioContextOld";
+import {
+  AudioContext,
+  AudioContextInterfaceOld,
+} from "context/AudioContextOld";
 import { TokenMetadata } from "context/Web3Context";
 import { useIpfs } from "hooks/useIpfs";
 import Image from "next/image";
@@ -14,7 +17,7 @@ export default function Song({ metadata }: SongProps): JSX.Element {
   const { resolveLink } = useIpfs();
   const { play, pause, isPlaying, currentSongMetadata } = useContext(
     AudioContext
-  ) as AudioContextInterface;
+  ) as AudioContextInterfaceOld;
 
   const isPlayingMe = () => isPlaying && currentSongMetadata === metadata;
 
