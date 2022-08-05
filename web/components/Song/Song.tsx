@@ -1,4 +1,4 @@
-import { AudioContext, AudioContextInterface } from "context/AudioContext";
+import { AudioContext, AudioContextInterface } from "context/AudioContextOld";
 import { TokenMetadata } from "context/Web3Context";
 import { useIpfs } from "hooks/useIpfs";
 import Image from "next/image";

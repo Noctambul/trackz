@@ -1,34 +1,31 @@
+import Trackz from "models/trackz";
 import React from "react";
+import Footer from "./Footer";
+import Header from "./Header";
 
 export default function PageContainer({
   children,
 }: {
-  children: React.ReactChild[];
+  children: React.ReactChild;
 }): JSX.Element {
-  // const { currentAccount } = useContext(Web3Context) as Web3ContextInterface;
-
+  const trackzs: Trackz[] = [
+    {
+      title: "Good morning genesis",
+      author: "Noctambul",
+      description: "A begining",
+      totalSupply: 5,
+      price: 5,
+      coverUri:
+        "https://gateway.pinata.cloud/ipfs/QmQ84bYsCupQXLcoMRYH51dzEFPKVrG3XLoCaCDg6oEasT",
+      // "https://via.placeholder.com/600x400?text=aze",
+      musicUri: "",
+    },
+  ];
   return (
-    <div>
-      {children}
-      {/* <Layout>
-        <Header className={styles.header}>
-          <Title>
-            <Link href="/">WhereIsTheMix</Link>
-          </Title>
-          <Menu className={styles.rightMenu}>
-            {currentAccount && (
-              <Menu.Item key="mint">
-                <Link href="mint">Mint</Link>
-              </Menu.Item>
-            )}
-            <ConnectButton />
-          </Menu>
-        </Header>
-        <Content className={styles.content}>{children}</Content>
-        <Footer className={styles.footer}>
-          <AudioPlayer></AudioPlayer>
-        </Footer>
-      </Layout> */}
-    </div>
+    <>
+      <Header />
+      <div className="h-full bg-black">{children}</div>
+      <Footer trackzs={trackzs} />
+    </>
   );
 }

@@ -6,10 +6,12 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: colors.amber[400], // or #EA8C04
+        primary: "#EA8C04",
         bgc: colors.black,
+        // bgc: colors.red[400],
       },
     },
+    fontFamily: {},
   },
   plugins: [],
 };

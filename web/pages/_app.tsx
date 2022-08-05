@@ -1,3 +1,4 @@
+import { AudioProvider } from "context/AudioContext";
 import type { AppProps } from "next/app";
 import "../styles/globals.css";
 
@@ -12,7 +13,11 @@ declare global {
 }
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />;
+  return (
+    <AudioProvider>
+      <Component {...pageProps} />;
+    </AudioProvider>
+  );
 }
 
 export default MyApp;
