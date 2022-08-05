@@ -1,7 +1,6 @@
 import { Box } from "@chakra-ui/react";
 import { useTheme } from "@emotion/react";
-import { Web3Context, Web3ContextInterface } from "context/Web3Context";
-import React, { useContext } from "react";
+import React from "react";
 import Footer from "./Footer";
 import Header from "./Header";
 
@@ -10,7 +9,7 @@ export default function PageContainer({
 }: {
   children: React.ReactChild;
 }): JSX.Element {
-  const { currentAccount } = useContext(Web3Context) as Web3ContextInterface;
+  // const { currentAccount } = useContext(Web3Context) as Web3ContextInterface;
 
   const theme = useTheme();
 

@@ -1,10 +1,8 @@
 import PageContainer from "components/PageContainer/PageContainer";
-import { Web3Context, Web3ContextInterface } from "context/Web3Context";
 import type { NextPage } from "next";
-import { useContext } from "react";
 
 const Home: NextPage = () => {
-  const { tokens } = useContext(Web3Context) as Web3ContextInterface;
+  // const { tokens } = useContext(Web3Context) as Web3ContextInterface;
 
   return (
     <PageContainer>

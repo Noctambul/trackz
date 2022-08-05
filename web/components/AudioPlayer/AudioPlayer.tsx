@@ -1,22 +1,19 @@
 import { Flex } from "@chakra-ui/react";
-import { AudioContext, AudioContextInterface } from "context/AudioContext";
-import { useIpfs } from "hooks/useIpfs";
-import { useContext } from "react";
 
 export default function AudioPlayer(): JSX.Element {
-  const { resolveLink } = useIpfs();
-  const {
-    isPlaying,
-    trackProgress,
-    duration,
-    toggle,
-    toPrevTrack,
-    toNextTrack,
-    onSearch,
-    onSearchEnd,
-    onVolume,
-    currentSongMetadata,
-  } = useContext(AudioContext) as AudioContextInterface;
+  // const { resolveLink } = useIpfs();
+  // const {
+  //   isPlaying,
+  //   trackProgress,
+  //   duration,
+  //   toggle,
+  //   toPrevTrack,
+  //   toNextTrack,
+  //   onSearch,
+  //   onSearchEnd,
+  //   onVolume,
+  //   currentSongMetadata,
+  // } = useContext(AudioContext) as AudioContextInterface;
 
   const minSec = (secs: number): string => {
     const minutes = Math.floor(secs / 60);

@@ -1,7 +1,5 @@
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
-import { AudioProvider } from "context/AudioContext";
 import type { AppProps } from "next/app";
-import { Web3Provider } from "../context/Web3Context";
 import "../styles/globals.css";
 
 Number.prototype.modulo = function (this: number, n: number) {
@@ -24,11 +22,7 @@ const theme = extendTheme({
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider theme={theme}>
-      <Web3Provider>
-        <AudioProvider>
-          <Component {...pageProps} />
-        </AudioProvider>
-      </Web3Provider>
+      <Component {...pageProps} />
     </ChakraProvider>
   );
 }
