@@ -158,23 +158,24 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <AudioContext.Provider
-      value={{
-        play,
-        pause,
-        toggle,
-        toPrevTrack,
-        toNextTrack,
-        onSearch,
-        onSearchEnd,
-        onVolume,
-        duration,
-        trackProgress,
-        isPlaying,
-        currentSongMetadata,
-      }}
-    >
-      {children}
-    </AudioContext.Provider>
+    <></>
+    // <AudioContext.Provider
+    //   value={{
+    //     play,
+    //     pause,
+    //     toggle,
+    //     toPrevTrack,
+    //     toNextTrack,
+    //     onSearch,
+    //     onSearchEnd,
+    //     onVolume,
+    //     duration,
+    //     trackProgress,
+    //     isPlaying,
+    //     currentSongMetadata,
+    //   }}
+    // >
+    //   {children}
+    // </AudioContext.Provider>
   );
 };

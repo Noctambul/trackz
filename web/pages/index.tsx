@@ -1,3 +1,4 @@
+import Header from "components/PageContainer/Header";
 import PageContainer from "components/PageContainer/PageContainer";
 import { Web3Context, Web3ContextInterface } from "context/Web3Context";
 import type { NextPage } from "next";
@@ -8,19 +9,8 @@ const Home: NextPage = () => {
 
   return (
     <PageContainer>
-      <>
-        {/* <Space
-          direction="vertical"
-          align="center"
-          size="middle"
-          className={styles.mixContainer}
-        >
-          {tokens.map((tokenMetadata, i) => (
-            <Song key={i} metadata={tokenMetadata} />
-          ))}
-        </Space> */}
-        Hello World
-      </>
+      <Header />
+      <h1 className="text-3x font-bold underline">Hello world !</h1>
     </PageContainer>
   );
 };

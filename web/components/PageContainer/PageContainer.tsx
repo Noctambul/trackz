@@ -4,7 +4,7 @@ import React, { useContext } from "react";
 export default function PageContainer({
   children,
 }: {
-  children: React.ReactChild;
+  children: React.ReactChild[];
 }): JSX.Element {
   const { currentAccount } = useContext(Web3Context) as Web3ContextInterface;
 
