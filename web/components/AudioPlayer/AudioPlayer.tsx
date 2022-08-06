@@ -1,24 +1,16 @@
 import { Flex } from "@chakra-ui/react";
+import Trackz from "models/trackz";
+import AudioInfo from "./AudiInfo";
 
-export default function AudioPlayer(): JSX.Element {
-  // const { resolveLink } = useIpfs();
-  // const {
-  //   isPlaying,
-  //   trackProgress,
-  //   duration,
-  //   toggle,
-  //   toPrevTrack,
-  //   toNextTrack,
-  //   onSearch,
-  //   onSearchEnd,
-  //   onVolume,
-  //   currentSongMetadata,
-  // } = useContext(AudioContext) as AudioContextInterface;
+type Props = {
+  trackz: Trackz;
+};
 
-  const minSec = (secs: number): string => {
-    const minutes = Math.floor(secs / 60);
+export default function AudioPlayer({ trackz }: Props): JSX.Element {
+  const formatTime = (timeInSeconds: number): string => {
+    const minutes = Math.floor(timeInSeconds / 60);
     const returnMin = minutes < 10 ? `0${minutes}` : minutes;
-    const seconds = Math.floor(secs % 60);
+    const seconds = Math.floor(timeInSeconds % 60);
     const returnSec = seconds < 10 ? `0${seconds}` : seconds;
 
     return `${returnMin}:${returnSec}`;
@@ -26,7 +18,7 @@ export default function AudioPlayer(): JSX.Element {
 
   return (
     <Flex width={"100%"} color={"primary"}>
-      Coucou
+      <AudioInfo trackz={trackz} />
     </Flex>
   );
 }
