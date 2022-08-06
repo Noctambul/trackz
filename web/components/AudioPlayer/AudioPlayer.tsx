@@ -2,6 +2,7 @@ import { Flex } from "@chakra-ui/react";
 import Trackz from "models/trackz";
 import AudioInfo from "./AudiInfo";
 import AudioControls from "./AudioControls";
+import ProgressBar from "./ProgressBar";
 
 type Props = {
   trackz: Trackz;
@@ -22,10 +23,11 @@ export default function AudioPlayer({ trackz }: Props): JSX.Element {
       width={"100%"}
       color={"primary"}
       justifyContent="space-around"
-      align={"center"}
+      alignItems={"center"}
     >
       <AudioInfo trackz={trackz} />
       <AudioControls />
+      <ProgressBar />
     </Flex>
   );
 }

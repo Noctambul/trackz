@@ -17,6 +17,7 @@ export default function AudioControls(): JSX.Element {
   return (
     <Flex align={"center"}>
       <Icon
+        display={{ base: "none", sm: "block" }}
         aria-label="Previous track"
         cursor={"pointer"}
         boxSize={iconSize}
@@ -43,6 +44,7 @@ export default function AudioControls(): JSX.Element {
         />
       )}
       <Icon
+        display={{ base: "none", sm: "block" }}
         aria-label="Next track"
         cursor={"pointer"}
         onClick={next}
