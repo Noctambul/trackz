@@ -14,17 +14,17 @@ export default function AudioControlls(): JSX.Element {
 
   return (
     <div className="flex items-center">
-      <button className="hidden md:block" type="button" onClick={previous}>
+      <button className="hidden sm:block" type="button" onClick={previous}>
         <IoPlaySkipBack className="fill-primary text-lg" />
       </button>
       <button type="button" className="mx-2" onClick={isPlaying ? pause : play}>
         {isPlaying ? (
-          <IoPause className="fill-primary text-4xl md:text-2xl" />
+          <IoPause className="fill-primary text-4xl sm:text-2xl" />
         ) : (
-          <IoPlay className="fill-primary text-4xl md:text-2xl " />
+          <IoPlay className="fill-primary text-4xl sm:text-2xl " />
         )}
       </button>
-      <button className="hidden md:block" type="button" onClick={next}>
+      <button className="hidden sm:block" type="button" onClick={next}>
         <IoPlaySkipForward className="fill-primary text-lg" />
       </button>
     </div>

@@ -18,7 +18,7 @@ export default function ProgressBar({}: Props): JSX.Element {
   };
 
   return (
-    <div className="hidden w-full max-w-lg items-center justify-between p-8 md:flex">
+    <div className="hidden w-full max-w-lg items-center justify-between p-8 sm:flex">
       <div className="text-sm text-gray-300">{formatTime(currentTime)}</div>
       <div className="mx-3 h-0 w-full border border-gray-300" />
       <div className="text-sm text-gray-300">{formatTime(duration)}</div>
