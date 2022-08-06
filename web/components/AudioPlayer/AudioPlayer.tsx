@@ -1,6 +1,7 @@
 import { Flex } from "@chakra-ui/react";
 import Trackz from "models/trackz";
 import AudioInfo from "./AudiInfo";
+import AudioControls from "./AudioControls";
 
 type Props = {
   trackz: Trackz;
@@ -17,8 +18,14 @@ export default function AudioPlayer({ trackz }: Props): JSX.Element {
   };
 
   return (
-    <Flex width={"100%"} color={"primary"}>
+    <Flex
+      width={"100%"}
+      color={"primary"}
+      justifyContent="space-around"
+      align={"center"}
+    >
       <AudioInfo trackz={trackz} />
+      <AudioControls />
     </Flex>
   );
 }

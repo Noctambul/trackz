@@ -1,4 +1,4 @@
-import { Box, Flex } from "@chakra-ui/react";
+import { Box, Flex, Heading } from "@chakra-ui/react";
 
 export default function Header(): JSX.Element {
   return (
@@ -10,7 +10,7 @@ export default function Header(): JSX.Element {
         color="primary"
         fontWeight={"bold"}
       >
-        <h1>TRACKZ</h1>
+        <Heading as="h1">TRACKZ</Heading>
         <Box
           width={"10px"}
           height="10px"

@@ -18,6 +18,10 @@ const theme = extendTheme({
     primary: "#EA8C04",
     bgc: "#000000",
   },
+  fonts: {
+    heading: "KumbhSans",
+    body: "KumbhSans",
+  },
 });
 
 function MyApp({ Component, pageProps }: AppProps) {
