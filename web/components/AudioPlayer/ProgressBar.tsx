@@ -1,11 +1,9 @@
 import { AudioContext, AudioContextInterface } from "context/AudioContext";
 import { useContext } from "react";
 
-interface Props {
-  className?: string;
-}
+interface Props {}
 
-export default function ProgressBar({ className }: Props): JSX.Element {
+export default function ProgressBar({}: Props): JSX.Element {
   const { duration, currentTime } = useContext(
     AudioContext
   ) as AudioContextInterface;
@@ -20,11 +18,7 @@ export default function ProgressBar({ className }: Props): JSX.Element {
   };
 
   return (
-    <div
-      className={
-        "flex w-full max-w-lg items-center justify-between p-8 " + className
-      }
-    >
+    <div className="hidden w-full max-w-lg items-center justify-between p-8 md:flex">
       <div className="text-sm text-gray-300">{formatTime(currentTime)}</div>
       <div className="mx-3 h-0 w-full border border-gray-300" />
       <div className="text-sm text-gray-300">{formatTime(duration)}</div>

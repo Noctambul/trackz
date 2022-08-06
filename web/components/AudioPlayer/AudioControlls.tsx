@@ -7,8 +7,6 @@ import {
   IoPlaySkipForward,
 } from "react-icons/io5";
 
-const iconSize = 20;
-
 export default function AudioControlls(): JSX.Element {
   const { isPlaying, play, pause, previous, next } = useContext(
     AudioContext
@@ -16,18 +14,18 @@ export default function AudioControlls(): JSX.Element {
 
   return (
     <div className="flex items-center">
-      <button type="button" onClick={previous}>
-        <IoPlaySkipBack className="fill-primary" size={iconSize} />
+      <button className="hidden md:block" type="button" onClick={previous}>
+        <IoPlaySkipBack className="fill-primary text-lg" />
       </button>
       <button type="button" className="mx-2" onClick={isPlaying ? pause : play}>
         {isPlaying ? (
-          <IoPause className="fill-primary" size={iconSize} />
+          <IoPause className="fill-primary text-4xl md:text-2xl" />
         ) : (
-          <IoPlay className="fill-primary" size={iconSize} />
+          <IoPlay className="fill-primary text-4xl md:text-2xl " />
         )}
       </button>
-      <button type="button" onClick={next}>
-        <IoPlaySkipForward className="fill-primary" size={iconSize} />
+      <button className="hidden md:block" type="button" onClick={next}>
+        <IoPlaySkipForward className="fill-primary text-lg" />
       </button>
     </div>
   );
