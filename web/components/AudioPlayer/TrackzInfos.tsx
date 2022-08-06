@@ -7,7 +7,7 @@ interface Props {
 
 export default function TrackzInfos({ trackz }: Props): JSX.Element {
   return (
-    <div className="flex items-center">
+    <div className="flex shrink-0 items-center">
       <div className="relative aspect-square h-10 w-10">
         <Image
           alt={trackz.title}
