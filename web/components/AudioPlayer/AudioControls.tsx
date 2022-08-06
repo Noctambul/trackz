@@ -15,7 +15,7 @@ export default function AudioControls(): JSX.Element {
   const iconSize = 5;
 
   return (
-    <Flex align={"center"}>
+    <Flex align={"center"} color="gray.100" mx={6}>
       <Icon
         display={{ base: "none", sm: "block" }}
         aria-label="Previous track"
@@ -29,7 +29,7 @@ export default function AudioControls(): JSX.Element {
           mx={4}
           aria-label="Pause track"
           cursor={"pointer"}
-          boxSize={iconSize + 1}
+          boxSize={{ base: iconSize + 4, sm: iconSize + 1 }}
           onClick={pause}
           as={IoPause}
         />
@@ -38,7 +38,7 @@ export default function AudioControls(): JSX.Element {
           mx={4}
           aria-label="Play track"
           cursor={"pointer"}
-          boxSize={iconSize + 1}
+          boxSize={{ base: iconSize + 4, sm: iconSize + 1 }}
           onClick={play}
           as={IoPlay}
         />

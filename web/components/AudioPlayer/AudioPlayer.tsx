@@ -1,7 +1,7 @@
 import { Flex } from "@chakra-ui/react";
 import Trackz from "models/trackz";
-import AudioInfo from "./AudiInfo";
 import AudioControls from "./AudioControls";
+import AudioInfo from "./AudioInfo";
 import ProgressBar from "./ProgressBar";
 
 type Props = {

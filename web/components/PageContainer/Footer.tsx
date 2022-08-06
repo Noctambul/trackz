@@ -4,7 +4,14 @@ import trackzs from "data/trackzs";
 
 export default function Footer(): JSX.Element {
   return (
-    <Box position={"fixed"} bottom="0" left="0" bgColor={"bgc"} width="100%">
+    <Box
+      p="4"
+      position={"fixed"}
+      bottom="0"
+      left="0"
+      bgColor={"bgc"}
+      width="100%"
+    >
       <AudioPlayer trackz={trackzs[0]} />
     </Box>
   );

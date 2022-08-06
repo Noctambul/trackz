@@ -16,7 +16,7 @@ export default function PageContainer({
   return (
     <>
       <Header />
-      <Box width="100%" height="550vh" bgColor="bgc">
+      <Box marginTop="14" w="full" h="100%" bgColor="red.400" overflow="hidden">
         {children}
       </Box>
       <Footer />

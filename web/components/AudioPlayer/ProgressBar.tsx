@@ -1,4 +1,4 @@
-import { Box, Flex } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import { AudioContext, AudioContextInterface } from "context/AudioContext";
 import { useContext } from "react";
 
@@ -24,8 +24,15 @@ export default function ProgressBar(): JSX.Element {
       justifyContent={"space-between"}
       p="2"
       display={{ base: "none", sm: "flex" }}
+      color="gray.400"
     >
+      <Text fontSize="sm" color="gray.100">
+        {formatTime(currentTime)}
+      </Text>
       <Box mx="3" h="0" w="full" borderColor={"gray.300"} border="solid"></Box>
+      <Text fontSize="sm" color="gray.100">
+        {formatTime(duration)}
+      </Text>
     </Flex>
   );
 }

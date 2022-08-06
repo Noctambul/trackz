@@ -6,4 +6,5 @@ export default interface Trackz {
   price: number;
   coverUri: string;
   musicUri: string;
+  supply: number;
 }

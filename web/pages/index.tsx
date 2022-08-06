@@ -1,24 +1,25 @@
+import { Flex } from "@chakra-ui/react";
 import PageContainer from "components/PageContainer/PageContainer";
+import Trackz from "components/TrackzCard";
+import trackzs from "data/trackzs";
 import type { NextPage } from "next";
 
 const Home: NextPage = () => {
-  // const { tokens } = useContext(Web3Context) as Web3ContextInterface;
-
   return (
     <PageContainer>
-      <>
-        {/* <Space
-          direction="vertical"
-          align="center"
-          size="middle"
-          className={styles.mixContainer}
-        >
-          {tokens.map((tokenMetadata, i) => (
-            <Song key={i} metadata={tokenMetadata} />
-          ))}
-        </Space> */}
-        Hello World
-      </>
+      <Flex
+        m="8"
+        direction="column"
+        // justifyContent="center"
+        alignItems="center"
+        h="550vh"
+        bg="blue.400"
+        overflowY="scroll"
+      >
+        {trackzs.map((trackz) => (
+          <Trackz key={trackz.title} trackz={trackz} />
+        ))}
+      </Flex>
     </PageContainer>
   );
 };

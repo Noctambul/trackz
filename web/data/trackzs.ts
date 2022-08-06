@@ -7,6 +7,7 @@ const trackzs: Trackz[] = [
     description: "A begining",
     totalSupply: 5,
     price: 5,
+    supply: 5,
     coverUri:
       "https://gateway.pinata.cloud/ipfs/QmQ84bYsCupQXLcoMRYH51dzEFPKVrG3XLoCaCDg6oEasT",
     // "https://via.placeholder.com/600x400?text=aze",

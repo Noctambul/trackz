@@ -9,6 +9,7 @@ export default function Header(): JSX.Element {
       justifyContent="center"
       w="full"
       top={0}
+      h="14"
     >
       <Flex
         alignItems="center"
@@ -17,7 +18,7 @@ export default function Header(): JSX.Element {
         color="primary"
         fontWeight={"bold"}
         w="full"
-        h="14"
+        h="full"
       >
         <Heading as="h1" lineHeight={"100%"} fontWeight="bold">
           TRACKZ
