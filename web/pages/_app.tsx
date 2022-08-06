@@ -1,4 +1,5 @@
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
+import { AudioProvider } from "context/AudioContext";
 import type { AppProps } from "next/app";
 import "../styles/globals.css";
 
@@ -22,7 +23,9 @@ const theme = extendTheme({
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider theme={theme}>
-      <Component {...pageProps} />
+      <AudioProvider>
+        <Component {...pageProps} />
+      </AudioProvider>
     </ChakraProvider>
   );
 }
