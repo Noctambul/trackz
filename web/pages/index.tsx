@@ -13,7 +13,6 @@ const Home: NextPage = () => {
         // justifyContent="center"
         alignItems="center"
         h="550vh"
-        bg="blue.400"
         overflowY="scroll"
       >
         {trackzs.map((trackz) => (
