@@ -2,7 +2,8 @@ import Trackz from "models/trackz";
 
 const trackzs: Trackz[] = [
   {
-    title: "Good morning genesis",
+    title:
+      "Good morning genesis and welcom to another new world ready to explore",
     author: "Noctambul",
     description: "A begining",
     totalSupply: 5,

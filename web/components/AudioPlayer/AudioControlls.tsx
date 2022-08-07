@@ -13,7 +13,7 @@ export default function AudioControlls(): JSX.Element {
   ) as AudioContextInterface;
 
   return (
-    <div className="flex items-center">
+    <div className="mx-4 flex items-center">
       <button className="hidden sm:block" type="button" onClick={previous}>
         <IoPlaySkipBack className="fill-primary text-lg" />
       </button>
