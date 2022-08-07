@@ -10,7 +10,7 @@ export default function PageContainer({
 }): JSX.Element {
   return (
     <>
-      <div className="h-full bg-black">{children}</div>
+      <div className="mt-12 w-full">{children}</div>
       <Footer trackzs={trackzs} />
       <Header />
 
