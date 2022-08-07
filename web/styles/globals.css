@@ -9,10 +9,10 @@
 
 @layer base {
   h3 {
-    @apply text-sm font-semibold text-gray-100;
+    @apply text-base font-semibold text-gray-100;
   }
   h4 {
-    @apply text-xs font-normal text-gray-300;
+    @apply text-sm font-semibold text-gray-300;
   }
 }
 
@@ -22,20 +22,16 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   height: 100%;
   width: 100%;
-  @apply bg-bgc
+  @apply bg-bgc text-gray-400 text-sm
 }
 
 #__next {
   height: 100%
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-* {
-  color: inherit;
-  box-sizing: border-box;
-  background-color: inherit;
+.clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
