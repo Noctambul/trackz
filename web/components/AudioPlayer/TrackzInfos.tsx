@@ -18,9 +18,9 @@ export default function TrackzInfos({ trackz }: Props): JSX.Element {
           className="text-ellipsis"
         />
       </div>
-      <div className="flex-colum mx-4 overflow-hidden">
-        <h3 className="truncate">{trackz.title}</h3>
-        <h4 className="truncate">{trackz.author}</h4>
+      <div className="ml-3 flex flex-col overflow-hidden pl-4">
+        <span className="truncate text-sm text-text">{trackz.title}</span>
+        <span className="truncate text-xs text-subtext">{trackz.author}</span>
       </div>
     </div>
   );

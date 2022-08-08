@@ -8,6 +8,7 @@ const nextConfig = {
       "gateway.pinata.cloud",
       "placeholder.com",
       "via.placeholder.com",
+      "picsum.photos",
     ],
   },
 };

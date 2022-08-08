@@ -18,10 +18,10 @@ export default function ProgressBar({}: Props): JSX.Element {
   };
 
   return (
-    <div className="hidden w-full max-w-lg items-center justify-between p-8 sm:flex sm:shrink">
-      <div className="text-sm text-gray-300">{formatTime(currentTime)}</div>
-      <div className="mx-3 h-0 w-full shrink border border-gray-300" />
-      <div className="text-sm text-gray-300">{formatTime(duration)}</div>
+    <div className="hidden w-full items-center justify-between sm:flex sm:shrink">
+      <div className="text-xs text-gray-300">{formatTime(currentTime)}</div>
+      <div className="mx-3 h-0 w-full shrink rounded border border-gray-300" />
+      <div className="text-xs text-gray-300">{formatTime(duration)}</div>
     </div>
   );
 }

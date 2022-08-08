@@ -12,7 +12,16 @@ const trackzs: Trackz[] = [
     price: 5,
     coverUri:
       "https://gateway.pinata.cloud/ipfs/QmQ84bYsCupQXLcoMRYH51dzEFPKVrG3XLoCaCDg6oEasT",
-    // "https://via.placeholder.com/600x400?text=aze",
+    musicUri: "",
+  },
+  {
+    id: 1,
+    title: "The Magumba State",
+    author: "Shpongle",
+    description: "Genre : Musiques électroniques",
+    totalSupply: 25,
+    price: 4.4,
+    coverUri: "https://picsum.photos/200",
     musicUri: "",
   },
 ];

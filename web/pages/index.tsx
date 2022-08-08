@@ -6,7 +6,7 @@ import type { NextPage } from "next";
 const Home: NextPage = () => {
   return (
     <PageContainer>
-      <div className="m-24 flex h-[500vh] flex-col items-center">
+      <div className="space-y-lg my-24 flex h-[500vh] flex-col items-center space-y-10">
         {trackzs.map((trackz) => (
           <TrackzCard trackz={trackz} key={trackz.id} />
         ))}
