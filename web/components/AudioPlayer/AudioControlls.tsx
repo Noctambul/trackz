@@ -17,7 +17,7 @@ function IconBtn({
 }): JSX.Element {
   return (
     <button type="button" {...props}>
-      <Icon className="fill-inherit text-3xl" />
+      <Icon className="fill-inherit stroke-inherit text-3xl" />
     </button>
   );
 }
@@ -32,10 +32,10 @@ export default function AudioControlls(): JSX.Element {
       <IconBtn
         Icon={TbPlayerSkipBack}
         onClick={previous}
-        className=" hidden sm:block"
+        className="hidden fill-subtext sm:block"
       />
       <IconBtn
-        className=""
+        className="fill-primary stroke-primary"
         onClick={isPlaying ? pause : play}
         Icon={isPlaying ? TbPlayerPause : TbPlayerPlay}
       />
@@ -49,7 +49,7 @@ export default function AudioControlls(): JSX.Element {
       <IconBtn
         Icon={TbPlayerSkipForward}
         onClick={next}
-        className="hidden  sm:block"
+        className="hidden fill-subtext  sm:block"
       />
     </div>
   );

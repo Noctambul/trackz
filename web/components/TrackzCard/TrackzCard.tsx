@@ -1,3 +1,4 @@
+import { useIpfs } from "hooks/useIpfs";
 import Trackz from "models/trackz";
 import Image from "next/image";
 
@@ -6,10 +7,16 @@ type Props = {
 };
 
 export default function TrackzCard({ trackz }: Props): JSX.Element {
+  const { resolveLink } = useIpfs();
+
   return (
     <div className="flex w-2/3 max-w-2xl">
       <div className="relative h-[120px] w-[120px] shrink-0">
-        <Image src={trackz.coverUri} layout="fill" alt={trackz.title} />
+        <Image
+          src={resolveLink(trackz.coverUri)}
+          layout="fill"
+          alt={trackz.title}
+        />
       </div>
       <div className="mx-4 flex w-full flex-col justify-between overflow-hidden">
         <span className="truncate text-lg text-text">{trackz.title}</span>
