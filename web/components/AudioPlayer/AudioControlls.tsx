@@ -2,11 +2,11 @@ import { AudioContext, AudioContextInterface } from "context/AudioContext";
 import { useContext } from "react";
 import { IconType } from "react-icons";
 import {
-  IoPauseSharp,
-  IoPlayBackSharp,
-  IoPlayForwardSharp,
-  IoPlaySharp,
-} from "react-icons/io5";
+  TbPlayerPause,
+  TbPlayerPlay,
+  TbPlayerSkipBack,
+  TbPlayerSkipForward,
+} from "react-icons/tb";
 
 function IconBtn({
   Icon,
@@ -30,14 +30,14 @@ export default function AudioControlls(): JSX.Element {
   return (
     <div className="mx-6 flex items-center space-x-6">
       <IconBtn
-        Icon={IoPlayBackSharp}
+        Icon={TbPlayerSkipBack}
         onClick={previous}
-        className="hidden fill-subtext sm:block"
+        className=" hidden sm:block"
       />
       <IconBtn
-        className=" fill-primary"
+        className=""
         onClick={isPlaying ? pause : play}
-        Icon={isPlaying ? IoPauseSharp : IoPlaySharp}
+        Icon={isPlaying ? TbPlayerPause : TbPlayerPlay}
       />
       {/* <button type="button" className="mx-2" onClick={isPlaying ? pause : play}>
         {isPlaying ? (
@@ -47,9 +47,9 @@ export default function AudioControlls(): JSX.Element {
         )}
       </button> */}
       <IconBtn
-        Icon={IoPlayForwardSharp}
+        Icon={TbPlayerSkipForward}
         onClick={next}
-        className="hidden fill-subtext sm:block"
+        className="hidden  sm:block"
       />
     </div>
   );
