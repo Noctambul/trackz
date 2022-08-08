@@ -7,7 +7,7 @@ module.exports = {
     extend: {
       colors: {
         primary: "#EA8C04",
-        bgc: colors.black,
+        bgc: colors.zinc[900],
         text: colors.gray[100],
         subtext: colors.gray[400],
         // bgc: colors.red[400],
