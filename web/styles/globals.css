@@ -22,7 +22,7 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   height: 100%;
   width: 100%;
-  @apply bg-bgc text-sm text-text
+  @apply bg-gradient-to-r from-cyan-500 to-blue-500;
 }
 
 #__next {

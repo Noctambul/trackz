@@ -7,7 +7,7 @@ export default function Footer({
   trackzs: Trackz[];
 }): JSX.Element {
   return (
-    <footer className="fixed bottom-0 left-0 h-20 w-screen bg-bgc px-8">
+    <footer className="fixed bottom-0 left-0 h-20 w-screen px-8">
       <AudioPlayer trackz={trackzs[0]} />
     </footer>
   );
