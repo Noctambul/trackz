@@ -10,7 +10,7 @@ const trackzs: Trackz[] = [
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     totalSupply: 5,
     price: 5,
-    coverUri: "ipfs://QmQ84bYsCupQXLcoMRYH51dzEFPKVrG3XLoCaCDg6oEasT",
+    coverUri: "https://picsum.photos/200",
     musicUri: "",
   },
   {
@@ -20,7 +20,7 @@ const trackzs: Trackz[] = [
     description: "Genre : Musiques électroniques",
     totalSupply: 50,
     price: 1.4,
-    coverUri: "https://picsum.photos/200",
+    coverUri: "ipfs://QmQ84bYsCupQXLcoMRYH51dzEFPKVrG3XLoCaCDg6oEasT",
     musicUri: "ipfs://QmUqU31giwHyMQkoV5vy4uHLZi1aitzUm83v17FBqWXLyn",
   },
   {
