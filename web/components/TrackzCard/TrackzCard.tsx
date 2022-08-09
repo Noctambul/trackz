@@ -10,7 +10,7 @@ export default function TrackzCard({ trackz }: Props): JSX.Element {
   const { resolveLink } = useIpfs();
 
   return (
-    <div className="flex w-11/12 max-w-2xl overflow-hidden rounded-lg bg-gradient-to-tr from-slate-900 to-zinc-700 p-2 shadow-lg shadow-zinc-800 sm:w-2/3">
+    <div className="flex w-11/12 overflow-hidden rounded-lg bg-gradient-to-tr from-slate-900 to-zinc-700 p-2 shadow-lg shadow-zinc-800">
       <div className="relative h-[120px] w-[120px] shrink-0 overflow-hidden rounded-lg shadow-xl">
         <Image
           src={resolveLink(trackz.coverUri)}
