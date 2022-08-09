@@ -10,7 +10,7 @@ export default function TrackzCard({ trackz }: Props): JSX.Element {
   const { resolveLink } = useIpfs();
 
   return (
-    <div className="flex w-2/3 max-w-2xl">
+    <div className="flex">
       <div className="relative h-[120px] w-[120px] shrink-0">
         <Image
           src={resolveLink(trackz.coverUri)}
