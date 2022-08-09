@@ -1,4 +1,5 @@
-declare module "*.less" {
-  const resource: { [key: string]: string };
-  export = resource;
+declare namespace NodeJS {
+  interface ProcessEnv {
+    NEXT_PUBLIC_IPFS_PROVIDER_URI: string;
+  }
 }

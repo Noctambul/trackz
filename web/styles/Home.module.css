@@ -1,6 +1,5 @@
 .mixContainer {
   margin: 0 auto;
-  // width: 1200px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
