@@ -9,7 +9,7 @@ module.exports = {
         primary: "#EA8C04",
         bgc: colors.zinc[900],
         text: colors.gray[100],
-        subtext: colors.gray[400],
+        subtext: colors.gray[500],
         // bgc: colors.red[400],
       },
     },

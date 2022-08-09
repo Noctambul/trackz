@@ -18,20 +18,20 @@
 
 html,
 body {
-  font-family: KumbhSans, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: KumbhSans, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+    Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   height: 100%;
   width: 100%;
-  @apply bg-bgc text-sm text-text
+  @apply bg-gradient-to-r from-slate-900 to-zinc-800;
 }
 
 #__next {
-  height: 100%
+  height: 100%;
 }
 
 .clamp-2 {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
