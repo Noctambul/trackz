@@ -1,6 +1,8 @@
+import { AudioContext, AudioContextInterface } from "context/AudioContext";
 import { useIpfs } from "hooks/useIpfs";
 import Trackz from "models/trackz";
 import Image from "next/image";
+import { useContext } from "react";
 
 type Props = {
   trackz: Trackz;
@@ -8,6 +10,7 @@ type Props = {
 
 export default function TrackzCard({ trackz }: Props): JSX.Element {
   const { resolveLink } = useIpfs();
+  const { play, pause } = useContext(AudioContext) as AudioContextInterface;
 
   return (
     <div className="flex">
@@ -16,6 +19,7 @@ export default function TrackzCard({ trackz }: Props): JSX.Element {
           src={resolveLink(trackz.coverUri)}
           layout="fill"
           alt={trackz.title}
+          onClick={() => play(trackz)}
         />
       </div>
       <div className="mx-4 flex w-full flex-col justify-between overflow-hidden">

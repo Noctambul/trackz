@@ -23,7 +23,7 @@ function IconBtn({
 }
 
 export default function AudioControlls(): JSX.Element {
-  const { isPlaying, play, pause, previous, next } = useContext(
+  const { isPlaying, play, pause, previousTrack, nextTrack } = useContext(
     AudioContext
   ) as AudioContextInterface;
 
@@ -31,7 +31,7 @@ export default function AudioControlls(): JSX.Element {
     <div className="mx-6 flex items-center space-x-6">
       <IconBtn
         Icon={TbPlayerSkipBack}
-        onClick={previous}
+        onClick={previousTrack}
         className="hidden fill-subtext sm:block"
       />
       <IconBtn
@@ -48,7 +48,7 @@ export default function AudioControlls(): JSX.Element {
       </button> */}
       <IconBtn
         Icon={TbPlayerSkipForward}
-        onClick={next}
+        onClick={nextTrack}
         className="hidden fill-subtext  sm:block"
       />
     </div>
