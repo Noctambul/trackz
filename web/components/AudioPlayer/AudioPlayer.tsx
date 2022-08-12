@@ -15,7 +15,7 @@ export default function AudioPlayer({
     <div className="flex h-full w-full items-center justify-around">
       <TrackzInfos trackz={trackz} />
       <AudioControlls />
-      <ProgressBar />
+      <ProgressBar trackz={trackz} />
     </div>
   );
 }

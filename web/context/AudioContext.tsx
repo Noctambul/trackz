@@ -1,31 +1,39 @@
 import { useIpfs } from "hooks/useIpfs";
 import Trackz from "models/trackz";
-import { createContext, useEffect, useRef, useState } from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 
 export interface AudioContextInterface {
   isPlaying: boolean;
   duration: number;
   currentTime: number;
+  currentTrackz: Trackz | undefined;
   play: (trackz: Trackz) => void;
   pause: () => void;
-  previousTrack: () => void;
-  nextTrack: () => void;
+  toPreviousTrack: () => void;
+  toNextTrack: () => void;
 }
-
-export const AudioContext = createContext<AudioContextInterface | null>(null);
 
 let audio: HTMLAudioElement;
 if (typeof Audio !== "undefined") {
   audio = new Audio();
 }
 
-export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
+const AudioContext = createContext<AudioContextInterface | undefined>(
+  undefined
+);
+
+export function useAudio(): AudioContextInterface {
+  if (!AudioContext) throw "AudioContext is undefined";
+  return useContext(AudioContext)!;
+}
+
+export function AudioProvider({ children }: { children: React.ReactNode }) {
   const { resolveLink } = useIpfs();
   const audioRef = useRef<HTMLAudioElement>(audio);
   const [isPlaying, setIsplaying] = useState(false);
   const [duration, setDuration] = useState(220);
   const [currentTime, setCurrentTime] = useState(122);
-  const [trackz, setTrackz] = useState<Trackz>();
+  const [currentTrackz, setCurrentTrackz] = useState<Trackz>();
 
   useEffect(() => {
     return () => {
@@ -46,6 +54,7 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
   const play = (trackz?: Trackz) => {
     if (trackz && audioRef.current) {
       audioRef.current.src = resolveLink(trackz.musicUri);
+      setCurrentTrackz(trackz);
     }
 
     setIsplaying(true);
@@ -53,12 +62,12 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const pause = () => {
-    setIsplaying(true);
+    setIsplaying(false);
     console.log("Pause");
   };
 
-  const previousTrack = () => console.log("Previous");
-  const nextTrack = () => console.log("Next");
+  const toPreviousTrack = () => console.log("Previous");
+  const toNextTrack = () => console.log("Next");
 
   return (
     <AudioContext.Provider
@@ -66,8 +75,9 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
         isPlaying,
         play,
         pause,
-        nextTrack,
-        previousTrack,
+        toNextTrack,
+        toPreviousTrack,
+        currentTrackz,
         duration,
         currentTime,
       }}
@@ -75,4 +85,4 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
       {children}
     </AudioContext.Provider>
   );
-};
+}

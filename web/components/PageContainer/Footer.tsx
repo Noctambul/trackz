@@ -1,14 +1,15 @@
 import AudioPlayer from "components/AudioPlayer/AudioPlayer";
-import Trackz from "models/trackz";
+import { useAudio } from "context/AudioContext";
 
-export default function Footer({
-  trackzs,
-}: {
-  trackzs: Trackz[];
-}): JSX.Element {
+export default function Footer(): JSX.Element {
+  const { currentTrackz } = useAudio();
   return (
-    <footer className="fixed bottom-0 left-0 h-20 w-screen bg-bgc px-8">
-      <AudioPlayer trackz={trackzs[0]} />
-    </footer>
+    <>
+      {currentTrackz && (
+        <footer className="fixed bottom-0 left-0 h-20 w-screen bg-bgc px-8">
+          <AudioPlayer trackz={currentTrackz} />
+        </footer>
+      )}
+    </>
   );
 }

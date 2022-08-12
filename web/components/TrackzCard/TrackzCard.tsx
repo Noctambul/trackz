@@ -1,8 +1,10 @@
-import { AudioContext, AudioContextInterface } from "context/AudioContext";
+import ProgressBar from "components/AudioPlayer/ProgressBar";
+import IconButton from "components/ui-kit/IconButton";
+import { useAudio } from "context/AudioContext";
 import { useIpfs } from "hooks/useIpfs";
 import Trackz from "models/trackz";
 import Image from "next/image";
-import { useContext } from "react";
+import { IoPauseCircleOutline, IoPlayCircleOutline } from "react-icons/io5";
 
 type Props = {
   trackz: Trackz;
@@ -10,7 +12,42 @@ type Props = {
 
 export default function TrackzCard({ trackz }: Props): JSX.Element {
   const { resolveLink } = useIpfs();
-  const { play, pause } = useContext(AudioContext) as AudioContextInterface;
+  const { play, pause, currentTrackz, isPlaying } = useAudio();
+
+  const MarketSection = (
+    <div className="mt-auto flex items-center justify-between text-gray-400">
+      <div className="mt-auto">
+        Supply
+        <br />x{trackz.totalSupply}
+      </div>
+      <div>
+        Price
+        <br />
+        {trackz.price} Tz
+      </div>
+      <button type="button">Collect</button>
+    </div>
+  );
+
+  const InfoSection = (
+    <div className="ml-2 flex flex-col justify-center">
+      <span className="truncate text-lg text-text">{trackz.title}</span>
+      <span className="truncate text-sm text-subtext">by {trackz.author}</span>
+      {/* <p className="clamp-2 my-1 italic">{trackz.description}</p> */}
+    </div>
+  );
+
+  const isPlayingMe = () => isPlaying && trackz == currentTrackz;
+  const PlayButton = (
+    <IconButton
+      Icon={isPlayingMe() ? IoPauseCircleOutline : IoPlayCircleOutline}
+      size="5xl"
+      className="fill-text stroke-text text-5xl"
+      onClick={() => {
+        isPlayingMe() ? pause() : play(trackz);
+      }}
+    />
+  );
 
   return (
     <div className="flex">
@@ -19,27 +56,15 @@ export default function TrackzCard({ trackz }: Props): JSX.Element {
           src={resolveLink(trackz.coverUri)}
           layout="fill"
           alt={trackz.title}
-          onClick={() => play(trackz)}
         />
       </div>
       <div className="mx-4 flex w-full flex-col justify-between overflow-hidden">
-        <span className="truncate text-lg text-text">{trackz.title}</span>
-        <span className="truncate text-sm text-subtext">
-          by {trackz.author}
-        </span>
-        {/* <p className="clamp-2 my-1 italic">{trackz.description}</p> */}
-        <div className="mt-auto flex items-center justify-between text-gray-400">
-          <div className="mt-auto">
-            Supply
-            <br />x{trackz.totalSupply}
-          </div>
-          <div>
-            Price
-            <br />
-            {trackz.price} Tz
-          </div>
-          <button type="button">Collect</button>
+        <div className="mb-1 flex">
+          {PlayButton}
+          {InfoSection}
         </div>
+        <ProgressBar hideCurrentTime trackz={trackz} />
+        {MarketSection}
       </div>
     </div>
   );

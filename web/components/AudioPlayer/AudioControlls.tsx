@@ -1,6 +1,5 @@
-import { AudioContext, AudioContextInterface } from "context/AudioContext";
-import { useContext } from "react";
-import { IconType } from "react-icons";
+import IconBtn from "components/ui-kit/IconButton";
+import { useAudio } from "context/AudioContext";
 import {
   TbPlayerPause,
   TbPlayerPlay,
@@ -8,34 +7,18 @@ import {
   TbPlayerSkipForward,
 } from "react-icons/tb";
 
-function IconBtn({
-  Icon,
-  ...props
-}: {
-  Icon: IconType;
-  [x: string]: any;
-}): JSX.Element {
-  return (
-    <button type="button" {...props}>
-      <Icon className="fill-inherit stroke-inherit text-3xl" />
-    </button>
-  );
-}
-
 export default function AudioControlls(): JSX.Element {
-  const { isPlaying, play, pause, previousTrack, nextTrack } = useContext(
-    AudioContext
-  ) as AudioContextInterface;
+  const { isPlaying, play, pause, previousTrack, nextTrack } = useAudio();
 
   return (
     <div className="mx-6 flex items-center space-x-6">
       <IconBtn
         Icon={TbPlayerSkipBack}
         onClick={previousTrack}
-        className="hidden fill-subtext sm:block"
+        className="hidden fill-subtext text-3xl sm:block"
       />
       <IconBtn
-        className="fill-primary stroke-primary"
+        className="fill-primary stroke-primary text-3xl"
         onClick={isPlaying ? pause : play}
         Icon={isPlaying ? TbPlayerPause : TbPlayerPlay}
       />
@@ -49,7 +32,7 @@ export default function AudioControlls(): JSX.Element {
       <IconBtn
         Icon={TbPlayerSkipForward}
         onClick={nextTrack}
-        className="hidden fill-subtext  sm:block"
+        className="hidden fill-subtext  text-3xl sm:block"
       />
     </div>
   );
