@@ -1,3 +1,4 @@
+import { useIpfs } from "hooks/useIpfs";
 import Trackz from "models/trackz";
 import { createContext, useEffect, useRef, useState } from "react";
 
@@ -13,8 +14,14 @@ export interface AudioContextInterface {
 
 export const AudioContext = createContext<AudioContextInterface | null>(null);
 
+let audio: HTMLAudioElement;
+if (typeof Audio !== "undefined") {
+  audio = new Audio();
+}
+
 export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
-  const audioRef = useRef<HTMLAudioElement>(new Audio());
+  const { resolveLink } = useIpfs();
+  const audioRef = useRef<HTMLAudioElement>(audio);
   const [isPlaying, setIsplaying] = useState(false);
   const [duration, setDuration] = useState(220);
   const [currentTime, setCurrentTime] = useState(122);
@@ -23,22 +30,22 @@ export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     return () => {
       // eslint-disable-next-line react-hooks/exhaustive-deps
-      audioRef.current.pause();
+      audioRef.current?.pause();
       // TODO: Remove Timer here
     };
   });
 
   useEffect(() => {
     if (isPlaying) {
-      audioRef.current.play();
+      audioRef.current?.play();
     } else {
-      audioRef.current.pause();
+      audioRef.current?.pause();
     }
   }, [isPlaying]);
 
   const play = (trackz?: Trackz) => {
-    if (trackz) {
-      audioRef.current.src = trackz.musicUri;
+    if (trackz && audioRef.current) {
+      audioRef.current.src = resolveLink(trackz.musicUri);
     }
 
     setIsplaying(true);
