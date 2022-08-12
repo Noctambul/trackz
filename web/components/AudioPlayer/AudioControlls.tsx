@@ -8,13 +8,13 @@ import {
 } from "react-icons/tb";
 
 export default function AudioControlls(): JSX.Element {
-  const { isPlaying, play, pause, previousTrack, nextTrack } = useAudio();
+  const { isPlaying, play, pause, toPreviousTrack, toNextTrack } = useAudio();
 
   return (
     <div className="mx-6 flex items-center space-x-6">
       <IconBtn
         Icon={TbPlayerSkipBack}
-        onClick={previousTrack}
+        onClick={toPreviousTrack}
         className="hidden fill-subtext text-3xl sm:block"
       />
       <IconBtn
@@ -31,7 +31,7 @@ export default function AudioControlls(): JSX.Element {
       </button> */}
       <IconBtn
         Icon={TbPlayerSkipForward}
-        onClick={nextTrack}
+        onClick={toNextTrack}
         className="hidden fill-subtext  text-3xl sm:block"
       />
     </div>
