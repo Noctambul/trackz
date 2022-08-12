@@ -10,7 +10,7 @@ export default function TrackzInfos({ trackz }: Props): JSX.Element {
   const { resolveLink } = useIpfs();
 
   return (
-    <div className="flex max-w-md shrink items-center overflow-hidden">
+    <div className="w-md flex shrink-0 items-center overflow-hidden">
       <div className="relative aspect-square h-10 w-10">
         <Image
           alt={trackz.title}
@@ -21,7 +21,7 @@ export default function TrackzInfos({ trackz }: Props): JSX.Element {
           className="text-ellipsis"
         />
       </div>
-      <div className="ml-3 flex flex-col overflow-hidden pl-4">
+      <div className="ml-3 flex w-full flex-col overflow-hidden pl-4">
         <span className="truncate text-sm text-text">{trackz.title}</span>
         <span className="truncate text-xs text-subtext">{trackz.author}</span>
       </div>

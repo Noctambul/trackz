@@ -1,4 +1,3 @@
-import trackzs from "data/trackzs";
 import React from "react";
 import Footer from "./Footer";
 import Header from "./Header";
@@ -11,7 +10,7 @@ export default function PageContainer({
   return (
     <>
       <div className="mt-12 w-full">{children}</div>
-      <Footer trackzs={trackzs} />
+      <Footer />
       <Header />
 
       {/* <div className="relative flex h-[550rem] bg-green-400"></div>

@@ -1,32 +1,88 @@
-import { createContext } from "react";
+import { useIpfs } from "hooks/useIpfs";
+import Trackz from "models/trackz";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 
 export interface AudioContextInterface {
   isPlaying: boolean;
   duration: number;
   currentTime: number;
-  play: () => void;
+  currentTrackz: Trackz | undefined;
+  play: (trackz: Trackz) => void;
   pause: () => void;
-  previous: () => void;
-  next: () => void;
+  toPreviousTrack: () => void;
+  toNextTrack: () => void;
 }
 
-export const AudioContext = createContext<AudioContextInterface | null>(null);
+let audio: HTMLAudioElement;
+if (typeof Audio !== "undefined") {
+  audio = new Audio();
+}
 
-export const AudioProvider = ({ children }: { children: React.ReactNode }) => {
-  const isPlaying = false;
-  const duration = 220;
-  const currentTime = 122;
+const AudioContext = createContext<AudioContextInterface | undefined>(
+  undefined
+);
 
-  const play = () => console.log("Play");
-  const pause = () => console.log("Pause");
-  const previous = () => console.log("Previous");
-  const next = () => console.log("Next");
+export function useAudio(): AudioContextInterface {
+  if (!AudioContext) throw "AudioContext is undefined";
+  return useContext(AudioContext)!;
+}
+
+export function AudioProvider({ children }: { children: React.ReactNode }) {
+  const { resolveLink } = useIpfs();
+  const audioRef = useRef<HTMLAudioElement>(audio);
+  const [isPlaying, setIsplaying] = useState(false);
+  const [duration, setDuration] = useState(220);
+  const [currentTime, setCurrentTime] = useState(122);
+  const [currentTrackz, setCurrentTrackz] = useState<Trackz>();
+
+  useEffect(() => {
+    return () => {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      audioRef.current?.pause();
+      // TODO: Remove Timer here
+    };
+  });
+
+  useEffect(() => {
+    if (isPlaying) {
+      audioRef.current?.play();
+    } else {
+      audioRef.current?.pause();
+    }
+  }, [isPlaying]);
+
+  const play = (trackz?: Trackz) => {
+    if (trackz && audioRef.current) {
+      audioRef.current.src = resolveLink(trackz.musicUri);
+      setCurrentTrackz(trackz);
+    }
+
+    setIsplaying(true);
+    console.log(`Play ${trackz?.title}`);
+  };
+
+  const pause = () => {
+    setIsplaying(false);
+    console.log("Pause");
+  };
+
+  const toPreviousTrack = () => console.log("Previous");
+  const toNextTrack = () => console.log("Next");
 
   return (
     <AudioContext.Provider
-      value={{ isPlaying, play, pause, next, previous, duration, currentTime }}
+      value={{
+        isPlaying,
+        play,
+        pause,
+        toNextTrack,
+        toPreviousTrack,
+        currentTrackz,
+        duration,
+        currentTime,
+      }}
     >
       {children}
     </AudioContext.Provider>
   );
-};
+}
