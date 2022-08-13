@@ -1,12 +1,10 @@
-name: Deploy Web
+name: Web Deployment
 on: [push]
 jobs:
   runs-on: ubuntu-latest
-
   strategy:
       matrix:
           node-version: [16]
-
   steps:
     Testing-web-app:
       - name: Check out repository code
