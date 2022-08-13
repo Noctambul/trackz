@@ -29,9 +29,13 @@ export default function TrackzCard({ trackz }: Props): JSX.Element {
   );
 
   const InfoSection = (
-    <div className="ml-2 flex flex-col justify-center">
-      <span className="truncate text-lg text-text">{trackz.title}</span>
-      <span className="truncate text-sm text-subtext">by {trackz.author}</span>
+    <div className="ml-2 flex flex-col justify-center" aria-label="">
+      <span className="truncate text-lg text-text" aria-label="Title">
+        {trackz.title}
+      </span>
+      <span className="truncate text-sm text-subtext" aria-label="Author">
+        by {trackz.author}
+      </span>
       {/* <p className="clamp-2 my-1 italic">{trackz.description}</p> */}
     </div>
   );

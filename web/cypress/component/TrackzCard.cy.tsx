@@ -11,8 +11,7 @@ describe("TrackzCard.cy.ts", () => {
         <TrackzCard trackz={trackz} />
       </AudioProvider>
     );
-    component
-      .get(".ml-2.flex.flex-col.justify-center > .truncate.text-lg.text-text")
-      .contains(trackz.title);
+    component.get(`[aria-label="Title"]`).contains(trackz.title);
+    component.get(`[aria-label="Author"]`).contains(trackz.author);
   });
 });
