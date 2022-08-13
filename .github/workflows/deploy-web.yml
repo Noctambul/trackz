@@ -14,8 +14,8 @@ jobs:
         with: 
           node-version: ${{ matrix.node-version }}
           cache: 'yarn'
-      - name: Check linting
-        run: yarn lint
+      # - name: Check linting
+      #   run: yarn lint
       - name: Run Cypress
         uses: cypress-io/github-action@v4
         with: 
