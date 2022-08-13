@@ -1,5 +1,5 @@
-import { useAudio } from "context/AudioContext";
-import Trackz from "models/trackz";
+import { useAudio } from "../../context/AudioContext";
+import Trackz from "../../models/trackz";
 
 interface Props {
   hideCurrentTime?: boolean;
@@ -29,8 +29,11 @@ export default function ProgressBar({
       <div
         className={`${
           hideCurrentTime ? "mr-3 ml-1" : "mx-3"
-        } border-gray-300} h-0 w-full shrink rounded border`}
-      />
+        } } h-0.5 w-full shrink rounded bg-gray-300`}
+      >
+        {}
+        <div className="h-0.5 bg-primary" style={{ width: "45%" }}></div>
+      </div>
       <div className="text-xs text-gray-300">{formatTime(trackz.duration)}</div>
     </div>
   );

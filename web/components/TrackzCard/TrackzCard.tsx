@@ -1,10 +1,10 @@
-import ProgressBar from "components/AudioPlayer/ProgressBar";
-import IconButton from "components/ui-kit/IconButton";
-import { useAudio } from "context/AudioContext";
-import { useIpfs } from "hooks/useIpfs";
-import Trackz from "models/trackz";
 import Image from "next/image";
 import { IoPauseCircleOutline, IoPlayCircleOutline } from "react-icons/io5";
+import { useAudio } from "../../context/AudioContext";
+import { useIpfs } from "../../hooks/useIpfs";
+import Trackz from "../../models/trackz";
+import ProgressBar from "../AudioPlayer/ProgressBar";
+import IconButton from "../uikit/IconButton";
 
 type Props = {
   trackz: Trackz;

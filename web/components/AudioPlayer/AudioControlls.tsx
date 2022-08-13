@@ -1,4 +1,4 @@
-import IconBtn from "components/ui-kit/IconButton";
+import IconBtn from "components/uikit/IconButton";
 import { useAudio } from "context/AudioContext";
 import {
   TbPlayerPause,

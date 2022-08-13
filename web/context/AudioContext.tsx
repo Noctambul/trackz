@@ -1,6 +1,6 @@
-import { useIpfs } from "hooks/useIpfs";
-import Trackz from "models/trackz";
 import { createContext, useContext, useEffect, useRef, useState } from "react";
+import { useIpfs } from "../hooks/useIpfs";
+import Trackz from "../models/trackz";
 
 export interface AudioContextInterface {
   isPlaying: boolean;
