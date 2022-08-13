@@ -6,14 +6,18 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      # - name: Install node
-      #   uses: actions/setup-node@v3
-      #   with:
-      #     node-version: 16
-      # - name: Install dependencies
-      #   run: yarn
+      - name: Install node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: Install dependencies
+        run: yarn
+      - name: List files in the repository
+        run: |
+          ls ${{ github.workspace }}
       - name: Cypress run
         uses: cypress-io/github-action@v4
         with:
           start: yarn workspace web cypress:component
           working-directory: web
+      
