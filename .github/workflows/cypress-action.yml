@@ -15,5 +15,5 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v4
         with:
-          start: yarn cypress:component
+          start: yarn workspace web cypress:component
           working-directory: web
