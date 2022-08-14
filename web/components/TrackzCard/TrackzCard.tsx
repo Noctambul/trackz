@@ -1,5 +1,5 @@
 import ProgressBar from "components/AudioPlayer/ProgressBar";
-import IconButton from "components/ui-kit/IconButton";
+import IconButton from "components/uikit/IconButton";
 import { useIpfs } from "hooks/useIpfs";
 import Trackz from "models/trackz";
 import Image from "next/image";
