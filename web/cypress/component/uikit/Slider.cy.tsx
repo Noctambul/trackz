@@ -10,7 +10,7 @@ describe("Ui Kit", () => {
     context("when no label provided", () => {
       it("should not display the label", () => {
         // const onChangeSpy = cy.stub();
-        const onChange = (e) => console.log("Changed ! ", e.target.value);
+        // const onChange = (e) => console.log("Changed ! ", e.target.value);
 
         const value = 50;
         const min = 0;
@@ -22,7 +22,7 @@ describe("Ui Kit", () => {
             min={min}
             max={max}
             value={value}
-            onChange={onChange}
+            // onChange={onChange}
           />
         );
         // cy.get(`label[for="minmaxRange"]`).should(
