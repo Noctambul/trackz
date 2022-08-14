@@ -1,3 +1,10 @@
+import {
+  Slider as ChakraSlider,
+  SliderFilledTrack,
+  SliderThumb,
+  SliderTrack,
+} from "@chakra-ui/slider";
+
 interface Props extends React.HTMLProps<HTMLInputElement> {
   min?: number;
   max?: number;
@@ -12,7 +19,7 @@ export default function Slider({
   label,
   ...props
 }: Props): JSX.Element {
-  return (
+  const customInput = (
     <div className="w-full">
       {label && (
         <label
@@ -22,18 +29,27 @@ export default function Slider({
           {label}
         </label>
       )}
-      {/* <div className="cursor-pointer"> */}
-      <input
-        id="minmaxRange"
-        type="range"
-        min={min}
-        max={max}
-        value={50}
-        className="h-0.5 w-full cursor-pointer appearance-none rounded-lg bg-red-400"
-        {...props}
-      />
-      <input id="test" min={0} max={100} value={50} />
-      {/* </div> */}
+      <div className="cursor-pointer">
+        <input
+          id="minmaxRange"
+          type="range"
+          min={min}
+          max={max}
+          value={50}
+          className="h-0.5 w-full cursor-pointer appearance-none rounded-lg bg-red-400"
+          {...props}
+        />
+        <input id="test" min={0} max={100} value={50} />
+      </div>
     </div>
+  );
+
+  return (
+    <ChakraSlider defaultValue={30}>
+      <SliderTrack>
+        <SliderFilledTrack />
+      </SliderTrack>
+      <SliderThumb />
+    </ChakraSlider>
   );
 }
