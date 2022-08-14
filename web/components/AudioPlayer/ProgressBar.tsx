@@ -1,14 +1,12 @@
+import Slider from "components/uikit/Slider";
 import { useAudio } from "context/AudioContext";
-import Trackz from "models/trackz";
 
 interface Props {
   hideCurrentTime?: boolean;
-  trackz: Trackz;
 }
 
 export default function ProgressBar({
   hideCurrentTime = false,
-  trackz,
 }: Props): JSX.Element {
   const { duration, currentTime } = useAudio();
 
@@ -21,17 +19,25 @@ export default function ProgressBar({
     return `${returnMin}:${returnSec}`;
   };
 
+  const progressElt = (
+    <div
+      className={`${
+        hideCurrentTime ? "mr-3 ml-1" : "mx-3"
+      } border-gray-300} h-0 w-full shrink rounded border`}
+    />
+  );
+
+  const inputElt = <Slider min={0} max={duration} value={currentTime} />;
+
   return (
     <div className="hidden w-full items-center justify-between sm:flex sm:shrink">
+      YA QQUN
       {!hideCurrentTime && (
         <div className="text-xs text-gray-300">{formatTime(currentTime)}</div>
       )}
-      <div
-        className={`${
-          hideCurrentTime ? "mr-3 ml-1" : "mx-3"
-        } border-gray-300} h-0 w-full shrink rounded border`}
-      />
-      <div className="text-xs text-gray-300">{formatTime(trackz.duration)}</div>
+      ALLOW
+      {progressElt}
+      <div className="text-xs text-gray-300">{formatTime(duration)}</div>
     </div>
   );
 }

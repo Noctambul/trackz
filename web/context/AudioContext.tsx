@@ -44,6 +44,10 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   });
 
   useEffect(() => {
+    setDuration(currentTrackz?.duration);
+  }, [currentTrackz]);
+
+  useEffect(() => {
     if (isPlaying) {
       audioRef.current?.play();
     } else {

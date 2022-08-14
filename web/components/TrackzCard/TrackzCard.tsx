@@ -66,7 +66,7 @@ export default function TrackzCard({ trackz }: Props): JSX.Element {
           {PlayButton}
           {InfoSection}
         </div>
-        <ProgressBar hideCurrentTime trackz={trackz} />
+        <ProgressBar hideCurrentTime />
         {MarketSection}
       </div>
     </div>

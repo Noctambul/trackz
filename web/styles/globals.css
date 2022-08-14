@@ -35,3 +35,7 @@ body {
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
+
+input[type="range"]::-webkit-slider-thumb {
+  display: none;
+}

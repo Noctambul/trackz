@@ -1,7 +1,7 @@
 name: Cypress Tests
 on: [pull_request]
 jobs:
-  Cypress-run-component-tests:  
+  Component-tests:  
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

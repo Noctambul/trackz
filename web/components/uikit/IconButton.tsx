@@ -1,13 +1,12 @@
 import { IconType } from "react-icons";
 
-export default function IconButton({
-  Icon,
-  ...props
-}: {
+interface Props
+  extends Omit<React.HTMLProps<HTMLButtonElement>, "type" | "size"> {
   Icon: IconType;
   size?: string;
-  [x: string]: any;
-}): JSX.Element {
+}
+
+export default function IconButton({ Icon, ...props }: Props): JSX.Element {
   const size = props.size || "3xl";
 
   return (
