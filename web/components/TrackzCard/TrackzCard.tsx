@@ -1,10 +1,9 @@
 import ProgressBar from "components/AudioPlayer/ProgressBar";
 import IconButton from "components/ui-kit/IconButton";
-import { useAudio } from "context/AudioContext";
 import { useIpfs } from "hooks/useIpfs";
 import Trackz from "models/trackz";
 import Image from "next/image";
-import { IoPauseCircleOutline, IoPlayCircleOutline } from "react-icons/io5";
+import { IoPlayCircleOutline } from "react-icons/io5";
 
 type Props = {
   trackz: Trackz;
@@ -12,7 +11,7 @@ type Props = {
 
 export default function TrackzCard({ trackz }: Props): JSX.Element {
   const { resolveLink } = useIpfs();
-  const { play, pause, currentTrackz, isPlaying } = useAudio();
+  // const { play, pause, currentTrackz, isPlaying } = useAudio();
 
   const MarketSection = (
     <div className="mt-auto flex items-center justify-between text-gray-400">
@@ -30,22 +29,26 @@ export default function TrackzCard({ trackz }: Props): JSX.Element {
   );
 
   const InfoSection = (
-    <div className="ml-2 flex flex-col justify-center">
-      <span className="truncate text-lg text-text">{trackz.title}</span>
-      <span className="truncate text-sm text-subtext">by {trackz.author}</span>
+    <div className="ml-2 flex flex-col justify-center" aria-label="">
+      <span className="truncate text-lg text-text" aria-label="Title">
+        {trackz.title}
+      </span>
+      <span className="truncate text-sm text-subtext" aria-label="Author">
+        by {trackz.author}
+      </span>
       {/* <p className="clamp-2 my-1 italic">{trackz.description}</p> */}
     </div>
   );
 
-  const isPlayingMe = () => isPlaying && trackz == currentTrackz;
+  const isPlayingMe = false; // () => isPlaying && trackz == currentTrackz;
   const PlayButton = (
     <IconButton
-      Icon={isPlayingMe() ? IoPauseCircleOutline : IoPlayCircleOutline}
+      Icon={IoPlayCircleOutline}
       size="5xl"
       className="fill-text stroke-text text-5xl"
-      onClick={() => {
-        isPlayingMe() ? pause() : play(trackz);
-      }}
+      // onClick={() => {
+      //   isPlayingMe() ? pause() : play(trackz);
+      // }}
     />
   );
 
