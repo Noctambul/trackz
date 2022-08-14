@@ -8,12 +8,12 @@ interface Props extends React.HTMLProps<HTMLInputElement> {
 export default function Slider({
   min = 0,
   max = 100,
-  value = 0,
+  value = 50,
   label,
   ...props
 }: Props): JSX.Element {
   return (
-    <div className="relative pt-1">
+    <div className="w-full">
       {label && (
         <label
           htmlFor="minmaxRange"
@@ -22,14 +22,18 @@ export default function Slider({
           {label}
         </label>
       )}
+      {/* <div className="cursor-pointer"> */}
       <input
         id="minmaxRange"
         type="range"
         min={min}
         max={max}
-        className="h-1 w-full cursor-pointer appearance-none rounded-lg bg-gray-200"
+        value={50}
+        className="h-0.5 w-full cursor-pointer appearance-none rounded-lg bg-red-400"
         {...props}
       />
+      <input id="test" min={0} max={100} value={50} />
+      {/* </div> */}
     </div>
   );
 }

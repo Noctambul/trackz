@@ -31,12 +31,10 @@ export default function ProgressBar({
 
   return (
     <div className="hidden w-full items-center justify-between sm:flex sm:shrink">
-      YA QQUN
       {!hideCurrentTime && (
         <div className="text-xs text-gray-300">{formatTime(currentTime)}</div>
       )}
-      ALLOW
-      {progressElt}
+      {inputElt}
       <div className="text-xs text-gray-300">{formatTime(duration)}</div>
     </div>
   );
