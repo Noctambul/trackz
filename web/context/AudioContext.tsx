@@ -44,7 +44,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   });
 
   useEffect(() => {
-    setDuration(currentTrackz?.duration);
+    setDuration(currentTrackz ? currentTrackz.duration : 0);
   }, [currentTrackz]);
 
   useEffect(() => {
