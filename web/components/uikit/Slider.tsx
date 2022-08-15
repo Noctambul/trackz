@@ -45,6 +45,7 @@ export default function Slider({
         min={min}
         max={max}
         value={value}
+        onChange={(e) => props.onChange?.(e)}
         {...props}
       />
     </>

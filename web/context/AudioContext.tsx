@@ -5,9 +5,9 @@ import { createContext, useContext, useEffect, useRef, useState } from "react";
 export interface AudioContextInterface {
   isPlaying: boolean;
   duration: number;
-  currentTime: number;
+  trackProgress: number;
   currentTrackz: Trackz | undefined;
-  play: (trackz: Trackz) => void;
+  play: (trackz?: Trackz) => void;
   pause: () => void;
   toPreviousTrack: () => void;
   toNextTrack: () => void;
@@ -30,9 +30,10 @@ export function useAudio(): AudioContextInterface {
 export function AudioProvider({ children }: { children: React.ReactNode }) {
   const { resolveLink } = useIpfs();
   const audioRef = useRef<HTMLAudioElement>(audio);
+  const intervalRef = useRef<typeof setInterval>();
   const [isPlaying, setIsplaying] = useState(false);
   const [duration, setDuration] = useState(220);
-  const [currentTime, setCurrentTime] = useState(122);
+  const [trackProgress, setTrackProgress] = useState(122);
   const [currentTrackz, setCurrentTrackz] = useState<Trackz>();
 
   useEffect(() => {
@@ -44,25 +45,37 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   });
 
   useEffect(() => {
-    setDuration(currentTrackz ? currentTrackz.duration : 0);
+    if (currentTrackz) {
+      audioRef.current.pause();
+      audioRef.current.src = resolveLink(currentTrackz?.musicUri);
+      // audioRef.current.volume = volume;
+
+      setDuration(currentTrackz ? currentTrackz.duration : 0);
+      setTrackProgress(Math.round(audioRef.current.currentTime));
+
+      setIsplaying(true);
+      // startTimer();
+    } else {
+      setIsplaying(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentTrackz]);
 
   useEffect(() => {
     if (isPlaying) {
       audioRef.current?.play();
     } else {
-      audioRef.current?.pause();
+      audioRef.current.pause();
     }
   }, [isPlaying]);
 
   const play = (trackz?: Trackz) => {
-    if (trackz && audioRef.current) {
-      audioRef.current.src = resolveLink(trackz.musicUri);
+    if (trackz && trackz != currentTrackz) {
       setCurrentTrackz(trackz);
+    } else {
+      setIsplaying(true);
     }
-
-    setIsplaying(true);
-    console.log(`Play ${trackz?.title}`);
+    console.log(`Play ${trackz?.musicUri}`);
   };
 
   const pause = () => {
@@ -83,7 +96,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
         toPreviousTrack,
         currentTrackz,
         duration,
-        currentTime,
+        trackProgress,
       }}
     >
       {children}

@@ -11,7 +11,7 @@ const trackzs: Trackz[] = [
     totalSupply: 5,
     price: 5,
     coverUri: "https://picsum.photos/200",
-    musicUri: "",
+    musicUri: "music/Drowning-Slow-2.mp3",
     duration: 30,
   },
   {

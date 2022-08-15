@@ -8,7 +8,7 @@ interface Props {
 export default function ProgressBar({
   hideCurrentTime = false,
 }: Props): JSX.Element {
-  const { duration, currentTime } = useAudio();
+  const { duration, trackProgress } = useAudio();
 
   const formatTime = (secs: number): string => {
     const minutes = Math.floor(secs / 60);
@@ -27,12 +27,12 @@ export default function ProgressBar({
     />
   );
 
-  const inputElt = <Slider min={0} max={duration} value={currentTime} />;
+  const inputElt = <Slider min={0} max={duration} value={trackProgress} />;
 
   return (
     <div className="hidden w-full items-center justify-between sm:flex sm:shrink">
       {!hideCurrentTime && (
-        <div className="text-xs text-gray-300">{formatTime(currentTime)}</div>
+        <div className="text-xs text-gray-300">{formatTime(trackProgress)}</div>
       )}
       {inputElt}
       <div className="text-xs text-gray-300">{formatTime(duration)}</div>
