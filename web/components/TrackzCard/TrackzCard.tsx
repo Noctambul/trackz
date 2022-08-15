@@ -53,10 +53,7 @@ export default function TrackzCard({ trackz }: Props): JSX.Element {
       }}
     />
   );
-  const myTrackIsPlaying = trackz == currentTrackz; // && Boolean(currentTrackz);
-  console.log("My track is playing ", myTrackIsPlaying);
-  console.log("Trackz ", trackz);
-  console.log("Current Trackz ", currentTrackz);
+  const myTrackIsPlaying = trackz == currentTrackz;
 
   return (
     <div className="flex">
