@@ -7,7 +7,11 @@ describe("Audio", () =>
       cy.mount(
         <AudioProvider>
           <div className="flex h-full w-full">
-            <ProgressBar />
+            <ProgressBar
+              progress={0}
+              duration={100}
+              setProgress={(p) => console.log("Progress ", p)}
+            />
           </div>
         </AudioProvider>
       );
