@@ -72,7 +72,6 @@ export default function TrackzCard({ trackz }: Props): JSX.Element {
         <ProgressBar
           hideCurrentTime
           progress={myTrackIsPlaying ? trackProgress : 0}
-          setProgress={(p) => console.log("Trackz Card progressing ", p)}
           duration={trackz.duration}
           disabled
           // disabled={!myTrackIsPlaying}

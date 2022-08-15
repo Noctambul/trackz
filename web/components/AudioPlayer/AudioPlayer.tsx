@@ -18,9 +18,6 @@ export default function AudioPlayer({
       <ProgressBar
         progress={trackProgress}
         duration={duration}
-        setProgress={(progress) =>
-          console.log("Set trackz progress to ", progress)
-        }
         onSearch={onSearch}
         onSearchEnd={onSearchEnd}
       />
