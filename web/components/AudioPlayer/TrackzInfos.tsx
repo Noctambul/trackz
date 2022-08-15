@@ -21,7 +21,7 @@ export default function TrackzInfos({ trackz }: Props): JSX.Element {
           className="text-ellipsis"
         />
       </div>
-      <div className="ml-3 flex w-full flex-col overflow-hidden pl-4">
+      <div className="ml-3 flex w-40 flex-col overflow-hidden pl-4">
         <span className="truncate text-sm text-text">{trackz.title}</span>
         <span className="truncate text-xs text-subtext">{trackz.author}</span>
       </div>
