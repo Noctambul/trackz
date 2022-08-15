@@ -3,17 +3,19 @@ import Slider from "components/uikit/Slider";
 interface Props {
   /** The current progress in seconds */
   progress: number;
-  setProgress: (progress: number) => void;
   /** The track duration in seconds */
   duration: number;
   disabled?: boolean;
   hideCurrentTime?: boolean;
+  onSearch?: (seconds: number) => void;
+  onSearchEnd?: () => void;
 }
 
 export default function ProgressBar({
   progress,
   duration,
-  setProgress,
+  onSearch,
+  onSearchEnd,
   hideCurrentTime = false,
 }: Props): JSX.Element {
   /**
@@ -36,7 +38,16 @@ export default function ProgressBar({
     />
   );
 
-  const inputElt = <Slider min={0} max={duration} value={progress} disabled />;
+  const inputElt = (
+    <Slider
+      min={0}
+      max={duration}
+      value={progress}
+      disabled
+      // TODO: onChange should directly return the value, not the event
+      // onChange={(value) => onSearch?.(value)}
+    />
+  );
 
   return (
     <div className="hidden w-full items-center justify-between sm:flex sm:shrink">

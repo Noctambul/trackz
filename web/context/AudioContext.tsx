@@ -9,6 +9,8 @@ export interface AudioContextInterface {
   currentTrackz: Trackz | undefined;
   play: (trackz?: Trackz) => void;
   pause: () => void;
+  onSearch: (seconds: number) => void;
+  onSearchEnd: () => void;
   toPreviousTrack: () => void;
   toNextTrack: () => void;
 }
@@ -99,19 +101,18 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     if (intervalRef.current) clearInterval(intervalRef.current);
   };
 
-  // const onSearch = (value: number) => {
-  // stopTimer()
+  const onSearch = (value: number) => {
+    stopTimer();
+    audioRef.current.currentTime = value;
+    setTrackProgress(audioRef.current.currentTime);
+  };
 
-  //   audioRef.current.currentTime = value;
-  //   setTrackProgress(audioRef.current.currentTime);
-  // };
-
-  // const onSearchEnd = () => {
-  //   if (!isPlaying) {
-  //     setIsplaying(true);
-  //   }
-  //   startTimer();
-  // };
+  const onSearchEnd = () => {
+    if (!isPlaying) {
+      setIsplaying(true);
+    }
+    startTimer();
+  };
 
   return (
     <AudioContext.Provider
@@ -124,6 +125,8 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
         currentTrackz,
         duration,
         trackProgress,
+        onSearch,
+        onSearchEnd,
       }}
     >
       {children}

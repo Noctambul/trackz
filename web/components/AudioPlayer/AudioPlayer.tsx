@@ -9,7 +9,7 @@ export default function AudioPlayer({
 }: {
   trackz: Trackz;
 }): JSX.Element {
-  const { trackProgress, duration } = useAudio();
+  const { trackProgress, duration, onSearch, onSearchEnd } = useAudio();
 
   return (
     <div className="flex h-full w-full items-center justify-around">
@@ -21,6 +21,8 @@ export default function AudioPlayer({
         setProgress={(progress) =>
           console.log("Set trackz progress to ", progress)
         }
+        onSearch={onSearch}
+        onSearchEnd={onSearchEnd}
       />
     </div>
   );

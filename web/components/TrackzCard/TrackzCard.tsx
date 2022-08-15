@@ -74,7 +74,8 @@ export default function TrackzCard({ trackz }: Props): JSX.Element {
           progress={myTrackIsPlaying ? trackProgress : 0}
           setProgress={(p) => console.log("Trackz Card progressing ", p)}
           duration={trackz.duration}
-          disabled={!myTrackIsPlaying}
+          disabled
+          // disabled={!myTrackIsPlaying}
         />
         {MarketSection}
       </div>
