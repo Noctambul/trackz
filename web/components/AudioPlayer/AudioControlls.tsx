@@ -19,7 +19,7 @@ export default function AudioControlls(): JSX.Element {
       />
       <IconBtn
         className="fill-primary stroke-primary text-3xl"
-        onClick={() => (isPlaying ? pause : play)}
+        onClick={() => (isPlaying ? pause() : play())}
         Icon={isPlaying ? TbPlayerPause : TbPlayerPlay}
       />
       {/* <button type="button" className="mx-2" onClick={isPlaying ? pause : play}>
