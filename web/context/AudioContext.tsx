@@ -57,11 +57,11 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   }, [currentTrackz]);
 
   useEffect(() => {
-    console.log("IS_PLAYING");
+    console.log("IS_PLAYING ", isPlaying);
     if (isPlaying && audioRef.current.paused) {
       audioRef.current?.play();
       startTimer();
-    } else if (audioRef.current.paused) {
+    } else if (!audioRef.current.paused) {
       audioRef.current.pause();
     }
     // Use callback to add starttimer to the dependencies
