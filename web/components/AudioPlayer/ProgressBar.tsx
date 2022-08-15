@@ -1,19 +1,28 @@
 import Slider from "components/uikit/Slider";
-import { useAudio } from "context/AudioContext";
 
 interface Props {
+  /** The current progress in seconds */
+  progress: number;
+  setProgress: (progress: number) => void;
+  /** The track duration in seconds */
+  duration: number;
+  disabled?: boolean;
   hideCurrentTime?: boolean;
 }
 
 export default function ProgressBar({
+  progress,
+  duration,
+  setProgress,
   hideCurrentTime = false,
 }: Props): JSX.Element {
-  const { duration, trackProgress } = useAudio();
-
-  const formatTime = (secs: number): string => {
-    const minutes = Math.floor(secs / 60);
+  /**
+   * @param timeInSeconds The time to format in seconds
+   */
+  const formatTime = (timeInSeconds: number): string => {
+    const minutes = Math.floor(timeInSeconds / 60);
     const returnMin = minutes < 10 ? `0${minutes}` : minutes;
-    const seconds = Math.floor(secs % 60);
+    const seconds = Math.floor(timeInSeconds % 60);
     const returnSec = seconds < 10 ? `0${seconds}` : seconds;
 
     return `${returnMin}:${returnSec}`;
@@ -27,12 +36,12 @@ export default function ProgressBar({
     />
   );
 
-  const inputElt = <Slider min={0} max={duration} value={trackProgress} />;
+  const inputElt = <Slider min={0} max={duration} value={progress} disabled />;
 
   return (
     <div className="hidden w-full items-center justify-between sm:flex sm:shrink">
       {!hideCurrentTime && (
-        <div className="text-xs text-gray-300">{formatTime(trackProgress)}</div>
+        <div className="text-xs text-gray-300">{formatTime(progress)}</div>
       )}
       {inputElt}
       <div className="text-xs text-gray-300">{formatTime(duration)}</div>

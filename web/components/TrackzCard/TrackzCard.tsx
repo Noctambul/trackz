@@ -12,7 +12,8 @@ type Props = {
 
 export default function TrackzCard({ trackz }: Props): JSX.Element {
   const { resolveLink } = useIpfs();
-  const { play, pause, currentTrackz, isPlaying } = useAudio();
+  const { play, pause, currentTrackz, isPlaying, trackProgress, duration } =
+    useAudio();
 
   const MarketSection = (
     <div className="mt-auto flex items-center justify-between text-gray-400">
@@ -52,6 +53,10 @@ export default function TrackzCard({ trackz }: Props): JSX.Element {
       }}
     />
   );
+  const myTrackIsPlaying = trackz == currentTrackz; // && Boolean(currentTrackz);
+  console.log("My track is playing ", myTrackIsPlaying);
+  console.log("Trackz ", trackz);
+  console.log("Current Trackz ", currentTrackz);
 
   return (
     <div className="flex">
@@ -67,7 +72,13 @@ export default function TrackzCard({ trackz }: Props): JSX.Element {
           {PlayButton}
           {InfoSection}
         </div>
-        <ProgressBar hideCurrentTime />
+        <ProgressBar
+          hideCurrentTime
+          progress={myTrackIsPlaying ? trackProgress : 0}
+          setProgress={(p) => console.log("Trackz Card progressing ", p)}
+          duration={trackz.duration}
+          disabled={!myTrackIsPlaying}
+        />
         {MarketSection}
       </div>
     </div>
