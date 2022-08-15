@@ -46,41 +46,36 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     if (currentTrackz) {
-      audioRef.current.pause();
       audioRef.current.src = resolveLink(currentTrackz?.musicUri);
-      // audioRef.current.volume = volume;
+      audioRef.current.volume = 1;
 
-      setDuration(currentTrackz ? currentTrackz.duration : 0);
+      setDuration(currentTrackz.duration);
       setTrackProgress(Math.round(audioRef.current.currentTime));
-
       setIsplaying(true);
       // startTimer();
-    } else {
-      setIsplaying(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentTrackz]);
 
   useEffect(() => {
-    if (isPlaying) {
+    if (isPlaying && audioRef.current.paused) {
       audioRef.current?.play();
-    } else {
+    } else if (audioRef.current.paused) {
       audioRef.current.pause();
     }
   }, [isPlaying]);
 
   const play = (trackz?: Trackz) => {
     if (trackz && trackz != currentTrackz) {
+      setIsplaying(false);
       setCurrentTrackz(trackz);
     } else {
       setIsplaying(true);
     }
-    console.log(`Play ${trackz?.musicUri}`);
   };
 
   const pause = () => {
     setIsplaying(false);
-    console.log("Pause");
   };
 
   const toPreviousTrack = () => console.log("Previous");
