@@ -1,15 +1,20 @@
 import ProgressBar from "components/AudioPlayer/ProgressBar";
-import { AudioProvider } from "context/AudioContext";
 
 describe("Audio", () =>
   describe("ProgressBar.tsx", () => {
     it("renders", () => {
+      cy.viewport("macbook-11");
       cy.mount(
-        <AudioProvider>
-          <div className="flex h-full w-full">
-            <ProgressBar progress={0} duration={100} />
-          </div>
-        </AudioProvider>
+        <div className="flex h-full w-full items-center justify-center">
+          <ProgressBar
+            progress={0}
+            duration={100}
+            onSearch={(val) => console.log("Search value ", val)}
+            onSearchEnd={() => console.log("Search END")}
+          />
+        </div>
       );
     });
   }));
+
+export {};

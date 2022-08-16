@@ -14,6 +14,7 @@ interface Props {
 export default function ProgressBar({
   progress,
   duration,
+  disabled,
   onSearch,
   onSearchEnd,
   hideCurrentTime = false,
@@ -43,19 +44,22 @@ export default function ProgressBar({
       min={0}
       max={duration}
       value={progress}
-      disabled
-      // TODO: onChange should directly return the value, not the event
-      // onChange={(value) => onSearch?.(value)}
+      disabled={disabled}
+      onChange={(value) => onSearch?.(value)}
+      onMouseUp={onSearchEnd}
+      onTouchEnd={onSearchEnd}
     />
   );
 
   return (
-    <div className="hidden w-full items-center justify-between sm:flex sm:shrink">
-      {!hideCurrentTime && (
-        <div className="text-xs text-gray-300">{formatTime(progress)}</div>
-      )}
-      {inputElt}
-      <div className="text-xs text-gray-300">{formatTime(duration)}</div>
-    </div>
+    <>
+      <div className="hidden w-full items-center justify-between sm:flex sm:shrink">
+        {!hideCurrentTime && (
+          <div className="text-xs text-gray-300">{formatTime(progress)}</div>
+        )}
+        {inputElt}
+        <div className="text-xs text-gray-300">{formatTime(duration)}</div>
+      </div>
+    </>
   );
 }

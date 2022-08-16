@@ -1,8 +1,9 @@
-interface Props extends React.HTMLProps<HTMLInputElement> {
+interface Props extends Omit<React.HTMLProps<HTMLInputElement>, "onChange"> {
   min?: number;
   max?: number;
   value?: number;
   label?: string;
+  onChange?: (value: number) => void;
 }
 
 export default function Slider({
@@ -10,6 +11,7 @@ export default function Slider({
   max = 100,
   value = 50,
   label,
+  onChange,
   ...props
 }: Props): JSX.Element {
   const customInput = (
@@ -45,7 +47,7 @@ export default function Slider({
         min={min}
         max={max}
         value={value}
-        onChange={(e) => props.onChange?.(e)}
+        onChange={(e) => onChange?.(parseFloat(e.target.value))}
         {...props}
       />
     </>
