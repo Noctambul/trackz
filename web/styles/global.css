@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import "input-range.css";
+
 @font-face {
   font-family: "KumbhSans";
   src: url("../fonts/KumbhSans-Regular.ttf");
