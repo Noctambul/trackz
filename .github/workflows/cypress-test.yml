@@ -10,7 +10,7 @@ jobs:
         with:
           node-version: 16
       - run: yarn
-      - run: yarn tsc
+      - run: yarn workspace web tsc
   Component-tests:  
     name: Run Component Tests
     runs-on: ubuntu-latest
