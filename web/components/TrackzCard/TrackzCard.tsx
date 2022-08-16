@@ -73,7 +73,8 @@ export default function TrackzCard({ trackz }: Props): JSX.Element {
           hideCurrentTime
           progress={myTrackIsPlaying ? trackProgress : 0}
           duration={trackz.duration}
-          disabled={!myTrackIsPlaying}
+          disabled
+          // disabled={!myTrackIsPlaying}
         />
         {MarketSection}
       </div>
