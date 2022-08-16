@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import "input-range.css";
+@import "input-range-2.css";
 
 @font-face {
   font-family: "KumbhSans";

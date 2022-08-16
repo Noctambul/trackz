@@ -51,6 +51,8 @@ export default function ProgressBar({
     />
   );
 
+  // TODO: Progress bar should be a real progress bar and we should use a slider otherwise
+
   return (
     <>
       <div className="hidden w-full items-center justify-between sm:flex sm:shrink">
