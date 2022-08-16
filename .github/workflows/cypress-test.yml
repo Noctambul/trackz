@@ -1,7 +1,18 @@
 name: Cypress Tests
 on: [pull_request]
 jobs:
-  Cypress-run-component-tests:  
+  Typescript: 
+    name: Run Typescript
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - run: yarn
+      - run: yarn workspace web tsc
+  Component-tests:  
+    name: Run Component Tests
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
