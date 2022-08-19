@@ -42,7 +42,7 @@ export default function Slider({
   return (
     <>
       <input
-        className="w-full"
+        className="h-1 w-full"
         type={"range"}
         min={min}
         max={max}

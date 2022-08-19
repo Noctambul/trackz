@@ -7,10 +7,11 @@ const mozStyle = "[&::-moz-progress-bar]:bg-primary";
 export default function Progress({
   value,
   max,
+  ...props
 }: React.HTMLProps<HTMLProgressElement>): JSX.Element {
   return (
     <progress
-      className={`h-0.5 w-full rounded ${webkitStyle} ${mozStyle}`}
+      className={`h-0.5 w-full rounded ${webkitStyle} ${mozStyle} ${props.className}`}
       value={value}
       max={max}
     />

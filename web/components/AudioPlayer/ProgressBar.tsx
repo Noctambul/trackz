@@ -1,4 +1,5 @@
 import Slider from "components/uikit/Slider";
+import { useTime } from "hooks/useTime";
 
 interface Props {
   /** The current progress in seconds */
@@ -19,17 +20,7 @@ export default function ProgressBar({
   onSearchEnd,
   hideCurrentTime = false,
 }: Props): JSX.Element {
-  /**
-   * @param timeInSeconds The time to format in seconds
-   */
-  const formatTime = (timeInSeconds: number): string => {
-    const minutes = Math.floor(timeInSeconds / 60);
-    const returnMin = minutes < 10 ? `0${minutes}` : minutes;
-    const seconds = Math.floor(timeInSeconds % 60);
-    const returnSec = seconds < 10 ? `0${seconds}` : seconds;
-
-    return `${returnMin}:${returnSec}`;
-  };
+  const { formatTime } = useTime();
 
   const progressElt = (
     <div
