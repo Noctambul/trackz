@@ -11,8 +11,8 @@ const trackzs: Trackz[] = [
     totalSupply: 5,
     price: 5,
     coverUri: "https://picsum.photos/200",
-    musicUri: "",
-    duration: 30,
+    musicUri: "music/Drowning-Slow-2.mp3",
+    duration: 77,
   },
   {
     id: 1,
@@ -23,7 +23,7 @@ const trackzs: Trackz[] = [
     price: 1.4,
     coverUri: "ipfs://QmQ84bYsCupQXLcoMRYH51dzEFPKVrG3XLoCaCDg6oEasT",
     musicUri: "ipfs://QmUqU31giwHyMQkoV5vy4uHLZi1aitzUm83v17FBqWXLyn",
-    duration: 220,
+    duration: 77,
   },
   {
     id: 2,
@@ -34,7 +34,7 @@ const trackzs: Trackz[] = [
     price: 0.5,
     coverUri: "https://picsum.photos/400",
     musicUri: "ipfs://QmW4UvvMkPmkQj9eJrXSc5aDvF2Bkdbyh47R7mc9BLTZA8",
-    duration: 120,
+    duration: 134,
   },
   {
     id: 3,

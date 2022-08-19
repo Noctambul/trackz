@@ -4,12 +4,22 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "web - dev",
+      "label": "Web - dev",
       "detail": "Run local dev server for the web app.",
       "type": "shell",
       "command": "yarn workspace web dev",
       "group": {
         "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "label": "Cypress - Component testing",
+      "detail": "Run cypress component tests",
+      "type": "shell",
+      "command": "yarn workspace web cypress:component",
+      "group": {
+        "kind": "test",
         "isDefault": true
       }
     }

@@ -1,37 +1,67 @@
-import { useAudio } from "context/AudioContext";
-import Trackz from "models/trackz";
+import Slider from "components/uikit/Slider";
 
 interface Props {
+  /** The current progress in seconds */
+  progress: number;
+  /** The track duration in seconds */
+  duration: number;
+  disabled?: boolean;
   hideCurrentTime?: boolean;
-  trackz: Trackz;
+  onSearch?: (seconds: number) => void;
+  onSearchEnd?: () => void;
 }
 
 export default function ProgressBar({
+  progress,
+  duration,
+  disabled,
+  onSearch,
+  onSearchEnd,
   hideCurrentTime = false,
-  trackz,
 }: Props): JSX.Element {
-  const { duration, currentTime } = useAudio();
-
-  const formatTime = (secs: number): string => {
-    const minutes = Math.floor(secs / 60);
+  /**
+   * @param timeInSeconds The time to format in seconds
+   */
+  const formatTime = (timeInSeconds: number): string => {
+    const minutes = Math.floor(timeInSeconds / 60);
     const returnMin = minutes < 10 ? `0${minutes}` : minutes;
-    const seconds = Math.floor(secs % 60);
+    const seconds = Math.floor(timeInSeconds % 60);
     const returnSec = seconds < 10 ? `0${seconds}` : seconds;
 
     return `${returnMin}:${returnSec}`;
   };
 
+  const progressElt = (
+    <div
+      className={`${
+        hideCurrentTime ? "mr-3 ml-1" : "mx-3"
+      } border-gray-300} h-0 w-full shrink rounded border`}
+    />
+  );
+
+  const inputElt = (
+    <Slider
+      min={0}
+      max={duration}
+      value={progress}
+      disabled={disabled}
+      onChange={(value) => onSearch?.(value)}
+      onMouseUp={onSearchEnd}
+      onTouchEnd={onSearchEnd}
+    />
+  );
+
+  // TODO: Progress bar should be a real progress bar and we should use a slider otherwise
+
   return (
-    <div className="hidden w-full items-center justify-between sm:flex sm:shrink">
-      {!hideCurrentTime && (
-        <div className="text-xs text-gray-300">{formatTime(currentTime)}</div>
-      )}
-      <div
-        className={`${
-          hideCurrentTime ? "mr-3 ml-1" : "mx-3"
-        } border-gray-300} h-0 w-full shrink rounded border`}
-      />
-      <div className="text-xs text-gray-300">{formatTime(trackz.duration)}</div>
-    </div>
+    <>
+      <div className="hidden w-full items-center justify-between sm:flex sm:shrink">
+        {!hideCurrentTime && (
+          <div className="text-xs text-gray-300">{formatTime(progress)}</div>
+        )}
+        {inputElt}
+        <div className="text-xs text-gray-300">{formatTime(duration)}</div>
+      </div>
+    </>
   );
 }

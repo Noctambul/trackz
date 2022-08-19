@@ -1,4 +1,4 @@
-import { useIpfs } from "hooks/useIpfs";
+import { useAudio } from "context/AudioContext";
 import Trackz from "models/trackz";
 import AudioControlls from "./AudioControlls";
 import ProgressBar from "./ProgressBar";
@@ -9,13 +9,18 @@ export default function AudioPlayer({
 }: {
   trackz: Trackz;
 }): JSX.Element {
-  const { resolveLink } = useIpfs();
+  const { trackProgress, duration, onSearch, onSearchEnd } = useAudio();
 
   return (
     <div className="flex h-full w-full items-center justify-around">
       <TrackzInfos trackz={trackz} />
       <AudioControlls />
-      <ProgressBar trackz={trackz} />
+      <ProgressBar
+        progress={trackProgress}
+        duration={duration}
+        onSearch={onSearch}
+        onSearchEnd={onSearchEnd}
+      />
     </div>
   );
 }

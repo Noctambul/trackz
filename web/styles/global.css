@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+/* @import "input-range-2.css"; */
+
 @font-face {
   font-family: "KumbhSans";
   src: url("../fonts/KumbhSans-Regular.ttf");
@@ -18,20 +20,20 @@
 
 html,
 body {
-  font-family: KumbhSans, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: KumbhSans, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+    Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   height: 100%;
   width: 100%;
-  @apply bg-bgc text-sm text-text
+  @apply bg-bgc text-sm text-text;
 }
 
 #__next {
-  height: 100%
+  height: 100%;
 }
 
 .clamp-2 {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }

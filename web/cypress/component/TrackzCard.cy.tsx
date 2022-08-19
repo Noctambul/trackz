@@ -2,16 +2,16 @@ import TrackzCard from "components/TrackzCard/TrackzCard";
 import { AudioProvider } from "context/AudioContext";
 import trackzs from "data/trackzs";
 
-describe("TrackzCard.cy.ts", () => {
+describe("TrackzCard.tsx", () => {
   const trackz = trackzs[0];
 
   it("renders card", () => {
-    const component = cy.mount(
+    cy.mount(
       <AudioProvider>
         <TrackzCard trackz={trackz} />
       </AudioProvider>
     );
-    component.get(`[aria-label="Title"]`).contains(trackz.title);
-    component.get(`[aria-label="Author"]`).contains(trackz.author);
+    cy.get(`[aria-label="Title"]`).contains(trackz.title);
+    cy.get(`[aria-label="Author"]`).contains(trackz.author);
   });
 });
