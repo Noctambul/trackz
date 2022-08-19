@@ -1,5 +1,5 @@
-import ProgressBar from "components/AudioPlayer/ProgressBar";
 import IconButton from "components/uikit/IconButton";
+import Progress from "components/uikit/Progress";
 import { useAudio } from "context/AudioContext";
 import { useIpfs } from "hooks/useIpfs";
 import Trackz from "models/trackz";
@@ -38,7 +38,7 @@ export default function TrackzCard({ trackz }: Props): JSX.Element {
       <span className="truncate text-sm text-subtext" aria-label="Author">
         by {trackz.author}
       </span>
-      {/* <p className="clamp-2 my-1 italic">{trackz.description}</p> */}
+      {/* <p className="line-clamp-2 my-1 italic">{trackz.description}</p> */}
     </div>
   );
 
@@ -69,13 +69,19 @@ export default function TrackzCard({ trackz }: Props): JSX.Element {
           {PlayButton}
           {InfoSection}
         </div>
-        <ProgressBar
+        <div className="my-auto">
+          <Progress
+            value={myTrackIsPlaying ? trackProgress : 0}
+            max={trackz.duration}
+          />
+        </div>
+        {/* <ProgressBar
           hideCurrentTime
           progress={myTrackIsPlaying ? trackProgress : 0}
           duration={trackz.duration}
           disabled
           // disabled={!myTrackIsPlaying}
-        />
+        /> */}
         {MarketSection}
       </div>
     </div>
