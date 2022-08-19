@@ -7,7 +7,6 @@ interface Props {
   /** The track duration in seconds */
   duration: number;
   disabled?: boolean;
-  hideCurrentTime?: boolean;
   onSearch?: (seconds: number) => void;
   onSearchEnd?: () => void;
 }
@@ -18,17 +17,14 @@ export default function ProgressBar({
   disabled,
   onSearch,
   onSearchEnd,
-  hideCurrentTime = false,
 }: Props): JSX.Element {
   const { formatTime } = useTime();
 
-  const progressElt = (
-    <div
-      className={`${
-        hideCurrentTime ? "mr-3 ml-1" : "mx-3"
-      } border-gray-300} h-0 w-full shrink rounded border`}
-    />
-  );
+  // const progressElt = (
+  //   <div
+  //     className={`"mx-3" h-0 w-full shrink rounded border border-gray-300`}
+  //   />
+  // );
 
   const inputElt = (
     <Slider
@@ -39,6 +35,7 @@ export default function ProgressBar({
       onChange={(value) => onSearch?.(value)}
       onMouseUp={onSearchEnd}
       onTouchEnd={onSearchEnd}
+      className="mx-2 px-2"
     />
   );
 
@@ -47,9 +44,7 @@ export default function ProgressBar({
   return (
     <>
       <div className="hidden w-full items-center justify-between sm:flex sm:shrink">
-        {!hideCurrentTime && (
-          <div className="text-xs text-gray-300">{formatTime(progress)}</div>
-        )}
+        <div className="text-xs text-gray-300">{formatTime(progress)}</div>
         {inputElt}
         <div className="text-xs text-gray-300">{formatTime(duration)}</div>
       </div>
