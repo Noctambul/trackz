@@ -15,5 +15,5 @@ module.exports = {
     },
     fontFamily: {},
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/line-clamp")],
 };
