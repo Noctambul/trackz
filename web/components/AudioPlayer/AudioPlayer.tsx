@@ -3,6 +3,7 @@ import Trackz from "models/trackz";
 import AudioControlls from "./AudioControlls";
 import ProgressBar from "./ProgressBar";
 import TrackzInfos from "./TrackzInfos";
+import Volume from "./Volume";
 
 export default function AudioPlayer({
   trackz,
@@ -21,6 +22,7 @@ export default function AudioPlayer({
         onSearch={onSearch}
         onSearchEnd={onSearchEnd}
       />
+      <Volume />
     </div>
   );
 }
