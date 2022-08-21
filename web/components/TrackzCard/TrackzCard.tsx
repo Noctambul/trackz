@@ -2,6 +2,7 @@ import IconButton from "components/uikit/IconButton";
 import Progress from "components/uikit/Progress";
 import { useAudio } from "context/AudioContext";
 import { useIpfs } from "hooks/useIpfs";
+import { useTime } from "hooks/useTime";
 import Trackz from "models/trackz";
 import Image from "next/image";
 import { IoPauseCircleOutline, IoPlayCircleOutline } from "react-icons/io5";
@@ -12,6 +13,7 @@ type Props = {
 
 export default function TrackzCard({ trackz }: Props): JSX.Element {
   const { resolveLink } = useIpfs();
+  const { formatTime } = useTime();
   const { play, pause, currentTrackz, isPlaying, trackProgress, duration } =
     useAudio();
 
@@ -69,19 +71,14 @@ export default function TrackzCard({ trackz }: Props): JSX.Element {
           {PlayButton}
           {InfoSection}
         </div>
-        <div className="my-auto">
+        <div className="flex h-full items-center">
           <Progress
             value={myTrackIsPlaying ? trackProgress : 0}
             max={trackz.duration}
+            className="mx-2 pr-2"
           />
+          <div className="text-xs">{formatTime(trackz.duration)}</div>
         </div>
-        {/* <ProgressBar
-          hideCurrentTime
-          progress={myTrackIsPlaying ? trackProgress : 0}
-          duration={trackz.duration}
-          disabled
-          // disabled={!myTrackIsPlaying}
-        /> */}
         {MarketSection}
       </div>
     </div>

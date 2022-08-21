@@ -7,6 +7,8 @@ export interface AudioContextInterface {
   duration: number;
   trackProgress: number;
   currentTrackz: Trackz | undefined;
+  volume: number;
+  setVolume: (volume: number) => void;
   play: (trackz?: Trackz) => void;
   pause: () => void;
   onSearch: (seconds: number) => void;
@@ -37,6 +39,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   const [duration, setDuration] = useState(220);
   const [trackProgress, setTrackProgress] = useState(0);
   const [currentTrackz, setCurrentTrackz] = useState<Trackz>();
+  const [volume, setVolume] = useState(1);
 
   // useEffect(() => {
   //   return () => {
@@ -47,9 +50,13 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   // });
 
   useEffect(() => {
+    audioRef.current.volume = volume;
+  }, [volume]);
+
+  useEffect(() => {
     if (currentTrackz) {
       audioRef.current.src = resolveLink(currentTrackz?.musicUri);
-      audioRef.current.volume = 1;
+      audioRef.current.volume = volume;
 
       setDuration(currentTrackz.duration);
       setTrackProgress(Math.round(audioRef.current.currentTime));
@@ -127,6 +134,8 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
         trackProgress,
         onSearch,
         onSearchEnd,
+        volume,
+        setVolume,
       }}
     >
       {children}

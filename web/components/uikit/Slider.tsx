@@ -42,13 +42,12 @@ export default function Slider({
   return (
     <>
       <input
-        className="w-full"
+        className={`h-1 w-full ${props.className}`}
         type={"range"}
         min={min}
         max={max}
         value={value}
         onChange={(e) => onChange?.(parseFloat(e.target.value))}
-        {...props}
       />
     </>
   );
