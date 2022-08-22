@@ -23,3 +23,4 @@ jobs:
         with:
           working-directory: web
           build: yarn build
+          start: yarn start
