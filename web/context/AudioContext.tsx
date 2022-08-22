@@ -50,20 +50,16 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   //   };
   // });
 
-  // useEffect(() => {
-  //   howlerRef.current?.volume(volume);
-  //   Howler.volume(volume);
-  //   console.log("Set Volume ", volume);
-  // }, [volume]);
+  useEffect(() => {
+    howlerRef.current?.volume(volume);
+  }, [volume]);
 
   useEffect(() => {
     if (currentTrackz) {
-      // audioRef.current.src = resolveLink(currentTrackz?.musicUri);
-      // audioRef.current.volume = volume;
       howlerRef.current?.stop();
       howlerRef.current = new Howl({
         src: [resolveLink(currentTrackz.musicUri)],
-        volume: 1,
+        volume: volume,
       });
 
       setDuration(currentTrackz.duration);
