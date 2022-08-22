@@ -1,4 +1,5 @@
 import { useIpfs } from "hooks/useIpfs";
+import { Howl } from "howler";
 import Trackz from "models/trackz";
 import { createContext, useContext, useEffect, useRef, useState } from "react";
 
@@ -33,7 +34,7 @@ export function useAudio(): AudioContextInterface {
 
 export function AudioProvider({ children }: { children: React.ReactNode }) {
   const { resolveLink } = useIpfs();
-  const audioRef = useRef<HTMLAudioElement>(audio);
+  const howlerRef = useRef<Howl>();
   const intervalRef = useRef<ReturnType<typeof setInterval>>();
   const [isPlaying, setIsplaying] = useState(false);
   const [duration, setDuration] = useState(220);
@@ -49,29 +50,35 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   //   };
   // });
 
-  useEffect(() => {
-    audioRef.current.volume = volume;
-  }, [volume]);
+  // useEffect(() => {
+  //   howlerRef.current?.volume(volume);
+  //   Howler.volume(volume);
+  //   console.log("Set Volume ", volume);
+  // }, [volume]);
 
   useEffect(() => {
     if (currentTrackz) {
-      audioRef.current.src = resolveLink(currentTrackz?.musicUri);
-      audioRef.current.volume = volume;
+      // audioRef.current.src = resolveLink(currentTrackz?.musicUri);
+      // audioRef.current.volume = volume;
+      howlerRef.current?.stop();
+      howlerRef.current = new Howl({
+        src: [resolveLink(currentTrackz.musicUri)],
+        volume: 1,
+      });
 
       setDuration(currentTrackz.duration);
-      setTrackProgress(Math.round(audioRef.current.currentTime));
+      setTrackProgress(Math.round(howlerRef.current.seek()));
       setIsplaying(true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentTrackz]);
 
   useEffect(() => {
-    console.log("IS_PLAYING ", isPlaying);
-    if (isPlaying && audioRef.current.paused) {
-      audioRef.current?.play();
+    if (isPlaying && !howlerRef.current?.playing()) {
+      howlerRef.current?.play();
       startTimer();
-    } else if (!audioRef.current.paused) {
-      audioRef.current.pause();
+    } else if (howlerRef.current?.playing()) {
+      howlerRef.current.pause();
     }
     // Use callback to add starttimer to the dependencies
   }, [isPlaying]);
@@ -96,12 +103,17 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   const startTimer = () => {
     stopTimer();
     intervalRef.current = setInterval(() => {
-      if (audioRef.current.ended) {
-        toNextTrack();
-      } else {
-        setTrackProgress(Math.round(audioRef.current.currentTime));
+      // TODO: Use howler.on("end", ..)
+      // https://stackoverflow.com/questions/41003367/correct-way-to-call-howler-onend-method
+
+      // if (audioRef.current.ended) {
+      //   toNextTrack();
+      // } else
+
+      if (howlerRef.current) {
+        setTrackProgress(Math.round(howlerRef.current.seek()));
       }
-    }, 1000);
+    }, 500);
   };
 
   const stopTimer = () => {
@@ -110,8 +122,8 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
 
   const onSearch = (value: number) => {
     stopTimer();
-    audioRef.current.currentTime = value;
-    setTrackProgress(audioRef.current.currentTime);
+    howlerRef.current?.seek(value);
+    setTrackProgress(howlerRef.current?.seek() || 0);
   };
 
   const onSearchEnd = () => {
