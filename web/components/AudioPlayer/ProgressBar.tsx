@@ -46,7 +46,9 @@ export default function ProgressBar({
       <div className="hidden w-full items-center justify-between sm:flex sm:shrink">
         <div className="text-xs text-gray-300">{formatTime(progress)}</div>
         {inputElt}
-        <div className="text-xs text-gray-300">{formatTime(duration)}</div>
+        <div className="text-xs text-gray-300" aria-label="Duration">
+          {formatTime(duration)}
+        </div>
       </div>
     </>
   );

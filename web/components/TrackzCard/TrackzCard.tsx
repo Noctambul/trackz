@@ -19,11 +19,11 @@ export default function TrackzCard({ trackz }: Props): JSX.Element {
 
   const MarketSection = (
     <div className="mt-auto flex items-center justify-between text-gray-400">
-      <div className="mt-auto">
+      <div className="mt-auto" aria-label="Supply">
         Supply
         <br />x{trackz.totalSupply}
       </div>
-      <div>
+      <div aria-label="Price">
         Price
         <br />
         {trackz.price} Tz
@@ -33,7 +33,7 @@ export default function TrackzCard({ trackz }: Props): JSX.Element {
   );
 
   const InfoSection = (
-    <div className="ml-2 flex flex-col justify-center" aria-label="">
+    <div className="ml-2 flex flex-col justify-center">
       <span className="truncate text-lg text-text" aria-label="Title">
         {trackz.title}
       </span>
@@ -53,12 +53,13 @@ export default function TrackzCard({ trackz }: Props): JSX.Element {
       onClick={() => {
         isPlayingMe() ? pause() : play(trackz);
       }}
+      aria-label="Play Button"
     />
   );
-  const myTrackIsPlaying = trackz == currentTrackz;
+  const myTrackIsSelectedForPlaying = trackz == currentTrackz;
 
   return (
-    <div className="flex">
+    <div className="flex" aria-label={`Trackz Card ${trackz.id}`}>
       <div className="relative h-[120px] w-[120px] shrink-0">
         <Image
           src={resolveLink(trackz.coverUri)}
@@ -73,11 +74,13 @@ export default function TrackzCard({ trackz }: Props): JSX.Element {
         </div>
         <div className="flex h-full items-center">
           <Progress
-            value={myTrackIsPlaying ? trackProgress : 0}
+            value={myTrackIsSelectedForPlaying ? trackProgress : 0}
             max={trackz.duration}
             className="mx-2 pr-2"
           />
-          <div className="text-xs">{formatTime(trackz.duration)}</div>
+          <div className="text-xs" aria-label="Duration">
+            {formatTime(trackz.duration)}
+          </div>
         </div>
         {MarketSection}
       </div>

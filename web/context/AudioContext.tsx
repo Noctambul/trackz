@@ -70,10 +70,12 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   }, [currentTrackz]);
 
   useEffect(() => {
-    if (isPlaying && !howlerRef.current?.playing()) {
-      howlerRef.current?.play();
-      startTimer();
-    } else if (howlerRef.current?.playing()) {
+    if (isPlaying) {
+      if (!howlerRef.current?.playing()) {
+        howlerRef.current?.play();
+        startTimer();
+      }
+    } else if (howlerRef.current) {
       howlerRef.current.pause();
     }
     // Use callback to add starttimer to the dependencies
