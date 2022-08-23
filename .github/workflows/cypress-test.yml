@@ -1,5 +1,7 @@
 name: Cypress Tests
 on: [pull_request]
+env:
+  NEXT_PUBLIC_IPFS_PROVIDER_URI: "https://gateway.pinata.cloud/ipfs/"
 jobs:
   Component-tests:  
     name: Run Component Tests
