@@ -13,7 +13,10 @@ export default function AudioPlayer({
   const { trackProgress, duration, onSearch, onSearchEnd } = useAudio();
 
   return (
-    <div className="flex h-full w-full items-center justify-around">
+    <div
+      className="flex h-full w-full items-center justify-around"
+      data-test-audio-player
+    >
       <TrackzInfos trackz={trackz} />
       <AudioControlls />
       <ProgressBar

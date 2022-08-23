@@ -53,12 +53,13 @@ export default function TrackzCard({ trackz }: Props): JSX.Element {
       onClick={() => {
         isPlayingMe() ? pause() : play(trackz);
       }}
+      data-test-play-button
     />
   );
-  const myTrackIsPlaying = trackz == currentTrackz;
+  const myTrackIsSelectedForPlaying = trackz == currentTrackz;
 
   return (
-    <div className="flex">
+    <div className="flex" data-test-trackz-card={trackz.id}>
       <div className="relative h-[120px] w-[120px] shrink-0">
         <Image
           src={resolveLink(trackz.coverUri)}
@@ -73,7 +74,7 @@ export default function TrackzCard({ trackz }: Props): JSX.Element {
         </div>
         <div className="flex h-full items-center">
           <Progress
-            value={myTrackIsPlaying ? trackProgress : 0}
+            value={myTrackIsSelectedForPlaying ? trackProgress : 0}
             max={trackz.duration}
             className="mx-2 pr-2"
           />
