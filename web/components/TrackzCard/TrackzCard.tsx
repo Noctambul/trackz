@@ -23,7 +23,7 @@ export default function TrackzCard({ trackz }: Props): JSX.Element {
         Supply
         <br />x{trackz.totalSupply}
       </div>
-      <div>
+      <div aria-label="Price">
         Price
         <br />
         {trackz.price} Tz
@@ -78,7 +78,9 @@ export default function TrackzCard({ trackz }: Props): JSX.Element {
             max={trackz.duration}
             className="mx-2 pr-2"
           />
-          <div className="text-xs">{formatTime(trackz.duration)}</div>
+          <div className="text-xs" aria-label="Duration">
+            {formatTime(trackz.duration)}
+          </div>
         </div>
         {MarketSection}
       </div>
