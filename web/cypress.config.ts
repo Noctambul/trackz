@@ -1,6 +1,10 @@
 import { defineConfig } from "cypress";
 
 export default defineConfig({
+  env: {
+    NEXT_PUBLIC_IPFS_PROVIDER_URI: "https://gateway.pinata.cloud/ipfs/",
+  },
+
   component: {
     devServer: {
       framework: "next",
