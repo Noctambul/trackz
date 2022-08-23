@@ -11,7 +11,10 @@ describe("TrackzCard.tsx", () => {
         <TrackzCard trackz={trackz} />
       </AudioProvider>
     );
+
     cy.get(`[aria-label="Title"]`).contains(trackz.title);
     cy.get(`[aria-label="Author"]`).contains(trackz.author);
+    cy.get(`[aria-label="Duration"]`).contains(trackz.duration);
+    cy.get(`[aria-label="Duration"]`).contains(trackz.duration);
   });
 });

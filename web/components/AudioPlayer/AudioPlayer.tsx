@@ -15,7 +15,7 @@ export default function AudioPlayer({
   return (
     <div
       className="flex h-full w-full items-center justify-around"
-      data-test-audio-player
+      aria-label="Audio Player"
     >
       <TrackzInfos trackz={trackz} />
       <AudioControlls />

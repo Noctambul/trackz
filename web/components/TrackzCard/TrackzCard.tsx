@@ -19,7 +19,7 @@ export default function TrackzCard({ trackz }: Props): JSX.Element {
 
   const MarketSection = (
     <div className="mt-auto flex items-center justify-between text-gray-400">
-      <div className="mt-auto">
+      <div className="mt-auto" aria-label="Supply">
         Supply
         <br />x{trackz.totalSupply}
       </div>
@@ -33,7 +33,7 @@ export default function TrackzCard({ trackz }: Props): JSX.Element {
   );
 
   const InfoSection = (
-    <div className="ml-2 flex flex-col justify-center" aria-label="">
+    <div className="ml-2 flex flex-col justify-center">
       <span className="truncate text-lg text-text" aria-label="Title">
         {trackz.title}
       </span>
@@ -53,13 +53,13 @@ export default function TrackzCard({ trackz }: Props): JSX.Element {
       onClick={() => {
         isPlayingMe() ? pause() : play(trackz);
       }}
-      data-test-play-button
+      aria-label="Play Button"
     />
   );
   const myTrackIsSelectedForPlaying = trackz == currentTrackz;
 
   return (
-    <div className="flex" data-test-trackz-card={trackz.id}>
+    <div className="flex" aria-label={`Trackz Card ${trackz.id}`}>
       <div className="relative h-[120px] w-[120px] shrink-0">
         <Image
           src={resolveLink(trackz.coverUri)}
