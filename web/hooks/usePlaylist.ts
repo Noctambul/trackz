@@ -1,5 +1,4 @@
-import Trackz from "models/trackz";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import useMath from "./useMath";
 
 /**
@@ -10,20 +9,10 @@ export default function usePlaylist<T>(initialPlaylist: T[] = []) {
   const { modulo } = useMath();
   const [playlist, setPlaylist] = useState<T[]>(initialPlaylist);
   const [index, setIndex] = useState(0);
+  const selected = useMemo(() => playlist[index], [index, playlist]);
 
-  const nextIndex = () => setIndex((i) => modulo(++i, playlist.length));
-  const prevIndex = () =>
-    setIndex((i) => {
-      const val = modulo(--i, playlist.length);
-      // debugger;
-      return val;
-    });
+  const next = () => setIndex((i) => modulo(++i, playlist.length));
+  const previous = () => setIndex((i) => modulo(--i, playlist.length));
 
-  const next = (): Trackz | null => {
-    if (playlist.length == 0) return null;
-
-    return null;
-  };
-
-  return { index, nextIndex, prevIndex };
+  return { index, next, previous, selected };
 }

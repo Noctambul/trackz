@@ -2,11 +2,12 @@ import { act, renderHook } from "@testing-library/react-hooks/dom";
 import usePlaylist from "hooks/usePlaylist";
 
 describe("usePlaylist", () => {
-  const { result, rerender } = renderHook(() => usePlaylist([0, 1, 2, 3]));
+  const defaultArray = ["a", "b", "c", "d"];
+  const { result, rerender } = renderHook(() => usePlaylist(defaultArray));
 
   before(() => {
-    expect(result.current.nextIndex).to.be.a("function");
-    expect(result.current.prevIndex).to.be.a("function");
+    expect(result.current.next).to.be.a("function");
+    expect(result.current.previous).to.be.a("function");
     // expect(next).to.be.a("function");
   });
 
@@ -14,29 +15,35 @@ describe("usePlaylist", () => {
 
   context("nextIndex", () => {
     it("should loop through the array", () => {
-      const { nextIndex } = result.current;
-      act(() => nextIndex());
-      expect(result.current.index).to.eq(1);
-      act(() => nextIndex());
-      expect(result.current.index).to.eq(2);
-      act(() => nextIndex());
-      expect(result.current.index).to.eq(3);
-      act(() => nextIndex());
-      expect(result.current.index).to.eq(0);
+      const { next } = result.current;
+
+      const nextToBeEq = (i: number) => {
+        act(() => next());
+        expect(result.current.index).to.eq(i);
+        expect(result.current.selected).to.eq(defaultArray[i]);
+      };
+
+      nextToBeEq(1);
+      nextToBeEq(2);
+      nextToBeEq(3);
+      nextToBeEq(0);
     });
   });
 
   context("prevIndex", () => {
     it("should loop through the array", () => {
-      const { prevIndex } = result.current;
-      act(() => prevIndex());
-      expect(result.current.index).to.eq(3);
-      act(() => prevIndex());
-      expect(result.current.index).to.eq(2);
-      act(() => prevIndex());
-      expect(result.current.index).to.eq(1);
-      act(() => prevIndex());
-      expect(result.current.index).to.eq(0);
+      const { previous } = result.current;
+
+      const prevToBeEq = (i: number) => {
+        act(() => previous());
+        expect(result.current.index).to.eq(i);
+        expect(result.current.selected).to.eq(defaultArray[i]);
+      };
+
+      prevToBeEq(3);
+      prevToBeEq(2);
+      prevToBeEq(1);
+      prevToBeEq(0);
     });
   });
 });
