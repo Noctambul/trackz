@@ -14,6 +14,16 @@
       }
     },
     {
+      "label": "Playwright - e2e tests",
+      "detail": "Run Playwright E2E tests",
+      "type": "shell",
+      "command": "yarn workspace web test:e2e",
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      }
+    },
+    {
       "label": "Cypress - Component testing",
       "detail": "Run cypress component tests",
       "type": "shell",

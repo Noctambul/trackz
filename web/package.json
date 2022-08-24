@@ -2,6 +2,7 @@
   "name": "web",
   "version": "0.1.0",
   "private": true,
+  "author": "Noctambul",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -9,7 +10,9 @@
     "lint": "next lint",
     "cypress": "cypress open",
     "cypress:headless": "cypress run",
-    "cypress:component": "cypress open --component"
+    "cypress:component": "cypress open --component",
+    "test:e2e": "playwright test",
+    "test:e2e:report": "playwright show-report"
   },
   "dependencies": {
     "howler": "^2.2.3",
@@ -19,13 +22,13 @@
     "react-icons": "^4.4.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.25.1",
     "@tailwindcss/line-clamp": "^0.4.0",
     "@types/howler": "^2.2.7",
     "@types/node": "17.0.23",
     "@types/react": "18.0.0",
     "@types/react-dom": "18.0.0",
     "autoprefixer": "^10.4.8",
-    "cypress": "^10.4.0",
     "eslint": "8.13.0",
     "eslint-config-next": "12.1.4",
     "postcss": "^8.4.14",
