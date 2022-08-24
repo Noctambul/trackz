@@ -4,6 +4,6 @@ export function resolveLink(url?: string) {
   return url.replace("ipfs://", process.env.NEXT_PUBLIC_IPFS_PROVIDER_URI);
 }
 
-export default function useIpfs() {
+export function useIpfs() {
   return { resolveLink };
 }
