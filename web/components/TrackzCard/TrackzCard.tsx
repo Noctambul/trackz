@@ -3,12 +3,12 @@ import Progress from "components/uikit/Progress";
 import { useAudio } from "context/AudioContext";
 import { useIpfs } from "hooks/useIpfs";
 import { useTime } from "hooks/useTime";
-import Trackz from "models/trackz";
+import TrackzMetadata from "models/trackz";
 import Image from "next/image";
 import { IoPauseCircleOutline, IoPlayCircleOutline } from "react-icons/io5";
 
 type Props = {
-  trackz: Trackz;
+  trackz: TrackzMetadata;
 };
 
 export default function TrackzCard({ trackz }: Props): JSX.Element {

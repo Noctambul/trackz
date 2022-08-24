@@ -1,5 +1,5 @@
 import { useAudio } from "context/AudioContext";
-import Trackz from "models/trackz";
+import TrackzMetadata from "models/trackz";
 import AudioControlls from "./AudioControlls";
 import ProgressBar from "./ProgressBar";
 import TrackzInfos from "./TrackzInfos";
@@ -8,7 +8,7 @@ import Volume from "./Volume";
 export default function AudioPlayer({
   trackz,
 }: {
-  trackz: Trackz;
+  trackz: TrackzMetadata;
 }): JSX.Element {
   const { trackProgress, duration, onSearch, onSearchEnd } = useAudio();
 

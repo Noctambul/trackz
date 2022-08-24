@@ -1,16 +1,16 @@
 import { useIpfs } from "hooks/useIpfs";
 import { Howl } from "howler";
-import Trackz from "models/trackz";
+import TrackzMetadata from "models/trackz";
 import { createContext, useContext, useEffect, useRef, useState } from "react";
 
 export interface AudioContextInterface {
   isPlaying: boolean;
   duration: number;
   trackProgress: number;
-  currentTrackz: Trackz | undefined;
+  currentTrackz: TrackzMetadata | undefined;
   volume: number;
   setVolume: (volume: number) => void;
-  play: (trackz?: Trackz) => void;
+  play: (trackz?: TrackzMetadata) => void;
   pause: () => void;
   onSearch: (seconds: number) => void;
   onSearchEnd: () => void;
@@ -39,7 +39,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   const [isPlaying, setIsplaying] = useState(false);
   const [duration, setDuration] = useState(220);
   const [trackProgress, setTrackProgress] = useState(0);
-  const [currentTrackz, setCurrentTrackz] = useState<Trackz>();
+  const [currentTrackz, setCurrentTrackz] = useState<TrackzMetadata>();
   const [volume, setVolume] = useState(1);
 
   // useEffect(() => {
@@ -59,7 +59,9 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
       howlerRef.current?.stop();
       howlerRef.current = new Howl({
         src: [resolveLink(currentTrackz.musicUri)],
-        volume: volume,
+        html5: true,
+        preload: "metadata", // or true to also preload the file
+        volume,
       });
 
       setDuration(currentTrackz.duration);
@@ -81,7 +83,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     // Use callback to add starttimer to the dependencies
   }, [isPlaying]);
 
-  const play = (trackz?: Trackz) => {
+  const play = (trackz?: TrackzMetadata) => {
     if (trackz && trackz != currentTrackz) {
       setIsplaying(false);
       setCurrentTrackz(trackz);

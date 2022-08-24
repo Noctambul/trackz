@@ -1,4 +1,4 @@
-export default interface Trackz {
+export default interface TrackzMetadata {
   id: number;
   title: string;
   author: string;

@@ -1,6 +1,6 @@
-import Trackz from "models/trackz";
+import TrackzMetadata from "models/trackz";
 
-const trackzs: Trackz[] = [
+const trackzs: TrackzMetadata[] = [
   {
     id: 0,
     title:
