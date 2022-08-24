@@ -12,6 +12,10 @@ export default class AudioTrackz {
     return this.howl.duration();
   }
 
+  get state(): "unloaded" | "loading" | "loaded" {
+    return this.howl.state();
+  }
+
   constructor(private trackzMetadata: TrackzMetadata) {
     this.howl = new Howl({
       src: this.metadata.musicUri,

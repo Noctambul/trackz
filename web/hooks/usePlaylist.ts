@@ -14,5 +14,5 @@ export default function usePlaylist<T>(initialPlaylist: T[] = []) {
   const next = () => setIndex((i) => modulo(++i, playlist.length));
   const previous = () => setIndex((i) => modulo(--i, playlist.length));
 
-  return { index, next, previous, selected };
+  return { playlist, index, next, previous, selected };
 }
