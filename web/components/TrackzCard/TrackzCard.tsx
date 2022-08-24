@@ -3,7 +3,7 @@ import Progress from "components/uikit/Progress";
 import { useAudio } from "context/AudioContext";
 import { useIpfs } from "hooks/useIpfs";
 import { useTime } from "hooks/useTime";
-import TrackzMetadata from "models/trackz";
+import TrackzMetadata from "models/trackz-metadata";
 import Image from "next/image";
 import { IoPauseCircleOutline, IoPlayCircleOutline } from "react-icons/io5";
 

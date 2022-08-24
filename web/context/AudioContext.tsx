@@ -1,6 +1,6 @@
 import { useIpfs } from "hooks/useIpfs";
 import { Howl } from "howler";
-import TrackzMetadata from "models/trackz";
+import TrackzMetadata from "models/trackz-metadata";
 import { createContext, useContext, useEffect, useRef, useState } from "react";
 
 export interface AudioContextInterface {
