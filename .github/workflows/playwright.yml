@@ -18,11 +18,11 @@ jobs:
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
     - name: Build Application Server
-      run: yarn build
+      run: yarn workspace web build
     - name: Start Application Server
-      run: yarn start
+      run: yarn workspace web start
     - name: Run Playwright tests
-      run: yarn playwright test
+      run: yarn workspace web playwright test
     - uses: actions/upload-artifact@v3
       if: always()
       with:
