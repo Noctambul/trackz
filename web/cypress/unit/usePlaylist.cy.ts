@@ -8,7 +8,6 @@ describe("usePlaylist", () => {
   before(() => {
     expect(result.current.next).to.be.a("function");
     expect(result.current.previous).to.be.a("function");
-    // expect(next).to.be.a("function");
   });
 
   beforeEach(() => rerender());
