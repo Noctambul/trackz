@@ -8,11 +8,31 @@ export default class AudioTrackz {
     return this.trackzMetadata;
   }
 
+  get duration(): number {
+    return this.howl.duration();
+  }
+
   constructor(private trackzMetadata: TrackzMetadata) {
     this.howl = new Howl({
       src: this.metadata.musicUri,
       html5: true,
       preload: "metadata", // Could be true to start loading the file immediately
     });
+  }
+
+  load(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      this.howl.on("load", resolve);
+      this.howl.on("loaderror", reject);
+      this.howl.load();
+    });
+  }
+
+  play() {
+    this.howl.play();
+  }
+
+  pause() {
+    this.howl.pause();
   }
 }
