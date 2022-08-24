@@ -45,7 +45,7 @@ const trackzs: TrackzMetadata[] = [
     totalSupply: 25,
     price: 4.4,
     coverUri: "https://picsum.photos/2000",
-    musicUri: "",
+    musicUri: "ipfs://QmUqU31giwHyMQkoV5vy4uHLZi1aitzUm83v17FBqWXLyn",
     duration: 220,
   },
 ];

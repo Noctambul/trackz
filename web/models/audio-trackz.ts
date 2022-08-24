@@ -1,3 +1,4 @@
+import { resolveLink } from "hooks/useIpfs";
 import { Howl } from "howler";
 import TrackzMetadata from "./trackz-metadata";
 
@@ -16,9 +17,16 @@ export default class AudioTrackz {
     return this.howl.state();
   }
 
+  /**
+   * The resolved music uri
+   */
+  get musicUri(): string {
+    return resolveLink(this.metadata.musicUri);
+  }
+
   constructor(private trackzMetadata: TrackzMetadata) {
     this.howl = new Howl({
-      src: this.metadata.musicUri,
+      src: this.musicUri,
       html5: true,
       preload: "metadata", // Could be true to start loading the file immediately
     });
