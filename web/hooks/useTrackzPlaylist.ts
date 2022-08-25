@@ -28,21 +28,15 @@ export default function useTrackzPlaylist(
      * Will start preloading the current trackz and the nexts for the desired buffer size
      */
     const preload = () => {
-      for (let i = index; i < preloadBuffer; i++) {
-        if (playlist[i].state !== "unloaded") {
+      for (let count = index; count < preloadBuffer + index; count++) {
+        const i = count % playlist.length;
+        if (playlist[i].state === "unloaded") {
           playlist[i].load();
         }
       }
     };
-
     preload();
-
-    console.log(
-      `Preloading ${preloadBuffer} Trackz from ${index} to ${
-        (index + preloadBuffer) % playlist.length
-      }`
-    );
   }, [index, playlist, preloadBuffer]);
 
-  return { selectedTrackz: selected, next, previous };
+  return { selectedTrackz: selected, next, previous, playlist };
 }
