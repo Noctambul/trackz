@@ -20,7 +20,7 @@ export default function useTrackzPlaylist(
       ),
     [trackzs]
   );
-  const { selected, playlist, index, next, previous } =
+  const { selected, playlist, index, next, previous, select } =
     usePlaylist<AudioTrackz>(audioTrackzs);
 
   useEffect(() => {
@@ -38,5 +38,10 @@ export default function useTrackzPlaylist(
     preload();
   }, [index, playlist, preloadBuffer]);
 
-  return { selectedTrackz: selected, next, previous, playlist };
+  const playTrack = (trackId: number) => {
+    const selectedIndex = playlist.findIndex((track) => track.id === trackId);
+    select(selectedIndex);
+  };
+
+  return { selectedTrackz: selected, next, previous, playlist, playTrack };
 }

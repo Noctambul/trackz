@@ -56,7 +56,7 @@ describe("useTrackzPlaylist", () => {
     });
 
     it("preload next Trackz if needed", () => {
-      // Hard to test has we stub the load method so the state never change
+      // Hard to test has we stub the load method that also changes the loading state
       const initialCalls = stub.getCalls().length;
       act(() => result.current.next());
       expect(stub).to.be.callCount(initialCalls + 1);

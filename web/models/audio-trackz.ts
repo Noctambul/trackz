@@ -9,6 +9,10 @@ export default class AudioTrackz {
     return this.trackzMetadata;
   }
 
+  get id() {
+    return this.metadata.id;
+  }
+
   get duration(): number {
     return this.howl.duration();
   }
@@ -22,6 +26,10 @@ export default class AudioTrackz {
    */
   get musicUri(): string {
     return resolveLink(this.metadata.musicUri);
+  }
+
+  get progress(): number {
+    return this.howl.seek();
   }
 
   constructor(private trackzMetadata: TrackzMetadata) {
@@ -46,5 +54,13 @@ export default class AudioTrackz {
 
   pause() {
     this.howl.pause();
+  }
+
+  volume(vol: number) {
+    this.howl.volume(vol);
+  }
+
+  seek(progress: number) {
+    this.howl.seek(progress);
   }
 }

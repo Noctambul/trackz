@@ -1,5 +1,6 @@
+import trackzs from "data/trackzs";
 import { useIpfs } from "hooks/useIpfs";
-import { Howl } from "howler";
+import useTrackzPlaylist from "hooks/useTrackzPlaylist";
 import TrackzMetadata from "models/trackz-metadata";
 import { createContext, useContext, useEffect, useRef, useState } from "react";
 
@@ -34,12 +35,13 @@ export function useAudio(): AudioContextInterface {
 
 export function AudioProvider({ children }: { children: React.ReactNode }) {
   const { resolveLink } = useIpfs();
-  const howlerRef = useRef<Howl>();
+  // const howlerRef = useRef<Howl>();
   const intervalRef = useRef<ReturnType<typeof setInterval>>();
+  const { selectedTrackz, playTrack } = useTrackzPlaylist(trackzs);
   const [isPlaying, setIsplaying] = useState(false);
   const [duration, setDuration] = useState(220);
   const [trackProgress, setTrackProgress] = useState(0);
-  const [currentTrackz, setCurrentTrackz] = useState<TrackzMetadata>();
+  // const [currentTrackz, setCurrentTrackz] = useState<TrackzMetadata>();
   const [volume, setVolume] = useState(1);
 
   // useEffect(() => {
@@ -51,42 +53,46 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   // });
 
   useEffect(() => {
-    howlerRef.current?.volume(volume);
+    // howlerRef.current?.volume(volume);
+    selectedTrackz.volume(volume);
   }, [volume]);
 
   useEffect(() => {
-    if (currentTrackz) {
-      howlerRef.current?.stop();
-      howlerRef.current = new Howl({
-        src: [resolveLink(currentTrackz.musicUri)],
-        html5: true,
-        preload: "metadata", // or true to also preload the file
-        volume,
-      });
+    if (selectedTrackz) {
+      // howlerRef.current?.stop();
+      // howlerRef.current = new Howl({
+      //   src: [resolveLink(currentTrackz.musicUri)],
+      //   html5: true,
+      //   preload: "metadata", // or true to also preload the file
+      //   volume,
+      // });
 
-      setDuration(currentTrackz.duration);
-      setTrackProgress(Math.round(howlerRef.current.seek()));
+      setDuration(selectedTrackz.duration);
+      setTrackProgress(Math.round(selectedTrackz.progress));
       setIsplaying(true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentTrackz]);
+  }, [selectedTrackz]);
 
   useEffect(() => {
     if (isPlaying) {
-      if (!howlerRef.current?.playing()) {
-        howlerRef.current?.play();
-        startTimer();
-      }
-    } else if (howlerRef.current) {
-      howlerRef.current.pause();
+      // if (!howlerRef.current?.playing()) {
+      //   howlerRef.current?.play();
+      //   startTimer();
+      // }
+      selectedTrackz.play();
+      startTimer();
+    } else {
+      selectedTrackz.pause();
     }
     // Use callback to add starttimer to the dependencies
   }, [isPlaying]);
 
-  const play = (trackz?: TrackzMetadata) => {
-    if (trackz && trackz != currentTrackz) {
+  const play = (track?: TrackzMetadata) => {
+    if (track && track.id != selectedTrackz.id) {
       setIsplaying(false);
-      setCurrentTrackz(trackz);
+      playTrack(track.id);
+      // setCurrentTrackz(trackz);
     } else {
       setIsplaying(true);
     }
@@ -110,9 +116,9 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
       //   toNextTrack();
       // } else
 
-      if (howlerRef.current) {
-        setTrackProgress(Math.round(howlerRef.current.seek()));
-      }
+      // if (howlerRef.current) {
+      setTrackProgress(Math.round(selectedTrackz.progress));
+      // }
     }, 500);
   };
 
@@ -122,8 +128,8 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
 
   const onSearch = (value: number) => {
     stopTimer();
-    howlerRef.current?.seek(value);
-    setTrackProgress(howlerRef.current?.seek() || 0);
+    selectedTrackz.seek(value);
+    setTrackProgress(selectedTrackz.progress || 0);
   };
 
   const onSearchEnd = () => {
@@ -141,7 +147,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
         pause,
         toNextTrack,
         toPreviousTrack,
-        currentTrackz,
+        currentTrackz: selectedTrackz.metadata,
         duration,
         trackProgress,
         onSearch,
