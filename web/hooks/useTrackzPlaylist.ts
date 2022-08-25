@@ -20,29 +20,29 @@ export default function useTrackzPlaylist(
       ),
     [trackzs]
   );
-  const { selected, playlist, index } = usePlaylist<AudioTrackz>(audioTrackzs);
+  const { selected, playlist, index, next, previous } =
+    usePlaylist<AudioTrackz>(audioTrackzs);
 
   useEffect(() => {
-    // Initial preloading
+    /**
+     * Will start preloading the current trackz and the nexts for the desired buffer size
+     */
+    const preload = () => {
+      for (let i = index; i < preloadBuffer; i++) {
+        if (playlist[i].state !== "unloaded") {
+          playlist[i].load();
+        }
+      }
+    };
+
+    preload();
+
     console.log(
       `Preloading ${preloadBuffer} Trackz from ${index} to ${
-        index + preloadBuffer
+        (index + preloadBuffer) % playlist.length
       }`
     );
-    preload();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [playlist]);
+  }, [index, playlist, preloadBuffer]);
 
-  /**
-   * Will start preloading the current trackz and the nexts for the desired buffer size
-   */
-  const preload = () => {
-    for (let i = index; i < preloadBuffer; i++) {
-      if (playlist[i].state !== "unloaded") {
-        playlist[i].load();
-      }
-    }
-  };
-
-  return { selectedTrackz: selected };
+  return { selectedTrackz: selected, next, previous };
 }
