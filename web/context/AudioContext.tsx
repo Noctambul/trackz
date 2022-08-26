@@ -56,18 +56,18 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     if (selectedTrackz) {
       setDuration(selectedTrackz.duration);
       setTrackProgress(Math.round(selectedTrackz.progress));
+      startTimer();
       console.log("Selected Trackz ", selectedTrackz.metadata.title);
     }
+    // Use callback to add starttimer to the dependencies
   }, [selectedTrackz]);
 
   useEffect(() => {
     if (isPlaying) {
       selectedTrackz.play();
-      startTimer();
     } else {
       selectedTrackz.pause();
     }
-    // Use callback to add starttimer to the dependencies
   }, [isPlaying, selectedTrackz]);
 
   const play = (track?: TrackzMetadata) => {
