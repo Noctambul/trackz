@@ -7,7 +7,7 @@ import { SinonSpy, SinonStub } from "cypress/types/sinon";
 import trackzs from "data/trackzs";
 import useTrackzPlaylist from "hooks/useTrackzPlaylist";
 import { Howl } from "howler";
-import AudioTrackz from "models/audio-trackz";
+import AudioTrackz from "models/AudioTrackz";
 
 describe("useTrackzPlaylist", () => {
   const preloadBuffer = 2;

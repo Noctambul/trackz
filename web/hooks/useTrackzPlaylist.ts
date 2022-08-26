@@ -1,5 +1,5 @@
-import AudioTrackz from "models/audio-trackz";
-import TrackzMetadata from "models/trackz-metadata";
+import AudioTrackz from "models/AudioTrackz";
+import TrackzMetadata from "models/TrackzMetadata";
 import { useEffect, useMemo } from "react";
 import usePlaylist from "./usePlaylist";
 
@@ -38,10 +38,14 @@ export default function useTrackzPlaylist(
     preload();
   }, [index, playlist, preloadBuffer]);
 
-  const playTrack = (trackId: number) => {
-    const selectedIndex = playlist.findIndex((track) => track.id === trackId);
-    select(selectedIndex);
-  };
+  const setSelectedTrackz = (trackId: number) =>
+    select(playlist.findIndex((track) => track.id === trackId));
 
-  return { selectedTrackz: selected, next, previous, playlist, playTrack };
+  return {
+    selectedTrackz: selected,
+    next,
+    previous,
+    playlist,
+    setSelectedTrackz,
+  };
 }
