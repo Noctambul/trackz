@@ -1,5 +1,5 @@
 import { useAudio } from "context/AudioContext";
-import TrackzMetadata from "models/trackz-metadata";
+import TrackzMetadata from "models/TrackzMetadata";
 import AudioControlls from "./AudioControlls";
 import ProgressBar from "./ProgressBar";
 import TrackzInfos from "./TrackzInfos";

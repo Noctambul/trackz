@@ -1,5 +1,5 @@
 import { useIpfs } from "hooks/useIpfs";
-import TrackzMetadata from "models/trackz-metadata";
+import TrackzMetadata from "models/TrackzMetadata";
 import Image from "next/image";
 
 interface Props {

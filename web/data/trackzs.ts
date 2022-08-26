@@ -1,4 +1,4 @@
-import TrackzMetadata from "models/trackz-metadata";
+import TrackzMetadata from "models/TrackzMetadata";
 
 const trackzs: TrackzMetadata[] = [
   {
