@@ -72,6 +72,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
 
   const play = (track?: TrackzMetadata) => {
     if (track && track.id != selectedTrackz.id) {
+      selectedTrackz.stop();
       selectTrackz(track.id);
     }
     setIsplaying(true);
