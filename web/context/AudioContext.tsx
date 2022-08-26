@@ -85,11 +85,13 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   const toNextTrack = () => {
     selectedTrackz.stop();
     next();
+    setIsplaying(true);
   };
 
   const toPreviousTrack = () => {
     selectedTrackz.stop();
     previous();
+    setIsplaying(true);
   };
 
   const startTimer = () => {

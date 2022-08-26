@@ -55,8 +55,9 @@ describe("Audio Player", () => {
       shouldHaveTrack(trackzs[0]);
     });
 
-    it("does not change the playing state", () => {
-      getInPlayer(`[aria-label="Play Track"]`).should("exist");
+    it("play the track directly", () => {
+      // Pause Button means it is playing
+      getInPlayer(`[aria-label="Pause Track"]`).should("exist");
     });
   });
 });
