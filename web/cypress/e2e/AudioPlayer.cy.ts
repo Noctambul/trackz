@@ -24,7 +24,7 @@ describe("Audio Player", () => {
     });
 
     afterEach(() => {
-      cy.get(`[aria-label="Pause Button"]`).click().log("Stop playing");
+      cy.get(`[aria-label="Pause Track"]`).click().log("Stop playing");
     });
 
     it("display the new track in the player", () => {
@@ -32,38 +32,32 @@ describe("Audio Player", () => {
     });
 
     it("display the pause button because the music is playing", () => {
-      cy.get(`[aria-label="Pause Button"]`).should("exist");
+      cy.get(`[aria-label="Pause Track"]`).should("exist");
     });
   });
 
-  it.skip("should display the player when selected a Trackz", () => {
-    // const trackzIndex = 1;
-    // const trackz = trackzs[trackzIndex];
+  context("when using next and prev trackz", () => {
+    // TEST
+    // cy.visit("/", {
+    //   onBeforeLoad(win) {
+    //     // cy.stub(win, "Audio").as("createAudio");
+    //   },
+    // });
 
-    cy.visit("/", {
-      onBeforeLoad(win) {
-        // cy.stub(win, "Audio").as("createAudio");
-      },
+    beforeEach(() => {
+      cy.visit("/");
+      getInPlayer(`[aria-label="Next Track"]`).click();
     });
 
-    // expect(true, "Un test vrai").to.be.true;
-    // cy.get(
-    //   `[aria-label="Trackz Card ${trackzIndex}"] [aria-label="Play Button"]`
-    // ).click();
+    it("display the right trackz when switching", () => {
+      shouldHaveTrack(trackzs[1]);
+      getInPlayer(`[aria-label="Previous Track"]`).click();
+      shouldHaveTrack(trackzs[0]);
+    });
 
-    // cy.get(`[aria-label="Audio Player"]`).should("exist");
-    // getInPlayer(`[aria-label="Title"]`).should("have.text", trackz.title);
-    // getInPlayer(`[aria-label="Author"]`).should("have.text", trackz.author);
-    // getInPlayer(`[aria-label="Duration"]`).should(
-    //   "have.text",
-    //   formatTime(trackz.duration)
-    // );
-
-    // cy.get(
-    //   `[aria-label="Trackz Card ${trackzIndex}"] [aria-label="Play Button"]`
-    // ).click();
-
-    // cy.get("@createAudio").should("have.been.called");
+    it("does not change the playing state", () => {
+      getInPlayer(`[aria-label="Play Track"]`).should("exist");
+    });
   });
 });
 

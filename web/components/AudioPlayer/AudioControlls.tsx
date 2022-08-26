@@ -22,7 +22,7 @@ export default function AudioControlls(): JSX.Element {
         className="fill-primary stroke-primary text-3xl"
         onClick={() => (isPlaying ? pause() : play())}
         Icon={isPlaying ? TbPlayerPause : TbPlayerPlay}
-        aria-label={isPlaying ? "Pause Button" : "Play Button"}
+        aria-label={isPlaying ? "Pause Track" : "Play Track"}
       />
       {/* <button type="button" className="mx-2" onClick={isPlaying ? pause : play}>
         {isPlaying ? (
