@@ -3,7 +3,7 @@ import Progress from "components/uikit/Progress";
 import { useAudio } from "context/AudioContext";
 import { useIpfs } from "hooks/useIpfs";
 import { useTime } from "hooks/useTime";
-import TrackzMetadata from "models/trackz-metadata";
+import TrackzMetadata from "models/TrackzMetadata";
 import Image from "next/image";
 import { IoPauseCircleOutline, IoPlayCircleOutline } from "react-icons/io5";
 
@@ -53,7 +53,7 @@ export default function TrackzCard({ trackz }: Props): JSX.Element {
       onClick={() => {
         isPlayingMe() ? pause() : play(trackz);
       }}
-      aria-label="Play Button"
+      aria-label={`Play ${trackz.title}`}
     />
   );
   const myTrackIsSelectedForPlaying = trackz == currentTrackz;

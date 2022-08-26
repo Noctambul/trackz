@@ -16,11 +16,13 @@ export default function AudioControlls(): JSX.Element {
         Icon={TbPlayerSkipBack}
         onClick={toPreviousTrack}
         className="hidden fill-subtext text-3xl sm:block"
+        aria-label="Previous Track"
       />
       <IconBtn
         className="fill-primary stroke-primary text-3xl"
         onClick={() => (isPlaying ? pause() : play())}
         Icon={isPlaying ? TbPlayerPause : TbPlayerPlay}
+        aria-label={isPlaying ? "Pause Button" : "Play Button"}
       />
       {/* <button type="button" className="mx-2" onClick={isPlaying ? pause : play}>
         {isPlaying ? (
@@ -33,6 +35,7 @@ export default function AudioControlls(): JSX.Element {
         Icon={TbPlayerSkipForward}
         onClick={toNextTrack}
         className="hidden fill-subtext  text-3xl sm:block"
+        aria-label="Next Track"
       />
     </div>
   );
