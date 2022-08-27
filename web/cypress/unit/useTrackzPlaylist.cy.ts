@@ -46,12 +46,12 @@ describe("useTrackzPlaylist", () => {
     it("switch the selected Trackz correctly", () => {
       expect(result.current.selectedTrackz.metadata.id).to.eq(trackzs[0].id);
       act(() => result.current.previous());
-      expect(result.current.selectedTrackz.metadata.id).to.eq(
-        trackzs[trackzs.length - 1].id
-      );
-      act(() => result.current.next());
       expect(result.current.selectedTrackz.metadata.id).to.eq(trackzs[0].id);
       act(() => result.current.next());
+      expect(result.current.selectedTrackz.metadata.id).to.eq(trackzs[1].id);
+      act(() => result.current.next());
+      expect(result.current.selectedTrackz.metadata.id).to.eq(trackzs[2].id);
+      act(() => result.current.previous());
       expect(result.current.selectedTrackz.metadata.id).to.eq(trackzs[1].id);
     });
 
