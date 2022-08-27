@@ -22,6 +22,16 @@
         "kind": "test",
         "isDefault": true
       }
+    },
+    {
+      "label": "Cypress - E2E testing",
+      "detail": "Run cypress e2e tests",
+      "type": "shell",
+      "command": "yarn workspace web cypress:e2e",
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      }
     }
   ]
 }

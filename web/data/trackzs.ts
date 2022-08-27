@@ -1,6 +1,6 @@
-import Trackz from "models/trackz";
+import TrackzMetadata from "models/TrackzMetadata";
 
-const trackzs: Trackz[] = [
+const trackzs: TrackzMetadata[] = [
   {
     id: 0,
     title:
@@ -45,7 +45,18 @@ const trackzs: Trackz[] = [
     totalSupply: 25,
     price: 4.4,
     coverUri: "https://picsum.photos/2000",
-    musicUri: "",
+    musicUri: "ipfs://QmUqU31giwHyMQkoV5vy4uHLZi1aitzUm83v17FBkWXLyn",
+    duration: 220,
+  },
+  {
+    id: 4,
+    title: "Decalco",
+    author: "Megalo",
+    description: "Genre : Musiques électroniques",
+    totalSupply: 25,
+    price: 4.4,
+    coverUri: "https://picsum.photos/2000",
+    musicUri: "ipfs://QmUqU31giwHyMQkoV5vy4uHLZi1aitzUm83v17FBkWXLyn",
     duration: 220,
   },
 ];

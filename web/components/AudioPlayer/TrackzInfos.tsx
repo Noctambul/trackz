@@ -1,9 +1,9 @@
 import { useIpfs } from "hooks/useIpfs";
-import Trackz from "models/trackz";
+import TrackzMetadata from "models/TrackzMetadata";
 import Image from "next/image";
 
 interface Props {
-  trackz: Trackz;
+  trackz: TrackzMetadata;
 }
 
 export default function TrackzInfos({ trackz }: Props): JSX.Element {

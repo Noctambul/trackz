@@ -1,26 +1,23 @@
-import { useIpfs } from "hooks/useIpfs";
-import { Howl } from "howler";
-import Trackz from "models/trackz";
+import trackzs from "data/trackzs";
+import useTrackzPlaylist from "hooks/useTrackzPlaylist";
+import TrackzMetadata from "models/TrackzMetadata";
 import { createContext, useContext, useEffect, useRef, useState } from "react";
 
 export interface AudioContextInterface {
   isPlaying: boolean;
   duration: number;
   trackProgress: number;
-  currentTrackz: Trackz | undefined;
+  currentTrackz: TrackzMetadata | undefined;
   volume: number;
+  canNext: boolean;
+  canPrev: boolean;
   setVolume: (volume: number) => void;
-  play: (trackz?: Trackz) => void;
+  play: (trackz?: TrackzMetadata) => void;
   pause: () => void;
   onSearch: (seconds: number) => void;
   onSearchEnd: () => void;
   toPreviousTrack: () => void;
   toNextTrack: () => void;
-}
-
-let audio: HTMLAudioElement;
-if (typeof Audio !== "undefined") {
-  audio = new Audio();
 }
 
 const AudioContext = createContext<AudioContextInterface | undefined>(
@@ -33,13 +30,18 @@ export function useAudio(): AudioContextInterface {
 }
 
 export function AudioProvider({ children }: { children: React.ReactNode }) {
-  const { resolveLink } = useIpfs();
-  const howlerRef = useRef<Howl>();
   const intervalRef = useRef<ReturnType<typeof setInterval>>();
+  const {
+    selectedTrackz,
+    setSelectedTrackz: selectTrackz,
+    next,
+    previous,
+    canNext,
+    canPrev,
+  } = useTrackzPlaylist(trackzs);
   const [isPlaying, setIsplaying] = useState(false);
-  const [duration, setDuration] = useState(220);
+  const [duration, setDuration] = useState(456);
   const [trackProgress, setTrackProgress] = useState(0);
-  const [currentTrackz, setCurrentTrackz] = useState<Trackz>();
   const [volume, setVolume] = useState(1);
 
   // useEffect(() => {
@@ -51,43 +53,33 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   // });
 
   useEffect(() => {
-    howlerRef.current?.volume(volume);
-  }, [volume]);
+    selectedTrackz.volume(volume);
+  }, [volume, selectedTrackz]);
 
   useEffect(() => {
-    if (currentTrackz) {
-      howlerRef.current?.stop();
-      howlerRef.current = new Howl({
-        src: [resolveLink(currentTrackz.musicUri)],
-        volume: volume,
-      });
-
-      setDuration(currentTrackz.duration);
-      setTrackProgress(Math.round(howlerRef.current.seek()));
-      setIsplaying(true);
+    if (selectedTrackz) {
+      setDuration(selectedTrackz.duration);
+      setTrackProgress(Math.round(selectedTrackz.progress));
+      startTimer();
+      console.log("Selected Trackz ", selectedTrackz.metadata.title);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentTrackz]);
+    // Use callback to add starttimer to the dependencies
+  }, [selectedTrackz]);
 
   useEffect(() => {
     if (isPlaying) {
-      if (!howlerRef.current?.playing()) {
-        howlerRef.current?.play();
-        startTimer();
-      }
-    } else if (howlerRef.current) {
-      howlerRef.current.pause();
-    }
-    // Use callback to add starttimer to the dependencies
-  }, [isPlaying]);
-
-  const play = (trackz?: Trackz) => {
-    if (trackz && trackz != currentTrackz) {
-      setIsplaying(false);
-      setCurrentTrackz(trackz);
+      selectedTrackz.play();
     } else {
-      setIsplaying(true);
+      selectedTrackz.pause();
     }
+  }, [isPlaying, selectedTrackz]);
+
+  const play = (track?: TrackzMetadata) => {
+    if (track && track.id != selectedTrackz.id) {
+      selectedTrackz.stop();
+      selectTrackz(track.id);
+    }
+    setIsplaying(true);
   };
 
   const pause = () => {
@@ -95,8 +87,17 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     stopTimer();
   };
 
-  const toPreviousTrack = () => console.log("Previous");
-  const toNextTrack = () => console.log("Next");
+  const toNextTrack = () => {
+    selectedTrackz.stop();
+    next();
+    setIsplaying(true);
+  };
+
+  const toPreviousTrack = () => {
+    selectedTrackz.stop();
+    previous();
+    setIsplaying(true);
+  };
 
   const startTimer = () => {
     stopTimer();
@@ -108,9 +109,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
       //   toNextTrack();
       // } else
 
-      if (howlerRef.current) {
-        setTrackProgress(Math.round(howlerRef.current.seek()));
-      }
+      setTrackProgress(Math.round(selectedTrackz.progress));
     }, 500);
   };
 
@@ -120,8 +119,8 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
 
   const onSearch = (value: number) => {
     stopTimer();
-    howlerRef.current?.seek(value);
-    setTrackProgress(howlerRef.current?.seek() || 0);
+    selectedTrackz.seek(value);
+    setTrackProgress(selectedTrackz.progress || 0);
   };
 
   const onSearchEnd = () => {
@@ -139,13 +138,15 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
         pause,
         toNextTrack,
         toPreviousTrack,
-        currentTrackz,
+        currentTrackz: selectedTrackz.metadata,
         duration,
         trackProgress,
         onSearch,
         onSearchEnd,
         volume,
         setVolume,
+        canNext,
+        canPrev,
       }}
     >
       {children}

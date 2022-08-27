@@ -1,3 +1,5 @@
 .next
 smart-contract/node_modules
 node_modules
+web/cypress/videos
+web/cypress/screenshots

@@ -39,14 +39,12 @@ export default function ProgressBar({
     />
   );
 
-  // TODO: Progress bar should be a real progress bar and we should use a slider otherwise
-
   return (
     <>
       <div className="hidden w-full items-center justify-between sm:flex sm:shrink">
-        <div className="text-xs text-gray-300">{formatTime(progress)}</div>
+        <div className="w-10 text-xs text-gray-300">{formatTime(progress)}</div>
         {inputElt}
-        <div className="text-xs text-gray-300" aria-label="Duration">
+        <div className="w-10 text-xs text-gray-300" aria-label="Duration">
           {formatTime(duration)}
         </div>
       </div>
