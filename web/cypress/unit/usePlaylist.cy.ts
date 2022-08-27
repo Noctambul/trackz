@@ -12,8 +12,37 @@ describe("usePlaylist", () => {
 
   beforeEach(() => rerender());
 
-  context("nextIndex", () => {
-    it("should loop through the array", () => {
+  context("in NO loop mode", () => {
+    beforeEach(() => result.current.setIsLoopMode(false));
+
+    it("nextIndex should not loop throught the playlist", () => {
+      act(() => result.current.next());
+      act(() => result.current.next());
+      act(() => result.current.next());
+      act(() => result.current.next());
+      act(() => result.current.next());
+      act(() => result.current.next());
+      expect(
+        result.current.index,
+        "The index should be on the last element of the playlist"
+      ).to.eq(defaultArray.length - 1);
+    });
+
+    it("prevIndex should not loop throught the playlist", () => {
+      act(() => result.current.previous());
+      act(() => result.current.previous());
+      act(() => result.current.previous());
+      expect(
+        result.current.index,
+        "The index should be on the last element of the playlist"
+      ).to.eq(0);
+    });
+  });
+
+  context("in loop mode", () => {
+    beforeEach(() => result.current.setIsLoopMode(true));
+
+    it("nextIndex should loop through the array", () => {
       const { next } = result.current;
 
       const nextToBeEq = (i: number) => {
@@ -27,10 +56,8 @@ describe("usePlaylist", () => {
       nextToBeEq(3);
       nextToBeEq(0);
     });
-  });
 
-  context("prevIndex", () => {
-    it("should loop through the array", () => {
+    it("prevIndex should loop through the array", () => {
       const { previous } = result.current;
 
       const prevToBeEq = (i: number) => {

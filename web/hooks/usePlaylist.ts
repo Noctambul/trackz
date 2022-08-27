@@ -1,19 +1,40 @@
 import { useMemo, useState } from "react";
-import useMath from "./useMath";
 
 /**
  * A hook that handle a playlist
  * @returns
  */
-export default function usePlaylist<T>(initialPlaylist: T[] = []) {
-  const { modulo } = useMath();
+export default function usePlaylist<T>(
+  initialPlaylist: T[] = [],
+  loopMode = false
+) {
   const [playlist, setPlaylist] = useState<T[]>(initialPlaylist);
   const [index, setIndex] = useState(0);
+  const [isLoopMode, setIsLoopMode] = useState(loopMode);
   const selected = useMemo(() => playlist[index], [index, playlist]);
 
-  const next = () => setIndex((i) => modulo(++i, playlist.length));
-  const previous = () => setIndex((i) => modulo(--i, playlist.length));
+  const canNext = isLoopMode || index !== playlist.length - 1;
+  const canPrev = isLoopMode || index !== 0;
+
+  const next = () => {
+    if (canNext) setIndex((i) => (++i).modulo(playlist.length));
+  };
+
+  const previous = () => {
+    if (canPrev) setIndex((i) => (--i).modulo(playlist.length));
+  };
+
   const select = (index: number) => setIndex(index);
 
-  return { playlist, index, next, previous, selected, select };
+  return {
+    playlist,
+    index,
+    next,
+    previous,
+    selected,
+    select,
+    setIsLoopMode,
+    canNext,
+    canPrev,
+  };
 }

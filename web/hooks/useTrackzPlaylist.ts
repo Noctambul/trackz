@@ -20,8 +20,16 @@ export default function useTrackzPlaylist(
       ),
     [trackzs]
   );
-  const { selected, playlist, index, next, previous, select } =
-    usePlaylist<AudioTrackz>(audioTrackzs);
+  const {
+    selected,
+    playlist,
+    index,
+    next,
+    previous,
+    select,
+    canNext,
+    canPrev,
+  } = usePlaylist<AudioTrackz>(audioTrackzs, false);
 
   useEffect(() => {
     /**
@@ -47,5 +55,7 @@ export default function useTrackzPlaylist(
     previous,
     playlist,
     setSelectedTrackz,
+    canNext,
+    canPrev,
   };
 }

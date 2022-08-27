@@ -8,14 +8,25 @@ import {
 } from "react-icons/tb";
 
 export default function AudioControlls(): JSX.Element {
-  const { isPlaying, play, pause, toPreviousTrack, toNextTrack } = useAudio();
+  const {
+    isPlaying,
+    play,
+    pause,
+    toPreviousTrack,
+    toNextTrack,
+    canNext,
+    canPrev,
+  } = useAudio();
 
   return (
     <div className="mx-6 flex items-center space-x-6">
       <IconBtn
         Icon={TbPlayerSkipBack}
         onClick={toPreviousTrack}
-        className="hidden fill-subtext text-3xl sm:block"
+        disabled={!canPrev}
+        className={`hidden ${
+          canPrev ? "fill-text" : "fill-subtext"
+        } text-3xl sm:block`}
         aria-label="Previous Track"
       />
       <IconBtn
@@ -24,17 +35,13 @@ export default function AudioControlls(): JSX.Element {
         Icon={isPlaying ? TbPlayerPause : TbPlayerPlay}
         aria-label={isPlaying ? "Pause Track" : "Play Track"}
       />
-      {/* <button type="button" className="mx-2" onClick={isPlaying ? pause : play}>
-        {isPlaying ? (
-          <IoPause className="fill-primary text-4xl sm:text-2xl" />
-        ) : (
-          <IoPlay className="fill-primary text-4xl sm:text-2xl " />
-        )}
-      </button> */}
       <IconBtn
         Icon={TbPlayerSkipForward}
         onClick={toNextTrack}
-        className="hidden fill-subtext  text-3xl sm:block"
+        className={`hidden ${
+          canNext ? "fill-text" : "fill-subtext"
+        } text-3xl sm:block`}
+        disabled={!canNext}
         aria-label="Next Track"
       />
     </div>

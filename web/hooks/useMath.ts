@@ -1,6 +1,7 @@
-export default function useMath() {
-  const modulo = (num: number, mod: number): number =>
-    ((num % mod) + mod) % mod;
+export function modulo(num: number, mod: number): number {
+  return ((num % mod) + mod) % mod;
+}
 
+export default function useMath() {
   return { modulo };
 }

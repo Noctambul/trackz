@@ -9,6 +9,8 @@ export interface AudioContextInterface {
   trackProgress: number;
   currentTrackz: TrackzMetadata | undefined;
   volume: number;
+  canNext: boolean;
+  canPrev: boolean;
   setVolume: (volume: number) => void;
   play: (trackz?: TrackzMetadata) => void;
   pause: () => void;
@@ -34,6 +36,8 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     setSelectedTrackz: selectTrackz,
     next,
     previous,
+    canNext,
+    canPrev,
   } = useTrackzPlaylist(trackzs);
   const [isPlaying, setIsplaying] = useState(false);
   const [duration, setDuration] = useState(456);
@@ -141,6 +145,8 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
         onSearchEnd,
         volume,
         setVolume,
+        canNext,
+        canPrev,
       }}
     >
       {children}

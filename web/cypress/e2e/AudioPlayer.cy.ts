@@ -2,15 +2,26 @@ import trackzs from "data/trackzs";
 import TrackzMetadata from "models/TrackzMetadata";
 
 describe("Audio Player", () => {
-  beforeEach(() => {});
+  afterEach(() => {
+    cy.get(`[aria-label="Audio Player"]`).then((player) => {
+      if (player.find(`[aria-label="Pause Track"]`).length > 0) {
+        getInPlayer(`[aria-label="Pause Track"]`).click();
+      }
+    });
+    cy.log("Stop playing");
+  });
 
   context("when visiting the home", () => {
-    it("should display the player with the first track selected", () => {
+    it("display the player with the first track selected", () => {
       cy.visit("/");
       cy.get(`[aria-label="Audio Player"]`)
         .should("be.visible")
         .log("The Audio Player is visible");
       shouldHaveTrack(trackzs[0]);
+    });
+
+    it("disable the previous track button", () => {
+      getInPlayer(`[aria-label="Previous Track"]`).should("be.disabled");
     });
   });
 
@@ -21,10 +32,6 @@ describe("Audio Player", () => {
     beforeEach(() => {
       cy.visit("/");
       cy.get(`[aria-label="Play ${track.title}"]`).click();
-    });
-
-    afterEach(() => {
-      cy.get(`[aria-label="Pause Track"]`).click().log("Stop playing");
     });
 
     it("display the new track in the player", () => {
@@ -58,6 +65,13 @@ describe("Audio Player", () => {
     it("play the track directly", () => {
       // Pause Button means it is playing
       getInPlayer(`[aria-label="Pause Track"]`).should("exist");
+    });
+
+    it("can't loop over the last track", () => {
+      getInPlayer(`[aria-label="Next Track"]`).click();
+      getInPlayer(`[aria-label="Next Track"]`).click();
+      getInPlayer(`[aria-label="Next Track"]`).click();
+      getInPlayer(`[aria-label="Next Track"]`).should("be.disabled");
     });
   });
 });
