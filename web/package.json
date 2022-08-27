@@ -9,8 +9,8 @@
     "lint": "next lint",
     "cypress": "cypress open",
     "cypress:headless": "cypress run",
-    "cypress:component": "cypress open --component",
-    "cypress:e2e": "cypress open --e2e"
+    "cypress:component": "cypress open --component --browser chrome",
+    "cypress:e2e": "cypress open --e2e --browser chrome"
   },
   "dependencies": {
     "howler": "^2.2.3",
