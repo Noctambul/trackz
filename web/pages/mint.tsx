@@ -1,16 +1,30 @@
 import PageContainer from "components/PageContainer/PageContainer";
 import FileInput from "components/uikit/FileInput";
+import useErrorFields from "hooks/useErrorFields";
+import { SubmitHandler, useForm } from "react-hook-form";
+
+type Inputs = {
+  musicFile: File;
+  coverFile: File;
+  title: string;
+  description: string;
+  tags: string;
+  editions: number;
+  royalties: number;
+};
 
 export default function MintPage(): JSX.Element {
+  const { handleSubmit, register, formState } = useForm<Inputs>();
+  const { ErrorField } = useErrorFields<Inputs>(formState);
+  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+
   return (
     <PageContainer>
-      <form className="mx-40 flex w-full flex-col gap-10">
+      <form
+        className="mx-40 flex w-full flex-col gap-4"
+        onSubmit={handleSubmit(onSubmit)}
+      >
         <h3>Upload</h3>
-
-        {/* <label>
-          Music file
-          <input type="file" name="musicFile" />
-        </label> */}
 
         <FileInput>Music File</FileInput>
 
@@ -23,12 +37,16 @@ export default function MintPage(): JSX.Element {
 
         <label>
           Title
-          <input type="text" name="title"></input>
+          <input type="text" {...register("title", { required: true })} />
+          <ErrorField propertyName="title">Title is required</ErrorField>
         </label>
 
         <label>
           Description
-          <textarea />
+          <textarea {...register("description")} />
+          <ErrorField propertyName="description">
+            Description is required
+          </ErrorField>
         </label>
 
         <label>
@@ -40,13 +58,35 @@ export default function MintPage(): JSX.Element {
 
         <label>
           Number of Editions
-          <input type="number" name="numberOfEditions" placeholder="10" />
+          <input
+            type="number"
+            placeholder="10"
+            {...register("editions", {
+              required: true,
+              min: 1,
+              max: 100000,
+              pattern: /[0-9]*/,
+            })}
+          />
+          <ErrorField propertyName="editions">
+            The number of edition is required
+          </ErrorField>
         </label>
 
         <label>
           Royalties
-          <input type="number" name="royalties" />
+          <input
+            type="number"
+            {...register("royalties", { required: true, max: 20 })}
+          />
+          <ErrorField propertyName="royalties">
+            Royalties is required
+          </ErrorField>
         </label>
+
+        <button className="rounded-xl bg-primary p-2" type="submit">
+          Mint
+        </button>
       </form>
     </PageContainer>
   );

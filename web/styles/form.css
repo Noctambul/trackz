@@ -17,7 +17,7 @@
   [multiple],
   textarea,
   select {
-    @apply w-full rounded-lg border-red-300 bg-gray-50 text-gray-900 shadow-sm focus:border-primary focus:outline-none focus:ring-primary;
+    @apply my-1 w-full rounded-lg border-red-300 bg-gray-50 text-gray-900 shadow-sm focus:border-primary focus:outline-none focus:ring-primary;
   }
 
   [type="file"] {
