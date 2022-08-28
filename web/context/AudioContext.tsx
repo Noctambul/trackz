@@ -11,6 +11,8 @@ export interface AudioContextInterface {
   volume: number;
   canNext: boolean;
   canPrev: boolean;
+  isMuted: boolean;
+  toggleMute: () => void;
   setVolume: (volume: number) => void;
   play: (trackz?: TrackzMetadata) => void;
   pause: () => void;
@@ -33,7 +35,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   const intervalRef = useRef<ReturnType<typeof setInterval>>();
   const {
     selectedTrackz,
-    setSelectedTrackz: selectTrackz,
+    setSelectedTrackz,
     next,
     previous,
     canNext,
@@ -43,6 +45,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   const [duration, setDuration] = useState(456);
   const [trackProgress, setTrackProgress] = useState(0);
   const [volume, setVolume] = useState(1);
+  const [isMuted, setIsMuted] = useState(false);
 
   // useEffect(() => {
   //   return () => {
@@ -54,7 +57,12 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     selectedTrackz.volume(volume);
+    setIsMuted(false);
   }, [volume, selectedTrackz]);
+
+  useEffect(() => {
+    selectedTrackz.mute(isMuted);
+  }, [isMuted, selectedTrackz]);
 
   useEffect(() => {
     if (selectedTrackz) {
@@ -77,7 +85,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   const play = (track?: TrackzMetadata) => {
     if (track && track.id != selectedTrackz.id) {
       selectedTrackz.stop();
-      selectTrackz(track.id);
+      setSelectedTrackz(track.id);
     }
     setIsplaying(true);
   };
@@ -130,6 +138,8 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     startTimer();
   };
 
+  const toggleMute = () => setIsMuted((muted) => !muted);
+
   return (
     <AudioContext.Provider
       value={{
@@ -147,6 +157,8 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
         setVolume,
         canNext,
         canPrev,
+        isMuted,
+        toggleMute,
       }}
     >
       {children}

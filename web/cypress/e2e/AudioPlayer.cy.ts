@@ -2,6 +2,8 @@ import trackzs from "data/trackzs";
 import TrackzMetadata from "models/TrackzMetadata";
 
 describe("Audio Player", () => {
+  beforeEach(() => cy.visit("/"));
+
   afterEach(() => {
     cy.get(`[aria-label="Audio Player"]`).then((player) => {
       if (player.find(`[aria-label="Pause Track"]`).length > 0) {
@@ -13,7 +15,6 @@ describe("Audio Player", () => {
 
   context("when visiting the home", () => {
     it("display the player with the first track selected", () => {
-      cy.visit("/");
       cy.get(`[aria-label="Audio Player"]`)
         .should("be.visible")
         .log("The Audio Player is visible");
@@ -29,10 +30,7 @@ describe("Audio Player", () => {
     const trackIndex = 1;
     const track = trackzs[trackIndex];
 
-    beforeEach(() => {
-      cy.visit("/");
-      cy.get(`[aria-label="Play ${track.title}"]`).click();
-    });
+    beforeEach(() => cy.get(`[aria-label="Play ${track.title}"]`).click());
 
     it("display the new track in the player", () => {
       shouldHaveTrack(track);
@@ -51,10 +49,7 @@ describe("Audio Player", () => {
     //   },
     // });
 
-    beforeEach(() => {
-      cy.visit("/");
-      getInPlayer(`[aria-label="Next Track"]`).click();
-    });
+    beforeEach(() => getInPlayer(`[aria-label="Next Track"]`).click());
 
     it("display the right trackz when switching", () => {
       shouldHaveTrack(trackzs[1]);
@@ -72,6 +67,21 @@ describe("Audio Player", () => {
       getInPlayer(`[aria-label="Next Track"]`).click();
       getInPlayer(`[aria-label="Next Track"]`).click();
       getInPlayer(`[aria-label="Next Track"]`).should("be.disabled");
+    });
+  });
+
+  context("when using volume", () => {
+    it("mute and unmute when clicking the volume button", () => {
+      getInPlayer(`[aria-label="Mute"]`)
+        .should("exist")
+        .click()
+        .should("not.exist")
+        .log("sound has been muted");
+      getInPlayer(`[aria-label="Unmute"]`)
+        .should("exist")
+        .click()
+        .should("not.exist")
+        .log("sound has been unmuted");
     });
   });
 });
