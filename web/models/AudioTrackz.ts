@@ -71,4 +71,8 @@ export default class AudioTrackz {
   seek(progress: number) {
     this.howl.seek(progress);
   }
+
+  mute(muted: boolean) {
+    this.howl.mute(muted);
+  }
 }

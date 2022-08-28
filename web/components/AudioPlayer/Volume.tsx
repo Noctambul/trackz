@@ -3,14 +3,24 @@ import { useAudio } from "context/AudioContext";
 import { TbVolume, TbVolume2, TbVolume3 } from "react-icons/tb";
 
 export default function Volume({}): JSX.Element {
-  const { volume, setVolume } = useAudio();
+  const { volume, setVolume, isMuted, toggleMute } = useAudio();
 
-  const VolumeIcon =
-    volume > 0.4 ? TbVolume : volume > 0 ? TbVolume2 : TbVolume3;
+  const VolumeIcon = isMuted
+    ? TbVolume3
+    : volume > 0.4
+    ? TbVolume
+    : volume > 0
+    ? TbVolume2
+    : TbVolume3;
 
   return (
     <div className="ml-2 flex items-center justify-center pl-2">
-      <VolumeIcon className="mr-2 text-2xl" />
+      <button type="button" onClick={toggleMute}>
+        <VolumeIcon
+          className="mr-2 text-2xl"
+          aria-label={isMuted ? "Unmute" : "Mute"}
+        />
+      </button>
       <Slider
         min={0}
         max={100}
