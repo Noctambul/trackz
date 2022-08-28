@@ -18,6 +18,7 @@ export default function MintPage(): JSX.Element {
   const { ErrorField } = useErrorFields<Inputs>(formState);
   const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
 
+  console.log(formState.errors);
   return (
     <PageContainer>
       <form
@@ -38,15 +39,13 @@ export default function MintPage(): JSX.Element {
         <label>
           Title
           <input type="text" {...register("title", { required: true })} />
-          <ErrorField propertyName="title">Title is required</ErrorField>
+          <ErrorField propertyName="title" label="Title" />
         </label>
 
         <label>
           Description
           <textarea {...register("description")} />
-          <ErrorField propertyName="description">
-            Description is required
-          </ErrorField>
+          <ErrorField propertyName="description" label="Description" />
         </label>
 
         <label>
@@ -65,23 +64,23 @@ export default function MintPage(): JSX.Element {
               required: true,
               min: 1,
               max: 100000,
-              pattern: /[0-9]*/,
+              valueAsNumber: true,
             })}
           />
-          <ErrorField propertyName="editions">
-            The number of edition is required
-          </ErrorField>
+          <ErrorField propertyName="editions" label="The number of editions" />
         </label>
 
         <label>
           Royalties
           <input
             type="number"
-            {...register("royalties", { required: true, max: 20 })}
+            max="20"
+            {...register("royalties", {
+              required: true,
+              max: { value: 20, message: "Royalties must be less than 20%" },
+            })}
           />
-          <ErrorField propertyName="royalties">
-            Royalties is required
-          </ErrorField>
+          <ErrorField propertyName="royalties" label="Royalties" />
         </label>
 
         <button className="rounded-xl bg-primary p-2" type="submit">
