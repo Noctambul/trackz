@@ -6,7 +6,7 @@ import "../styles/global.css";
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <AudioProvider>
-      <Component {...pageProps} />;
+      <Component {...pageProps} />
     </AudioProvider>
   );
 }
