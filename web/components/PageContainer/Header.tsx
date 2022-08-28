@@ -9,7 +9,7 @@ export default function Header(): JSX.Element {
       <nav>
         <ul className="flex list-none items-center gap-10 text-lg">
           <li aria-label="Mint Page">
-            <Link href="mint">MINT</Link>
+            <Link href="/mint">MINT</Link>
           </li>
           <li>
             <div className="text- mb-1 h-4 w-4 rounded-full bg-primary"></div>
