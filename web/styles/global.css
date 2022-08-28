@@ -1,22 +1,13 @@
+@import "form.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/* @import "input-range-2.css"; */
 
 @font-face {
   font-family: "KumbhSans";
   src: url("../fonts/KumbhSans-Regular.ttf");
 }
-
-/* @layer base {
-  h3 {
-    @apply text-base font-semibold text-gray-100;
-  }
-  h4 {
-    @apply text-sm font-semibold text-gray-300;
-  }
-} */
 
 html,
 body {

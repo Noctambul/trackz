@@ -1,0 +1,26 @@
+@tailwind base;
+
+@layer base {
+  [type="text"],
+  [type="email"],
+  [type="url"],
+  [type="password"],
+  [type="number"],
+  [type="date"],
+  [type="datetime-local"],
+  [type="month"],
+  [type="search"],
+  [type="tel"],
+  [type="time"],
+  [type="week"],
+  [type="file"],
+  [multiple],
+  textarea,
+  select {
+    @apply w-full rounded-lg border-red-300 bg-gray-50 text-gray-900 shadow-sm focus:border-primary focus:outline-none focus:ring-primary;
+  }
+
+  [type="file"] {
+    @apply cursor-pointer border-0 file:cursor-pointer file:rounded-lg file:rounded-r-none file:border-0 file:bg-subtext file:py-2 file:px-4 file:align-middle;
+  }
+}
