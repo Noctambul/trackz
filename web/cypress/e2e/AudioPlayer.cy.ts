@@ -30,7 +30,7 @@ describe("Audio Player", () => {
     const trackIndex = 1;
     const track = trackzs[trackIndex];
 
-    beforeEach(() => cy.get(`[aria-label="Play ${track.title}"]`).click());
+    beforeEach(() => cy.get(`[aria-label="Play ${track.name}"]`).click());
 
     it("display the new track in the player", () => {
       shouldHaveTrack(track);
@@ -91,8 +91,8 @@ function getInPlayer(selector: string) {
 }
 
 function shouldHaveTrack(track: TrackzMetadata) {
-  getInPlayer(`[aria-label="Title"]`).should("have.text", track.title);
-  getInPlayer(`[aria-label="Author"]`).should("have.text", track.author);
+  getInPlayer(`[aria-label="Title"]`).should("have.text", track.name);
+  getInPlayer(`[aria-label="Author"]`).should("have.text", track.owner);
   // getInPlayer(`[aria-label="Duration"]`).should("have.text", "00:00");
   cy.log(`The Trackz ${track.id} is well displayed in the player`);
 }

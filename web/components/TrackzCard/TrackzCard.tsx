@@ -35,10 +35,10 @@ export default function TrackzCard({ trackz }: Props): JSX.Element {
   const InfoSection = (
     <div className="ml-2 flex flex-col justify-center">
       <span className="truncate text-lg text-text" aria-label="Title">
-        {trackz.title}
+        {trackz.name}
       </span>
       <span className="truncate text-sm text-subtext" aria-label="Author">
-        by {trackz.author}
+        by {trackz.owner}
       </span>
       {/* <p className="line-clamp-2 my-1 italic">{trackz.description}</p> */}
     </div>
@@ -53,7 +53,7 @@ export default function TrackzCard({ trackz }: Props): JSX.Element {
       onClick={() => {
         isPlayingMe() ? pause() : play(trackz);
       }}
-      aria-label={`Play ${trackz.title}`}
+      aria-label={`Play ${trackz.name}`}
     />
   );
   const myTrackIsSelectedForPlaying = trackz == currentTrackz;
@@ -64,7 +64,7 @@ export default function TrackzCard({ trackz }: Props): JSX.Element {
         <Image
           src={resolveLink(trackz.coverUri)}
           layout="fill"
-          alt={trackz.title}
+          alt={trackz.name}
         />
       </div>
       <div className="mx-4 flex w-full flex-col justify-between overflow-hidden">

@@ -69,7 +69,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
       setDuration(selectedTrackz.duration);
       setTrackProgress(Math.round(selectedTrackz.progress));
       startTimer();
-      console.log("Selected Trackz ", selectedTrackz.metadata.title);
+      console.log("Selected Trackz ", selectedTrackz.metadata.name);
     }
     // Use callback to add starttimer to the dependencies
   }, [selectedTrackz]);
