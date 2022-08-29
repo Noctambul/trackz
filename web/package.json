@@ -13,6 +13,9 @@
     "cypress:e2e": "cypress open --e2e --browser chrome"
   },
   "dependencies": {
+    "@thirdweb-dev/react": "^2.7.4",
+    "@thirdweb-dev/sdk": "^2.3.42",
+    "ethers": "^5.7.0",
     "howler": "^2.2.3",
     "next": "12.1.4",
     "react": "18.0.0",
