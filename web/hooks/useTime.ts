@@ -1,7 +1,8 @@
 /**
  * @param timeInSeconds The time to format in seconds
  */
-export function formatTime(timeInSeconds: number): string {
+export function formatTime(timeInSeconds: number | null | undefined): string {
+  timeInSeconds = timeInSeconds || 0;
   const minutes = Math.floor(timeInSeconds / 60);
   const returnMin = minutes < 10 ? `0${minutes}` : minutes;
   const seconds = Math.floor(timeInSeconds % 60);
