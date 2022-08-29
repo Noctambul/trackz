@@ -1,3 +1,9 @@
+import {
+  useAddress,
+  useContract,
+  useMetamask,
+  useMintNFT,
+} from "@thirdweb-dev/react";
 import PageContainer from "components/PageContainer/PageContainer";
 import useErrorFields from "hooks/useErrorFields";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -15,7 +21,45 @@ type Inputs = {
 export default function MintPage(): JSX.Element {
   const { handleSubmit, register, formState } = useForm<Inputs>();
   const { ErrorField } = useErrorFields<Inputs>(formState);
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+
+  const { contract } = useContract(
+    process.env.NEXT_PUBLIC_TRACKZ_COLLECTION_CONTRACT
+  );
+  const { mutate: mintNft, isLoading, error } = useMintNFT(contract?.nft);
+  const address = useAddress();
+  const connectWithMetamask = useMetamask();
+
+  if (error) {
+    console.error("failed to mint nft", error);
+  }
+
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    console.log(data);
+    if (!address) return;
+
+    // mintNft({
+    //   to: address,
+    //   metadata: { name: "bonjour", description: "salut" },
+    // });
+  };
+
+  const SubmitButton = address ? (
+    <button
+      className="rounded-xl bg-primary p-2 disabled:bg-subtext"
+      type="submit"
+      // disabled={isLoading}
+    >
+      MINT
+    </button>
+  ) : (
+    <button
+      className="rounded-xl bg-orange-700 p-2 disabled:bg-subtext"
+      type="button"
+      onClick={connectWithMetamask}
+    >
+      Connect wallet
+    </button>
+  );
 
   return (
     <PageContainer>
@@ -24,38 +68,31 @@ export default function MintPage(): JSX.Element {
         onSubmit={handleSubmit(onSubmit)}
       >
         <h3>Upload</h3>
-
         <label>
           Music File
           <input type="file" {...register("musicFile", { required: true })} />
+          <ErrorField propertyName="musicFile" label="Music file" />
         </label>
-
         <label>
           Cover File
           <input type="file" {...register("coverFile")} />
         </label>
-
         <h3>Details</h3>
-
         <label>
           Title
           <input type="text" {...register("title", { required: true })} />
           <ErrorField propertyName="title" label="Title" />
         </label>
-
         <label>
           Description
           <textarea {...register("description")} />
           <ErrorField propertyName="description" label="Description" />
         </label>
-
         <label>
           Tags
           <input type="text" name="tags" />
         </label>
-
         <h3>Editions</h3>
-
         <label>
           Number of Editions
           <input
@@ -70,7 +107,7 @@ export default function MintPage(): JSX.Element {
           />
           <ErrorField propertyName="editions" label="The number of editions" />
         </label>
-
+        ackage
         <label>
           Royalties
           <input
@@ -83,14 +120,7 @@ export default function MintPage(): JSX.Element {
           />
           <ErrorField propertyName="royalties" label="Royalties" />
         </label>
-
-        <button
-          className="rounded-xl bg-primary p-2 disabled:bg-subtext"
-          type="submit"
-          disabled={!formState.isDirty}
-        >
-          Mint
-        </button>
+        {SubmitButton}
       </form>
     </PageContainer>
   );
