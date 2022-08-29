@@ -59,7 +59,10 @@ export default function TrackzCard({ trackz }: Props): JSX.Element {
   const myTrackIsSelectedForPlaying = trackz == currentTrackz;
 
   return (
-    <div className="flex" aria-label={`Trackz Card ${trackz.id}`}>
+    <div
+      className="mx-auto flex w-screen md:w-4/5"
+      aria-label={`Trackz Card ${trackz.id}`}
+    >
       <div className="relative h-[120px] w-[120px] shrink-0">
         <Image
           src={resolveLink(trackz.coverUri)}

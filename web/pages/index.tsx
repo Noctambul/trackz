@@ -42,16 +42,19 @@ const metadataExample = {
 type AttributeType = "owner";
 type Attributes = { trait_type: AttributeType; value: string }[];
 
-const parseNft = (nftMetadata: EditionMetadata): TrackzMetadata | undefined => {
+const parseEditionMetadata = (
+  edition: EditionMetadata
+): TrackzMetadata | undefined => {
   const attribute = (type: string) =>
     attributes.find((attr) => attr.trait_type === type)?.value;
 
-  const data = nftMetadata.metadata;
+  const data = edition.metadata;
   const attributes: Attributes = data.attributes as Attributes;
-  const owner = attribute("owner");
+  const owner = attribute("owner") || "Unknwown";
   const tags = attribute("type")?.split(",");
-  const musicUri = data.animation_url;
+  const musicUri = data.animation_url || "allow";
 
+  // TODO: Do not return wrong track
   if (!owner || !musicUri) return;
 
   return {
@@ -59,19 +62,20 @@ const parseNft = (nftMetadata: EditionMetadata): TrackzMetadata | undefined => {
     name: `${data.name}`,
     owner,
     description: `${data.description}`,
-    totalSupply: nftMetadata.supply.toNumber(),
+    totalSupply: edition.supply.toNumber(),
     coverUri: data.image,
     musicUri,
     tags,
   };
 };
 
+const parseEditions = (editions: EditionMetadata[]): TrackzMetadata[] =>
+  editions
+    .map((edition) => parseEditionMetadata(edition))
+    .filter((track) => track !== undefined) as TrackzMetadata[];
+
 const Home: NextPage = () => {
-  // const [nfts, setNfts] = useState<NFTMetadataOwner[]>([]);
-  const [nfts, setNfts] = useState<EditionMetadata[]>([]);
-  // const nftCollection = useNFTCollection(
-  //   process.env.NEXT_PUBLIC_TRACKZ_COLLECTION_CONTRACT
-  // );
+  const [trackzMetadata, setTrackzMetadata] = useState<TrackzMetadata[]>([]);
   const edition: Edition | undefined = useEdition(
     process.env.NEXT_PUBLIC_TRACKZ_EDITION_CONTRACT
   );
@@ -80,11 +84,9 @@ const Home: NextPage = () => {
     async function getNfts() {
       console.log("*** Retrieve NFTs ***");
       const retrievedNfts = (await edition?.getAll()) || [];
-
-      const nft = retrievedNfts[0];
-      setNfts(retrievedNfts);
-
-      console.log(retrievedNfts);
+      const trackzs = parseEditions(retrievedNfts);
+      setTrackzMetadata(trackzs);
+      console.log(trackzs);
     }
 
     getNfts();
@@ -95,6 +97,10 @@ const Home: NextPage = () => {
   return (
     <PageContainer>
       <div className="space-y-lg my-24 flex h-[500vh] flex-col space-y-10 px-8 sm:px-20">
+        {trackzMetadata.map((track) => (
+          <TrackzCard trackz={track} key={track.id} />
+        ))}
+
         {trackzs.map((trackz) => (
           <TrackzCard trackz={trackz} key={trackz.id} />
         ))}
