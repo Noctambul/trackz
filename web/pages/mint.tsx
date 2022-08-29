@@ -1,101 +1,97 @@
-export default function Mint() {
-  const normFile = (e: any) => {
-    console.log("Upload event:", e);
-    if (Array.isArray(e)) {
-      return e;
-    }
-    return e && e.fileList;
-  };
+import PageContainer from "components/PageContainer/PageContainer";
+import useErrorFields from "hooks/useErrorFields";
+import { SubmitHandler, useForm } from "react-hook-form";
+
+type Inputs = {
+  musicFile: File;
+  coverFile: File;
+  title: string;
+  description: string;
+  tags: string;
+  editions: number;
+  royalties: number;
+};
+
+export default function MintPage(): JSX.Element {
+  const { handleSubmit, register, formState } = useForm<Inputs>();
+  const { ErrorField } = useErrorFields<Inputs>(formState);
+  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
 
   return (
-    // <PageContainer>
-    //   <>
-    //     <Form
-    //       name="Mint"
-    //       layout="vertical"
-    //       labelCol={{ span: 4 }}
-    //       wrapperCol={{ span: 14 }}
-    //     >
-    //       <Form.Item
-    //         label="Title"
-    //         name="title"
-    //         rules={[
-    //           { required: true, message: "Please give a title to your track" },
-    //         ]}
-    //       >
-    //         <Input />
-    //       </Form.Item>
+    <PageContainer>
+      <form
+        className="mx-40 flex w-full flex-col gap-4"
+        onSubmit={handleSubmit(onSubmit)}
+      >
+        <h3>Upload</h3>
 
-    //       <Form.Item>
-    //         <Form.Item
-    //           label="Track"
-    //           style={{ display: "inline-block", width: "calc(50%)" }}
-    //           rules={[
-    //             { required: true, message: "Please upload the track file" },
-    //           ]}
-    //         >
-    //           <Form.Item
-    //             name="track"
-    //             valuePropName="file"
-    //             getValueFromEvent={normFile}
-    //             noStyle
-    //           >
-    //             <Upload.Dragger name="files" action="/upload.do">
-    //               <p className="ant-upload-drag-icon">
-    //                 <SoundOutlined />
-    //               </p>
-    //               <p className="ant-upload-text">
-    //                 Click or drag file to this area to upload
-    //               </p>
-    //               <p className="ant-upload-hint">
-    //                 Support for a single or bulk upload.
-    //               </p>
-    //             </Upload.Dragger>
-    //           </Form.Item>
-    //         </Form.Item>
-    //         <Form.Item
-    //           label="Cover"
-    //           style={{ display: "inline-block", width: "calc(50%)" }}
-    //         >
-    //           <Form.Item
-    //             name="cover"
-    //             valuePropName="file"
-    //             getValueFromEvent={normFile}
-    //             noStyle
-    //           >
-    //             <Upload.Dragger name="files" action="/upload.do">
-    //               <p className="ant-upload-drag-icon">
-    //                 <PictureOutlined />
-    //               </p>
-    //               <p className="ant-upload-text">
-    //                 Click or drag file to this area to upload
-    //               </p>
-    //               <p className="ant-upload-hint">
-    //                 Support for a single or bulk upload.
-    //               </p>
-    //             </Upload.Dragger>
-    //           </Form.Item>
-    //         </Form.Item>
-    //       </Form.Item>
+        <label>
+          Music File
+          <input type="file" {...register("musicFile", { required: true })} />
+        </label>
 
-    //       <Form.Item name="description" label="Description">
-    //         <Input.TextArea showCount maxLength={100} />
-    //       </Form.Item>
-    //       <Form.Item
-    //         name="initialSupply"
-    //         label="Initial Supply"
-    //         rules={[
-    //           {
-    //             required: true,
-    //             message: "Please provide an initial supply for this track",
-    //           },
-    //         ]}
-    //       >
-    //         <InputNumber style={{ width: "100%" }} min={1} max={10000} />
-    //       </Form.Item>
-    //     </Form>
-    //   </>
-    // </PageContainer>
-    <></>
+        <label>
+          Cover File
+          <input type="file" {...register("coverFile")} />
+        </label>
+
+        <h3>Details</h3>
+
+        <label>
+          Title
+          <input type="text" {...register("title", { required: true })} />
+          <ErrorField propertyName="title" label="Title" />
+        </label>
+
+        <label>
+          Description
+          <textarea {...register("description")} />
+          <ErrorField propertyName="description" label="Description" />
+        </label>
+
+        <label>
+          Tags
+          <input type="text" name="tags" />
+        </label>
+
+        <h3>Editions</h3>
+
+        <label>
+          Number of Editions
+          <input
+            type="number"
+            placeholder="10"
+            {...register("editions", {
+              required: true,
+              min: 1,
+              max: 100000,
+              valueAsNumber: true,
+            })}
+          />
+          <ErrorField propertyName="editions" label="The number of editions" />
+        </label>
+
+        <label>
+          Royalties
+          <input
+            type="number"
+            max="20"
+            {...register("royalties", {
+              required: true,
+              max: { value: 20, message: "Royalties must be less than 20%" },
+            })}
+          />
+          <ErrorField propertyName="royalties" label="Royalties" />
+        </label>
+
+        <button
+          className="rounded-xl bg-primary p-2 disabled:bg-subtext"
+          type="submit"
+          disabled={!formState.isDirty}
+        >
+          Mint
+        </button>
+      </form>
+    </PageContainer>
   );
 }
