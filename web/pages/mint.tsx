@@ -1,5 +1,4 @@
 import PageContainer from "components/PageContainer/PageContainer";
-import FileInput from "components/uikit/FileInput";
 import useErrorFields from "hooks/useErrorFields";
 import { SubmitHandler, useForm } from "react-hook-form";
 
@@ -18,7 +17,6 @@ export default function MintPage(): JSX.Element {
   const { ErrorField } = useErrorFields<Inputs>(formState);
   const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
 
-  console.log(formState.errors);
   return (
     <PageContainer>
       <form
@@ -27,11 +25,14 @@ export default function MintPage(): JSX.Element {
       >
         <h3>Upload</h3>
 
-        <FileInput>Music File</FileInput>
+        <label>
+          Music File
+          <input type="file" {...register("musicFile", { required: true })} />
+        </label>
 
         <label>
-          Cover file
-          <input type="file" name="coverFile" />
+          Cover File
+          <input type="file" {...register("coverFile")} />
         </label>
 
         <h3>Details</h3>
@@ -83,7 +84,11 @@ export default function MintPage(): JSX.Element {
           <ErrorField propertyName="royalties" label="Royalties" />
         </label>
 
-        <button className="rounded-xl bg-primary p-2" type="submit">
+        <button
+          className="rounded-xl bg-primary p-2 disabled:bg-subtext"
+          type="submit"
+          disabled={!formState.isDirty}
+        >
           Mint
         </button>
       </form>

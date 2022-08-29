@@ -23,11 +23,20 @@ export default function useErrorFields<T extends FieldValues>({
     return `${label} is required`;
   };
 
-  const BaseErrorField = ({ children }: { children: React.ReactNode }) => (
-    <>
-      <span className="my-4 py-4 text-red-500">{children}</span>
-    </>
-  );
+  const BaseErrorField = ({
+    children,
+    label,
+  }: {
+    children: React.ReactNode;
+    label: string;
+  }) => {
+    console.count("Render error " + label);
+    return (
+      <>
+        <span className="my-4 py-4 text-red-500">{children}</span>
+      </>
+    );
+  };
 
   const ErrorField = useCallback(
     ({ propertyName, label }: { label: string; propertyName: string }) => {
@@ -35,7 +44,9 @@ export default function useErrorFields<T extends FieldValues>({
       return (
         <>
           {error && (
-            <BaseErrorField>{errorMessage(propertyName, label)}</BaseErrorField>
+            <BaseErrorField label={propertyName}>
+              {errorMessage(propertyName, label)}
+            </BaseErrorField>
           )}
         </>
       );
