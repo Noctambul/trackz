@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React from "react";
 import { FieldError, FieldValues, FormState } from "react-hook-form";
 
 export default function useErrorFields<T extends FieldValues>({
@@ -31,28 +31,43 @@ export default function useErrorFields<T extends FieldValues>({
     label: string;
   }) => {
     console.count("Render error " + label);
+    return <div className="my-4 py-4 text-red-500">{children}</div>;
+  };
+
+  // const ErrorField = useCallback(
+  //   ({ propertyName, label }: { label: string; propertyName: string }) => {
+  //     const error = errors[propertyName];
+  //     return (
+  //       <>
+  //         {error && (
+  //           <BaseErrorField label={propertyName}>
+  //             {errorMessage(propertyName, label)}
+  //           </BaseErrorField>
+  //         )}
+  //       </>
+  //     );
+  //   },
+  //   [errors]
+  // );
+
+  const ErrorField = ({
+    propertyName,
+    label,
+  }: {
+    label: string;
+    propertyName: string;
+  }) => {
+    const error = errors[propertyName];
     return (
       <>
-        <span className="my-4 py-4 text-red-500">{children}</span>
+        {error && (
+          <div className="my-4 py-4 text-red-500">
+            {errorMessage(propertyName, label)}
+          </div>
+        )}
       </>
     );
   };
-
-  const ErrorField = useCallback(
-    ({ propertyName, label }: { label: string; propertyName: string }) => {
-      const error = errors[propertyName];
-      return (
-        <>
-          {error && (
-            <BaseErrorField label={propertyName}>
-              {errorMessage(propertyName, label)}
-            </BaseErrorField>
-          )}
-        </>
-      );
-    },
-    [errors]
-  );
 
   return { ErrorField };
 }
