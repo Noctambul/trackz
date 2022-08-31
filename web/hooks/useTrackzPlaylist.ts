@@ -21,19 +21,21 @@ type TrackzPlaylistInterface = {
 
 export default function useTrackzPlaylist(
   trackzs: (AudioTrackz | TrackzMetadata)[],
+  onTrackLoaded?: (track: AudioTrackz) => void,
   preloadBuffer = DEFAULT_PRELOAD_BUFFER
 ): TrackzPlaylistInterface {
   const audioTrackzs: AudioTrackz[] = useMemo(
     () =>
       trackzs.map((track) =>
-        track instanceof AudioTrackz ? track : new AudioTrackz(track)
+        track instanceof AudioTrackz
+          ? track
+          : new AudioTrackz(track, onTrackLoaded)
       ),
     [trackzs]
   );
   const {
     selected,
     playlist,
-    setPlaylist,
     index,
     next,
     previous,
@@ -51,8 +53,9 @@ export default function useTrackzPlaylist(
 
       for (let count = index; count < preloadBuffer + index; count++) {
         const i = count % playlist.length;
-        if (playlist[i].state === "unloaded") {
-          playlist[i].load();
+        const track = playlist[i];
+        if (track.state === "unloaded") {
+          track.load();
         }
       }
     };
