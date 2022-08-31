@@ -1,5 +1,5 @@
 import { useAudio } from "context/AudioContext";
-import TrackzMetadata from "models/TrackzMetadata";
+import AudioTrackz from "models/AudioTrackz";
 import AudioControlls from "./AudioControlls";
 import ProgressBar from "./ProgressBar";
 import TrackzInfos from "./TrackzInfos";
@@ -8,7 +8,7 @@ import Volume from "./Volume";
 export default function AudioPlayer({
   trackz,
 }: {
-  trackz: TrackzMetadata;
+  trackz: AudioTrackz;
 }): JSX.Element {
   const { trackProgress, duration, onSearch, onSearchEnd } = useAudio();
 
@@ -17,7 +17,7 @@ export default function AudioPlayer({
       className="flex h-full w-full items-center justify-around"
       aria-label="Audio Player"
     >
-      <TrackzInfos trackz={trackz} />
+      <TrackzInfos trackz={trackz.metadata} />
       <AudioControlls />
       <ProgressBar
         progress={trackProgress}

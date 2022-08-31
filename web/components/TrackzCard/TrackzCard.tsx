@@ -14,8 +14,7 @@ type Props = {
 export default function TrackzCard({ trackz }: Props): JSX.Element {
   const { resolveLink } = useIpfs();
   const { formatTime } = useTime();
-  const { play, pause, currentTrackz, isPlaying, trackProgress, duration } =
-    useAudio();
+  const { play, pause, currentTrackz, isPlaying, trackProgress } = useAudio();
 
   const MarketSection = (
     <div className="mt-auto flex items-center justify-between text-gray-400">
@@ -44,7 +43,9 @@ export default function TrackzCard({ trackz }: Props): JSX.Element {
     </div>
   );
 
-  const isPlayingMe = () => isPlaying && trackz == currentTrackz;
+  const isPlayingMe = () => {
+    return isPlaying && trackz == currentTrackz?.metadata;
+  };
   const PlayButton = (
     <IconButton
       Icon={isPlayingMe() ? IoPauseCircleOutline : IoPlayCircleOutline}
@@ -56,11 +57,11 @@ export default function TrackzCard({ trackz }: Props): JSX.Element {
       aria-label={`Play ${trackz.name}`}
     />
   );
-  const myTrackIsSelectedForPlaying = trackz == currentTrackz;
+  const myTrackIsSelectedForPlaying = trackz == currentTrackz?.metadata;
 
   return (
     <div
-      className="mx-auto flex w-screen md:w-4/5"
+      className="mx-auto flex w-screen"
       aria-label={`Trackz Card ${trackz.id}`}
     >
       <div className="relative h-[120px] w-[120px] shrink-0">
