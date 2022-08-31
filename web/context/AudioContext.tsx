@@ -33,6 +33,7 @@ export function useAudio(): AudioContextInterface {
 export function AudioProvider({ children }: { children: React.ReactNode }) {
   const intervalRef = useRef<ReturnType<typeof setInterval>>();
   const { trackzMetadata } = useWeb3();
+
   const {
     selectedTrackz,
     setSelectedTrackz,

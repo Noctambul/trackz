@@ -1,6 +1,5 @@
 import IconButton from "components/uikit/IconButton";
 import Progress from "components/uikit/Progress";
-import { useAudio } from "context/AudioContext";
 import { useIpfs } from "hooks/useIpfs";
 import { useTime } from "hooks/useTime";
 import TrackzMetadata from "models/TrackzMetadata";
@@ -9,12 +8,25 @@ import { IoPauseCircleOutline, IoPlayCircleOutline } from "react-icons/io5";
 
 type Props = {
   trackz: TrackzMetadata;
+  trackProgress: number;
+  /** Is the given trackz the one currently selected by the player */
+  isSelected: boolean;
+  /** Is the player playing a track */
+  isPlaying: boolean;
+  play: (trackz: TrackzMetadata) => void;
+  pause: () => void;
 };
 
-export default function TrackzCard({ trackz }: Props): JSX.Element {
+export default function TrackzCard({
+  trackz,
+  trackProgress,
+  play,
+  pause,
+  isSelected,
+  isPlaying,
+}: Props): JSX.Element {
   const { resolveLink } = useIpfs();
   const { formatTime } = useTime();
-  const { play, pause, currentTrackz, isPlaying, trackProgress } = useAudio();
 
   const MarketSection = (
     <div className="mt-auto flex items-center justify-between text-gray-400">
@@ -44,7 +56,7 @@ export default function TrackzCard({ trackz }: Props): JSX.Element {
   );
 
   const isPlayingMe = () => {
-    return isPlaying && trackz == currentTrackz?.metadata;
+    return isPlaying && isSelected;
   };
   const PlayButton = (
     <IconButton
@@ -57,7 +69,6 @@ export default function TrackzCard({ trackz }: Props): JSX.Element {
       aria-label={`Play ${trackz.name}`}
     />
   );
-  const myTrackIsSelectedForPlaying = trackz == currentTrackz?.metadata;
 
   return (
     <div
@@ -78,7 +89,7 @@ export default function TrackzCard({ trackz }: Props): JSX.Element {
         </div>
         <div className="flex h-full items-center">
           <Progress
-            value={myTrackIsSelectedForPlaying ? trackProgress : 0}
+            value={isSelected ? trackProgress : 0}
             max={trackz.duration}
             className="mx-2 pr-2"
           />

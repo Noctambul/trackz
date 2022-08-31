@@ -1,5 +1,4 @@
 import TrackzCard from "components/TrackzCard/TrackzCard";
-import { AudioProvider } from "context/AudioContext";
 import trackzs from "data/trackzs";
 import { useTime } from "hooks/useTime";
 
@@ -8,10 +7,16 @@ describe("TrackzCard.tsx", () => {
   const { formatTime } = useTime();
 
   it("renders card", () => {
+    const func = () => {};
     cy.mount(
-      <AudioProvider>
-        <TrackzCard trackz={trackz} />
-      </AudioProvider>
+      <TrackzCard
+        trackz={trackz}
+        isPlaying={false}
+        isSelected={false}
+        trackProgress={0}
+        play={func}
+        pause={func}
+      />
     );
 
     cy.get(`[aria-label="Title"]`).should("have.text", trackz.name);
