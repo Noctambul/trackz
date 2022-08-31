@@ -83,10 +83,11 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     }
   }, [isPlaying, selectedTrackz]);
 
-  const play = (track?: TrackzMetadata) => {
-    if (track && selectedTrackz && track.id != selectedTrackz?.id) {
+  const play = (track?: TrackzMetadata | AudioTrackz) => {
+    const metadata = track instanceof AudioTrackz ? track.metadata : track;
+    if (metadata && selectedTrackz && metadata.id != selectedTrackz?.id) {
       selectedTrackz.stop();
-      setSelectedTrackz(track.id);
+      setSelectedTrackz(metadata.id);
     }
     setIsplaying(true);
   };

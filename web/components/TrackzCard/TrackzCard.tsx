@@ -89,13 +89,15 @@ export default function TrackzCard({
         </div>
         <div className="flex h-full items-center">
           <Progress
-            value={isSelected ? trackProgress : 0}
+            value={isSelected && trackz.duration ? trackProgress : 0}
             max={trackz.duration}
             className="mx-2 pr-2"
           />
-          <div className="text-xs" aria-label="Duration">
-            {formatTime(trackz.duration)}
-          </div>
+          {trackz.duration && (
+            <div className="text-xs" aria-label="Duration">
+              {formatTime(trackz.duration)}
+            </div>
+          )}
         </div>
         {MarketSection}
       </div>
