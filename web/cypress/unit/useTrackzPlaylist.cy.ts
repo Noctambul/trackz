@@ -21,7 +21,9 @@ describe("useTrackzPlaylist", () => {
     // The playlist will call load for every trackz to retrieve the metadata
     spy = cy.spy(Howl.prototype, "load").as("load");
     // Render the hook
-    result = renderHook(() => useTrackzPlaylist(trackzs, preloadBuffer)).result;
+    result = renderHook(() =>
+      useTrackzPlaylist(trackzs, undefined, preloadBuffer)
+    ).result;
   });
 
   context("when rendering the first time", () => {
@@ -44,15 +46,15 @@ describe("useTrackzPlaylist", () => {
 
   context("when swithcing through Trackz", () => {
     it("switch the selected Trackz correctly", () => {
-      expect(result.current.selectedTrackz.metadata.id).to.eq(trackzs[0].id);
+      expect(result.current.selectedTrackz?.metadata.id).to.eq(trackzs[0].id);
       act(() => result.current.previous());
-      expect(result.current.selectedTrackz.metadata.id).to.eq(trackzs[0].id);
+      expect(result.current.selectedTrackz?.metadata.id).to.eq(trackzs[0].id);
       act(() => result.current.next());
-      expect(result.current.selectedTrackz.metadata.id).to.eq(trackzs[1].id);
+      expect(result.current.selectedTrackz?.metadata.id).to.eq(trackzs[1].id);
       act(() => result.current.next());
-      expect(result.current.selectedTrackz.metadata.id).to.eq(trackzs[2].id);
+      expect(result.current.selectedTrackz?.metadata.id).to.eq(trackzs[2].id);
       act(() => result.current.previous());
-      expect(result.current.selectedTrackz.metadata.id).to.eq(trackzs[1].id);
+      expect(result.current.selectedTrackz?.metadata.id).to.eq(trackzs[1].id);
     });
 
     it("preload next Trackz if needed", () => {

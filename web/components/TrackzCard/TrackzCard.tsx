@@ -1,32 +1,45 @@
 import IconButton from "components/uikit/IconButton";
 import Progress from "components/uikit/Progress";
-import { useAudio } from "context/AudioContext";
+import useAudioTrackz from "hooks/useAudioTrackz";
 import { useIpfs } from "hooks/useIpfs";
 import { useTime } from "hooks/useTime";
-import TrackzMetadata from "models/TrackzMetadata";
+import AudioTrackz from "models/AudioTrackz";
 import Image from "next/image";
 import { IoPauseCircleOutline, IoPlayCircleOutline } from "react-icons/io5";
 
 type Props = {
-  trackz: TrackzMetadata;
+  trackz: AudioTrackz;
+  trackProgress: number;
+  /** Is the given trackz the one currently selected by the player */
+  isSelected: boolean;
+  /** Is the player playing a track */
+  isPlaying: boolean;
+  play: (trackz: AudioTrackz) => void;
+  pause: () => void;
 };
 
-export default function TrackzCard({ trackz }: Props): JSX.Element {
+export default function TrackzCard({
+  trackz,
+  trackProgress,
+  play,
+  pause,
+  isSelected,
+  isPlaying,
+}: Props): JSX.Element {
   const { resolveLink } = useIpfs();
   const { formatTime } = useTime();
-  const { play, pause, currentTrackz, isPlaying, trackProgress, duration } =
-    useAudio();
+  const { duration } = useAudioTrackz(trackz);
 
   const MarketSection = (
     <div className="mt-auto flex items-center justify-between text-gray-400">
       <div className="mt-auto" aria-label="Supply">
         Supply
-        <br />x{trackz.totalSupply}
+        <br />x{trackz.metadata.totalSupply}
       </div>
       <div aria-label="Price">
         Price
         <br />
-        {trackz.price} Tz
+        {trackz.metadata.price} Tz
       </div>
       <button type="button">Collect</button>
     </div>
@@ -35,16 +48,18 @@ export default function TrackzCard({ trackz }: Props): JSX.Element {
   const InfoSection = (
     <div className="ml-2 flex flex-col justify-center">
       <span className="truncate text-lg text-text" aria-label="Title">
-        {trackz.title}
+        {trackz.name}
       </span>
       <span className="truncate text-sm text-subtext" aria-label="Author">
-        by {trackz.author}
+        by {trackz.metadata.owner}
       </span>
       {/* <p className="line-clamp-2 my-1 italic">{trackz.description}</p> */}
     </div>
   );
 
-  const isPlayingMe = () => isPlaying && trackz == currentTrackz;
+  const isPlayingMe = () => {
+    return isPlaying && isSelected;
+  };
   const PlayButton = (
     <IconButton
       Icon={isPlayingMe() ? IoPauseCircleOutline : IoPlayCircleOutline}
@@ -53,18 +68,20 @@ export default function TrackzCard({ trackz }: Props): JSX.Element {
       onClick={() => {
         isPlayingMe() ? pause() : play(trackz);
       }}
-      aria-label={`Play ${trackz.title}`}
+      aria-label={`Play ${trackz.name}`}
     />
   );
-  const myTrackIsSelectedForPlaying = trackz == currentTrackz;
 
   return (
-    <div className="flex" aria-label={`Trackz Card ${trackz.id}`}>
+    <div
+      className="mx-auto flex w-screen"
+      aria-label={`Trackz Card ${trackz.id}`}
+    >
       <div className="relative h-[120px] w-[120px] shrink-0">
         <Image
-          src={resolveLink(trackz.coverUri)}
+          src={resolveLink(trackz.metadata.coverUri)}
           layout="fill"
-          alt={trackz.title}
+          alt={trackz.name}
         />
       </div>
       <div className="mx-4 flex w-full flex-col justify-between overflow-hidden">
@@ -74,13 +91,17 @@ export default function TrackzCard({ trackz }: Props): JSX.Element {
         </div>
         <div className="flex h-full items-center">
           <Progress
-            value={myTrackIsSelectedForPlaying ? trackProgress : 0}
-            max={trackz.duration}
+            value={isSelected && duration > 0 ? trackProgress : 0}
+            max={duration}
             className="mx-2 pr-2"
           />
-          <div className="text-xs" aria-label="Duration">
-            {formatTime(trackz.duration)}
-          </div>
+          {duration ? (
+            <div className="text-xs" aria-label="Duration">
+              {formatTime(duration)}
+            </div>
+          ) : (
+            <></>
+          )}
         </div>
         {MarketSection}
       </div>

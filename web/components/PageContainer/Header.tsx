@@ -1,3 +1,4 @@
+import ConnectButton from "components/Thirdweb/ConnectButton";
 import Link from "next/link";
 
 export default function Header(): JSX.Element {
@@ -11,8 +12,8 @@ export default function Header(): JSX.Element {
           <li aria-label="Mint Page">
             <Link href="/mint">MINT</Link>
           </li>
-          <li>
-            <div className="text- mb-1 h-4 w-4 rounded-full bg-primary"></div>
+          <li aria-label="Connect Wallet">
+            <ConnectButton />
           </li>
         </ul>
       </nav>

@@ -13,12 +13,20 @@ export default class AudioTrackz {
     return this.metadata.id;
   }
 
+  get name() {
+    return this.metadata.name;
+  }
+
   get duration(): number {
     return this.howl.duration();
   }
 
   get state(): "unloaded" | "loading" | "loaded" {
     return this.howl.state();
+  }
+
+  get isLoaded(): boolean {
+    return this.state === "loaded";
   }
 
   /**
@@ -32,11 +40,19 @@ export default class AudioTrackz {
     return this.howl.seek();
   }
 
-  constructor(private trackzMetadata: TrackzMetadata) {
+  constructor(
+    private trackzMetadata: TrackzMetadata,
+    onTrackLoaded?: (track: AudioTrackz) => void
+  ) {
+    const self = this;
     this.howl = new Howl({
       src: this.musicUri,
       html5: true,
       preload: "metadata", // Could be true to start loading the file immediately
+      onload: () => {
+        onTrackLoaded?.(self);
+        self.onloaded?.();
+      },
     });
   }
 
@@ -47,6 +63,10 @@ export default class AudioTrackz {
     //   this.howl.on("load", resolve);
     //   this.howl.on("loaderror", reject);
     // this.howl.on("load", this.onloaded);
+    this.howl.on("loaderror", (e) =>
+      console.error(`AudioTrackz ${this.name} failed to load : ${e}`)
+    );
+    // this.howl.on("load", () => this.onloaded());
     this.howl.load();
     // }).then();
   }

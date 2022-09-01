@@ -1,11 +1,11 @@
 export default interface TrackzMetadata {
   id: number;
-  title: string;
-  author: string;
+  name: string;
+  owner: string;
   description: string;
   totalSupply: number;
-  price: number;
-  coverUri: string;
+  coverUri?: string | null;
   musicUri: string;
-  duration: number;
+  tags?: string[];
+  price?: number;
 }

@@ -9,14 +9,27 @@ import usePlaylist from "./usePlaylist";
  */
 const DEFAULT_PRELOAD_BUFFER = 3;
 
+type TrackzPlaylistInterface = {
+  selectedTrackz: AudioTrackz | undefined;
+  next: () => void;
+  previous: () => void;
+  playlist: AudioTrackz[];
+  setSelectedTrackz: (id: number) => void;
+  canNext: boolean;
+  canPrev: boolean;
+};
+
 export default function useTrackzPlaylist(
   trackzs: (AudioTrackz | TrackzMetadata)[],
+  onTrackLoaded?: (track: AudioTrackz) => void,
   preloadBuffer = DEFAULT_PRELOAD_BUFFER
-) {
+): TrackzPlaylistInterface {
   const audioTrackzs: AudioTrackz[] = useMemo(
     () =>
       trackzs.map((track) =>
-        track instanceof AudioTrackz ? track : new AudioTrackz(track)
+        track instanceof AudioTrackz
+          ? track
+          : new AudioTrackz(track, onTrackLoaded)
       ),
     [trackzs]
   );
@@ -36,13 +49,17 @@ export default function useTrackzPlaylist(
      * Will start preloading the current trackz and the nexts for the desired buffer size
      */
     const preload = () => {
+      if (playlist.length === 0) return;
+
       for (let count = index; count < preloadBuffer + index; count++) {
         const i = count % playlist.length;
-        if (playlist[i].state === "unloaded") {
-          playlist[i].load();
+        const track = playlist[i];
+        if (track.state === "unloaded") {
+          track.load();
         }
       }
     };
+
     preload();
   }, [index, playlist, preloadBuffer]);
 
