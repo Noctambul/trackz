@@ -25,6 +25,10 @@ export default class AudioTrackz {
     return this.howl.state();
   }
 
+  get isLoaded(): boolean {
+    return this.state === "loaded";
+  }
+
   /**
    * The resolved music uri
    */
@@ -40,11 +44,15 @@ export default class AudioTrackz {
     private trackzMetadata: TrackzMetadata,
     onTrackLoaded?: (track: AudioTrackz) => void
   ) {
+    const self = this;
     this.howl = new Howl({
       src: this.musicUri,
       html5: true,
       preload: "metadata", // Could be true to start loading the file immediately
-      onload: () => onTrackLoaded?.(this),
+      onload: () => {
+        onTrackLoaded?.(self);
+        self.onloaded?.();
+      },
     });
   }
 

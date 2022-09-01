@@ -1,3 +1,4 @@
+import useAudioTrackz from "hooks/useAudioTrackz";
 import useTrackzPlaylist from "hooks/useTrackzPlaylist";
 import AudioTrackz from "models/AudioTrackz";
 import TrackzMetadata from "models/TrackzMetadata";
@@ -13,9 +14,10 @@ export interface AudioContextInterface {
   canNext: boolean;
   canPrev: boolean;
   isMuted: boolean;
+  playlist: AudioTrackz[];
   toggleMute: () => void;
   setVolume: (volume: number) => void;
-  play: (trackz?: TrackzMetadata) => void;
+  play: (trackz?: TrackzMetadata | AudioTrackz) => void;
   pause: () => void;
   onSearch: (seconds: number) => void;
   onSearchEnd: () => void;
@@ -41,16 +43,13 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     previous,
     canNext,
     canPrev,
-  } = useTrackzPlaylist(trackzMetadata, (track: AudioTrackz) => {
-    if (track.id == selectedTrackz?.id && !duration) {
-      setDuration(track.duration);
-    }
-  });
+    playlist,
+  } = useTrackzPlaylist(trackzMetadata);
   const [isPlaying, setIsplaying] = useState(false);
-  const [duration, setDuration] = useState(456);
   const [trackProgress, setTrackProgress] = useState(0);
   const [volume, setVolume] = useState(1);
   const [isMuted, setIsMuted] = useState(false);
+  const { duration } = useAudioTrackz(selectedTrackz);
 
   // useEffect(() => {
   //   return () => {
@@ -71,7 +70,6 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     if (selectedTrackz) {
-      setDuration(selectedTrackz.duration);
       setTrackProgress(Math.round(selectedTrackz.progress));
       startTimer();
     }
@@ -152,6 +150,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     <AudioContext.Provider
       value={{
         isPlaying,
+        playlist,
         play,
         pause,
         toNextTrack,
