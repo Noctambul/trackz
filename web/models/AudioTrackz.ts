@@ -51,12 +51,12 @@ export default class AudioTrackz {
       preload: "metadata", // Could be true to start loading the file immediately
       onload: () => {
         onTrackLoaded?.(self);
-        self.onloaded?.();
+        self.onloaded?.(self);
       },
     });
   }
 
-  onloaded() {}
+  onloaded: ((track: AudioTrackz) => void) | undefined;
 
   load() {
     // return new Promise((resolve, reject) => {
