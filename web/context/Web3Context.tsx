@@ -100,7 +100,7 @@ export function Web3Provider(props: PropsWithChildren<{}>) {
   }
 
   console.log(
-    "Contract address ",
+    "NEXT_PUBLIC_TRACKZ_EDITION_CONTRACT: ",
     process.env.NEXT_PUBLIC_TRACKZ_EDITION_CONTRACT
   );
 
