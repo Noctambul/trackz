@@ -99,11 +99,6 @@ export function Web3Provider(props: PropsWithChildren<{}>) {
     console.error("The Trackz Edition Contract Address is not defined");
   }
 
-  console.log(
-    "NEXT_PUBLIC_TRACKZ_EDITION_CONTRACT: ",
-    process.env.NEXT_PUBLIC_TRACKZ_EDITION_CONTRACT
-  );
-
   useEffect(() => {
     async function getNfts() {
       // console.log("*** Retrieve NFTs ***");
