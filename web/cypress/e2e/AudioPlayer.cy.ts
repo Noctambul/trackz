@@ -19,18 +19,18 @@ describe("Audio Player", () => {
     cy.log("Stop playing");
   });
 
-  context("when visiting the home", () => {
-    it("display the player with the first track selected", () => {
-      cy.get(`[aria-label="Audio Player"]`)
-        .should("be.visible")
-        .log("The Audio Player is visible");
-      shouldHaveTrack(trackzs[0]);
-    });
+  // context("when visiting the home", () => {
+  //   it("display the player with the first track selected", () => {
+  //     cy.get(`[aria-label="Audio Player"]`)
+  //       .should("be.visible")
+  //       .log("The Audio Player is visible");
+  //     shouldHaveTrack(trackzs[0]);
+  //   });
 
-    it("disable the previous track button", () => {
-      getInPlayer(`[aria-label="Previous Track"]`).should("be.disabled");
-    });
-  });
+  //   it("disable the previous track button", () => {
+  //     getInPlayer(`[aria-label="Previous Track"]`).should("be.disabled");
+  //   });
+  // });
 
   context("when playing a track from the cards", () => {
     const trackIndex = 1;
