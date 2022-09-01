@@ -7,7 +7,6 @@ export default function useAudioTrackz(track: AudioTrackz | undefined) {
   useEffect(() => {
     if (track) {
       if (!track.isLoaded) {
-        console.log(`Track ${track.name} is not loaded`);
         track.onloaded = () => {
           console.log(
             `useAudioTrackz ${track.name} onLoaded with duration ${track.duration}`

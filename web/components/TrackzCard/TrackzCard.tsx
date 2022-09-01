@@ -95,7 +95,7 @@ export default function TrackzCard({
             max={duration}
             className="mx-2 pr-2"
           />
-          {duration ? (
+          {true ? (
             <div className="text-xs" aria-label="Duration">
               {formatTime(duration)}
             </div>
