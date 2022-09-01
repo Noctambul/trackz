@@ -11,6 +11,10 @@ const nextConfig = {
       "picsum.photos",
     ],
   },
+  env: {
+    NEXT_PUBLIC_TRACKZ_EDITION_CONTRACT:
+      process.env.NEXT_PUBLIC_TRACKZ_EDITION_CONTRACT,
+  },
 };
 
 module.exports = nextConfig;
