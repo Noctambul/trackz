@@ -11,7 +11,6 @@ const trackzs: TrackzMetadata[] = [
     price: 5,
     coverUri: "https://picsum.photos/200",
     musicUri: "music/Drowning-Slow-2.mp3",
-    duration: 77,
   },
   {
     id: 1,
@@ -23,7 +22,6 @@ const trackzs: TrackzMetadata[] = [
     coverUri: "https://picsum.photos/400",
     // musicUri: "ipfs://QmW4UvvMkPmkQj9eJrXSc5aDvF2Bkdbyh47R7mc9BLTZA8",
     musicUri: "music/Bad-Bird-2.mp3",
-    duration: 134,
   },
   {
     id: 2,
@@ -34,7 +32,6 @@ const trackzs: TrackzMetadata[] = [
     price: 1.4,
     coverUri: "ipfs://QmQ84bYsCupQXLcoMRYH51dzEFPKVrG3XLoCaCDg6oEasT",
     musicUri: "ipfs://QmUqU31giwHyMQkoV5vy4uHLZi1aitzUm83v17FBqWXLyn",
-    duration: 77,
   },
   {
     id: 3,
@@ -45,7 +42,6 @@ const trackzs: TrackzMetadata[] = [
     price: 4.4,
     coverUri: "https://picsum.photos/2000",
     musicUri: "ipfs://QmUqU31giwHyMQkoV5vy4uHLZi1aitzUm83v17FBkWXLyn",
-    duration: 220,
   },
   {
     id: 4,
@@ -56,7 +52,6 @@ const trackzs: TrackzMetadata[] = [
     price: 4.4,
     coverUri: "https://picsum.photos/2000",
     musicUri: "ipfs://QmUqU31giwHyMQkoV5vy4uHLZi1aitzUm83v17FBkWXLyn",
-    duration: 220,
   },
 ];
 
