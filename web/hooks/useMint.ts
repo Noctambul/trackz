@@ -13,7 +13,7 @@ export default function useMint() {
     setIsLoading(true);
     const metadata = {
       name: data.title,
-      description: data.description,
+      description: data.description || "",
       image: data.coverFile?.[0] || "",
       animation_url: data.musicFile[0],
       attributes: [

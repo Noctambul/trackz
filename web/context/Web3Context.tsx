@@ -68,18 +68,18 @@ const parseEditionMetadata = (
 
   const data = edition.metadata;
   const attributes: Attributes = data.attributes as Attributes;
-  const owner = attribute("owner") || "Unknwown";
+  const creator = attribute("creator") || "Unknwown";
   const tags = attribute("tags")?.split(",");
   const musicUri = data.animation_url || "allow";
   const totalSupply = edition.supply.toNumber();
 
   // TODO: Do not return wrong track
-  if (!owner || !musicUri || totalSupply === 0) return;
+  if (!creator || !musicUri || totalSupply === 0) return;
 
   return {
     id: data.id.toNumber(),
     name: `${data.name}`,
-    creator: owner,
+    creator: creator,
     description: `${data.description}`,
     totalSupply,
     coverUri: data.image,
