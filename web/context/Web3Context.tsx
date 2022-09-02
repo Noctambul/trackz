@@ -48,30 +48,40 @@ const metadataExample = {
   },
 };
 
-type AttributeType = "owner";
-type Attributes = { trait_type: AttributeType; value: string }[];
+type AttributeType = "creator" | "tags";
+type Attributes =
+  | { trait_type: AttributeType; value: string }[]
+  | Record<AttributeType, any>;
 
 const parseEditionMetadata = (
   edition: EditionMetadata
 ): TrackzMetadata | undefined => {
-  const attribute = (type: string) =>
-    attributes.find((attr) => attr.trait_type === type)?.value;
+  const attribute = (type: AttributeType): any => {
+    if (!attributes) {
+      return;
+    } else if (Array.isArray(attributes)) {
+      return attributes.find((attr) => attr.trait_type === type)?.value;
+    } else {
+      return attributes[type];
+    }
+  };
 
   const data = edition.metadata;
   const attributes: Attributes = data.attributes as Attributes;
   const owner = attribute("owner") || "Unknwown";
-  const tags = attribute("type")?.split(",");
+  const tags = attribute("tags")?.split(",");
   const musicUri = data.animation_url || "allow";
+  const totalSupply = edition.supply.toNumber();
 
   // TODO: Do not return wrong track
-  // if (!owner || !musicUri) return;
+  if (!owner || !musicUri || totalSupply === 0) return;
 
   return {
     id: data.id.toNumber(),
     name: `${data.name}`,
-    owner,
+    creator: owner,
     description: `${data.description}`,
-    totalSupply: edition.supply.toNumber(),
+    totalSupply,
     coverUri: data.image,
     musicUri,
     tags,

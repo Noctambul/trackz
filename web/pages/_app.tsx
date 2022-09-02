@@ -7,7 +7,17 @@ import "../styles/global.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <ThirdwebProvider desiredChainId={ChainId.Rinkeby}>
+    // https://github.com/thirdweb-dev/js/tree/main/packages/react#advanced-configuration
+    <ThirdwebProvider
+      desiredChainId={ChainId.Rinkeby}
+      dAppMeta={{
+        name: "Trackz",
+        description: "Your sound on chain",
+        logoUrl: "",
+        url: "",
+      }}
+      // storageInterface={new IpfsStorage("https://your.ipfs.host.com")}
+    >
       <Web3Provider>
         <AudioProvider>
           <Component {...pageProps} />
