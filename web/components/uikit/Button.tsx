@@ -13,7 +13,7 @@ interface ButtonProps extends Omit<HTMLButtonAttr, "disabled"> {
 }
 
 const style =
-  "rounded-xl p-5 flex justify-center h-8 items-center bg-primary align-text-top disabled:bg-subtext";
+  "rounded-xl p-5 flex justify-center h-8 items-center border-primary enabled:border bg-primary enabled:transition-all enabled:duration-200 hover:enabled:bg-zinc-800 hover:enabled:text-primary align-text-top disabled:bg-zinc-600 disabled:text-subtext";
 
 export default function Button({
   children,
