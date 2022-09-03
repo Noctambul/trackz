@@ -4,6 +4,9 @@
       "path": "web"
     },
     {
+      "path":"smart-contract-old"
+    },
+    {
       "path": "."
     }
   ],
@@ -14,6 +17,14 @@
     "search.exclude": {
       "**/*.md": true,
       "**/yarn.lock": true
-    }
-  }
+    },
+    "tailwindCSS.classAttributes": [
+      "class",
+      "className",
+      "ngClass",
+      "style",
+      "styles"
+    ]
+  },
+  
 }

@@ -1,5 +1,6 @@
 import { useAddress, useMetamask } from "@thirdweb-dev/react";
 import PageContainer from "components/PageContainer/PageContainer";
+import Button from "components/uikit/Button";
 import useErrorFields from "hooks/useErrorFields";
 import useMint from "hooks/useMint";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -22,30 +23,30 @@ export default function MintPage(): JSX.Element {
   const address = useAddress();
   const connectWithMetamask = useMetamask();
 
-  const onSubmit: SubmitHandler<MintInputs> = async (data) => mint(data);
+  const onSubmit: SubmitHandler<MintInputs> = async (data) => {
+    // TODO: transition after mint
+    mint(data);
+  };
 
   const SubmitButton = address ? (
-    <button
-      className="rounded-xl bg-primary p-2 disabled:bg-subtext"
+    <Button
       type="submit"
-      disabled={isLoading}
+      loadingText="Minting ..."
+      isDisabled={isLoading}
+      isLoading={isLoading}
     >
       MINT
-    </button>
+    </Button>
   ) : (
-    <button
-      className="rounded-xl bg-orange-700 p-2 disabled:bg-subtext"
-      type="button"
-      onClick={connectWithMetamask}
-    >
+    <Button type="button" onClick={connectWithMetamask}>
       Connect wallet
-    </button>
+    </Button>
   );
 
   return (
     <PageContainer>
       <form
-        className="mx-40 flex w-full flex-col gap-4"
+        className="mx-6 flex w-full flex-col gap-4 md:mx-40"
         onSubmit={handleSubmit(onSubmit)}
       >
         <h3>Upload</h3>
@@ -89,7 +90,6 @@ export default function MintPage(): JSX.Element {
           />
           <ErrorField propertyName="editions" label="The number of editions" />
         </label>
-        ackage
         <label>
           Royalties
           <input
