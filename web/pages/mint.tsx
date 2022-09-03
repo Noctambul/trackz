@@ -23,11 +23,13 @@ export default function MintPage(): JSX.Element {
   const address = useAddress();
   const connectWithMetamask = useMetamask();
 
-  const onSubmit: SubmitHandler<MintInputs> = async (data) => mint(data);
+  const onSubmit: SubmitHandler<MintInputs> = async (data) => {
+    // TODO: transition after mint
+    mint(data);
+  };
 
   const SubmitButton = address ? (
     <Button
-      // className="p-2 disabled:bg-subtext"
       type="submit"
       loadingText="Minting ..."
       isDisabled={isLoading}
@@ -36,11 +38,7 @@ export default function MintPage(): JSX.Element {
       MINT
     </Button>
   ) : (
-    <Button
-      // className=" bg-orange-700 p-2 disabled:bg-subtext"
-      type="button"
-      onClick={connectWithMetamask}
-    >
+    <Button type="button" onClick={connectWithMetamask}>
       Connect wallet
     </Button>
   );
@@ -48,7 +46,7 @@ export default function MintPage(): JSX.Element {
   return (
     <PageContainer>
       <form
-        className="mx-40 flex w-full flex-col gap-4"
+        className="mx-6 flex w-full flex-col gap-4 md:mx-40"
         onSubmit={handleSubmit(onSubmit)}
       >
         <h3>Upload</h3>
