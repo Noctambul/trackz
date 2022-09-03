@@ -4,7 +4,7 @@ const trackzs: TrackzMetadata[] = [
   {
     id: 0,
     name: "Good morning genesis and welcom to another new world ready to explore",
-    owner: "Noctambul",
+    creator: "Noctambul",
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     totalSupply: 5,
@@ -15,7 +15,7 @@ const trackzs: TrackzMetadata[] = [
   {
     id: 1,
     name: "Bad Bird",
-    owner: "Noctambul",
+    creator: "Noctambul",
     description: "Genre : Musiques électroniques",
     totalSupply: 1500,
     price: 0.5,
@@ -26,7 +26,7 @@ const trackzs: TrackzMetadata[] = [
   {
     id: 2,
     name: "Drowning",
-    owner: "Noctambul",
+    creator: "Noctambul",
     description: "Genre : Musiques électroniques",
     totalSupply: 50,
     price: 1.4,
@@ -36,7 +36,7 @@ const trackzs: TrackzMetadata[] = [
   {
     id: 3,
     name: "The Magumba State",
-    owner: "Shpongle",
+    creator: "Shpongle",
     description: "Genre : Musiques électroniques",
     totalSupply: 25,
     price: 4.4,
@@ -46,7 +46,7 @@ const trackzs: TrackzMetadata[] = [
   {
     id: 4,
     name: "Decalco",
-    owner: "Megalo",
+    creator: "Megalo",
     description: "Genre : Musiques électroniques",
     totalSupply: 25,
     price: 4.4,

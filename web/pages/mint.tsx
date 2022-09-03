@@ -1,53 +1,34 @@
-import {
-  useAddress,
-  useContract,
-  useMetamask,
-  useMintNFT,
-} from "@thirdweb-dev/react";
+import { useAddress, useMetamask } from "@thirdweb-dev/react";
 import PageContainer from "components/PageContainer/PageContainer";
 import useErrorFields from "hooks/useErrorFields";
+import useMint from "hooks/useMint";
 import { SubmitHandler, useForm } from "react-hook-form";
 
-type Inputs = {
-  musicFile: File;
-  coverFile: File;
+export type MintInputs = {
+  musicFile: FileList;
+  coverFile?: FileList;
   title: string;
-  description: string;
-  tags: string;
-  editions: number;
+  description?: string;
+  tags?: string;
+  supply: number;
   royalties: number;
 };
 
 export default function MintPage(): JSX.Element {
-  const { handleSubmit, register, formState } = useForm<Inputs>();
-  const { ErrorField } = useErrorFields<Inputs>(formState);
+  const { handleSubmit, register, formState } = useForm<MintInputs>();
+  const { ErrorField } = useErrorFields<MintInputs>(formState);
 
-  const { contract } = useContract(
-    process.env.NEXT_PUBLIC_TRACKZ_COLLECTION_CONTRACT
-  );
-  const { mutate: mintNft, isLoading, error } = useMintNFT(contract?.nft);
+  const { mint, isLoading } = useMint();
   const address = useAddress();
   const connectWithMetamask = useMetamask();
 
-  if (error) {
-    console.error("failed to mint nft", error);
-  }
-
-  const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    console.log(data);
-    if (!address) return;
-
-    // mintNft({
-    //   to: address,
-    //   metadata: { name: "bonjour", description: "salut" },
-    // });
-  };
+  const onSubmit: SubmitHandler<MintInputs> = async (data) => mint(data);
 
   const SubmitButton = address ? (
     <button
       className="rounded-xl bg-primary p-2 disabled:bg-subtext"
       type="submit"
-      // disabled={isLoading}
+      disabled={isLoading}
     >
       MINT
     </button>
@@ -90,7 +71,8 @@ export default function MintPage(): JSX.Element {
         </label>
         <label>
           Tags
-          <input type="text" name="tags" />
+          <input type="text" {...register("tags")} />
+          <ErrorField propertyName="tags" label="Tags" />
         </label>
         <h3>Editions</h3>
         <label>
@@ -98,8 +80,8 @@ export default function MintPage(): JSX.Element {
           <input
             type="number"
             placeholder="10"
-            {...register("editions", {
-              required: true,
+            {...register("supply", {
+              required: false,
               min: 1,
               max: 100000,
               valueAsNumber: true,
@@ -114,7 +96,7 @@ export default function MintPage(): JSX.Element {
             type="number"
             max="20"
             {...register("royalties", {
-              required: true,
+              required: false,
               max: { value: 20, message: "Royalties must be less than 20%" },
             })}
           />

@@ -51,7 +51,7 @@ export default function TrackzCard({
         {trackz.name}
       </span>
       <span className="truncate text-sm text-subtext" aria-label="Author">
-        by {trackz.metadata.owner}
+        by {trackz.metadata.creator}
       </span>
       {/* <p className="line-clamp-2 my-1 italic">{trackz.description}</p> */}
     </div>
@@ -78,11 +78,13 @@ export default function TrackzCard({
       aria-label={`Trackz Card ${trackz.id}`}
     >
       <div className="relative h-[120px] w-[120px] shrink-0">
-        <Image
-          src={resolveLink(trackz.metadata.coverUri)}
-          layout="fill"
-          alt={trackz.name}
-        />
+        {trackz.metadata.coverUri && (
+          <Image
+            src={resolveLink(trackz.metadata.coverUri)}
+            layout="fill"
+            alt={trackz.name}
+          />
+        )}
       </div>
       <div className="mx-4 flex w-full flex-col justify-between overflow-hidden">
         <div className="mb-1 flex">

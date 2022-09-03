@@ -29,7 +29,7 @@ describe("TrackzCard.tsx", () => {
     cy.get(`[aria-label="Title"]`).should("have.text", trackz.name);
     cy.get(`[aria-label="Author"]`).should(
       "have.text",
-      `by ${trackz.metadata.owner}`
+      `by ${trackz.metadata.creator}`
     );
     cy.get(`[aria-label="Duration"]`).should(
       "have.text",

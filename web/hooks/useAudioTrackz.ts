@@ -8,9 +8,6 @@ export default function useAudioTrackz(track: AudioTrackz | undefined) {
     if (track) {
       if (!track.isLoaded && track.onloaded === undefined) {
         track.onloaded = (loadedTrack: AudioTrackz) => {
-          console.log(
-            `useAudioTrackz ${loadedTrack.name} onLoaded with duration ${loadedTrack.duration}`
-          );
           setDuration(track.duration);
         };
       } else {
