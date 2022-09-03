@@ -91,7 +91,8 @@ const parseEditionMetadata = (
 const parseEditions = (editions: EditionMetadata[]): TrackzMetadata[] =>
   editions
     .map((edition) => parseEditionMetadata(edition))
-    .filter((track) => track !== undefined) as TrackzMetadata[];
+    .filter((track) => track !== undefined)
+    .reverse() as TrackzMetadata[];
 
 export function useWeb3(): Web3ContextInterface {
   if (!Web3Context) throw "Web3Context is not defined";
@@ -111,11 +112,9 @@ export function Web3Provider(props: PropsWithChildren<{}>) {
 
   useEffect(() => {
     async function getNfts() {
-      // console.log("*** Retrieve NFTs ***");
       const retrievedNfts = (await edition?.getAll()) || [];
       const trackzs = parseEditions(retrievedNfts);
       setTrackzMetadata(trackzs);
-      // console.log(trackzs);
       setIsLoading(false);
     }
     getNfts();
