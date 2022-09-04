@@ -27,7 +27,11 @@
   },
   "scripts": {
     "test": "hardhat test --typecheck",
-    "coverage": "hardhat coverage --solcoverjs ./.solcover.js --temp artifacts --testfiles \"test/**/*.ts\" && yarn typechain",
-    "typechain": "TS_NODE_TRANSPILE_ONLY=true hardhat typechain"
+    "thirdweb:build": "npx thirdweb@latest detect",
+    "thirdweb:deploy": "npx thirdweb@latest deploy",
+    "thirdweb:release": "npx thirdweb@latest release"
+  },
+  "dependencies": {
+    "@thirdweb-dev/contracts": "^3.1.5"
   }
 }
