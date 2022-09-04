@@ -1,7 +1,9 @@
+import { ipfsProviderUri } from "lib/environment";
+
 export function resolveLink(url?: string | null) {
   if (!url) return "";
   if (!url.includes("ipfs://")) return url;
-  return url.replace("ipfs://", process.env.NEXT_PUBLIC_IPFS_PROVIDER_URI);
+  return url.replace("ipfs://", ipfsProviderUri);
 }
 
 export function useIpfs() {

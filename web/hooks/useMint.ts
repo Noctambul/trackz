@@ -1,10 +1,11 @@
 import { useAddress, useEdition } from "@thirdweb-dev/react";
+import { trackzEditionContract } from "lib/environment";
 import { MintInputs } from "pages/mint";
 import { useState } from "react";
 
 export default function useMint() {
   const [isLoading, setIsLoading] = useState(false);
-  const contract = useEdition(process.env.NEXT_PUBLIC_TRACKZ_EDITION_CONTRACT);
+  const contract = useEdition(trackzEditionContract);
   const address = useAddress();
 
   const mint = async (data: MintInputs) => {

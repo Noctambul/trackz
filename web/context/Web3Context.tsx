@@ -1,5 +1,6 @@
 import { useEdition } from "@thirdweb-dev/react";
 import { Edition, EditionMetadata } from "@thirdweb-dev/sdk";
+import { trackzEditionContract } from "lib/environment";
 import TrackzMetadata from "models/TrackzMetadata";
 import {
   createContext,
@@ -102,13 +103,7 @@ export function useWeb3(): Web3ContextInterface {
 export function Web3Provider(props: PropsWithChildren<{}>) {
   const [trackzMetadata, setTrackzMetadata] = useState<TrackzMetadata[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const edition: Edition | undefined = useEdition(
-    process.env.NEXT_PUBLIC_TRACKZ_EDITION_CONTRACT
-  );
-
-  if (!process.env.NEXT_PUBLIC_TRACKZ_EDITION_CONTRACT) {
-    console.error("The Trackz Edition Contract Address is not defined");
-  }
+  const edition: Edition | undefined = useEdition(trackzEditionContract);
 
   useEffect(() => {
     async function getNfts() {
