@@ -1,0 +1,31 @@
+name: Contract Tests
+on: [pull_request]
+jobs:  
+  Contract-tests:
+    defaults:
+      run:
+        working-directory: smart-contract
+    name: Run Contract Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          cache: yarn
+          node-version: 16
+      - name: Install dependencies
+        run: yarn install # --immutable if we use no install
+      # - name: Compile the contracts and generate the TypeChain bindings
+      #   run: yarn typechain
+      # - name: Test the contracts and generate the coverage report
+      #   run: yarn coverage
+      - name: Run contract tests
+        run: yarn test
+      - name: Add test summary
+        run: |
+          echo "## Test results" >> $GITHUB_STEP_SUMMARY
+          echo "✅ Passed" >> $GITHUB_STEP_SUMMARY
+
+      
