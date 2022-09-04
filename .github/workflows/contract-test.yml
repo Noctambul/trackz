@@ -1,6 +1,9 @@
 name: Contract Tests
 on: [pull_request]
-jobs:
+defaults:
+  run:
+    working-directory: smart-contract
+jobs:  
   Contract-tests:
     name: Run Contract Tests
     runs-on: ubuntu-latest
