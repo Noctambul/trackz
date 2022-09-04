@@ -105,6 +105,10 @@ export function Web3Provider(props: PropsWithChildren<{}>) {
   const [isLoading, setIsLoading] = useState(true);
   const edition: Edition | undefined = useEdition(trackzEditionContract);
 
+  if (!trackzEditionContract) {
+    console.error("The Trackz Edition Contract Address is not defined");
+  }
+
   useEffect(() => {
     async function getNfts() {
       const retrievedNfts = (await edition?.getAll()) || [];
