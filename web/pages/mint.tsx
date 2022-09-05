@@ -62,7 +62,7 @@ export default function MintPage(): JSX.Element {
         <h3>Details</h3>
         <label>
           Title
-          <input type="text" {...register("title", { required: true })} />
+          <input type="text" {...register("name", { required: true })} />
           <ErrorField propertyName="title" label="Title" />
         </label>
         <label>

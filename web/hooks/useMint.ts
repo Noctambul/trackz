@@ -8,7 +8,6 @@ import {
 } from "@thirdweb-dev/react";
 import { ThirdwebSDK } from "@thirdweb-dev/sdk";
 import { trackzEditionContract } from "lib/environment";
-import { MintBodyResponse } from "pages/api/mint";
 import { MintInputs } from "pages/mint";
 import { useState } from "react";
 
@@ -45,21 +44,21 @@ export default function useMint() {
       console.log("Files uploaded ", uploadedMusic, uploadedCover);
 
       // Request API
-      const payload: MintBodyResponse = {
-        authorAddress: address,
-        metadata: {
-          name,
-          description,
-          uploadedMusic,
-          uploadedCover,
-        },
-      };
-      const signedPayloadReq = await fetch("/api/mint", {
-        method: "POST",
-        body: JSON.stringify(payload),
-      });
+      // const payload: MintBodyResponse = {
+      //   authorAddress: address,
+      //   metadata: {
+      //     name,
+      //     description,
+      //     uploadedMusic.,
+      //     uploadedCover,
+      //   },
+      // };
+      // const signedPayloadReq = await fetch("/api/mint", {
+      //   method: "POST",
+      //   body: JSON.stringify(payload),
+      // });
 
-      console.log("Received Signed payload", signedPayloadReq);
+      // console.log("Received Signed payload", signedPayloadReq);
     } catch (e) {
       console.error("An error occurred trying to mint the Trackz:", e);
     }
