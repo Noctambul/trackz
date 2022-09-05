@@ -8,7 +8,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 export type MintInputs = {
   musicFile: FileList;
   coverFile?: FileList;
-  title: string;
+  name: string;
   description?: string;
   tags?: string;
   supply: number;
