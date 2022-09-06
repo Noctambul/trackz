@@ -19,13 +19,13 @@ export default function MintPage(): JSX.Element {
   const { handleSubmit, register, formState } = useForm<MintInputs>();
   const { ErrorField } = useErrorFields<MintInputs>(formState);
 
-  const { mint, isLoading } = useMint();
+  const { mintWithSignature, isLoading } = useMint();
   const address = useAddress();
   const connectWithMetamask = useMetamask();
 
   const onSubmit: SubmitHandler<MintInputs> = async (data) => {
     // TODO: transition after mint
-    mint(data);
+    mintWithSignature(data);
   };
 
   const SubmitButton = address ? (

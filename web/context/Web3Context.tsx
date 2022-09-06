@@ -1,5 +1,6 @@
 import { useEdition } from "@thirdweb-dev/react";
 import { Edition, EditionMetadata } from "@thirdweb-dev/sdk";
+import { isValidUri } from "hooks/useIpfs";
 import { trackzEditionContract } from "lib/environment";
 import TrackzMetadata from "models/TrackzMetadata";
 import {
@@ -74,8 +75,9 @@ const parseEditionMetadata = (
   const musicUri = data.animation_url || "allow";
   const totalSupply = edition.supply.toNumber();
 
-  // TODO: Do not return wrong track
-  if (!creator || !musicUri || totalSupply === 0) return;
+  // Do not return wrong track
+  const isValid = creator && isValidUri(musicUri) && totalSupply > 0;
+  if (!isValid) return;
 
   return {
     id: data.id.toNumber(),
