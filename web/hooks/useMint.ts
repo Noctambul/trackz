@@ -7,13 +7,14 @@ import {
   useSigner,
 } from "@thirdweb-dev/react";
 import { ThirdwebSDK } from "@thirdweb-dev/sdk";
-import { trackzEditionContract } from "lib/environment";
 import { MintParams } from "pages/api/mint";
 import { MintInputs } from "pages/mint";
 import { useState } from "react";
+import useEnvironment from "./useEnvironment";
 
 export default function useMint() {
   const [isLoading, setIsLoading] = useState(false);
+  const { trackzEditionContract } = useEnvironment();
   const contract = useEdition(trackzEditionContract);
   const address = useAddress();
   const isOnWrongNetwork = useNetworkMismatch();
