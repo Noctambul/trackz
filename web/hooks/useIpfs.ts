@@ -1,13 +1,8 @@
 import { ipfsProviderUri } from "lib/environment";
 
 export function isValidUri(url?: string | null): boolean {
-  return (
-    url !== undefined &&
-    url !== null &&
-    (url.includes("ipfs://") ||
-      url.includes("http://") ||
-      url.includes("https://"))
-  );
+  var format = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>?~]/;
+  return url !== undefined && url !== null && format.test(url);
 }
 
 export function resolveLink(url?: string | null) {
