@@ -8,7 +8,7 @@ import {
 } from "@thirdweb-dev/react";
 import { ThirdwebSDK } from "@thirdweb-dev/sdk";
 import { trackzEditionContract } from "lib/environment";
-import { MintBodyResponse } from "pages/api/mint";
+import { MintParams } from "pages/api/mint";
 import { MintInputs } from "pages/mint";
 import { useState } from "react";
 
@@ -49,7 +49,7 @@ export default function useMint() {
       console.log("Files uploaded ", uploadedMusic, uploadedCover);
 
       // Request API
-      const payload: MintBodyResponse = {
+      const payload: MintParams = {
         authorAddress: address,
         metadata: {
           name,

@@ -1,37 +1,48 @@
 import { ThirdwebSDK } from "@thirdweb-dev/sdk";
 import { NextApiRequest, NextApiResponse } from "next";
+import { z } from "zod";
 
-export type MintBodyResponse = {
-  authorAddress: string;
-  metadata: {
-    name: string;
-    description?: string;
-    musicUri: string;
-    coverUri?: string;
-    tags?: string;
-  };
-};
+const ethWalletRegex = /^0x[a-fA-F0-9]{40}$/g;
+
+const MintParamsSchema = z.object({
+  authorAddress: z.string().regex(ethWalletRegex),
+  metadata: z.object({
+    name: z.string(),
+    description: z.string().optional(),
+    musicUri: z.string().regex(/^ipfs:\/\/[a-zA-Z0-9]{46}\/[0-9].mp3$/g),
+    coverUri: z
+      .string()
+      .regex(/^ipfs:\/\/[a-zA-Z0-9]{46}\/[0-9].jpg$/g)
+      .optional(),
+    tags: z.string().optional(),
+  }),
+});
+
+const EnvVariableSchema = z.object({
+  MINT_WALLET_PRIVATE_KEY: z.string().length(64),
+  NETWORK: z.union([z.literal("rinkeby"), z.literal("mainnet")]),
+  NEXT_PUBLIC_TRACKZ_EDITION_CONTRACT: z.string().regex(ethWalletRegex),
+});
+
+export type MintParams = z.infer<typeof MintParamsSchema>;
 
 export default async function mint(req: NextApiRequest, res: NextApiResponse) {
   try {
-    const { authorAddress, metadata } = JSON.parse(
-      req.body
-    ) as MintBodyResponse;
+    const {
+      MINT_WALLET_PRIVATE_KEY,
+      NETWORK,
+      NEXT_PUBLIC_TRACKZ_EDITION_CONTRACT,
+    } = EnvVariableSchema.parse(process.env);
 
-    console.log("Mint Server");
-
-    validateEnvVariables();
+    const { authorAddress, metadata } = MintParamsSchema.parse(
+      JSON.parse(req.body)
+    );
 
     // Initialize the Thirdweb SDK on the serverside
-    const sdk = ThirdwebSDK.fromPrivateKey(
-      process.env.MINT_WALLET_PRIVATE_KEY as string,
-      process.env.NETWORK as string
-    );
+    const sdk = ThirdwebSDK.fromPrivateKey(MINT_WALLET_PRIVATE_KEY, NETWORK);
 
     // Load the contract address using the SDK
-    const contract = sdk.getEdition(
-      process.env.NEXT_PUBLIC_TRACKZ_EDITION_CONTRACT as string
-    );
+    const contract = sdk.getEdition(NEXT_PUBLIC_TRACKZ_EDITION_CONTRACT);
 
     const nftMetadata = {
       name: metadata.name,
@@ -63,17 +74,5 @@ export default async function mint(req: NextApiRequest, res: NextApiResponse) {
   } catch (e: any) {
     console.error(e);
     res.status(500).json({ error: e.message });
-  }
-}
-
-function validateEnvVariables() {
-  if (!process.env.MINT_WALLET_PRIVATE_KEY) {
-    throw new Error(
-      "You're missing MINT_WALLET_PRIVATE_KEY in your .env.local file"
-    );
-  }
-
-  if (!process.env.NETWORK) {
-    throw new Error("You're missing NETWORK in your .env.local file");
   }
 }
