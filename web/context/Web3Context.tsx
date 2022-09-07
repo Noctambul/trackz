@@ -1,5 +1,6 @@
 import { useEdition } from "@thirdweb-dev/react";
 import { Edition, EditionMetadata } from "@thirdweb-dev/sdk";
+import { BigNumber } from "ethers";
 import useEnvironment from "hooks/useEnvironment";
 import { isValidUri } from "hooks/useIpfs";
 import TrackzMetadata from "models/TrackzMetadata";
@@ -10,6 +11,7 @@ import {
   useEffect,
   useState,
 } from "react";
+import { z } from "zod";
 
 export interface Web3ContextInterface {
   trackzMetadata: TrackzMetadata[];
@@ -55,6 +57,23 @@ type Attributes =
   | { trait_type: AttributeType; value: string }[]
   | Record<AttributeType, any>;
 
+const attributeKeys = ["creator", "tags"] as const;
+const EditionMetadataSchema = z.object({
+  supply: z.instanceof(BigNumber).transform((big) => big.toNumber()),
+  metadata: z.object({
+    animation_url: z.string().url(),
+    image: z.string().url(),
+    attributes: z
+      .array(
+        z.object({
+          trait_type: z.enum(attributeKeys),
+          value: z.any(),
+        })
+      )
+      .or(z.record(z.enum(attributeKeys), z.any())),
+  }),
+});
+
 const parseEditionMetadata = (
   edition: EditionMetadata
 ): TrackzMetadata | undefined => {
@@ -67,6 +86,8 @@ const parseEditionMetadata = (
       return attributes[type];
     }
   };
+
+  const editionMetadata = EditionMetadataSchema.parse(edition);
 
   const data = edition.metadata;
   const attributes: Attributes = data.attributes as Attributes;
@@ -96,3 +117,35 @@ const parseEditions = (editions: EditionMetadata[]): TrackzMetadata[] =>
     .map((edition) => parseEditionMetadata(edition))
     .filter((track) => track !== undefined)
     .reverse() as TrackzMetadata[];
+
+const metadataExample = {
+  supply: {
+    type: "BigNumber",
+    hex: "0x03e8",
+  },
+  metadata: {
+    name: "Bad Bird",
+    description: "The bad birds",
+    image:
+      "https://gateway.ipfscdn.io/ipfs/QmZKCbtkckwDW7zzy1jKc4ELAP4i9XyxfZGAu93Qvkeuem/0.png",
+    external_url: "",
+    id: {
+      type: "BigNumber",
+      hex: "0x00",
+    },
+    uri: "ipfs://QmPUc7L3tWvmnPbGbiJrjsP2QpBUo9HizdW49XCpUazNMJ/0",
+    animation_url:
+      "https://gateway.ipfscdn.io/ipfs/QmZKCbtkckwDW7zzy1jKc4ELAP4i9XyxfZGAu93Qvkeuem/1.mp3",
+    background_color: "",
+    attributes: [
+      {
+        trait_type: "type",
+        value: "electro",
+      },
+      {
+        trait_type: "author",
+        value: "Noctambul",
+      },
+    ],
+  },
+};

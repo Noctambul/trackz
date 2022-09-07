@@ -20,7 +20,7 @@ const MintParamsSchema = z.object({
 
 const EnvVariableSchema = z.object({
   MINT_WALLET_PRIVATE_KEY: z.string().length(64),
-  NETWORK: z.union([z.literal("rinkeby"), z.literal("mainnet")]),
+  NETWORK: z.enum(["rinkeby", "mainnet"]),
   NEXT_PUBLIC_TRACKZ_EDITION_CONTRACT: z.string().regex(ethWalletRegex),
 });
 
