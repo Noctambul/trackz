@@ -57,59 +57,63 @@ type Attributes =
   | { trait_type: AttributeType; value: string }[]
   | Record<AttributeType, any>;
 
-const attributeKeys = ["creator", "tags"] as const;
+const attributeKeys = ["artist", "tags"] as const;
 const EditionMetadataSchema = z.object({
   supply: z.instanceof(BigNumber).transform((big) => big.toNumber()),
   metadata: z.object({
     animation_url: z.string().url(),
-    image: z.string().url(),
-    attributes: z
-      .array(
-        z.object({
-          trait_type: z.enum(attributeKeys),
-          value: z.any(),
-        })
-      )
-      .or(z.record(z.enum(attributeKeys), z.any())),
+    image: z.string().url().optional(),
+    // attributes: z
+    //   .array(
+    //     z.object({
+    //       trait_type: z.enum(attributeKeys),
+    //       value: z.any(),
+    //     })
+    //   )
+    //   .or(z.record(z.enum(attributeKeys), z.any()))
+    //   .optional(),
   }),
 });
 
 const parseEditionMetadata = (
   edition: EditionMetadata
 ): TrackzMetadata | undefined => {
-  const attribute = (type: AttributeType): any => {
-    if (!attributes) {
-      return;
-    } else if (Array.isArray(attributes)) {
-      return attributes.find((attr) => attr.trait_type === type)?.value;
-    } else {
-      return attributes[type];
-    }
-  };
+  try {
+    const attribute = (type: AttributeType): any => {
+      if (!attributes) {
+        return;
+      } else if (Array.isArray(attributes)) {
+        return attributes.find((attr) => attr.trait_type === type)?.value;
+      } else {
+        return attributes[type];
+      }
+    };
+    const editionMetadata = EditionMetadataSchema.parse(edition);
 
-  const editionMetadata = EditionMetadataSchema.parse(edition);
+    const data = edition.metadata;
+    const attributes: Attributes = data.attributes as Attributes;
+    const creator = attribute("creator") || "Unknwown";
+    const tags = attribute("tags")?.split(",");
+    const musicUri = data.animation_url || "allow";
+    const totalSupply = edition.supply.toNumber();
 
-  const data = edition.metadata;
-  const attributes: Attributes = data.attributes as Attributes;
-  const creator = attribute("creator") || "Unknwown";
-  const tags = attribute("tags")?.split(",");
-  const musicUri = data.animation_url || "allow";
-  const totalSupply = edition.supply.toNumber();
+    // Do not return wrong track
+    const isValid = creator && isValidUri(musicUri) && totalSupply > 0;
+    if (!isValid) return;
 
-  // Do not return wrong track
-  const isValid = creator && isValidUri(musicUri) && totalSupply > 0;
-  if (!isValid) return;
-
-  return {
-    id: data.id.toNumber(),
-    name: `${data.name}`,
-    creator: creator,
-    description: `${data.description}`,
-    totalSupply,
-    coverUri: data.image,
-    musicUri,
-    tags,
-  };
+    return {
+      id: data.id.toNumber(),
+      name: `${data.name}`,
+      creator: creator,
+      description: `${data.description}`,
+      totalSupply,
+      coverUri: data.image,
+      musicUri,
+      tags,
+    };
+  } catch (e) {
+    console.error(e);
+  }
 };
 
 const parseEditions = (editions: EditionMetadata[]): TrackzMetadata[] =>
