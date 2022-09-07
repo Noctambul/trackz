@@ -2,7 +2,6 @@ import { useEdition } from "@thirdweb-dev/react";
 import { Edition, EditionMetadata } from "@thirdweb-dev/sdk";
 import { BigNumber } from "ethers";
 import useEnvironment from "hooks/useEnvironment";
-import { isValidUri } from "hooks/useIpfs";
 import TrackzMetadata from "models/TrackzMetadata";
 import {
   createContext,
@@ -52,68 +51,56 @@ export function Web3Provider(props: PropsWithChildren<{}>) {
   );
 }
 
-type AttributeType = "creator" | "tags";
-type Attributes =
-  | { trait_type: AttributeType; value: string }[]
-  | Record<AttributeType, any>;
-
-const attributeKeys = ["artist", "tags"] as const;
+const attributeKeys = ["artist", "creator", "tags"] as const;
+const zBigNumber = z.instanceof(BigNumber).transform((big) => big.toNumber());
 const EditionMetadataSchema = z.object({
-  supply: z.instanceof(BigNumber).transform((big) => big.toNumber()),
+  supply: zBigNumber,
   metadata: z.object({
+    id: zBigNumber,
+    name: z.string().max(30),
+    description: z.string().default(""),
     animation_url: z.string().url(),
     image: z.string().url().optional(),
-    // attributes: z
-    //   .array(
-    //     z.object({
-    //       trait_type: z.enum(attributeKeys),
-    //       value: z.any(),
-    //     })
-    //   )
-    //   .or(z.record(z.enum(attributeKeys), z.any()))
-    //   .optional(),
+    attributes: z
+      .array(
+        z.object({
+          trait_type: z.enum(attributeKeys),
+          value: z.string(),
+        })
+      )
+      .optional()
+      .transform((arr) =>
+        arr?.reduce((acc, val) => {
+          acc[val.trait_type] = val.value;
+          return acc;
+        }, {} as Record<typeof attributeKeys[number], string>)
+      ),
+    // .or(z.record(z.enum(attributeKeys), z.any()))
+    // .optional(),
   }),
 });
 
 const parseEditionMetadata = (
   edition: EditionMetadata
 ): TrackzMetadata | undefined => {
-  try {
-    const attribute = (type: AttributeType): any => {
-      if (!attributes) {
-        return;
-      } else if (Array.isArray(attributes)) {
-        return attributes.find((attr) => attr.trait_type === type)?.value;
-      } else {
-        return attributes[type];
-      }
-    };
-    const editionMetadata = EditionMetadataSchema.parse(edition);
+  const parsedResult = EditionMetadataSchema.safeParse(edition);
 
-    const data = edition.metadata;
-    const attributes: Attributes = data.attributes as Attributes;
-    const creator = attribute("creator") || "Unknwown";
-    const tags = attribute("tags")?.split(",");
-    const musicUri = data.animation_url || "allow";
-    const totalSupply = edition.supply.toNumber();
+  if (!parsedResult.success) return;
 
-    // Do not return wrong track
-    const isValid = creator && isValidUri(musicUri) && totalSupply > 0;
-    if (!isValid) return;
+  const nft = parsedResult.data;
+  const metadata = nft.metadata;
+  const attributes = metadata.attributes;
 
-    return {
-      id: data.id.toNumber(),
-      name: `${data.name}`,
-      creator: creator,
-      description: `${data.description}`,
-      totalSupply,
-      coverUri: data.image,
-      musicUri,
-      tags,
-    };
-  } catch (e) {
-    console.error(e);
-  }
+  return {
+    id: metadata.id,
+    name: metadata.name,
+    creator: attributes?.artist || attributes?.creator || "Unknown",
+    description: metadata.description,
+    totalSupply: nft.supply,
+    coverUri: metadata.image,
+    musicUri: metadata.animation_url,
+    tags: attributes?.tags,
+  };
 };
 
 const parseEditions = (editions: EditionMetadata[]): TrackzMetadata[] =>
