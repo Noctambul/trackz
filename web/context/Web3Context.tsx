@@ -53,54 +53,52 @@ export function Web3Provider(props: PropsWithChildren<{}>) {
 
 const attributeKeys = ["artist", "creator", "tags"] as const;
 const zBigNumber = z.instanceof(BigNumber).transform((big) => big.toNumber());
-const EditionMetadataSchema = z.object({
-  supply: zBigNumber,
-  metadata: z.object({
-    id: zBigNumber,
-    name: z.string().max(30),
-    description: z.string().default(""),
-    animation_url: z.string().url(),
-    image: z.string().url().optional(),
-    attributes: z
-      .array(
-        z.object({
-          trait_type: z.enum(attributeKeys),
-          value: z.string(),
-        })
-      )
-      .optional()
-      .transform((arr) =>
-        arr?.reduce((acc, val) => {
-          acc[val.trait_type] = val.value;
-          return acc;
-        }, {} as Record<typeof attributeKeys[number], string>)
-      ),
-    // .or(z.record(z.enum(attributeKeys), z.any()))
-    // .optional(),
-  }),
-});
+const EditionMetadataSchema = z
+  .object({
+    supply: zBigNumber,
+    metadata: z.object({
+      id: zBigNumber,
+      name: z.string().max(30),
+      description: z.string().default(""),
+      animation_url: z.string().url(),
+      image: z.string().url().optional(),
+      attributes: z
+        .array(
+          z.object({
+            trait_type: z.enum(attributeKeys),
+            value: z.string(),
+          })
+        )
+        .optional()
+        .transform((arr) =>
+          arr?.reduce((acc, val) => {
+            acc[val.trait_type] = val.value;
+            return acc;
+          }, {} as Record<typeof attributeKeys[number], string>)
+        ),
+    }),
+  })
+  .transform((nft) => {
+    return {
+      id: nft.metadata.id,
+      name: nft.metadata.name,
+      creator:
+        nft.metadata.attributes?.artist ||
+        nft.metadata.attributes?.creator ||
+        "Unknown",
+      description: nft.metadata.description,
+      totalSupply: nft.supply,
+      coverUri: nft.metadata.image,
+      musicUri: nft.metadata.animation_url,
+      tags: nft.metadata.attributes?.tags,
+    };
+  });
 
 const parseEditionMetadata = (
   edition: EditionMetadata
 ): TrackzMetadata | undefined => {
   const parsedResult = EditionMetadataSchema.safeParse(edition);
-
-  if (!parsedResult.success) return;
-
-  const nft = parsedResult.data;
-  const metadata = nft.metadata;
-  const attributes = metadata.attributes;
-
-  return {
-    id: metadata.id,
-    name: metadata.name,
-    creator: attributes?.artist || attributes?.creator || "Unknown",
-    description: metadata.description,
-    totalSupply: nft.supply,
-    coverUri: metadata.image,
-    musicUri: metadata.animation_url,
-    tags: attributes?.tags,
-  };
+  return parsedResult.success ? parsedResult.data : undefined;
 };
 
 const parseEditions = (editions: EditionMetadata[]): TrackzMetadata[] =>
