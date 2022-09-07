@@ -1,13 +1,14 @@
-import { z } from "zod";
-
 export default function useEnvironment() {
-  const trackzEditionContract = z
-    .string()
-    .regex(/^0x[a-fA-F0-9]{40}$/g)
-    .parse(process.env.NEXT_PUBLIC_TRACKZ_EDITION_CONTRACT);
-  const ipfsProviderUri = z
-    .string()
-    .parse(process.env.NEXT_PUBLIC_IPFS_PROVIDER_URI);
+  // const trackzEditionContract = z
+  //   .string()
+  //   .regex(/^0x[a-fA-F0-9]{40}$/g)
+  //   .parse(process.env.NEXT_PUBLIC_TRACKZ_EDITION_CONTRACT);
+  // const ipfsProviderUri = z
+  //   .string()
+  //   .parse(process.env.NEXT_PUBLIC_IPFS_PROVIDER_URI);
 
-  return { trackzEditionContract, ipfsProviderUri };
+  return {
+    trackzEditionContract: process.env.NEXT_PUBLIC_TRACKZ_EDITION_CONTRACT,
+    ipfsProviderUri: process.env.NEXT_PUBLIC_IPFS_PROVIDER_URI,
+  };
 }
