@@ -1,4 +1,3 @@
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useAddress, useMetamask } from "@thirdweb-dev/react";
 import PageContainer from "components/PageContainer/PageContainer";
 import Button from "components/uikit/Button";
@@ -6,7 +5,6 @@ import useMint from "hooks/useMint";
 import { PropsWithChildren } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
-
 const AlertInput = ({ children }: PropsWithChildren<{}>) =>
   Boolean(children) ? (
     <span role="alert" className="text-red-500">

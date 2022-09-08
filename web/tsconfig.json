@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    // "noErrorTruncation": true, // No more "... 6 more ..."
     "baseUrl": ".",
     "target": "es5",
     "lib": [

@@ -1,9 +1,0 @@
-{
-  "name": "smart-contract-thirdweb",
-  "version": "1.0.0",
-  "main": "index.js",
-  "license": "MIT",
-  "devDependencies": {
-    "thirdweb": "^0.7.9"
-  }
-}
