@@ -1,3 +1,4 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useAddress, useMetamask } from "@thirdweb-dev/react";
 import PageContainer from "components/PageContainer/PageContainer";
 import Button from "components/uikit/Button";
@@ -40,7 +41,7 @@ const SimpleSchema = z.object({
 
 export default function MintPage(): JSX.Element {
   const { handleSubmit, register, formState } = useForm({
-    // resolver: zodResolver(SimpleSchema),
+    resolver: zodResolver(SimpleSchema),
   });
   // const { ErrorField } = useErrorFields<MintInputs>(formState);
 

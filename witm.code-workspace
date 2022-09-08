@@ -7,9 +7,6 @@
       "path":"smart-contract"
     },
     {
-      "path":"smart-contract-thirdweb"
-    },
-    {
       "path": "."
     }
   ],
