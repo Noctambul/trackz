@@ -13,6 +13,7 @@
     "cypress:e2e": "cypress open --e2e --browser chrome"
   },
   "dependencies": {
+    "@hookform/resolvers": "^2.9.7",
     "@thirdweb-dev/react": "^2.7.4",
     "@thirdweb-dev/sdk": "^2.3.42",
     "ethers": "^5.7.0",
