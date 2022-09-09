@@ -4,12 +4,13 @@ import PageContainer from "components/PageContainer/PageContainer";
 import Button from "components/uikit/Button";
 import useErrorFields from "hooks/useErrorFields";
 import useMint from "hooks/useMint";
+import { zodAudioFile, zodImageFile } from "lib/zod-helpers";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 
 const MintFormSchema: z.ZodSchema<any, z.ZodTypeDef, any> = z.object({
-  musicFile: z.string(), //instanceof(FileList, { message: "oskour" }),
-  coverFile: z.any().optional(),
+  musicFile: zodAudioFile(),
+  coverFile: zodImageFile().optional(),
   name: z.string().min(1, { message: "Title is mandatory" }).max(30),
   description: z.string().optional(),
   tags: z.string().optional(),
@@ -80,15 +81,12 @@ export default function MintPage(): JSX.Element {
             {...register("coverFile")}
             disabled={isSubmitting}
           />
+          <ErrorField propertyName="coverFile" label="Cover file" />
         </label>
         <h3>Details</h3>
         <label>
           Title
           <input type="text" {...register("name")} disabled={isSubmitting} />
-          {/* {formState.errors.name?.message && (
-            <p className="text-red-500">{formState.errors.name?.message}</p>
-          )} */}
-          {/* <AlertInput>{formState.errors?.name?.message}</AlertInput> */}
           <ErrorField propertyName="name" label="Title" />
         </label>
         <label>
