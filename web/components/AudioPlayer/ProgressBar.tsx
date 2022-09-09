@@ -36,7 +36,7 @@ export default function ProgressBar({
   const inputElt = (
     <Slider
       aria-label="Track progress"
-      className="mx-2"
+      mx={3}
       min={0}
       max={duration}
       value={progress}
