@@ -1,6 +1,7 @@
 import { useIpfs } from "hooks/useIpfs";
 
-describe("useIpfs", () => {
+// Skip for the moment as we don't use this feature
+describe.skip("useIpfs", () => {
   const { resolveLink } = useIpfs();
 
   before(() => {
