@@ -1,7 +1,7 @@
 name: cypress
 on: [pull_request]
 env:
-  NEXT_PUBLIC_TRACKZ_EDITION_CONTRACT: ""
+  NEXT_PUBLIC_TRACKZ_EDITION_CONTRACT: "0x3fB61AAA31c038E16d3ca27F154F5E88Bc00c67E"
 jobs:
   Component-tests:  
     name: component-tests
