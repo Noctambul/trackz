@@ -4,6 +4,7 @@ import { AudioProvider } from "context/AudioContext";
 import { Web3Provider } from "context/Web3Context";
 import "lib/augmented-types";
 import type { AppProps } from "next/app";
+import chakraTheme from "../lib/chakra-theme";
 import "../styles/global.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -20,7 +21,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   };
 
   return (
-    <ChakraProvider>
+    <ChakraProvider theme={chakraTheme}>
       <ThirdwebProvider {...thirdwebProps}>
         <Web3Provider>
           <AudioProvider>
