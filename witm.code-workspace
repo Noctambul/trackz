@@ -4,7 +4,7 @@
       "path": "web"
     },
     {
-      "path":"smart-contract-old"
+      "path":"smart-contract"
     },
     {
       "path": "."

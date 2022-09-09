@@ -1,39 +1,54 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useAddress, useMetamask } from "@thirdweb-dev/react";
 import PageContainer from "components/PageContainer/PageContainer";
 import Button from "components/uikit/Button";
 import useErrorFields from "hooks/useErrorFields";
 import useMint from "hooks/useMint";
+import { zodAudioFile, zodImageFile } from "lib/zod-helpers";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { z } from "zod";
 
-export type MintInputs = {
-  musicFile: FileList;
-  coverFile?: FileList;
-  title: string;
-  description?: string;
-  tags?: string;
-  supply: number;
-  royalties: number;
-};
+const MintFormSchema: z.ZodSchema<any, z.ZodTypeDef, any> = z.object({
+  musicFile: zodAudioFile(),
+  coverFile: zodImageFile().optional(),
+  name: z.string().min(1, { message: "Title is mandatory" }).max(30),
+  description: z.string().optional(),
+  tags: z.string().optional(),
+  supply: z.preprocess(
+    (str) => parseInt(str as string, 10),
+    z.number().int().positive()
+  ),
+  royalties: z.preprocess(
+    (str) => parseInt(str as string, 10),
+    z.number().int().nonnegative().max(20)
+  ),
+});
+
+export type MintInputs = z.infer<typeof MintFormSchema>;
 
 export default function MintPage(): JSX.Element {
-  const { handleSubmit, register, formState } = useForm<MintInputs>();
+  const { handleSubmit, register, formState } = useForm({
+    resolver: zodResolver(MintFormSchema),
+  });
   const { ErrorField } = useErrorFields<MintInputs>(formState);
 
-  const { mint, isLoading } = useMint();
+  const { mintWithSignature } = useMint();
   const address = useAddress();
   const connectWithMetamask = useMetamask();
 
+  const isSubmitting = formState.isSubmitting;
   const onSubmit: SubmitHandler<MintInputs> = async (data) => {
     // TODO: transition after mint
-    mint(data);
+    console.log("MINT");
+    await mintWithSignature(data);
   };
 
   const SubmitButton = address ? (
     <Button
       type="submit"
       loadingText="Minting ..."
-      isDisabled={isLoading}
-      isLoading={isLoading}
+      isDisabled={isSubmitting}
+      isLoading={isSubmitting}
     >
       MINT
     </Button>
@@ -52,27 +67,36 @@ export default function MintPage(): JSX.Element {
         <h3>Upload</h3>
         <label>
           Music File
-          <input type="file" {...register("musicFile", { required: true })} />
+          <input
+            type="file"
+            {...register("musicFile")}
+            disabled={isSubmitting}
+          />
           <ErrorField propertyName="musicFile" label="Music file" />
         </label>
         <label>
           Cover File
-          <input type="file" {...register("coverFile")} />
+          <input
+            type="file"
+            {...register("coverFile")}
+            disabled={isSubmitting}
+          />
+          <ErrorField propertyName="coverFile" label="Cover file" />
         </label>
         <h3>Details</h3>
         <label>
           Title
-          <input type="text" {...register("title", { required: true })} />
-          <ErrorField propertyName="title" label="Title" />
+          <input type="text" {...register("name")} disabled={isSubmitting} />
+          <ErrorField propertyName="name" label="Title" />
         </label>
         <label>
           Description
-          <textarea {...register("description")} />
+          <textarea {...register("description")} disabled={isSubmitting} />
           <ErrorField propertyName="description" label="Description" />
         </label>
         <label>
           Tags
-          <input type="text" {...register("tags")} />
+          <input type="text" {...register("tags")} disabled={isSubmitting} />
           <ErrorField propertyName="tags" label="Tags" />
         </label>
         <h3>Editions</h3>
@@ -80,25 +104,18 @@ export default function MintPage(): JSX.Element {
           Number of Editions
           <input
             type="number"
-            placeholder="10"
-            {...register("supply", {
-              required: false,
-              min: 1,
-              max: 100000,
-              valueAsNumber: true,
-            })}
+            {...register("supply")}
+            disabled={isSubmitting}
           />
-          <ErrorField propertyName="editions" label="The number of editions" />
+          <ErrorField propertyName="supply" label="The number of editions" />
         </label>
         <label>
           Royalties
           <input
             type="number"
             max="20"
-            {...register("royalties", {
-              required: false,
-              max: { value: 20, message: "Royalties must be less than 20%" },
-            })}
+            {...register("royalties")}
+            disabled={isSubmitting}
           />
           <ErrorField propertyName="royalties" label="Royalties" />
         </label>

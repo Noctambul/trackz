@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "NODE_OPTIONS='--inspect' next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -13,6 +13,7 @@
     "cypress:e2e": "cypress open --e2e --browser chrome"
   },
   "dependencies": {
+    "@hookform/resolvers": "2.9.7",
     "@thirdweb-dev/react": "2.9.7",
     "@thirdweb-dev/sdk": "2.4.9",
     "ethers": "5.7.0",
@@ -21,7 +22,8 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "7.34.2",
-    "react-icons": "4.4.0"
+    "react-icons": "4.4.0",
+    "zod": "^3.19.0"
   },
   "devDependencies": {
     "@tailwindcss/aspect-ratio": "0.4.2",

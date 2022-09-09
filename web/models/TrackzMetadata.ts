@@ -6,6 +6,6 @@ export default interface TrackzMetadata {
   totalSupply: number;
   coverUri?: string | null;
   musicUri: string;
-  tags?: string[];
+  tags?: string;
   price?: number;
 }
