@@ -66,11 +66,16 @@ export default function MintPage(): JSX.Element {
   };
 
   const SubmitButton = address ? (
-    <Button type="submit" isLoading={isSubmitting} loadingText="Minting ...">
+    <Button
+      type="submit"
+      isLoading={isSubmitting}
+      loadingText="Minting ..."
+      mt={8}
+    >
       MINT
     </Button>
   ) : (
-    <Button type="button" onClick={connectWithMetamask}>
+    <Button type="button" onClick={connectWithMetamask} mt={8}>
       Connect wallet
     </Button>
   );
@@ -105,7 +110,7 @@ export default function MintPage(): JSX.Element {
           </FormErrorMessage>
         </FormControl>
 
-        <Heading as="h3" size="md">
+        <Heading as="h3" size="md" mt={8}>
           Details
         </Heading>
 
@@ -133,7 +138,7 @@ export default function MintPage(): JSX.Element {
           <FormErrorMessage>{errors.tags?.message as string}</FormErrorMessage>
         </FormControl>
 
-        <Heading as="h3" size="md">
+        <Heading as="h3" size="md" mt={8}>
           Editions
         </Heading>
 
