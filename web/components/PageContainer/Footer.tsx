@@ -8,7 +8,10 @@ export default function Footer(): JSX.Element {
   return (
     <>
       {currentTrackz && (
-        <footer className="fixed bottom-0 left-0 h-20 w-screen bg-bgc px-8">
+        <footer
+          className="fixed bottom-0 left-0 h-14 w-screen bg-bgc px-8 text-white
+        "
+        >
           {currentTrackz && (
             <AudioPlayer
               trackz={currentTrackz}

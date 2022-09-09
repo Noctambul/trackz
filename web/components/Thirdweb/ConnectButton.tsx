@@ -10,10 +10,10 @@ export default function ConnectButton(): JSX.Element {
       {/* <div className="text- mb-1 h-4 w-4 rounded-full bg-primary"></div> */}
       {address ? (
         <div>
-          <button onClick={disconnect}>DISCONNECT</button>
+          <button onClick={disconnect}>Disconnect</button>
         </div>
       ) : (
-        <button onClick={connectWithMetamask}>CONNECT</button>
+        <button onClick={connectWithMetamask}>Connect</button>
       )}
     </div>
   );

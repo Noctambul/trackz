@@ -24,10 +24,10 @@ export default function TrackzInfos({ trackz }: Props): JSX.Element {
         )}
       </div>
       <div className="ml-3 flex w-40 flex-col overflow-hidden pl-4">
-        <span className="truncate text-sm text-text" aria-label="Title">
+        <span className="truncate text-white" aria-label="Title">
           {trackz.name}
         </span>
-        <span className="truncate text-xs text-subtext" aria-label="Author">
+        <span className="truncate text-xs text-gray-200" aria-label="Author">
           {trackz.creator}
         </span>
       </div>
