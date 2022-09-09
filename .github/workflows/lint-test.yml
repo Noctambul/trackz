@@ -1,8 +1,8 @@
-name: lint
+name: typescript
 on: [pull_request]
 jobs:
   Typescript: 
-    name: typescript
+    name: validate-syntax
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
