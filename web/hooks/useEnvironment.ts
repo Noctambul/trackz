@@ -1,8 +1,6 @@
 import { z } from "zod";
 
 export default function useEnvironment() {
-  // Set the variable to optional for the moment because Nextjs prerender the page and it seems that there is undefined env variables
-  // @see https://vercel.com/noctambul/trackz/8XXumcPsUWm314iyn35M2tarazo1
   const trackzEditionContract = z
     .string({
       required_error:
