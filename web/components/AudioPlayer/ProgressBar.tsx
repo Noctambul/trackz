@@ -1,5 +1,12 @@
-import Slider from "components/uikit/Slider";
+import {
+  Box,
+  Slider,
+  SliderFilledTrack,
+  SliderThumb,
+  SliderTrack,
+} from "@chakra-ui/react";
 import { useTime } from "hooks/useTime";
+import { BsSoundwave } from "react-icons/bs";
 
 interface Props {
   /** The current progress in seconds */
@@ -28,15 +35,23 @@ export default function ProgressBar({
 
   const inputElt = (
     <Slider
+      aria-label="Track progress"
+      className="mx-2"
       min={0}
       max={duration}
       value={progress}
-      disabled={disabled}
+      isDisabled={disabled}
       onChange={(value) => onSearch?.(value)}
       onMouseUp={onSearchEnd}
       onTouchEnd={onSearchEnd}
-      className="mx-2 px-2"
-    />
+    >
+      <SliderTrack bg="blue.100" boxSize={0.5}>
+        <SliderFilledTrack bg="primary" />
+      </SliderTrack>
+      <SliderThumb boxSize={5} _hover={{ boxSize: 6, animation: 500 }}>
+        <Box color="tomato" as={BsSoundwave} />
+      </SliderThumb>
+    </Slider>
   );
 
   return (
