@@ -1,8 +1,8 @@
-name: Lint Tests
+name: lint
 on: [pull_request]
 jobs:
   Typescript: 
-    name: Run Typescript
+    name: typescript
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

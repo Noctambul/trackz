@@ -1,11 +1,11 @@
-name: Contract Tests
+name: hardhat 
 on: [pull_request]
 jobs:  
   Contract-tests:
     defaults:
       run:
         working-directory: smart-contract
-    name: Run Contract Tests
+    name: contract-tests
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
