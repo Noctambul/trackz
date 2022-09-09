@@ -11,12 +11,14 @@ export default function Header(): JSX.Element {
         <Link href="/">TRACKZ</Link>
       </h1>
       <nav>
-        <ul className="flex list-none items-center gap-10 text-sm">
+        <ul className="flex list-none items-center gap-10">
           <li aria-label="Mint Page">
             <Link href="/mint">Mint</Link>
           </li>
           <li aria-label="Connect Wallet">
-            <ConnectButton />
+            <a>
+              <ConnectButton />
+            </a>
           </li>
         </ul>
       </nav>

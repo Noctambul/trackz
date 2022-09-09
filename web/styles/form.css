@@ -17,10 +17,9 @@
   [multiple],
   textarea,
   select {
-    @apply my-1 w-full rounded-lg border-red-300 bg-gray-50 text-gray-900 shadow-sm focus:border-primary focus:outline-none focus:ring-primary;
   }
 
   [type="file"] {
-    @apply cursor-pointer border-0 file:cursor-pointer file:rounded-lg file:rounded-r-none file:border-0 file:bg-subtext file:py-2 file:px-4 file:align-middle;
+    @apply cursor-pointer border-0 p-0 file:ml-0 file:cursor-pointer file:rounded-lg file:rounded-r-none file:border-0 file:py-2 file:px-4 file:align-middle;
   }
 }
