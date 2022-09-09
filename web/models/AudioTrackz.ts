@@ -2,8 +2,11 @@ import { resolveLink } from "hooks/useIpfs";
 import { Howl } from "howler";
 import TrackzMetadata from "./TrackzMetadata";
 
+type onLoadedCallback = (track: AudioTrackz) => void;
+
 export default class AudioTrackz {
   private howl: Howl;
+  private onLoadedCallbacks: onLoadedCallback[] = [];
 
   get metadata(): TrackzMetadata {
     return this.trackzMetadata;
@@ -42,21 +45,30 @@ export default class AudioTrackz {
 
   constructor(
     private trackzMetadata: TrackzMetadata,
-    onTrackLoaded?: (track: AudioTrackz) => void
+    onTrackLoaded?: onLoadedCallback
   ) {
     const self = this;
+
+    if (onTrackLoaded) this.onloaded(onTrackLoaded);
+
     this.howl = new Howl({
       src: this.musicUri,
       html5: true,
       preload: "metadata", // Could be true to start loading the file immediately
       onload: () => {
-        onTrackLoaded?.(self);
-        self.onloaded?.(self);
+        self.onLoadedCallbacks.forEach((cb) => cb(self));
+        self.onLoadedCallbacks = [];
       },
     });
   }
 
-  onloaded: ((track: AudioTrackz) => void) | undefined;
+  onloaded(cb: onLoadedCallback) {
+    if (this.isLoaded) {
+      cb(this);
+    } else {
+      this.onLoadedCallbacks.push(cb);
+    }
+  }
 
   load() {
     // return new Promise((resolve, reject) => {
