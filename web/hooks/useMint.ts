@@ -33,9 +33,6 @@ export default function useMint() {
       switchNetwork && switchNetwork(ChainId.Rinkeby);
       return;
     }
-    if (musicFile.length !== 1) throw new Error("Should only mint one music");
-    if (coverFile && coverFile.length > 1)
-      throw new Error("Should only have one cover image");
 
     setIsLoading(true);
     const hasCover = coverFile && coverFile.length > 0;
@@ -73,8 +70,7 @@ export default function useMint() {
 
       // If the request failed, we'll show an error.
       if (!signedPayloadReq.ok) {
-        throw new Error(json.error);
-        return;
+        throw new Error("Impossible to sign the payload ", json.error);
       }
 
       // If the request succeeded, we'll get the signed payload from the response.
