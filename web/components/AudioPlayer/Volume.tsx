@@ -1,5 +1,11 @@
-import Slider from "components/uikit/Slider";
 import { useAudio } from "context/AudioContext";
+
+import {
+  Slider,
+  SliderFilledTrack,
+  SliderThumb,
+  SliderTrack,
+} from "@chakra-ui/react";
 import { TbVolume, TbVolume2, TbVolume3 } from "react-icons/tb";
 
 export default function Volume({}): JSX.Element {
@@ -21,13 +27,21 @@ export default function Volume({}): JSX.Element {
           aria-label={isMuted ? "Unmute" : "Mute"}
         />
       </button>
+
       <Slider
+        aria-label="Track progress"
+        className="mx-2"
         min={0}
         max={100}
         value={volume * 100}
         onChange={(vol) => setVolume(vol / 100)}
-        className="w-20"
-      />
+        w={20}
+      >
+        <SliderTrack bg="blue.100" boxSize={0.5}>
+          <SliderFilledTrack bg="primary" />
+        </SliderTrack>
+        <SliderThumb />
+      </Slider>
     </div>
   );
 }

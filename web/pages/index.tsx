@@ -9,7 +9,7 @@ const Home: NextPage = () => {
 
   return (
     <PageContainer>
-      <div className="my-24 flex flex-col space-y-10 px-8 sm:px-20">
+      <div className="flex flex-col space-y-10 px-8 sm:px-20">
         {playlist.length > 0
           ? playlist.map((track) => (
               <TrackzCard

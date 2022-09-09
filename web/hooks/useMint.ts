@@ -26,6 +26,8 @@ export default function useMint() {
     description,
     musicFile,
     coverFile,
+    royalties,
+    supply,
   }: MintInputs) => {
     if (isLoading) return;
     if (!address || !signer) throw new Error("Wallet not connected");
@@ -33,9 +35,6 @@ export default function useMint() {
       switchNetwork && switchNetwork(ChainId.Rinkeby);
       return;
     }
-    if (musicFile.length !== 1) throw new Error("Should only mint one music");
-    if (coverFile && coverFile.length > 1)
-      throw new Error("Should only have one cover image");
 
     setIsLoading(true);
     const hasCover = coverFile && coverFile.length > 0;
@@ -52,6 +51,8 @@ export default function useMint() {
       // Request API
       const payload: MintParams = {
         authorAddress: address,
+        supply,
+        royalties,
         metadata: {
           name,
           description,
@@ -66,15 +67,14 @@ export default function useMint() {
 
       console.log("Received Signed payload", signedPayloadReq);
 
-      // Grab the JSON from the rSesponse
+      // Grab the JSON from the response
       const json = await signedPayloadReq.json();
 
       console.log("Json:", json);
 
       // If the request failed, we'll show an error.
       if (!signedPayloadReq.ok) {
-        throw new Error(json.error);
-        return;
+        throw new Error("Impossible to sign the payload ", json.error);
       }
 
       // If the request succeeded, we'll get the signed payload from the response.
@@ -123,5 +123,5 @@ export default function useMint() {
     setIsLoading(false);
   };
 
-  return { mint, mintWithSignature, isLoading };
+  return { mintWithSignature, isLoading };
 }

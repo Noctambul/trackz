@@ -6,13 +6,23 @@ const ethWalletRegex = /^0x[a-fA-F0-9]{40}$/g;
 
 const MintParamsSchema = z.object({
   authorAddress: z.string().regex(ethWalletRegex),
+  supply: z.number(),
+  royalties: z.number().int().max(20),
   metadata: z.object({
     name: z.string(),
     description: z.string().optional(),
-    musicUri: z.string().regex(/^ipfs:\/\/[a-zA-Z0-9]{46}\/[0-9].mp3$/g),
+    musicUri: z
+      .string()
+      .regex(
+        /^ipfs:\/\/[a-zA-Z0-9]{46}\/[0-9].mp3$/g,
+        "musicUri has wrong format"
+      ),
     coverUri: z
       .string()
-      .regex(/^ipfs:\/\/[a-zA-Z0-9]{46}\/[0-9].jpg$/g)
+      .regex(
+        /^ipfs:\/\/[a-zA-Z0-9]{46}\/[0-9].(jpg|png)$/g,
+        "coverUri has wrong format"
+      )
       .optional(),
     tags: z.string().optional(),
   }),
@@ -34,9 +44,8 @@ export default async function mint(req: NextApiRequest, res: NextApiResponse) {
       NEXT_PUBLIC_TRACKZ_EDITION_CONTRACT,
     } = EnvVariableSchema.parse(process.env);
 
-    const { authorAddress, metadata } = MintParamsSchema.parse(
-      JSON.parse(req.body)
-    );
+    const { authorAddress, metadata, supply, royalties } =
+      MintParamsSchema.parse(JSON.parse(req.body));
 
     // Initialize the Thirdweb SDK on the serverside
     const sdk = ThirdwebSDK.fromPrivateKey(MINT_WALLET_PRIVATE_KEY, NETWORK);
@@ -49,7 +58,10 @@ export default async function mint(req: NextApiRequest, res: NextApiResponse) {
       description: metadata.description || "",
       image: metadata.coverUri || "",
       animation_url: metadata.musicUri, //fs.readFileSync("path/to/image.png"), // This can be an image url or file
-      attributes: [{ trait_type: "tags", value: metadata.tags || "" }],
+      attributes: [
+        { trait_type: "tags", value: metadata.tags || "" },
+        { trait_type: "artist", value: authorAddress },
+      ],
     };
 
     // Generate the signature for the page NFT
@@ -57,13 +69,13 @@ export default async function mint(req: NextApiRequest, res: NextApiResponse) {
     const signedPayload = await contract.signature.generate({
       metadata: nftMetadata, // The NFT to mint
       to: authorAddress, // Who will receive the NFT (or AddressZero for anyone)
-      quantity: 2, // the quantity of NFTs to mint
+      quantity: supply, // the quantity of NFTs to mint
       // price: 0.5, // the price per NFT
       // currencyAddress: NATIVE_TOKEN_ADDRESS, // the currency to pay with
       // mintStartTime: startTime, // can mint anytime from now
       // mintEndTime: endTime, // to 24h from now
       royaltyRecipient: authorAddress, // custom royalty recipient for this NFT
-      royaltyBps: 100, // custom royalty fees for this NFT (in bps)
+      royaltyBps: royalties, // custom royalty fees for this NFT (in bps)
       primarySaleRecipient: authorAddress, // custom sale recipient for this NFT
     });
 
