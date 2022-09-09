@@ -8,7 +8,7 @@ export default function useEnvironment() {
     })
     .regex(/^0x[a-fA-F0-9]{40}$/g, {
       message:
-        "NEXT_PUBLIC_TRACKZ_EDITION_CONTRACT en variable should be a contract address",
+        "NEXT_PUBLIC_TRACKZ_EDITION_CONTRACT env variable should be a contract address",
     })
     .parse(process.env.NEXT_PUBLIC_TRACKZ_EDITION_CONTRACT);
   // const ipfsProviderUri = z

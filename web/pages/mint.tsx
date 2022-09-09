@@ -2,24 +2,15 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useAddress, useMetamask } from "@thirdweb-dev/react";
 import PageContainer from "components/PageContainer/PageContainer";
 import Button from "components/uikit/Button";
+import useErrorFields from "hooks/useErrorFields";
 import useMint from "hooks/useMint";
-import { PropsWithChildren } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
-const AlertInput = ({ children }: PropsWithChildren<{}>) =>
-  Boolean(children) ? (
-    <span role="alert" className="text-red-500">
-      {children}
-    </span>
-  ) : null;
 
 const MintFormSchema: z.ZodSchema<any, z.ZodTypeDef, any> = z.object({
-  musicFile: z.any(),
+  musicFile: z.string(), //instanceof(FileList, { message: "oskour" }),
   coverFile: z.any().optional(),
-  name: z
-    .string({ invalid_type_error: "The title is mandatory" })
-    .min(1, { message: "It is required" })
-    .max(30),
+  name: z.string().min(1, { message: "Title is mandatory" }).max(30),
   description: z.string().optional(),
   tags: z.string().optional(),
   supply: z.preprocess(
@@ -34,16 +25,11 @@ const MintFormSchema: z.ZodSchema<any, z.ZodTypeDef, any> = z.object({
 
 export type MintInputs = z.infer<typeof MintFormSchema>;
 
-const SimpleSchema = z.object({
-  name: z.string(),
-  age: z.number(),
-});
-
 export default function MintPage(): JSX.Element {
   const { handleSubmit, register, formState } = useForm({
-    resolver: zodResolver(SimpleSchema),
+    resolver: zodResolver(MintFormSchema),
   });
-  // const { ErrorField } = useErrorFields<MintInputs>(formState);
+  const { ErrorField } = useErrorFields<MintInputs>(formState);
 
   const { mintWithSignature } = useMint();
   const address = useAddress();
@@ -55,8 +41,6 @@ export default function MintPage(): JSX.Element {
     console.log("MINT");
     await mintWithSignature(data);
   };
-
-  // console.log(formState);
 
   const SubmitButton = address ? (
     <Button
@@ -87,7 +71,7 @@ export default function MintPage(): JSX.Element {
             {...register("musicFile")}
             disabled={isSubmitting}
           />
-          {/* <ErrorField propertyName="musicFile" label="Music file" /> */}
+          <ErrorField propertyName="musicFile" label="Music file" />
         </label>
         <label>
           Cover File
@@ -105,28 +89,27 @@ export default function MintPage(): JSX.Element {
             <p className="text-red-500">{formState.errors.name?.message}</p>
           )} */}
           {/* <AlertInput>{formState.errors?.name?.message}</AlertInput> */}
-          {/* <ErrorField propertyName="title" label="Title" /> */}
+          <ErrorField propertyName="name" label="Title" />
         </label>
         <label>
           Description
           <textarea {...register("description")} disabled={isSubmitting} />
-          {/* <ErrorField propertyName="description" label="Description" /> */}
+          <ErrorField propertyName="description" label="Description" />
         </label>
         <label>
           Tags
           <input type="text" {...register("tags")} disabled={isSubmitting} />
-          {/* <ErrorField propertyName="tags" label="Tags" /> */}
+          <ErrorField propertyName="tags" label="Tags" />
         </label>
         <h3>Editions</h3>
         <label>
           Number of Editions
           <input
             type="number"
-            placeholder="10"
             {...register("supply")}
             disabled={isSubmitting}
           />
-          {/* <ErrorField propertyName="supply" label="The number of editions" /> */}
+          <ErrorField propertyName="supply" label="The number of editions" />
         </label>
         <label>
           Royalties
@@ -136,7 +119,7 @@ export default function MintPage(): JSX.Element {
             {...register("royalties")}
             disabled={isSubmitting}
           />
-          {/* <ErrorField propertyName="royalties" label="Royalties" /> */}
+          <ErrorField propertyName="royalties" label="Royalties" />
         </label>
         {SubmitButton}
       </form>
