@@ -26,6 +26,8 @@ export default function useMint() {
     description,
     musicFile,
     coverFile,
+    royalties,
+    supply,
   }: MintInputs) => {
     if (isLoading) return;
     if (!address || !signer) throw new Error("Wallet not connected");
@@ -49,6 +51,8 @@ export default function useMint() {
       // Request API
       const payload: MintParams = {
         authorAddress: address,
+        supply,
+        royalties,
         metadata: {
           name,
           description,
@@ -63,7 +67,7 @@ export default function useMint() {
 
       console.log("Received Signed payload", signedPayloadReq);
 
-      // Grab the JSON from the rSesponse
+      // Grab the JSON from the response
       const json = await signedPayloadReq.json();
 
       console.log("Json:", json);
@@ -119,5 +123,5 @@ export default function useMint() {
     setIsLoading(false);
   };
 
-  return { mint, mintWithSignature, isLoading };
+  return { mintWithSignature, isLoading };
 }

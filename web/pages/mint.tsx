@@ -66,12 +66,7 @@ export default function MintPage(): JSX.Element {
   };
 
   const SubmitButton = address ? (
-    <Button
-      type="submit"
-      isLoading={isSubmitting}
-      loadingText="Minting ..."
-      // isDisabled={isSubmitting}
-    >
+    <Button type="submit" isLoading={isSubmitting} loadingText="Minting ...">
       MINT
     </Button>
   ) : (
