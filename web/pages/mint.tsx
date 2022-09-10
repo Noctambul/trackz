@@ -16,7 +16,6 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAddress, useMetamask } from "@thirdweb-dev/react";
 import PageContainer from "components/PageContainer/PageContainer";
-// import Button from "components/uikit/Button";
 import useMint from "hooks/useMint";
 import { zodAudioFile, zodImageFile } from "lib/zod-helpers";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -71,11 +70,17 @@ export default function MintPage(): JSX.Element {
       isLoading={isSubmitting}
       loadingText="Minting ..."
       mt={8}
+      aria-label="Mint"
     >
-      MINT
+      Mint
     </Button>
   ) : (
-    <Button type="button" onClick={connectWithMetamask} mt={8}>
+    <Button
+      type="button"
+      onClick={connectWithMetamask}
+      mt={8}
+      aria-label="Connect wallet"
+    >
       Connect wallet
     </Button>
   );

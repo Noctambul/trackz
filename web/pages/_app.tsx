@@ -1,4 +1,5 @@
 import { ChakraProvider } from "@chakra-ui/react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ChainId, ThirdwebProvider } from "@thirdweb-dev/react";
 import { AudioProvider } from "context/AudioContext";
 import { Web3Provider } from "context/Web3Context";
@@ -20,15 +21,19 @@ function MyApp({ Component, pageProps }: AppProps) {
     // storageInterface={new IpfsStorage("https://your.ipfs.host.com")}
   };
 
+  const queryClient = new QueryClient();
+
   return (
     <ChakraProvider theme={chakraTheme}>
-      <ThirdwebProvider {...thirdwebProps}>
-        <Web3Provider>
-          <AudioProvider>
-            <Component {...pageProps} />
-          </AudioProvider>
-        </Web3Provider>
-      </ThirdwebProvider>
+      <QueryClientProvider client={queryClient}>
+        <ThirdwebProvider {...thirdwebProps}>
+          <Web3Provider>
+            <AudioProvider>
+              <Component {...pageProps} />
+            </AudioProvider>
+          </Web3Provider>
+        </ThirdwebProvider>
+      </QueryClientProvider>
     </ChakraProvider>
   );
 }
