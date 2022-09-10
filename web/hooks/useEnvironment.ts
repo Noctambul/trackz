@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 export default function useEnvironment() {
+  // TODO: use useMemo
   const trackzEditionContract = z
     .string({
       required_error:
@@ -11,6 +12,13 @@ export default function useEnvironment() {
         "NEXT_PUBLIC_TRACKZ_EDITION_CONTRACT env variable should be a contract address",
     })
     .parse(process.env.NEXT_PUBLIC_TRACKZ_EDITION_CONTRACT);
+
+  // const environment = z
+  //   .enum(["development", "production", "test"], {
+  //     required_error: "NEXT_PUBLIC_ENVIRONMENT is required",
+  //   })
+  //   .parse(process.env.NEXT_PUBLIC_ENVIRONMENT);
+
   // const ipfsProviderUri = z
   //   .string({
   //     required_error:
