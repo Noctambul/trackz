@@ -1,20 +1,14 @@
-import { useEdition } from "@thirdweb-dev/react";
-import { Edition, EditionMetadata } from "@thirdweb-dev/sdk";
+import { useQuery } from "@tanstack/react-query";
+import { EditionMetadata } from "@thirdweb-dev/sdk";
 import { BigNumber } from "ethers";
-import useEnvironment from "hooks/useEnvironment";
 import TrackzMetadata from "models/TrackzMetadata";
-import {
-  createContext,
-  PropsWithChildren,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import { createContext, PropsWithChildren, useContext } from "react";
 import { z } from "zod";
 
 export interface Web3ContextInterface {
   trackzMetadata: TrackzMetadata[];
   isLoading: boolean;
+  isError: boolean;
 }
 
 const Web3Context = createContext<Web3ContextInterface | null>(null);
@@ -25,30 +19,36 @@ export function useWeb3(): Web3ContextInterface {
 }
 
 export function Web3Provider(props: PropsWithChildren<{}>) {
-  const [trackzMetadata, setTrackzMetadata] = useState<TrackzMetadata[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const { trackzEditionContract } = useEnvironment();
-  const edition: Edition | undefined = useEdition(trackzEditionContract);
+  const { isLoading, isError, data, error } = useQuery(
+    ["trackzs"],
+    async () => {
+      console.count("Will query trackzs");
+      const res = await fetch("/api/trackzs");
 
-  useEffect(() => {
-    async function getNfts() {
-      const retrievedNfts = (await edition?.getAll()) || [];
+      if (!res.ok)
+        throw new Error(`Server responds with status ${res.status} : ${res}`);
+
+      const json = await res.json();
+      const retrievedNfts = json.editions;
       const trackzs = parseEditions(retrievedNfts);
-      setTrackzMetadata(trackzs);
-      setIsLoading(false);
+      return trackzs;
     }
-    getNfts();
-  }, [edition]);
+  );
 
   return (
-    <Web3Context.Provider value={{ trackzMetadata, isLoading }}>
+    <Web3Context.Provider
+      value={{ trackzMetadata: data || [], isLoading, isError }}
+    >
       {props.children}
     </Web3Context.Provider>
   );
 }
 
 const attributeKeys = ["artist", "creator", "tags"] as const;
-const zBigNumber = z.instanceof(BigNumber).transform((big) => big.toNumber());
+const zBigNumber = z.preprocess(
+  (big) => BigNumber.from(big),
+  z.instanceof(BigNumber).transform((big) => big.toNumber())
+);
 const EditionMetadataSchema = z
   .object({
     supply: zBigNumber,
