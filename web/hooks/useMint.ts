@@ -42,7 +42,7 @@ export default function useMint() {
 
     try {
       // Upload files on IPFS
-      setCurrentStateLabel("Uploading file on IPFS");
+      setCurrentStateLabel("Uploading on IPFS");
       const sdk = new ThirdwebSDK(signer);
       const uploadPromises = [sdk.storage.upload(musicFile[0])];
       if (hasCover) uploadPromises.push(sdk.storage.upload(coverFile[0]));

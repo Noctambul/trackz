@@ -17,7 +17,7 @@ const MintParamsSchema = z.object({
     coverUri: z
       .string()
       .regex(
-        /^ipfs:\/\/[a-zA-Z0-9]{46}\/[0-9].(jpg|png|jpeg|bmp|gif)$/g,
+        /^ipfs:\/\/[a-zA-Z0-9]{46}\/[0-9].(jpg|png|jpeg|bmp|gif|heic)$/g,
         "coverUri has wrong format"
       )
       .optional(),
