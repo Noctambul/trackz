@@ -74,7 +74,7 @@ export default function TrackzCard({
 
   return (
     <div className="flex w-full" aria-label={`Trackz Card ${trackz.id}`}>
-      <div className="relative h-[120px] w-[120px] shrink-0 border border-stone-300">
+      <div className="aspect-square relative h-[120px] w-[120px] shrink-0 border border-stone-300">
         {trackz.metadata.coverUri && (
           <Image
             src={resolveLink(trackz.metadata.coverUri)}
