@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+export const ethWalletRegex = /^0x[a-fA-F0-9]{40}$/g;
+
 function zodFile(type: "audio" | "image", optional = false) {
   return z
     .any() // Cannot use instanceof because of server side rendering and FileList is not defined

@@ -1,40 +1,7 @@
 import { ThirdwebSDK } from "@thirdweb-dev/sdk";
+import EnvVariableSchema from "lib/schema/env-variable-back-schema";
+import MintParamsSchema from "lib/schema/mint-params-schema";
 import { NextApiRequest, NextApiResponse } from "next";
-import { z } from "zod";
-
-const ethWalletRegex = /^0x[a-fA-F0-9]{40}$/g;
-
-const MintParamsSchema = z.object({
-  authorAddress: z.string().regex(ethWalletRegex),
-  supply: z.number(),
-  royalties: z.number().int().max(20),
-  metadata: z.object({
-    name: z.string(),
-    description: z.string().optional(),
-    musicUri: z
-      .string()
-      .regex(
-        /^ipfs:\/\/[a-zA-Z0-9]{46}\/[0-9].mp3$/g,
-        "musicUri has wrong format"
-      ),
-    coverUri: z
-      .string()
-      .regex(
-        /^ipfs:\/\/[a-zA-Z0-9]{46}\/[0-9].(jpg|png|jpeg|bmp)$/g,
-        "coverUri has wrong format"
-      )
-      .optional(),
-    tags: z.string().optional(),
-  }),
-});
-
-const EnvVariableSchema = z.object({
-  MINT_WALLET_PRIVATE_KEY: z.string().length(64),
-  NETWORK: z.enum(["rinkeby", "mainnet"]),
-  NEXT_PUBLIC_TRACKZ_EDITION_CONTRACT: z.string().regex(ethWalletRegex),
-});
-
-export type MintParams = z.infer<typeof MintParamsSchema>;
 
 export default async function mint(req: NextApiRequest, res: NextApiResponse) {
   try {

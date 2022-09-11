@@ -8,6 +8,7 @@ export interface Web3ContextInterface {
   trackzMetadata: TrackzMetadata[];
   isLoading: boolean;
   isError: boolean;
+  refetchTrackzs: () => Promise<void>;
 }
 
 const Web3Context = createContext<Web3ContextInterface | null>(null);
@@ -18,7 +19,7 @@ export function useWeb3(): Web3ContextInterface {
 }
 
 export function Web3Provider(props: PropsWithChildren<{}>) {
-  const { isLoading, isError, data, error } = useQuery(
+  const { isLoading, isError, data, error, refetch } = useQuery(
     ["trackzs"],
     async () => {
       console.count("Will query trackzs");
@@ -34,9 +35,13 @@ export function Web3Provider(props: PropsWithChildren<{}>) {
     }
   );
 
+  const refetchTrackzs = async () => {
+    await refetch();
+  };
+
   return (
     <Web3Context.Provider
-      value={{ trackzMetadata: data || [], isLoading, isError }}
+      value={{ trackzMetadata: data || [], isLoading, isError, refetchTrackzs }}
     >
       {props.children}
     </Web3Context.Provider>
