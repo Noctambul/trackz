@@ -14,7 +14,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useAddress, useMetamask } from "@thirdweb-dev/react";
 import PageContainer from "components/PageContainer/PageContainer";
 import useMint from "hooks/useMint";
-import { zodAudioFile, zodImageFile } from "lib/zod-helpers";
+import { zodAudioFile, zodImageFile } from "lib/schema/zod-helpers";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { z } from "zod";
 
