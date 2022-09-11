@@ -11,13 +11,7 @@ import { TbVolume, TbVolume2, TbVolume3 } from "react-icons/tb";
 export default function Volume({}): JSX.Element {
   const { volume, setVolume, isMuted, toggleMute } = useAudio();
 
-  const VolumeIcon = isMuted
-    ? TbVolume3
-    : volume > 0.4
-    ? TbVolume
-    : volume > 0
-    ? TbVolume2
-    : TbVolume3;
+  const VolumeIcon = isMuted ? TbVolume3 : volume > 0.4 ? TbVolume : TbVolume2;
 
   return (
     <div className="ml-2 flex items-center justify-center pl-2">
