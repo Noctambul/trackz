@@ -1,10 +1,12 @@
 import { z } from "zod";
 
-function zodFile(type: "audio" | "image") {
+function zodFile(type: "audio" | "image", optional = false) {
   return z
     .any() // Cannot use instanceof because of server side rendering and FileList is not defined
     .superRefine((list, ctx) => {
       if (list.length === 0) {
+        if (optional) return z.NEVER;
+
         ctx.addIssue({
           code: z.ZodIssueCode.too_small,
           type: "array",
@@ -37,10 +39,10 @@ function zodFile(type: "audio" | "image") {
     });
 }
 
-export function zodAudioFile() {
-  return zodFile("audio");
+export function zodAudioFile(optional: boolean = false) {
+  return zodFile("audio", optional);
 }
 
-export function zodImageFile() {
-  return zodFile("image");
+export function zodImageFile(optional: boolean = false) {
+  return zodFile("image", optional);
 }

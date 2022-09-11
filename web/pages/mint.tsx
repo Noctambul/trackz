@@ -6,11 +6,8 @@ import {
   FormLabel,
   Heading,
   Input,
-  NumberDecrementStepper,
-  NumberIncrementStepper,
   NumberInput,
   NumberInputField,
-  NumberInputStepper,
   Textarea,
 } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -23,7 +20,7 @@ import { z } from "zod";
 
 const MintFormSchema: z.ZodSchema<any, z.ZodTypeDef, any> = z.object({
   musicFile: zodAudioFile(),
-  coverFile: zodImageFile().optional(),
+  coverFile: zodImageFile(true),
   name: z
     .string()
     .min(1, { message: "Title is required" })
@@ -55,6 +52,7 @@ export default function MintPage(): JSX.Element {
     register,
     formState: { errors, isSubmitting },
   } = useForm<MintInputs>({
+    mode: "onChange",
     resolver: zodResolver(MintFormSchema),
   });
 
@@ -107,7 +105,7 @@ export default function MintPage(): JSX.Element {
           </FormErrorMessage>
         </FormControl>
 
-        <FormControl isInvalid={!!errors.musicFile} isDisabled={isSubmitting}>
+        <FormControl isInvalid={!!errors.coverFile} isDisabled={isSubmitting}>
           <FormLabel>Cover File</FormLabel>
           <Input type="file" {...register("coverFile")} p={0} />
           <FormErrorMessage>
@@ -155,10 +153,6 @@ export default function MintPage(): JSX.Element {
           <FormLabel>Number of Editions</FormLabel>
           <NumberInput defaultValue={1} min={1}>
             <NumberInputField {...register("supply")} />
-            <NumberInputStepper>
-              <NumberIncrementStepper />
-              <NumberDecrementStepper />
-            </NumberInputStepper>
           </NumberInput>
           <FormErrorMessage>
             {errors.supply?.message as string}
@@ -173,10 +167,6 @@ export default function MintPage(): JSX.Element {
           <FormLabel>Royalties</FormLabel>
           <NumberInput defaultValue={0} min={0} max={20}>
             <NumberInputField {...register("royalties")} />
-            <NumberInputStepper>
-              <NumberIncrementStepper />
-              <NumberDecrementStepper />
-            </NumberInputStepper>
           </NumberInput>
           <FormHelperText>in percentage (%)</FormHelperText>
           <FormErrorMessage>
