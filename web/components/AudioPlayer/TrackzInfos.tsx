@@ -11,14 +11,13 @@ export default function TrackzInfos({ trackz }: Props): JSX.Element {
 
   return (
     <div className="w-md flex shrink-0 items-center overflow-hidden">
-      <div className="aspect-square relative h-10 w-10">
+      <div className="aspect-square relative h-10 w-10 shrink-0 border border-stone-300 bg-white">
         {trackz.coverUri && (
           <Image
             alt={trackz.name}
             src={resolveLink(trackz.coverUri)}
             layout="fill"
-            // width="100%"
-            // height="100%"
+            objectFit="cover"
             className="text-ellipsis"
           />
         )}

@@ -73,20 +73,18 @@ export default function TrackzCard({
   );
 
   return (
-    <div
-      className="mx-auto flex w-screen"
-      aria-label={`Trackz Card ${trackz.id}`}
-    >
-      <div className="relative h-[120px] w-[120px] shrink-0">
+    <div className="flex w-full" aria-label={`Trackz Card ${trackz.id}`}>
+      <div className="aspect-square relative h-[120px] w-[120px] shrink-0 border border-stone-300">
         {trackz.metadata.coverUri && (
           <Image
             src={resolveLink(trackz.metadata.coverUri)}
             layout="fill"
+            objectFit="cover"
             alt={trackz.name}
           />
         )}
       </div>
-      <div className="mx-4 flex w-full flex-col justify-between overflow-hidden">
+      <div className="ml-4 flex w-full flex-col justify-between overflow-hidden">
         <div className="mb-1 flex">
           {PlayButton}
           {InfoSection}

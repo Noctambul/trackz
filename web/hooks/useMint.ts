@@ -7,8 +7,8 @@ import {
   useSigner,
 } from "@thirdweb-dev/react";
 import { ThirdwebSDK } from "@thirdweb-dev/sdk";
-import { MintParams } from "pages/api/mint";
-import { MintInputs } from "pages/mint";
+import { MintInputs } from "lib/schema/mint-form-schema";
+import { MintParams } from "lib/schema/mint-params-schema";
 import { useState } from "react";
 import useEnvironment from "./useEnvironment";
 
@@ -20,6 +20,7 @@ export default function useMint() {
   const isOnWrongNetwork = useNetworkMismatch();
   const signer = useSigner();
   const [, switchNetwork] = useNetwork();
+  const [currentStateLabel, setCurrentStateLabel] = useState("");
 
   const mintWithSignature = async ({
     name,
@@ -41,6 +42,7 @@ export default function useMint() {
 
     try {
       // Upload files on IPFS
+      setCurrentStateLabel("Uploading on IPFS");
       const sdk = new ThirdwebSDK(signer);
       const uploadPromises = [sdk.storage.upload(musicFile[0])];
       if (hasCover) uploadPromises.push(sdk.storage.upload(coverFile[0]));
@@ -49,6 +51,7 @@ export default function useMint() {
       console.log("Files uploaded ", uploadedMusic, uploadedCover);
 
       // Request API
+      setCurrentStateLabel("Signing payload");
       const payload: MintParams = {
         authorAddress: address,
         supply,
@@ -76,6 +79,8 @@ export default function useMint() {
       if (!signedPayloadReq.ok) {
         throw new Error("Impossible to sign the payload ", json.error);
       }
+
+      setCurrentStateLabel("Minting");
 
       // If the request succeeded, we'll get the signed payload from the response.
       // The API should come back with a JSON object containing a field called signedPayload.
@@ -123,5 +128,5 @@ export default function useMint() {
     setIsLoading(false);
   };
 
-  return { mintWithSignature, isLoading };
+  return { mintWithSignature, isLoading, currentStateLabel };
 }

@@ -61,7 +61,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     selectedTrackz?.volume(volume);
-    setIsMuted(false);
+    setIsMuted(volume === 0);
   }, [volume, selectedTrackz]);
 
   useEffect(() => {
