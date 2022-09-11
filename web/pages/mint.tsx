@@ -13,40 +13,18 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAddress, useMetamask } from "@thirdweb-dev/react";
 import PageContainer from "components/PageContainer/PageContainer";
+import { useWeb3 } from "context/Web3Context";
 import useMint from "hooks/useMint";
-import { zodAudioFile, zodImageFile } from "lib/schema/zod-helpers";
+import MintFormSchema, { MintInputs } from "lib/schema/mint-form-schema";
+import { useRouter } from "next/router";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { z } from "zod";
-
-const MintFormSchema: z.ZodSchema<any, z.ZodTypeDef, any> = z.object({
-  musicFile: zodAudioFile(),
-  coverFile: zodImageFile(true),
-  name: z
-    .string()
-    .min(1, { message: "Title is required" })
-    .max(30, { message: "Title must contain at most 30 characters" }),
-  description: z.string().optional(),
-  tags: z.string().optional(),
-  supply: z.preprocess(
-    (str) => parseInt(str as string, 10),
-    z.number().int().positive()
-  ),
-  royalties: z.preprocess(
-    (str) => parseInt(str as string, 10),
-    z
-      .number()
-      .int()
-      .nonnegative()
-      .max(20, { message: "Royalties must be less than 20%" })
-  ),
-});
-
-export type MintInputs = z.infer<typeof MintFormSchema>;
 
 export default function MintPage(): JSX.Element {
-  const { mintWithSignature } = useMint();
+  const { mintWithSignature, currentStateLabel } = useMint();
   const address = useAddress();
   const connectWithMetamask = useMetamask();
+  const { refetchTrackzs } = useWeb3();
+  const router = useRouter();
   const {
     handleSubmit,
     register,
@@ -59,14 +37,20 @@ export default function MintPage(): JSX.Element {
   const onSubmit: SubmitHandler<MintInputs> = async (data) => {
     // TODO: transition after mint
     console.log("MINT");
-    await mintWithSignature(data);
+    try {
+      await mintWithSignature(data);
+      refetchTrackzs();
+      router.push("/");
+    } catch (e) {
+      throw e;
+    }
   };
 
   const SubmitButton = address ? (
     <Button
       type="submit"
       isLoading={isSubmitting}
-      loadingText="Minting ..."
+      loadingText={`${currentStateLabel} ...`}
       mt={8}
       aria-label="Mint"
     >
