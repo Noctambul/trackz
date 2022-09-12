@@ -1,3 +1,4 @@
+import { ThirdwebSDK } from "@thirdweb-dev/sdk";
 import { ethWalletRegex } from "lib/schema/zod-helpers";
 import { NextApiRequest, NextApiResponse } from "next";
 import { z } from "zod";
@@ -11,23 +12,21 @@ export default async function trackzs(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { NETWORK, NEXT_PUBLIC_TRACKZ_EDITION_CONTRACT } =
-    EnvVariableSchema.parse(process.env);
-  res.status(200).send("Verified environment variables");
+  try {
+    const { NETWORK, NEXT_PUBLIC_TRACKZ_EDITION_CONTRACT } =
+      EnvVariableSchema.parse(process.env);
 
-  // try {
-  //   const sdk = new ThirdwebSDK(NETWORK);
-  //   const contract = await sdk.getEdition(NEXT_PUBLIC_TRACKZ_EDITION_CONTRACT);
-  //   res.status(200).send("Retrieved contract");
-  //   const editions = await contract.getAll();
+    const sdk = new ThirdwebSDK(NETWORK);
+    const contract = await sdk.getEdition(NEXT_PUBLIC_TRACKZ_EDITION_CONTRACT);
+    const editions = await contract.getAll();
 
-  //   res.status(200).json({
-  //     editions,
-  //   });
-  // } catch (e: any) {
-  //   console.error(e);
-  //   res
-  //     .status(500)
-  //     .json({ error: `Error while retrieving Trackzs : ${e.message}` });
-  // }
+    res.status(200).json({
+      editions,
+    });
+  } catch (e: any) {
+    console.error(e);
+    res
+      .status(500)
+      .json({ error: `Error while retrieving Trackzs : ${e.message}` });
+  }
 }
