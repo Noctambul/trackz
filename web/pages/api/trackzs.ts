@@ -1,12 +1,6 @@
 import { ThirdwebSDK } from "@thirdweb-dev/sdk";
-import { ethWalletRegex } from "lib/schema/zod-helpers";
+import EnvVariableSchema from "lib/schema/env-variable-back-schema";
 import { NextApiRequest, NextApiResponse } from "next";
-import { z } from "zod";
-
-const EnvVariableSchema = z.object({
-  NETWORK: z.enum(["rinkeby", "mainnet"]),
-  NEXT_PUBLIC_TRACKZ_EDITION_CONTRACT: z.string().regex(ethWalletRegex),
-});
 
 export default async function trackzs(
   req: NextApiRequest,
