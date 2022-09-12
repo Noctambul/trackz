@@ -20,6 +20,8 @@ export default async function mint(req: NextApiRequest, res: NextApiResponse) {
     // Load the contract address using the SDK
     const contract = sdk.getEdition(NEXT_PUBLIC_TRACKZ_EDITION_CONTRACT);
 
+    res.status(200).send("Contract retrieved");
+
     const nftMetadata = {
       name: metadata.name,
       description: metadata.description || "",
