@@ -11,6 +11,8 @@ export default async function mint(req: NextApiRequest, res: NextApiResponse) {
       NEXT_PUBLIC_TRACKZ_EDITION_CONTRACT,
     } = EnvVariableSchema.parse(process.env);
 
+    res.status(200).send("Env variables ok");
+
     const { authorAddress, metadata, supply, royalties } =
       MintParamsSchema.parse(JSON.parse(req.body));
 
