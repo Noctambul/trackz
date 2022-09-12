@@ -12,7 +12,7 @@ describe("api", () => {
     });
   });
 
-  context.only("/mint", () => {
+  context("/mint", () => {
     it("should send back a mint signature", () => {
       const params: MintParams = {
         authorAddress: "0xB04EC5ba60339019f31be9165D127Cd9C3E4EDA5",
