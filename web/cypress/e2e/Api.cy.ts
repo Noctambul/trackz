@@ -1,6 +1,6 @@
 describe("api", () => {
   context("/trackzs", () => {
-    it("should return every trackzs in the contract", () => {
+    it("should send back every trackzs in the contract", () => {
       cy.request("GET", "/api/trackzs").should((response) => {
         expect(response.status).to.eq(200);
         expect(response.body.editions)
@@ -9,6 +9,12 @@ describe("api", () => {
       });
     });
   });
+
+  // context("/mint", () => {
+  //   it("should send back a signature mint", () => {
+  //     cy.request("POST", "/api/mint")
+  //   })
+  // })
 });
 
 export {};
