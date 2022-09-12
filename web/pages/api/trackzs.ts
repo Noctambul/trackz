@@ -18,6 +18,7 @@ export default async function trackzs(
   try {
     const sdk = new ThirdwebSDK(NETWORK);
     const contract = await sdk.getEdition(NEXT_PUBLIC_TRACKZ_EDITION_CONTRACT);
+    res.status(200).send("Retrieved contract");
     const editions = await contract.getAll();
 
     res.status(200).json({
