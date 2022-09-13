@@ -15,7 +15,7 @@ interface Props {
   duration: number;
   disabled?: boolean;
   onSearch?: (seconds: number) => void;
-  onSearchEnd?: () => void;
+  onSearchEnd?: (seconds: number) => void;
 }
 
 export default function ProgressBar({
@@ -27,23 +27,16 @@ export default function ProgressBar({
 }: Props): JSX.Element {
   const { formatTime } = useTime();
 
-  // const progressElt = (
-  //   <div
-  //     className={`"mx-3" h-0 w-full shrink rounded border border-gray-300`}
-  //   />
-  // );
-
-  const inputElt = (
+  const ProgressSlider = (
     <Slider
       aria-label="Track progress"
-      mx={3}
+      mx={2}
       min={0}
       max={duration}
       value={progress}
-      isDisabled={disabled}
-      onChange={(value) => onSearch?.(value)}
-      onMouseUp={onSearchEnd}
-      onTouchEnd={onSearchEnd}
+      isDisabled={disabled || !duration}
+      onChange={onSearch}
+      onChangeEnd={onSearchEnd}
     >
       <SliderTrack bg="blue.100" boxSize={0.5}>
         <SliderFilledTrack bg="primary" />
@@ -55,14 +48,17 @@ export default function ProgressBar({
   );
 
   return (
-    <>
-      <div className="hidden w-full items-center justify-between sm:flex sm:shrink">
-        <div className="w-10 text-xs text-gray-300">{formatTime(progress)}</div>
-        {inputElt}
-        <div className="w-10 text-xs text-gray-300" aria-label="Duration">
-          {formatTime(duration)}
-        </div>
+    <div className="hidden w-full items-center justify-between sm:flex sm:shrink">
+      <div className="w-10 min-w-[40px] text-xs text-gray-300">
+        {formatTime(progress)}
       </div>
-    </>
+      {ProgressSlider}
+      <div
+        className="w-10 min-w-[40px] text-xs text-gray-300"
+        aria-label="Duration"
+      >
+        {formatTime(duration)}
+      </div>
+    </div>
   );
 }

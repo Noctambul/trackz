@@ -20,7 +20,7 @@ export interface AudioContextInterface {
   play: (trackz?: TrackzMetadata | AudioTrackz) => void;
   pause: () => void;
   onSearch: (seconds: number) => void;
-  onSearchEnd: () => void;
+  onSearchEnd: (seconds: number) => void;
   toPreviousTrack: () => void;
   toNextTrack: () => void;
 }
@@ -69,19 +69,18 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   }, [isMuted, selectedTrackz]);
 
   useEffect(() => {
-    if (selectedTrackz) {
-      setTrackProgress(Math.round(selectedTrackz.progress));
-      startTimer();
-    }
-    // Use callback to add starttimer to the dependencies
+    setTrackProgress(Math.round(selectedTrackz?.progress || 0));
   }, [selectedTrackz]);
 
   useEffect(() => {
     if (isPlaying) {
       selectedTrackz?.play();
+      startTimer();
     } else {
+      stopTimer();
       selectedTrackz?.pause();
     }
+    // Use callback to add starttimer to the dependencies or usememo ?
   }, [isPlaying, selectedTrackz]);
 
   const play = (track?: TrackzMetadata | AudioTrackz) => {
@@ -113,16 +112,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   const startTimer = () => {
     stopTimer();
     intervalRef.current = setInterval(() => {
-      // TODO: Use howler.on("end", ..)
-      // https://stackoverflow.com/questions/41003367/correct-way-to-call-howler-onend-method
-
-      // if (audioRef.current.ended) {
-      //   toNextTrack();
-      // } else
-
-      setTrackProgress(
-        selectedTrackz ? Math.round(selectedTrackz.progress) : 0
-      );
+      setTrackProgress(Math.round(selectedTrackz?.progress || 0));
     }, 500);
   };
 
@@ -133,11 +123,15 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   const onSearch = (value: number) => {
     if (!selectedTrackz) return;
     stopTimer();
-    selectedTrackz.seek(value);
-    setTrackProgress(selectedTrackz.progress || 0);
+    setTrackProgress(value || 0);
   };
 
-  const onSearchEnd = () => {
+  const onSearchEnd = (value: number) => {
+    if (!selectedTrackz) return;
+
+    selectedTrackz.seek(value);
+    setTrackProgress(selectedTrackz.progress || 0);
+
     if (!isPlaying) {
       setIsplaying(true);
     }

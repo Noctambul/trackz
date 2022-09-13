@@ -45,6 +45,15 @@ export default function useTrackzPlaylist(
   } = usePlaylist<AudioTrackz>(audioTrackzs, false);
 
   useEffect(() => {
+    if (!selected) return;
+
+    const track = selected;
+    track.onended(next);
+    return () => track.offended(next);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selected]);
+
+  useEffect(() => {
     /**
      * Will start preloading the current trackz and the nexts for the desired buffer size
      */
