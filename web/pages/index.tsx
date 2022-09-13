@@ -1,5 +1,6 @@
 import { Container, Spinner } from "@chakra-ui/react";
 import PageContainer from "components/PageContainer/PageContainer";
+import TrackzCard from "components/TrackzCard/TrackzCard";
 import { useAudio } from "context/AudioContext";
 import type { NextPage } from "next";
 
