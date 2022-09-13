@@ -9,7 +9,7 @@ interface AudioPlayerProps {
   trackProgress: number;
   duration: number;
   onSearch: (seconds: number) => void;
-  onSearchEnd: () => void;
+  onSearchEnd: (seconds: number) => void;
 }
 
 export default function AudioPlayer({

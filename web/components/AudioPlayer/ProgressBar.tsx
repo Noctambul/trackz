@@ -15,7 +15,7 @@ interface Props {
   duration: number;
   disabled?: boolean;
   onSearch?: (seconds: number) => void;
-  onSearchEnd?: () => void;
+  onSearchEnd?: (seconds: number) => void;
 }
 
 export default function ProgressBar({
@@ -27,12 +27,6 @@ export default function ProgressBar({
 }: Props): JSX.Element {
   const { formatTime } = useTime();
 
-  // const progressElt = (
-  //   <div
-  //     className={`"mx-3" h-0 w-full shrink rounded border border-gray-300`}
-  //   />
-  // );
-
   const ProgressSlider = (
     <Slider
       aria-label="Track progress"
@@ -41,7 +35,7 @@ export default function ProgressBar({
       max={duration}
       value={progress}
       isDisabled={disabled || !duration}
-      onChange={(value) => onSearch?.(value)}
+      onChange={onSearch}
       onChangeEnd={onSearchEnd}
     >
       <SliderTrack bg="blue.100" boxSize={0.5}>

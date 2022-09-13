@@ -20,7 +20,7 @@ export interface AudioContextInterface {
   play: (trackz?: TrackzMetadata | AudioTrackz) => void;
   pause: () => void;
   onSearch: (seconds: number) => void;
-  onSearchEnd: () => void;
+  onSearchEnd: (seconds: number) => void;
   toPreviousTrack: () => void;
   toNextTrack: () => void;
 }
@@ -123,11 +123,15 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   const onSearch = (value: number) => {
     if (!selectedTrackz) return;
     stopTimer();
-    selectedTrackz.seek(value);
-    setTrackProgress(selectedTrackz.progress || 0);
+    setTrackProgress(value || 0);
   };
 
-  const onSearchEnd = () => {
+  const onSearchEnd = (value: number) => {
+    if (!selectedTrackz) return;
+
+    selectedTrackz.seek(value);
+    setTrackProgress(selectedTrackz.progress || 0);
+
     if (!isPlaying) {
       setIsplaying(true);
     }
