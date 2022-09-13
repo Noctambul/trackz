@@ -69,19 +69,18 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   }, [isMuted, selectedTrackz]);
 
   useEffect(() => {
-    if (selectedTrackz) {
-      setTrackProgress(Math.round(selectedTrackz.progress));
-      startTimer();
-    }
-    // Use callback to add starttimer to the dependencies
+    setTrackProgress(Math.round(selectedTrackz?.progress || 0));
   }, [selectedTrackz]);
 
   useEffect(() => {
     if (isPlaying) {
       selectedTrackz?.play();
+      startTimer();
     } else {
+      stopTimer();
       selectedTrackz?.pause();
     }
+    // Use callback to add starttimer to the dependencies or usememo ?
   }, [isPlaying, selectedTrackz]);
 
   const play = (track?: TrackzMetadata | AudioTrackz) => {
@@ -119,10 +118,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
       // if (audioRef.current.ended) {
       //   toNextTrack();
       // } else
-
-      setTrackProgress(
-        selectedTrackz ? Math.round(selectedTrackz.progress) : 0
-      );
+      setTrackProgress(Math.round(selectedTrackz?.progress || 0));
     }, 500);
   };
 

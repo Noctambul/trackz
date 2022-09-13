@@ -42,8 +42,7 @@ export default function ProgressBar({
       value={progress}
       isDisabled={disabled}
       onChange={(value) => onSearch?.(value)}
-      onMouseUp={onSearchEnd}
-      onTouchEnd={onSearchEnd}
+      onChangeEnd={onSearchEnd}
     >
       <SliderTrack bg="blue.100" boxSize={0.5}>
         <SliderFilledTrack bg="primary" />

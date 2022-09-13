@@ -84,7 +84,6 @@ export default class AudioTrackz {
   }
 
   play() {
-    console.log("PLEY");
     this.howl.play();
   }
 
