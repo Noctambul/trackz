@@ -33,14 +33,14 @@ export default function ProgressBar({
   //   />
   // );
 
-  const inputElt = (
+  const ProgressSlider = (
     <Slider
       aria-label="Track progress"
-      mx={3}
+      mx={2}
       min={0}
       max={duration}
       value={progress}
-      isDisabled={disabled}
+      isDisabled={disabled || !duration}
       onChange={(value) => onSearch?.(value)}
       onChangeEnd={onSearchEnd}
     >
@@ -54,14 +54,17 @@ export default function ProgressBar({
   );
 
   return (
-    <>
-      <div className="hidden w-full items-center justify-between sm:flex sm:shrink">
-        <div className="w-10 text-xs text-gray-300">{formatTime(progress)}</div>
-        {inputElt}
-        <div className="w-10 text-xs text-gray-300" aria-label="Duration">
-          {formatTime(duration)}
-        </div>
+    <div className="hidden w-full items-center justify-between sm:flex sm:shrink">
+      <div className="w-10 min-w-[40px] text-xs text-gray-300">
+        {formatTime(progress)}
       </div>
-    </>
+      {ProgressSlider}
+      <div
+        className="w-10 min-w-[40px] text-xs text-gray-300"
+        aria-label="Duration"
+      >
+        {formatTime(duration)}
+      </div>
+    </div>
   );
 }
