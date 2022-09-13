@@ -32,6 +32,10 @@ export default class AudioTrackz {
     return this.state === "loaded";
   }
 
+  get isPlaying(): boolean {
+    return this.howl.playing();
+  }
+
   /**
    * The resolved music uri
    */
