@@ -112,14 +112,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   const startTimer = () => {
     stopTimer();
     intervalRef.current = setInterval(() => {
-      // TODO: Use howler.on("end", ..)
-      // https://stackoverflow.com/questions/41003367/correct-way-to-call-howler-onend-method
-
-      if (isPlaying && !selectedTrackz?.isPlaying) {
-        toNextTrack();
-      } else {
-        setTrackProgress(Math.round(selectedTrackz?.progress || 0));
-      }
+      setTrackProgress(Math.round(selectedTrackz?.progress || 0));
     }, 500);
   };
 

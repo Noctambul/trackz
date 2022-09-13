@@ -1,12 +1,12 @@
 import { resolveLink } from "hooks/useIpfs";
-import { Howl } from "howler";
+import { Howl, HowlCallback } from "howler";
 import TrackzMetadata from "./TrackzMetadata";
 
-type onLoadedCallback = (track: AudioTrackz) => void;
+type TrackCallback = (track: AudioTrackz) => void;
 
 export default class AudioTrackz {
   private howl: Howl;
-  private onLoadedCallbacks: onLoadedCallback[] = [];
+  private onLoadedCallbacks: TrackCallback[] = [];
 
   get metadata(): TrackzMetadata {
     return this.trackzMetadata;
@@ -49,7 +49,7 @@ export default class AudioTrackz {
 
   constructor(
     private trackzMetadata: TrackzMetadata,
-    onTrackLoaded?: onLoadedCallback
+    onTrackLoaded?: TrackCallback
   ) {
     const self = this;
 
@@ -66,12 +66,20 @@ export default class AudioTrackz {
     });
   }
 
-  onloaded(cb: onLoadedCallback) {
+  onloaded(cb: TrackCallback) {
     if (this.isLoaded) {
       cb(this);
     } else {
       this.onLoadedCallbacks.push(cb);
     }
+  }
+
+  onended(cb: HowlCallback) {
+    this.howl.on("end", cb);
+  }
+
+  offended(cb: HowlCallback) {
+    this.howl.off("end", cb);
   }
 
   load() {

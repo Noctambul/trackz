@@ -35,8 +35,6 @@ export default function MintPage(): JSX.Element {
   });
 
   const onSubmit: SubmitHandler<MintInputs> = async (data) => {
-    // TODO: transition after mint
-    console.log("MINT");
     try {
       await mintWithSignature(data);
       refetchTrackzs();
