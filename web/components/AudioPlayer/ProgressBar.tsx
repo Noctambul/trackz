@@ -37,6 +37,7 @@ export default function ProgressBar({
       isDisabled={disabled || !duration}
       onChange={onSearch}
       onChangeEnd={onSearchEnd}
+      focusThumbOnChange={false}
     >
       <SliderTrack bg="blue.100" boxSize={0.5}>
         <SliderFilledTrack bg="primary" />
