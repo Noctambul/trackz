@@ -18,7 +18,7 @@ export default async function mint(req: NextApiRequest, res: NextApiResponse) {
     const sdk = ThirdwebSDK.fromPrivateKey(MINT_WALLET_PRIVATE_KEY, NETWORK);
 
     // Load the contract address using the SDK
-    const contract = sdk.getEdition(NEXT_PUBLIC_TRACKZ_EDITION_CONTRACT);
+    const contract = await sdk.getEdition(NEXT_PUBLIC_TRACKZ_EDITION_CONTRACT);
 
     const nftMetadata = {
       name: metadata.name,
