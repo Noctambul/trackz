@@ -7,6 +7,7 @@ import {
   useConst,
 } from "@chakra-ui/react";
 import { useAddress, useDisconnect, useMetamask } from "@thirdweb-dev/react";
+import { motion } from "framer-motion";
 import { useRouter } from "next/router";
 import { FiLogOut, FiMusic, FiUser } from "react-icons/fi";
 
@@ -26,7 +27,11 @@ export default function ConnectButton(): JSX.Element {
     <div>
       {address ? (
         <Menu>
-          <MenuButton>
+          <MenuButton
+            as={motion.button}
+            whileHover={{ scale: 1.1 }}
+            transition={{ type: "spring", stiffness: "400", damping: "10" }}
+          >
             <Avatar
               bg="primary"
               size="sm"
