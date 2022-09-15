@@ -16,7 +16,10 @@ import { useAddress, useMetamask } from "@thirdweb-dev/react";
 import PageContainer from "components/PageContainer/PageContainer";
 import { useWeb3 } from "context/Web3Context";
 import useMint from "hooks/useMint";
-import MintFormSchema, { MintInputs } from "lib/schema/mint-form-schema";
+import {
+  default as MintFormSchema,
+  MintInputs,
+} from "lib/schema/mint-form-schema";
 import { useRouter } from "next/router";
 import { SubmitHandler, useForm } from "react-hook-form";
 
