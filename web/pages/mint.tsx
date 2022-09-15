@@ -38,14 +38,14 @@ export default function MintPage(): JSX.Element {
 
   const onSubmit: SubmitHandler<MintInputs> = async (data) => {
     try {
-      const nft = await mintWithSignature(data);
+      await mintWithSignature(data);
       refetchTrackzs();
 
       await router.push("/");
       toast({
         id: "mint",
         title: "Mint succeed",
-        description: `${nft.name} is now available on the plateform`,
+        description: `${data.name} is now available on the plateform`,
         status: "success",
         duration: 10000,
         isClosable: true,
