@@ -17,6 +17,7 @@ module.exports = {
         bgc: "#1E2336",
         text: "#1E2336",
         subtext: "#636674",
+        lightgray: colors.gray[400],
       },
     },
     fontFamily: {},
