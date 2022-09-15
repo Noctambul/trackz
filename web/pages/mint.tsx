@@ -178,23 +178,6 @@ export default function MintPage(): JSX.Element {
         </FormControl>
 
         {SubmitButton}
-
-        <Button
-          onClick={async () => {
-            await router.push("/");
-            toast({
-              id: "mint",
-              title: "Mint succeed",
-              description: `Allow is now available on the plateform`,
-              status: "success",
-              duration: 10000,
-              isClosable: true,
-              position: "top",
-            });
-          }}
-        >
-          Test
-        </Button>
       </form>
     </PageContainer>
   );
