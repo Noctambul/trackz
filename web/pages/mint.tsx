@@ -9,6 +9,7 @@ import {
   NumberInput,
   NumberInputField,
   Textarea,
+  useToast,
 } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAddress, useMetamask } from "@thirdweb-dev/react";
@@ -24,6 +25,7 @@ export default function MintPage(): JSX.Element {
   const address = useAddress();
   const connectWithMetamask = useMetamask();
   const { refetchTrackzs } = useWeb3();
+  const toast = useToast();
   const router = useRouter();
   const {
     handleSubmit,
@@ -36,10 +38,29 @@ export default function MintPage(): JSX.Element {
 
   const onSubmit: SubmitHandler<MintInputs> = async (data) => {
     try {
-      await mintWithSignature(data);
+      const nft = await mintWithSignature(data);
       refetchTrackzs();
-      router.push("/");
+
+      await router.push("/");
+      toast({
+        id: "mint",
+        title: "Mint succeed",
+        description: `${nft.name} is now available on the plateform`,
+        status: "success",
+        duration: 10000,
+        isClosable: true,
+        position: "top",
+      });
     } catch (e) {
+      toast({
+        id: "mint",
+        title: "Mint failed",
+        description: `Impossible to mint ${data.name}, please try again`,
+        status: "error",
+        duration: 10000,
+        isClosable: true,
+        position: "top",
+      });
       throw e;
     }
   };
@@ -157,6 +178,23 @@ export default function MintPage(): JSX.Element {
         </FormControl>
 
         {SubmitButton}
+
+        <Button
+          onClick={async () => {
+            await router.push("/");
+            toast({
+              id: "mint",
+              title: "Mint succeed",
+              description: `Allow is now available on the plateform`,
+              status: "success",
+              duration: 10000,
+              isClosable: true,
+              position: "top",
+            });
+          }}
+        >
+          Test
+        </Button>
       </form>
     </PageContainer>
   );
