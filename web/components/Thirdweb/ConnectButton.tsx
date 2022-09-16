@@ -7,7 +7,6 @@ import {
   useConst,
 } from "@chakra-ui/react";
 import { useAddress, useDisconnect, useMetamask } from "@thirdweb-dev/react";
-import { motion } from "framer-motion";
 import { useRouter } from "next/router";
 import { FiLogOut, FiMusic, FiUser } from "react-icons/fi";
 
@@ -28,9 +27,11 @@ export default function ConnectButton(): JSX.Element {
       {address ? (
         <Menu>
           <MenuButton
-            as={motion.button}
-            whileHover={{ scale: 1.1 }}
-            transition={{ type: "spring", stiffness: "400", damping: "10" }}
+          // TODO: Animation will make the MenuItem moving ...
+          // as={motion.button}
+          // whileHover={{ scale: 1.1 }}
+          // initial={{ scale: 1 }}
+          // transition={{ type: "spring", stiffness: "400", damping: "10" }}
           >
             <Avatar
               bg="primary"
@@ -38,11 +39,12 @@ export default function ConnectButton(): JSX.Element {
               icon={<FiUser fontSize="1.4rem" />}
             />
           </MenuButton>
-          <MenuList bg="bgc" borderColor="lightgray">
+          <MenuList bg="bgc">
             <MenuItem
               {...itemProps}
               icon={<FiMusic fontSize={itemIconSize} />}
               onClick={() => router.push("/mint")}
+              aria-label="Create track"
             >
               Create
             </MenuItem>
@@ -50,13 +52,16 @@ export default function ConnectButton(): JSX.Element {
               {...itemProps}
               icon={<FiLogOut fontSize={itemIconSize} />}
               onClick={disconnect}
+              aria-label="Disconnect wallet"
             >
               Unsync
             </MenuItem>
           </MenuList>
         </Menu>
       ) : (
-        <button onClick={connectWithMetamask}>Sync</button>
+        <button onClick={connectWithMetamask} aria-label="Connect wallet">
+          Sync
+        </button>
       )}
     </div>
   );

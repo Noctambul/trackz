@@ -10,10 +10,8 @@ export default function Header(): JSX.Element {
       </Heading>
       <nav>
         <ul className="flex list-none items-center gap-10">
-          <li aria-label="Connect Wallet">
-            <a>
-              <ConnectButton />
-            </a>
+          <li aria-label="User Menu">
+            <ConnectButton />
           </li>
         </ul>
       </nav>
