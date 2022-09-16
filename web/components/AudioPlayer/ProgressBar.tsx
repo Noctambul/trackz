@@ -27,7 +27,7 @@ export default function ProgressBar({
 }: Props): JSX.Element {
   const { formatTime } = useTime();
 
-  const ProgressSlider = (
+  const ProgressSlider = () => (
     <Slider
       aria-label="Track progress"
       mx={2}
@@ -53,7 +53,24 @@ export default function ProgressBar({
       <div className="w-10 min-w-[40px] text-xs text-gray-300">
         {formatTime(progress)}
       </div>
-      {ProgressSlider}
+      <Slider
+        aria-label="Track progress"
+        mx={2}
+        min={0}
+        max={duration}
+        value={progress}
+        isDisabled={disabled || !duration}
+        onChange={onSearch}
+        onChangeEnd={onSearchEnd}
+        focusThumbOnChange={false}
+      >
+        <SliderTrack bg="blue.100" boxSize={0.5}>
+          <SliderFilledTrack bg="primary" />
+        </SliderTrack>
+        <SliderThumb boxSize={5} _hover={{ boxSize: 6, animation: 500 }}>
+          <Box color="tomato" as={BsSoundwave} />
+        </SliderThumb>
+      </Slider>
       <div
         className="w-10 min-w-[40px] text-xs text-gray-300"
         aria-label="Duration"
