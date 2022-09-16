@@ -2311,10 +2311,10 @@
     tiny-invariant "^1.2.0"
     wagmi "^0.2.28"
 
-"@thirdweb-dev/sdk@3.0.1":
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/@thirdweb-dev/sdk/-/sdk-3.0.1.tgz#5415e0464fe929945fdb2539c9ef2db5f3bb0548"
-  integrity sha512-Dd2VlqivNDXeXRVJ+ahUpo0rP7Tjra6vcHrRptt7L7zLWRYsvO5byVFReyi29FcjSyPtCr1wmR/8+gHAcQk25A==
+"@thirdweb-dev/sdk@3.0.2":
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/@thirdweb-dev/sdk/-/sdk-3.0.2.tgz#3e5c271193d0300d3d26e32f856ce2c47ac09443"
+  integrity sha512-rZxWSlZ6XuTSn9s3Fo7mzfzEZI9l2mSYhBqEvZttH0sbftioeG8KT5GUpsHFxTVRLw634J3aHzP0X+zKmyGIHw==
   dependencies:
     "@thirdweb-dev/contracts-js" "^1.1.8"
     "@thirdweb-dev/storage" "^0.2.8"
