@@ -9,13 +9,17 @@ import {
   NumberInput,
   NumberInputField,
   Textarea,
+  useToast,
 } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAddress, useMetamask } from "@thirdweb-dev/react";
 import PageContainer from "components/PageContainer/PageContainer";
 import { useWeb3 } from "context/Web3Context";
 import useMint from "hooks/useMint";
-import MintFormSchema, { MintInputs } from "lib/schema/mint-form-schema";
+import {
+  default as MintFormSchema,
+  MintInputs,
+} from "lib/schema/mint-form-schema";
 import { useRouter } from "next/router";
 import { SubmitHandler, useForm } from "react-hook-form";
 
@@ -24,6 +28,7 @@ export default function MintPage(): JSX.Element {
   const address = useAddress();
   const connectWithMetamask = useMetamask();
   const { refetchTrackzs } = useWeb3();
+  const toast = useToast();
   const router = useRouter();
   const {
     handleSubmit,
@@ -38,8 +43,27 @@ export default function MintPage(): JSX.Element {
     try {
       await mintWithSignature(data);
       refetchTrackzs();
-      router.push("/");
+
+      await router.push("/");
+      toast({
+        id: "mint",
+        title: "Mint succeed",
+        description: `${data.name} is now available on the plateform`,
+        status: "success",
+        duration: 10000,
+        isClosable: true,
+        position: "top",
+      });
     } catch (e) {
+      toast({
+        id: "mint",
+        title: "Mint failed",
+        description: `Impossible to mint ${data.name}, please try again`,
+        status: "error",
+        duration: 10000,
+        isClosable: true,
+        position: "top",
+      });
       throw e;
     }
   };

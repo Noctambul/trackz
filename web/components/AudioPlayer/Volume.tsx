@@ -23,7 +23,7 @@ export default function Volume({}): JSX.Element {
       </button>
 
       <Slider
-        aria-label="Track progress"
+        aria-label="Track volume"
         className="mx-2"
         min={0}
         max={100}

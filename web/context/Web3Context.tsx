@@ -22,7 +22,6 @@ export function Web3Provider(props: PropsWithChildren<{}>) {
   const { isLoading, isError, data, error, refetch } = useQuery(
     ["trackzs"],
     async () => {
-      console.count("Will query trackzs");
       const res = await fetch("/api/trackzs");
 
       if (!res.ok)

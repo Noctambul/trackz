@@ -31,7 +31,7 @@ export default function TrackzCard({
   const { duration } = useAudioTrackz(trackz);
 
   const MarketSection = (
-    <div className="mt-auto flex items-center justify-between text-gray-400">
+    <div className="mt-auto flex items-center justify-between text-lightgray">
       <div className="mt-auto" aria-label="Supply">
         Supply
         <br />x{trackz.metadata.totalSupply}

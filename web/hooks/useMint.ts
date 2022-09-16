@@ -91,9 +91,7 @@ export default function useMint() {
       // This means we provided a signature for the user to mint an NFT with.
       const nft = await contract?.signature.mint(signedPayload);
 
-      console.log("Successfully minted NFT with signature", nft);
-
-      alert("Successfully minted NFT with signature");
+      console.log("Successfully minted NFT", nft);
 
       return nft;
     } catch (e) {

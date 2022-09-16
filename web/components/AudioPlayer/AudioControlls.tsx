@@ -46,7 +46,7 @@ export default function AudioControlls(): JSX.Element {
         onClick={toPreviousTrack}
         disabled={!canPrev}
         className={`hidden ${
-          canPrev ? "fill-white" : "fill-gray-400"
+          canPrev ? "fill-white" : "fill-lightgray"
         } text-2xl sm:block`}
         aria-label="Previous Track"
       />
@@ -60,7 +60,7 @@ export default function AudioControlls(): JSX.Element {
         Icon={TbPlayerSkipForward}
         onClick={toNextTrack}
         className={`hidden ${
-          canNext ? "fill-white" : "fill-gray-400"
+          canNext ? "fill-white" : "fill-lightgray"
         } text-2xl sm:block`}
         disabled={!canNext}
         aria-label="Next Track"
