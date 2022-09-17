@@ -15,6 +15,10 @@ export default function useEnvironment() {
       .parse(process.env.NEXT_PUBLIC_TRACKZ_EDITION_CONTRACT)
   );
 
+  const isTestMode = useConst(() =>
+    z.boolean().parse(process.env.NEXT_PUBLIC_TEST_MODE)
+  );
+
   // const environment = z
   //   .enum(["development", "production", "test"], {
   //     required_error: "NEXT_PUBLIC_ENVIRONMENT is required",
