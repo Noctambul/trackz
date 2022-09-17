@@ -36,4 +36,7 @@
 //   }
 // }
 
+import "cypress-file-upload";
+import "lib/augmented-types";
+
 export {};
