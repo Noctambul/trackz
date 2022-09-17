@@ -41,7 +41,7 @@ describe("Mint Page", () => {
       submit();
       expect(postMintCallCount).eq(
         0,
-        "The api/min end point should have not been called"
+        "The api/mint end point should have not been called"
       );
     });
 
@@ -63,6 +63,13 @@ describe("Mint Page", () => {
           expect(location.pathname).to.eq("/")
         );
       });
+    });
+
+    it("can't fill input files with wrong format", () => {
+      inputMusicFile().attachFile("assets/text-file.txt");
+      inputCoverFile().attachFile("assets/text-file.txt");
+      cy.contains("Should be an audio file");
+      cy.contains("Should be an image file");
     });
   });
 });
