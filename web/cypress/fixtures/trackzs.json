@@ -1,0 +1,55 @@
+{
+  "editions": [
+    {
+      "supply": { "type": "BigNumber", "hex": "0x03e9" },
+      "metadata": {
+        "name": "Concrete Jungle",
+        "description": "Bob marley and the Wailers- Concrete Jungle",
+        "image": "/assets/cover.png",
+        "external_url": "",
+        "id": { "type": "BigNumber", "hex": "0x00" },
+        "uri": "ipfs://QmPUc7L3tWvmnPbGbiJrjsP2QpBUo9HizdW49XCpUazNMJ/0",
+        "animation_url": "/assets/music.mp3",
+        "background_color": "",
+        "attributes": [
+          { "trait_type": "tags", "value": "reggae" },
+          { "trait_type": "artist", "value": "Bob Marley" }
+        ]
+      }
+    },
+    {
+      "supply": { "type": "BigNumber", "hex": "0x01f4" },
+      "metadata": {
+        "name": "Tellement bon",
+        "description": "Stupeflip - Tellement bon 🐰<br>Nouvel album STUP FOREVER disponible :<br>http://Modulor.lnk.to/StupForever<br>Vinyle : https://stupermarche.stupeflip.com/pr... <br>CD: https://stupermarche.stupeflip.com/pr... <br><br><br>Titre écrit et composé par Julien Barthélémy <br>Réalisation et montage : Julien Barthélémy<br>Masterisé par Marie Pieprzownik chez Translab.<br>© 2022 – Dragon Accel",
+        "image": "/assets/cover.png",
+        "external_url": "",
+        "id": { "type": "BigNumber", "hex": "0x01" },
+        "uri": "ipfs://QmdspFoyCtp8vS5Q7gMJyxhAgjw5cAaBEow74g74HvMvW4/0",
+        "animation_url": "/assets/music.mp3",
+        "background_color": "",
+        "attributes": [
+          { "trait_type": "tags", "value": "rap, rock, variété" },
+          { "trait_type": "artist", "value": "Stupeflip" }
+        ]
+      }
+    },
+    {
+      "supply": { "type": "BigNumber", "hex": "0x64" },
+      "metadata": {
+        "name": "Tee",
+        "description": "MAUVAIS ORDRE nouvel album disponible https://idol-io.link/MauvaisOrdreYT En tournée dans toute la France.Paris Accor Arena les 28, 29 & 30 mars : https://mauvaisordre.com/ ",
+        "image": "/assets/cover.png",
+        "external_url": "",
+        "id": { "type": "BigNumber", "hex": "0x02" },
+        "uri": "ipfs://QmSC3Tpibg3qCrppnusVzYUFtdaEWEg7Ys8QAeKAofJVAF/0",
+        "animation_url": "/assets/music.mp3",
+        "background_color": "",
+        "attributes": [
+          { "trait_type": "tags", "value": "rap" },
+          { "trait_type": "artist", "value": "Lomepal" }
+        ]
+      }
+    }
+  ]
+}
