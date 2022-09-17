@@ -21,6 +21,7 @@ export default function useMint() {
   const signer = useSigner();
   const [, switchNetwork] = useNetwork();
   const [currentStateLabel, setCurrentStateLabel] = useState("");
+  const { isTestMode } = useEnvironment();
 
   const mintWithSignature = async ({
     name,
@@ -30,6 +31,11 @@ export default function useMint() {
     royalties,
     supply,
   }: MintInputs) => {
+    if (isTestMode)
+      return fetch("/api/mint", {
+        method: "POST",
+        body: "test",
+      });
     if (isLoading) return;
     if (!address || !signer) throw new Error("Wallet not connected");
     if (isOnWrongNetwork) {

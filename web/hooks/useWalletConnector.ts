@@ -17,10 +17,11 @@ export default function useWalletConnector() {
 
   const connectWallet = useCallback(
     isTestMode
-      ? async () =>
+      ? async () => {
           setTRACKZ_TEST_WALLET_ADDRESS(
             "0x062716F0a81D5A1986f3Cc45601b0d5f5881249f"
-          )
+          );
+        }
       : connectWithMetamask,
     [isTestMode]
   );
