@@ -10,8 +10,8 @@ const EditionMetadataSchema = z
       id: BigNumberSchema,
       name: z.string().max(30),
       description: z.string().default(""),
-      animation_url: z.string().url(),
-      image: z.string().url().optional(),
+      animation_url: z.string(),
+      image: z.string().optional(),
       attributes: z
         .array(
           z.object({
@@ -45,3 +45,37 @@ const EditionMetadataSchema = z
   });
 
 export default EditionMetadataSchema;
+
+export type ParsedEditionMetadata = z.infer<typeof EditionMetadataSchema>;
+
+// const metadataExample = {
+//   supply: {
+//     type: "BigNumber",
+//     hex: "0x03e8",
+//   },
+//   metadata: {
+//     name: "Bad Bird",
+//     description: "The bad birds",
+//     image:
+//       "https://gateway.ipfscdn.io/ipfs/QmZKCbtkckwDW7zzy1jKc4ELAP4i9XyxfZGAu93Qvkeuem/0.png",
+//     external_url: "",
+//     id: {
+//       type: "BigNumber",
+//       hex: "0x00",
+//     },
+//     uri: "ipfs://QmPUc7L3tWvmnPbGbiJrjsP2QpBUo9HizdW49XCpUazNMJ/0",
+//     animation_url:
+//       "https://gateway.ipfscdn.io/ipfs/QmZKCbtkckwDW7zzy1jKc4ELAP4i9XyxfZGAu93Qvkeuem/1.mp3",
+//     background_color: "",
+//     attributes: [
+//       {
+//         trait_type: "type",
+//         value: "electro",
+//       },
+//       {
+//         trait_type: "author",
+//         value: "Noctambul",
+//       },
+//     ],
+//   },
+// };
