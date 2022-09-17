@@ -64,7 +64,6 @@ const parseEditionMetadata = (
   edition: EditionMetadata
 ): TrackzMetadata | undefined => {
   const parsedResult = EditionMetadataSchema.safeParse(edition);
-  if (!parsedResult.success) console.log("parse failed", parsedResult.error);
   return parsedResult.success ? parsedResult.data : undefined;
 };
 

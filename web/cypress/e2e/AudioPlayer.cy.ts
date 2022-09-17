@@ -29,6 +29,9 @@ describe.only("Audio Player", () => {
   const nextBtn = () => player().get(`[aria-label="Next Track"]`);
   const playBtn = () => player().get(`[aria-label="Play Track"]`);
   const pauseBtn = () => player().get(`[aria-label="Pause Track"]`);
+  const volBtn = () => player().get(`[aria-label="Volume controller"]`);
+  const volSlider = () => cy.get(`[aria-label="Track volume"]`);
+  // const volSlider = () => cy.get(`[data-test-volume-slider]`);
 
   beforeEach(() => {
     cy.fixture("trackzs")
@@ -86,7 +89,14 @@ describe.only("Audio Player", () => {
     playBtn().should("exist");
   });
 
-  it;
+  it("can change the volume", () => {
+    volBtn().should("exist");
+    volSlider().should("not.be.visible");
+    volBtn().trigger("mouseover");
+    volSlider().should("be.visible");
+    volBtn().trigger("mouseout");
+    volSlider().should("not.be.visible");
+  });
 });
 
 // describe.skip("Audio Player Skipped", () => {
