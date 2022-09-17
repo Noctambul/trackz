@@ -2288,10 +2288,10 @@
   resolved "https://registry.yarnpkg.com/@thirdweb-dev/contracts/-/contracts-3.1.6.tgz#184d41c2af4738bd83f5469acbfd4f6d81e8ace5"
   integrity sha512-1SqEs/Zcxl/8BC6o6KBN8ETvthRFBDduJ7TXx60R9JS3RqrhdWID8XFmlHGEQevx0JW9KkovheOrsykX2zxNTA==
 
-"@thirdweb-dev/react@3.0.1":
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/@thirdweb-dev/react/-/react-3.0.1.tgz#725633e27a862b771e8a43315c68d58d45a9f88e"
-  integrity sha512-rdv4Sg4XmsiKoKcc0nu+0BU+PN1dP9C6MdHF5Ra1k1mBfQ7Fb4XdRO5RMrntYqaWkxnKT5FRSr91eBlmq009qg==
+"@thirdweb-dev/react@3.0.2":
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/@thirdweb-dev/react/-/react-3.0.2.tgz#e1ca55cfa2d1b662f0d235c8af8dcb1db94e81ea"
+  integrity sha512-8C/eiCFbsX+FMYeEID4hYxNKz2viDTkJ1sZP+/LcK85KVS93yhP/WzrkyacD5qenv1jDI4rbH6gZ5JC9BlAqog==
   dependencies:
     "@emotion/react" "^11.10.0"
     "@emotion/styled" "^11.10.0"
@@ -2311,10 +2311,10 @@
     tiny-invariant "^1.2.0"
     wagmi "^0.2.28"
 
-"@thirdweb-dev/sdk@3.0.1":
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/@thirdweb-dev/sdk/-/sdk-3.0.1.tgz#5415e0464fe929945fdb2539c9ef2db5f3bb0548"
-  integrity sha512-Dd2VlqivNDXeXRVJ+ahUpo0rP7Tjra6vcHrRptt7L7zLWRYsvO5byVFReyi29FcjSyPtCr1wmR/8+gHAcQk25A==
+"@thirdweb-dev/sdk@3.0.2":
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/@thirdweb-dev/sdk/-/sdk-3.0.2.tgz#3e5c271193d0300d3d26e32f856ce2c47ac09443"
+  integrity sha512-rZxWSlZ6XuTSn9s3Fo7mzfzEZI9l2mSYhBqEvZttH0sbftioeG8KT5GUpsHFxTVRLw634J3aHzP0X+zKmyGIHw==
   dependencies:
     "@thirdweb-dev/contracts-js" "^1.1.8"
     "@thirdweb-dev/storage" "^0.2.8"
