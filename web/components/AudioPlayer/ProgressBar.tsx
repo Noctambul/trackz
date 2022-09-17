@@ -29,12 +29,11 @@ export default function ProgressBar({
 
   return (
     <div className="flex w-full items-center justify-between sm:shrink">
-      <div className="w-10 min-w-[40px] text-xs text-gray-300">
+      <div className="mr-2 hidden w-10 min-w-[40px] text-xs text-gray-300 sm:block">
         {formatTime(progress)}
       </div>
       <Slider
         aria-label="Track progress"
-        mx={2}
         min={0}
         max={duration}
         value={progress}
@@ -46,12 +45,16 @@ export default function ProgressBar({
         <SliderTrack bg="blue.100" boxSize={0.5}>
           <SliderFilledTrack bg="primary" />
         </SliderTrack>
-        <SliderThumb boxSize={5} _hover={{ boxSize: 6, animation: 500 }}>
-          <Box color="tomato" as={BsSoundwave} />
+        <SliderThumb
+          boxSize={{ base: 4, sm: 5 }}
+          _hover={{ boxSize: 6, animation: 500 }}
+          bg={{ base: "primary", sm: "white" }}
+        >
+          <Box color={{ base: "primary", sm: "tomato" }} as={BsSoundwave} />
         </SliderThumb>
       </Slider>
       <div
-        className="w-10 min-w-[40px] text-xs text-gray-300"
+        className="ml-2 hidden w-10 min-w-[40px] text-xs text-gray-300 sm:block"
         aria-label="Duration"
       >
         {formatTime(duration)}

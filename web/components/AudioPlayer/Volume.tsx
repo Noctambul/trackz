@@ -30,7 +30,15 @@ export default function Volume({}): JSX.Element {
           />
         </button>
       </PopoverTrigger>
-      <PopoverContent bg="bgc" border={0} w={12} pt={4} pb={1} borderRadius={0}>
+      <PopoverContent
+        // bg={{ base: "transparent", sm: "bgc" }}
+        display={{ base: "none", sm: "block" }}
+        border={0}
+        w={12}
+        pt={4}
+        pb={1}
+        borderRadius={0}
+      >
         <PopoverBody className="flex items-center justify-center">
           <Slider
             min={0}

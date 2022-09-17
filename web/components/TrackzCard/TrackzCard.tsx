@@ -46,7 +46,7 @@ export default function TrackzCard({
   );
 
   const InfoSection = (
-    <div className="ml-2 flex flex-col justify-center">
+    <div className="ml-2 flex w-full flex-col justify-center pr-14">
       <span className="truncate text-lg text-text" aria-label="Title">
         {trackz.name}
       </span>
@@ -74,7 +74,7 @@ export default function TrackzCard({
 
   return (
     <div className="flex w-full" aria-label={`Trackz Card ${trackz.id}`}>
-      <div className="aspect-square relative h-[120px] w-[120px] shrink-0 border border-stone-300">
+      <div className="aspect-square relative h-[126px] w-[126px] shrink-0 border border-stone-300">
         {trackz.metadata.coverUri && (
           <Image
             src={resolveLink(trackz.metadata.coverUri)}
