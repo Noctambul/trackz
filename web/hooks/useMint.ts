@@ -1,12 +1,12 @@
 import {
   ChainId,
-  useAddress,
   useEdition,
   useNetwork,
   useNetworkMismatch,
   useSigner,
 } from "@thirdweb-dev/react";
 import { ThirdwebSDK } from "@thirdweb-dev/sdk";
+import { useWeb3 } from "context/Web3Context";
 import { MintInputs } from "lib/schema/mint-form-schema";
 import { MintParams } from "lib/schema/mint-params-schema";
 import { useState } from "react";
@@ -15,8 +15,8 @@ import useEnvironment from "./useEnvironment";
 export default function useMint() {
   const [isLoading, setIsLoading] = useState(false);
   const { trackzEditionContract } = useEnvironment();
+  const { address } = useWeb3();
   const contract = useEdition(trackzEditionContract);
-  const address = useAddress();
   const isOnWrongNetwork = useNetworkMismatch();
   const signer = useSigner();
   const [, switchNetwork] = useNetwork();

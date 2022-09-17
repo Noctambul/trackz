@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { EditionMetadata } from "@thirdweb-dev/sdk";
+import useWalletConnector from "hooks/useWalletConnector";
 import EditionMetadataSchema from "lib/schema/edition-metadata-schema";
 import TrackzMetadata from "models/TrackzMetadata";
 import { createContext, PropsWithChildren, useContext } from "react";
@@ -8,6 +9,9 @@ export interface Web3ContextInterface {
   trackzMetadata: TrackzMetadata[];
   isLoading: boolean;
   isError: boolean;
+  address: string | undefined;
+  connectWallet: () => Promise<any>;
+  disconnectWallet: () => Promise<any>;
   refetchTrackzs: () => Promise<void>;
 }
 
@@ -19,6 +23,7 @@ export function useWeb3(): Web3ContextInterface {
 }
 
 export function Web3Provider(props: PropsWithChildren<{}>) {
+  const { address, connectWallet, disconnectWallet } = useWalletConnector();
   const { isLoading, isError, data, error, refetch } = useQuery(
     ["trackzs"],
     async () => {
@@ -40,7 +45,15 @@ export function Web3Provider(props: PropsWithChildren<{}>) {
 
   return (
     <Web3Context.Provider
-      value={{ trackzMetadata: data || [], isLoading, isError, refetchTrackzs }}
+      value={{
+        trackzMetadata: data || [],
+        isLoading,
+        isError,
+        refetchTrackzs,
+        address,
+        connectWallet,
+        disconnectWallet,
+      }}
     >
       {props.children}
     </Web3Context.Provider>
