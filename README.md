@@ -1,4 +1,4 @@
-# Trackz
+# 🎧 Trackz
 
 A Soundcloud on the blockchain
 
