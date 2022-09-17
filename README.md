@@ -9,5 +9,7 @@ A Soundcloud on the blockchain
 
 - [NextJS](https://nextjs.org/)
 - [React](https://fr.reactjs.org/)
-- [ChakraUI](https://chakra-ui.com/) or [Tailwind](https://tailwindcss.com/)
+- [ChakraUI](https://chakra-ui.com/)
+- [Tailwind](https://tailwindcss.com/)
 - [Typescript](https://www.typescriptlang.org/)
+- [Thirdweb](https://portal.thirdweb.com/)
