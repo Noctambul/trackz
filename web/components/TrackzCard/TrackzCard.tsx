@@ -46,7 +46,7 @@ export default function TrackzCard({
   );
 
   const InfoSection = (
-    <div className="ml-2 flex flex-col justify-center">
+    <div className="ml-2 flex w-full flex-col justify-center pr-14">
       <span className="truncate text-lg text-text" aria-label="Title">
         {trackz.name}
       </span>
