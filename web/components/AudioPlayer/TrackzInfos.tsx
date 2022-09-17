@@ -10,7 +10,7 @@ export default function TrackzInfos({ trackz }: Props): JSX.Element {
   const { resolveLink } = useIpfs();
 
   return (
-    <div className="w-md flex shrink-0 items-center overflow-hidden">
+    <div className="flex items-center">
       <div className="aspect-square relative h-10 w-10 shrink-0 border border-stone-300 bg-white">
         {trackz.coverUri && (
           <Image
@@ -22,7 +22,7 @@ export default function TrackzInfos({ trackz }: Props): JSX.Element {
           />
         )}
       </div>
-      <div className="ml-3 flex w-40 flex-col overflow-hidden pl-4">
+      <div className="ml-3 hidden w-40 flex-col overflow-hidden pl-4 md:flex">
         <span className="truncate text-white" aria-label="Title">
           {trackz.name}
         </span>

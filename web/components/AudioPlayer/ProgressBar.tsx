@@ -28,7 +28,7 @@ export default function ProgressBar({
   const { formatTime } = useTime();
 
   return (
-    <div className="hidden w-full items-center justify-between sm:flex sm:shrink">
+    <div className="flex w-full items-center justify-between sm:shrink">
       <div className="w-10 min-w-[40px] text-xs text-gray-300">
         {formatTime(progress)}
       </div>

@@ -16,7 +16,7 @@ export default function AudioControlls(): JSX.Element {
   } = useAudio();
 
   return (
-    <div className="mx-6 flex items-center space-x-6">
+    <div className="flex items-center sm:space-x-6">
       {/* <IconButton
         aria-label="Previous track"
         icon={<TbPlayerSkipBack />}
