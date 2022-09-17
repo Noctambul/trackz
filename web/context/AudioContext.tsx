@@ -1,5 +1,4 @@
 import useAudioTrackz from "hooks/useAudioTrackz";
-import useDeviceDetection from "hooks/useDeviceDetection";
 import useTrackzPlaylist from "hooks/useTrackzPlaylist";
 import AudioTrackz from "models/AudioTrackz";
 import TrackzMetadata from "models/TrackzMetadata";
@@ -34,7 +33,7 @@ export function useAudio(): AudioContextInterface {
 }
 
 export function AudioProvider({ children }: { children: React.ReactNode }) {
-  const { isMobile } = useDeviceDetection();
+  // const { isMobile } = useDeviceDetection();
   const intervalRef = useRef<ReturnType<typeof setInterval>>();
   const { trackzMetadata } = useWeb3();
 
@@ -115,9 +114,6 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     stopTimer();
     intervalRef.current = setInterval(() => {
       const progress = Math.round(selectedTrackz?.progress || 0);
-      if (isMobile && !selectedTrackz?.isPlaying) {
-        next();
-      }
       setTrackProgress(progress);
     }, 500);
   };
