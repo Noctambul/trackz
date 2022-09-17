@@ -25,11 +25,12 @@ export default function ConnectButton(): JSX.Element {
       {address ? (
         <Menu>
           <MenuButton
-          // TODO: Animation will make the MenuItem moving ...
-          // as={motion.button}
-          // whileHover={{ scale: 1.1 }}
-          // initial={{ scale: 1 }}
-          // transition={{ type: "spring", stiffness: "400", damping: "10" }}
+            aria-label="User menu"
+            // TODO: Animation will make the MenuItem moving ...
+            // as={motion.button}
+            // whileHover={{ scale: 1.1 }}
+            // initial={{ scale: 1 }}
+            // transition={{ type: "spring", stiffness: "400", damping: "10" }}
           >
             <Avatar
               bg="primary"

@@ -1,10 +1,35 @@
 describe("Navigation", () => {
   context("from the Homepage", () => {
+    const sync = () => cy.get(`button[aria-label="Connect wallet"]`).click();
+    const openUserMenu = () => cy.get(`button[aria-label="User menu"]`).click();
     beforeEach(() => cy.visit("/"));
 
-    it.skip("navigate to the Mint page", () => {
-      cy.get(`nav [aria-label="Mint Page"]`).click();
-      cy.url().should("include", "/mint");
+    it("can connect wallet", () => {
+      cy.get(`button[aria-label="Connect wallet"]`)
+        .should("exist")
+        .should("contain.text", "Sync")
+        .click();
+      openUserMenu().should("exist");
+    });
+
+    it("can diconnect wallet", () => {
+      sync();
+      openUserMenu();
+      cy.get(`button[aria-label="Disconnect wallet"]`)
+        .should("exist")
+        .should("contain.text", "Unsync")
+        .click();
+      cy.get(`button[aria-label="Connect wallet"]`).should("exist");
+    });
+
+    context("when wallet is connected", () => {
+      beforeEach(() => sync());
+
+      it("navigate to the Mint page", () => {
+        openUserMenu();
+        cy.get(`button[aria-label="Create track"]`).click();
+        cy.url().should("include", "/mint");
+      });
     });
   });
 
