@@ -23,7 +23,6 @@ import { mount } from "cypress/react";
 
 import "tailwindcss/tailwind.css";
 import "../../styles/global.css";
-import "./common.ts";
 
 // Augment the Cypress namespace to include type definitions for
 // your custom command.

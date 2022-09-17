@@ -1,5 +1,5 @@
 import { Heading } from "@chakra-ui/react";
-import ConnectButton from "components/Thirdweb/ConnectButton";
+import ConnectButton from "components/Web3/ConnectButton";
 import Link from "next/link";
 
 export default function Header(): JSX.Element {

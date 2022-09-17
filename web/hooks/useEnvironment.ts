@@ -15,6 +15,19 @@ export default function useEnvironment() {
       .parse(process.env.NEXT_PUBLIC_TRACKZ_EDITION_CONTRACT)
   );
 
+  const isTestMode = useConst(() =>
+    z
+      .preprocess(
+        (value) => value === "true",
+        z.boolean({
+          required_error: "NEXT_PUBLIC_TEST_MODE env variable is required",
+          invalid_type_error:
+            "NEXT_PUBLIC_TEST_MODE env variable should be a boolean",
+        })
+      )
+      .parse(process.env.NEXT_PUBLIC_TEST_MODE)
+  );
+
   // const environment = z
   //   .enum(["development", "production", "test"], {
   //     required_error: "NEXT_PUBLIC_ENVIRONMENT is required",
@@ -28,5 +41,5 @@ export default function useEnvironment() {
   //   })
   //   .parse(process.env.NEXT_PUBLIC_IPFS_PROVIDER_URI);
 
-  return { trackzEditionContract };
+  return { trackzEditionContract, isTestMode };
 }

@@ -12,7 +12,6 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useAddress, useMetamask } from "@thirdweb-dev/react";
 import PageContainer from "components/PageContainer/PageContainer";
 import { useWeb3 } from "context/Web3Context";
 import useMint from "hooks/useMint";
@@ -25,8 +24,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 
 export default function MintPage(): JSX.Element {
   const { mintWithSignature, currentStateLabel } = useMint();
-  const address = useAddress();
-  const connectWithMetamask = useMetamask();
+  const { address, connectWallet } = useWeb3();
   const { refetchTrackzs } = useWeb3();
   const toast = useToast();
   const router = useRouter();
@@ -81,7 +79,7 @@ export default function MintPage(): JSX.Element {
   ) : (
     <Button
       type="button"
-      onClick={connectWithMetamask}
+      onClick={connectWallet}
       mt={8}
       aria-label="Connect wallet"
     >

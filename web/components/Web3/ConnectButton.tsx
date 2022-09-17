@@ -6,14 +6,12 @@ import {
   MenuList,
   useConst,
 } from "@chakra-ui/react";
-import { useAddress, useDisconnect, useMetamask } from "@thirdweb-dev/react";
+import { useWeb3 } from "context/Web3Context";
 import { useRouter } from "next/router";
 import { FiLogOut, FiMusic, FiUser } from "react-icons/fi";
 
 export default function ConnectButton(): JSX.Element {
-  const connectWithMetamask = useMetamask();
-  const disconnect = useDisconnect();
-  const address = useAddress();
+  const { address, connectWallet, disconnectWallet } = useWeb3();
   const router = useRouter();
   const itemIconSize = "1.2rem";
   const itemProps = useConst({
@@ -27,11 +25,12 @@ export default function ConnectButton(): JSX.Element {
       {address ? (
         <Menu>
           <MenuButton
-          // TODO: Animation will make the MenuItem moving ...
-          // as={motion.button}
-          // whileHover={{ scale: 1.1 }}
-          // initial={{ scale: 1 }}
-          // transition={{ type: "spring", stiffness: "400", damping: "10" }}
+            aria-label="User menu"
+            // TODO: Animation will make the MenuItem moving ...
+            // as={motion.button}
+            // whileHover={{ scale: 1.1 }}
+            // initial={{ scale: 1 }}
+            // transition={{ type: "spring", stiffness: "400", damping: "10" }}
           >
             <Avatar
               bg="primary"
@@ -51,7 +50,7 @@ export default function ConnectButton(): JSX.Element {
             <MenuItem
               {...itemProps}
               icon={<FiLogOut fontSize={itemIconSize} />}
-              onClick={disconnect}
+              onClick={disconnectWallet}
               aria-label="Disconnect wallet"
             >
               Unsync
@@ -59,7 +58,7 @@ export default function ConnectButton(): JSX.Element {
           </MenuList>
         </Menu>
       ) : (
-        <button onClick={connectWithMetamask} aria-label="Connect wallet">
+        <button onClick={connectWallet} aria-label="Connect wallet">
           Sync
         </button>
       )}
