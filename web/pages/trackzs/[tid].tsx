@@ -1,3 +1,4 @@
+import { Heading } from "@chakra-ui/react";
 import PageContainer from "components/PageContainer/PageContainer";
 import { useAudio } from "context/AudioContext";
 import { useIpfs } from "hooks/useIpfs";
@@ -38,10 +39,10 @@ export default function TrackPage(): JSX.Element {
   return (
     <PageContainer
       isLoading={!Boolean(track) && !isTrackNotFoundError}
-      disableMargins
+      // disableMargins
     >
       <div className="flex h-full w-full flex-col items-center">
-        <div className="relative h-full w-full">
+        <div className="relative h-[95vh] w-full">
           <Image
             src={resolveLink(track?.metadata.coverUri)}
             layout="fill"
@@ -50,8 +51,8 @@ export default function TrackPage(): JSX.Element {
             quality={100}
           />
         </div>
-        <div className="flex h-16 w-full items-center justify-center">
-          <h1>{track?.name}</h1>
+        <div className="flex h-16 w-full ">
+          <Heading as="h1">{track?.name}</Heading>
         </div>
 
         <div>
