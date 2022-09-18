@@ -38,7 +38,7 @@ export default function TrackPage(): JSX.Element {
   return (
     <PageContainer
       isLoading={!Boolean(track) && !isTrackNotFoundError}
-      // disableLayout
+      disableMargins
     >
       <div className="flex h-full w-full flex-col items-center gap-2">
         {/* <h1>{track?.name}</h1> */}
