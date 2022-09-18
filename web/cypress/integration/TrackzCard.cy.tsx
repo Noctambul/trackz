@@ -1,7 +1,7 @@
 import TrackzCard from "components/TrackzCard/TrackzCard";
-import trackzs from "cypress/fixtures/trackzs";
 import { formatTime } from "hooks/useTime";
 import AudioTrackz from "models/AudioTrackz";
+import trackzs from "../fixtures/trackzs";
 
 describe("TrackzCard.tsx", () => {
   const trackz = new AudioTrackz(trackzs[0]);
