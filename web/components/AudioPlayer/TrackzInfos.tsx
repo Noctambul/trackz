@@ -24,12 +24,8 @@ export default function TrackzInfos({ trackz }: Props): JSX.Element {
         )}
       </div>
       <div className="ml-3 hidden w-40 flex-col overflow-hidden pl-4 md:flex">
-        <Link
-          href={`/trackzs/${trackz.id}`}
-          className="truncate text-white"
-          aria-label="Title"
-        >
-          {trackz.name}
+        <Link href={`/trackzs/${trackz.id}`} className="truncate text-white">
+          <span aria-label="Title">{trackz.name}</span>
         </Link>
         <span className="truncate text-xs text-gray-200" aria-label="Author">
           {trackz.creator}

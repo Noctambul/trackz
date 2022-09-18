@@ -53,7 +53,7 @@ export default function TrackzCard({
         className="truncate text-lg text-text"
         aria-label="Title"
       >
-        {trackz.name}
+        <span aria-label="Title">{trackz.name}</span>
       </Link>
       <span className="truncate text-sm text-subtext" aria-label="Author">
         by {trackz.metadata.creator}
