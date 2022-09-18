@@ -40,10 +40,8 @@ export default function TrackPage(): JSX.Element {
       isLoading={!Boolean(track) && !isTrackNotFoundError}
       disableMargins
     >
-      <div className="flex h-full w-full flex-col items-center gap-2">
-        {/* <h1>{track?.name}</h1> */}
-
-        <div className="relative h-full w-full border-8 border-lightgray">
+      <div className="flex h-full w-full flex-col items-center">
+        <div className="relative h-full w-full">
           <Image
             src={resolveLink(track?.metadata.coverUri)}
             layout="fill"
@@ -51,6 +49,9 @@ export default function TrackPage(): JSX.Element {
             alt={track?.name}
             quality={100}
           />
+        </div>
+        <div className="flex h-16 w-full items-center justify-center">
+          <h1>{track?.name}</h1>
         </div>
 
         <div>
