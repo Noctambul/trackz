@@ -21,7 +21,7 @@ interface Props {
 export default function ProgressBar({
   progress,
   duration,
-  disabled,
+  disabled = false,
   onSearch,
   onSearchEnd,
 }: Props): JSX.Element {
@@ -37,7 +37,7 @@ export default function ProgressBar({
         min={0}
         max={duration}
         value={progress}
-        isDisabled={disabled || !duration}
+        isDisabled={disabled} // And duration === 0
         onChange={onSearch}
         onChangeEnd={onSearchEnd}
         focusThumbOnChange={false}

@@ -113,9 +113,9 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   const startTimer = () => {
     stopTimer();
     intervalRef.current = setInterval(() => {
-      const progress = Math.round(selectedTrackz?.progress || 0);
-      setTrackProgress(progress);
-    }, 500);
+      const currentProgress = Math.round(selectedTrackz?.progress || 0);
+      setTrackProgress(currentProgress);
+    }, 1000);
   };
 
   const stopTimer = () => {
@@ -125,22 +125,22 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   const onSearch = (value: number) => {
     if (!selectedTrackz) return;
 
-    const progress = value || 0;
+    const currentProgress = value || 0;
     stopTimer();
-    setTrackProgress(progress);
+    setTrackProgress(currentProgress);
 
     // We want to be able to update the progress while not playing
     if (!isPlaying) {
-      selectedTrackz.seek(progress);
+      selectedTrackz.seek(currentProgress);
     }
   };
 
   const onSearchEnd = (value: number) => {
     if (!selectedTrackz) return;
 
-    const progress = value || 0;
-    selectedTrackz.seek(progress);
-    setTrackProgress(progress);
+    const currentProgress = value || 0;
+    selectedTrackz.seek(currentProgress);
+    setTrackProgress(currentProgress);
 
     if (!isPlaying) {
       setIsplaying(true);

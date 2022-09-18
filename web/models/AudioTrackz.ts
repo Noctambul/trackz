@@ -36,6 +36,10 @@ export default class AudioTrackz {
     return this.state === "loaded";
   }
 
+  get isReady(): boolean {
+    return this.isLoaded && this.duration > 0;
+  }
+
   get isPlaying(): boolean {
     return this.howl.playing();
   }
