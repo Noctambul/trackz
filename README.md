@@ -13,3 +13,4 @@ A Soundcloud on the blockchain
 - [Tailwind](https://tailwindcss.com/)
 - [Typescript](https://www.typescriptlang.org/)
 - [Thirdweb](https://portal.thirdweb.com/)
+- [Vercel](https://vercel.com/noctambul/trackz)
