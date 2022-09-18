@@ -90,7 +90,7 @@ export default function MintPage(): JSX.Element {
   return (
     <PageContainer>
       <form
-        className="mx-6 flex w-full flex-col gap-4 md:mx-40"
+        className="mx-6 my-10 flex flex-col gap-4 md:mx-20"
         onSubmit={handleSubmit(onSubmit)}
       >
         <Heading as="h3" size="md">
