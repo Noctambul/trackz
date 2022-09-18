@@ -6,8 +6,6 @@ const tailwind = resolveConfig(tailwindConfig);
 const colors = tailwind!.theme!.colors!;
 const fonts = tailwind!.theme!.fontFamily!;
 
-console.log("Fonts", fonts);
-
 const theme = extendTheme({
   colors,
   fonts: {
