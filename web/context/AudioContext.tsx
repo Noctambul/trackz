@@ -124,15 +124,23 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
 
   const onSearch = (value: number) => {
     if (!selectedTrackz) return;
+
+    const progress = value || 0;
     stopTimer();
-    setTrackProgress(value || 0);
+    setTrackProgress(progress);
+
+    // We want to be able to update the progress while not playing
+    if (!isPlaying) {
+      selectedTrackz.seek(progress);
+    }
   };
 
   const onSearchEnd = (value: number) => {
     if (!selectedTrackz) return;
 
-    selectedTrackz.seek(value);
-    setTrackProgress(selectedTrackz.progress || 0);
+    const progress = value || 0;
+    selectedTrackz.seek(progress);
+    setTrackProgress(progress);
 
     if (!isPlaying) {
       setIsplaying(true);

@@ -47,7 +47,6 @@ export default function ProgressBar({
         </SliderTrack>
         <SliderThumb
           boxSize={{ base: 4, sm: 5 }}
-          _hover={{ boxSize: 6, animation: 500 }}
           bg={{ base: "primary", sm: "white" }}
         >
           <Box color={{ base: "primary", sm: "tomato" }} as={BsSoundwave} />
