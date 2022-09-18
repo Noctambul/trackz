@@ -1,15 +1,30 @@
-import React from "react";
+import { Container, Spinner } from "@chakra-ui/react";
+import { PropsWithChildren } from "react";
 import Footer from "./Footer";
 import Header from "./Header";
 
-type Props = React.PropsWithChildren;
+type Props = PropsWithChildren<{
+  isLoading?: boolean;
+  disableLayout?: boolean;
+}>;
 
-export default function PageContainer({ children }: Props): JSX.Element {
+export default function PageContainer({
+  children,
+  isLoading = false,
+}: Props): JSX.Element {
   return (
     <>
-      <div className="mt-20 flex w-screen select-none justify-center px-2 pb-28 sm:mt-24">
-        {children}
+      <div className="h-screen w-screen pt-12">
+        {isLoading ? (
+          <Container centerContent h="500px" style={{ display: "flex" }}>
+            <Spinner size="xl" />
+          </Container>
+        ) : (
+          children
+        )}
+        <div className="h-14"></div>
       </div>
+      )
       <Footer />
       <Header />
     </>

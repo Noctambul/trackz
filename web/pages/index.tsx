@@ -1,4 +1,3 @@
-import { Container, Spinner } from "@chakra-ui/react";
 import PageContainer from "components/PageContainer/PageContainer";
 import TrackzCard from "components/TrackzCard/TrackzCard";
 import { useAudio } from "context/AudioContext";
@@ -9,29 +8,19 @@ const Home: NextPage = () => {
     useAudio();
 
   return (
-    <PageContainer>
-      <div className="mx-14 flex w-full flex-col space-y-10">
-        {playlist.length > 0 ? (
-          playlist.map((track) => (
-            <TrackzCard
-              trackz={track}
-              key={track.id}
-              play={play}
-              pause={pause}
-              isPlaying={isPlaying}
-              trackProgress={trackProgress}
-              isSelected={currentTrackz == track}
-            />
-          ))
-        ) : (
-          <Container centerContent h="500px" style={{ display: "flex" }}>
-            <Spinner size="xl" />
-          </Container>
-        )}
-
-        {/* {trackzs.map((trackz) => (
-          <TrackzCard trackz={trackz} key={trackz.id} />
-        ))} */}
+    <PageContainer isLoading={playlist.length === 0}>
+      <div className="mx-14 mt-8 mb-12 flex flex-col gap-10 sm:mt-10">
+        {playlist.map((track) => (
+          <TrackzCard
+            trackz={track}
+            key={track.id}
+            play={play}
+            pause={pause}
+            isPlaying={isPlaying}
+            trackProgress={trackProgress}
+            isSelected={currentTrackz == track}
+          />
+        ))}
       </div>
     </PageContainer>
   );
