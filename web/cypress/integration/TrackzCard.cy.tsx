@@ -1,5 +1,5 @@
 import TrackzCard from "components/TrackzCard/TrackzCard";
-import trackzs from "data/trackzs";
+import trackzs from "cypress/fixtures/trackzs";
 import { formatTime } from "hooks/useTime";
 import AudioTrackz from "models/AudioTrackz";
 

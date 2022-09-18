@@ -3,8 +3,8 @@ import {
   renderHook,
   RenderResult,
 } from "@testing-library/react-hooks/dom";
+import trackzs from "cypress/fixtures/trackzs";
 import { SinonSpy, SinonStub } from "cypress/types/sinon";
-import trackzs from "data/trackzs";
 import useTrackzPlaylist from "hooks/useTrackzPlaylist";
 import { Howl } from "howler";
 import AudioTrackz from "models/AudioTrackz";
