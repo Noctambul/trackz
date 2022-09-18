@@ -20,6 +20,10 @@ export default class AudioTrackz {
     return this.metadata.name;
   }
 
+  get creator() {
+    return this.metadata.creator;
+  }
+
   get duration(): number {
     return this.howl.duration();
   }

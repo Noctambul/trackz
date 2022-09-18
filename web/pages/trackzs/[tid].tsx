@@ -1,4 +1,4 @@
-import { Heading } from "@chakra-ui/react";
+import { Heading, Tag } from "@chakra-ui/react";
 import PageContainer from "components/PageContainer/PageContainer";
 import { useAudio } from "context/AudioContext";
 import { useIpfs } from "hooks/useIpfs";
@@ -51,8 +51,23 @@ export default function TrackPage(): JSX.Element {
             quality={100}
           />
         </div>
-        <div className="flex h-16 w-full ">
-          <Heading as="h1">{track?.name}</Heading>
+        <div className="flex h-16 w-full flex-col gap-6">
+          <div>
+            <Heading size="xl" as="h1" mt={4} mb={2}>
+              {track?.name}
+            </Heading>
+            <Heading color="subtext" size="md" as="h2" ml={1}>
+              {track?.creator}
+            </Heading>
+          </div>
+          <p>{track?.metadata.description}</p>
+          <div>
+            {track?.metadata.tags?.split(",").map((tag) => (
+              <Tag bg="bgc" color="white" variant="solid" key={tag}>
+                {tag}
+              </Tag>
+            ))}
+          </div>
         </div>
 
         <div>
