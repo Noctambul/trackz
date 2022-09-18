@@ -1,6 +1,7 @@
 import { useIpfs } from "hooks/useIpfs";
 import TrackzMetadata from "models/TrackzMetadata";
 import Image from "next/image";
+import Link from "next/link";
 
 interface Props {
   trackz: TrackzMetadata;
@@ -23,9 +24,13 @@ export default function TrackzInfos({ trackz }: Props): JSX.Element {
         )}
       </div>
       <div className="ml-3 hidden w-40 flex-col overflow-hidden pl-4 md:flex">
-        <span className="truncate text-white" aria-label="Title">
+        <Link
+          href={`/trackzs/${trackz.id}`}
+          className="truncate text-white"
+          aria-label="Title"
+        >
           {trackz.name}
-        </span>
+        </Link>
         <span className="truncate text-xs text-gray-200" aria-label="Author">
           {trackz.creator}
         </span>
