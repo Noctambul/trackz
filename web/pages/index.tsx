@@ -9,7 +9,7 @@ const Home: NextPage = () => {
 
   return (
     <PageContainer isLoading={playlist.length === 0}>
-      <div className="mx-14 mt-8 mb-12 flex flex-col gap-10 sm:mt-10">
+      <div className="flex flex-col gap-10">
         {playlist.map((track) => (
           <TrackzCard
             trackz={track}

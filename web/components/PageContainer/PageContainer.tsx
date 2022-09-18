@@ -14,7 +14,7 @@ export default function PageContainer({
 }: Props): JSX.Element {
   return (
     <>
-      <div className="h-screen w-screen pt-12">
+      <div className="fixed top-12 bottom-12 w-screen overflow-y-scroll py-6 px-8">
         {isLoading ? (
           <Container centerContent h="500px" style={{ display: "flex" }}>
             <Spinner size="xl" />
@@ -22,7 +22,6 @@ export default function PageContainer({
         ) : (
           children
         )}
-        <div className="h-14"></div>
       </div>
       )
       <Footer />
