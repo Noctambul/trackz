@@ -81,15 +81,17 @@ export default function TrackzCard({
     <div className="flex w-full" aria-label={`Trackz Card ${trackz.id}`}>
       <div className="aspect-square relative h-[126px] w-[126px] shrink-0 border border-lightgray">
         <Link href={`/trackzs/${trackz.id}`}>
-          {trackz.metadata.coverUri && (
-            <Image
-              src={resolveLink(trackz.metadata.coverUri)}
-              layout="fill"
-              objectFit="cover"
-              alt={trackz.name}
-              className="cursor-pointer"
-            />
-          )}
+          <>
+            {trackz.metadata.coverUri && (
+              <Image
+                src={resolveLink(trackz.metadata.coverUri)}
+                layout="fill"
+                objectFit="cover"
+                alt={trackz.name}
+                className="cursor-pointer"
+              />
+            )}
+          </>
         </Link>
       </div>
       <div className="ml-4 flex w-full flex-col justify-between overflow-hidden">
