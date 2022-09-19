@@ -12,10 +12,10 @@ module.exports = {
         subtext: "#636674",
         lightgray: colors.gray[400],
       },
-      fontFamily: {
-        dmsans: ["DM Sans", "sans-serif"],
-        kumbhsans: ["KumbhSans", "sans-serif"],
-      },
+      // fontFamily: {
+      //   dmsans: ["DM Sans", "sans-serif"],
+      //   kumbhsans: ["KumbhSans", "sans-serif"],
+      // },
     },
   },
   plugins: [
