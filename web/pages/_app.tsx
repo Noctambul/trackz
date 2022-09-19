@@ -5,6 +5,7 @@ import { AudioProvider } from "context/AudioContext";
 import { Web3Provider } from "context/Web3Context";
 import "lib/augmented-types";
 import type { AppProps } from "next/app";
+import Head from "next/head";
 import chakraTheme from "../lib/chakra-theme";
 import "../styles/global.css";
 
@@ -29,6 +30,9 @@ function MyApp({ Component, pageProps }: AppProps) {
         <ThirdwebProvider {...thirdwebProps}>
           <Web3Provider>
             <AudioProvider>
+              <Head>
+                <link rel="shortcut icon" href="/favicon.png" />
+              </Head>
               <Component {...pageProps} />
             </AudioProvider>
           </Web3Provider>
