@@ -48,13 +48,15 @@ export default function TrackzCard({
 
   const InfoSection = (
     <div className="ml-2 flex w-full flex-col justify-center pr-14">
-      <Link
-        href={`/trackzs/${trackz.id}`}
-        className="truncate text-lg text-text"
-        aria-label="Title"
-      >
-        <span aria-label="Title">{trackz.name}</span>
-      </Link>
+      <span aria-label="Title">
+        <Link
+          href={`/trackzs/${trackz.id}`}
+          className="truncate text-lg text-text"
+          aria-label="Title"
+        >
+          {trackz.name}
+        </Link>
+      </span>
       <span className="truncate text-sm text-subtext" aria-label="Author">
         by {trackz.metadata.creator}
       </span>
@@ -79,21 +81,19 @@ export default function TrackzCard({
 
   return (
     <div className="flex w-full" aria-label={`Trackz Card ${trackz.id}`}>
-      <div className="aspect-square relative h-[126px] w-[126px] shrink-0 border border-lightgray">
-        <Link href={`/trackzs/${trackz.id}`}>
-          <>
-            {trackz.metadata.coverUri && (
-              <Image
-                src={resolveLink(trackz.metadata.coverUri)}
-                layout="fill"
-                objectFit="cover"
-                alt={trackz.name}
-                className="cursor-pointer"
-              />
-            )}
-          </>
-        </Link>
-      </div>
+      <Link href={`/trackzs/${trackz.id}`}>
+        <div className="aspect-square relative h-[126px] w-[126px] shrink-0 border border-lightgray">
+          {trackz.metadata.coverUri && (
+            <Image
+              src={resolveLink(trackz.metadata.coverUri)}
+              layout="fill"
+              objectFit="cover"
+              alt={trackz.name}
+              className="cursor-pointer"
+            />
+          )}
+        </div>
+      </Link>
       <div className="ml-4 flex w-full flex-col justify-between overflow-hidden">
         <div className="mb-1 flex">
           {PlayButton}
