@@ -32,6 +32,16 @@ export default function ProgressBar({
       <div className="mr-2 hidden w-10 min-w-[40px] text-xs text-gray-300 sm:block">
         {formatTime(progress)}
       </div>
+
+      {/* <SliderRender
+        min={0}
+        max={duration}
+        value={progress}
+        isDisabled={disabled} // And duration === 0
+        onChange={onSearch}
+        onChangeEnd={onSearchEnd}
+      /> */}
+
       <Slider
         aria-label="Track progress"
         min={0}
