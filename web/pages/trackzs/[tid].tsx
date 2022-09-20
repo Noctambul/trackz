@@ -21,7 +21,6 @@ export default function TrackPage(): JSX.Element {
   const router = useRouter();
   const { playlist } = useAudio();
   const [track, setTrack] = useState<AudioTrackz>();
-  const [isTrackNotFoundError, setTrackNotFoundError] = useState(false);
   const { resolveLink } = useIpfs();
 
   useEffect(() => {
@@ -32,13 +31,13 @@ export default function TrackPage(): JSX.Element {
     if (selectedTrack) {
       setTrack(selectedTrack);
     } else if (playlist && playlist.length > 0) {
-      setTrackNotFoundError(true);
+      router.push("/");
     }
   }, [router.isReady, playlist, router.query]);
 
   return (
     <PageContainer
-      isLoading={!Boolean(track) && !isTrackNotFoundError}
+      isLoading={!Boolean(track)}
       // disableMargins
     >
       <div className="flex h-full w-full flex-col items-center">
@@ -68,10 +67,6 @@ export default function TrackPage(): JSX.Element {
               </Tag>
             ))}
           </div>
-        </div>
-
-        <div>
-          {isTrackNotFoundError && `Trackz ${router.query.tid} not found`}
         </div>
       </div>
     </PageContainer>
