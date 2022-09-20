@@ -65,8 +65,8 @@ export default function useMint() {
         metadata: {
           name,
           description,
-          musicUri: uploadedMusic.uris[0],
-          coverUri: uploadedCover?.uris[0],
+          musicUri: uploadedMusic,
+          coverUri: uploadedCover,
         },
       };
       const signedPayloadReq = await fetch("/api/mint", {
@@ -101,7 +101,7 @@ export default function useMint() {
 
       return nft;
     } catch (e) {
-      console.error("An error occurred while trying to mint:", e);
+      throw new Error("An error occurred while trying to mint : " + e);
     } finally {
       setIsLoading(false);
     }
