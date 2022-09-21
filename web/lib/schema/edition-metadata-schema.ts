@@ -1,5 +1,6 @@
 import { z } from "zod";
 import BigNumberSchema from "./big-number-schema";
+import EthWalletAddressSchema from "./eth-wallet-address-schema";
 
 const attributeKeys = ["artist", "creator", "tags"] as const;
 
@@ -12,6 +13,7 @@ const EditionMetadataSchema = z
       description: z.string().default(""),
       animation_url: z.string(),
       image: z.string().optional(),
+      creator: EthWalletAddressSchema.optional(), // TODO: remove optional
       attributes: z
         .array(
           z.object({
@@ -33,6 +35,7 @@ const EditionMetadataSchema = z
       id: nft.metadata.id,
       name: nft.metadata.name,
       creator:
+        nft.metadata.creator ||
         nft.metadata.attributes?.artist ||
         nft.metadata.attributes?.creator ||
         "Unknown",
