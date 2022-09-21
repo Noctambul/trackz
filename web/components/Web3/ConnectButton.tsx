@@ -1,5 +1,6 @@
 import {
   Avatar,
+  Button,
   Menu,
   MenuButton,
   MenuItem,
@@ -58,9 +59,9 @@ export default function ConnectButton(): JSX.Element {
           </MenuList>
         </Menu>
       ) : (
-        <button onClick={connectWallet} aria-label="Connect wallet">
-          Sync
-        </button>
+        <Button onClick={connectWallet} aria-label="Connect wallet">
+          Connect Wallet
+        </Button>
       )}
     </div>
   );

@@ -11,7 +11,11 @@ export default function Header(): JSX.Element {
         aria-label="Home Page"
         color="text"
       >
-        <Link href="/">TRACKZ</Link>
+        <Link href="/">
+          <>
+            TRACK<span className="text-primary">Z</span>
+          </>
+        </Link>
       </Heading>
       <nav>
         <ul className="flex list-none items-center gap-10">
