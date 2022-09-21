@@ -16,8 +16,8 @@ module.exports = {
       colors: {
         primary: colors.orange[400],
         text: colors.zinc[900],
-        subtext: colors.gray[600],
-        lightgray: colors.gray[400],
+        subtext: colors.zinc[600],
+        lightgray: colors.zinc[400],
         bgc: "#F9F9F9",
       },
       fontFamily: {

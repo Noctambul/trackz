@@ -1,0 +1,24 @@
+import { ComponentSingleStyleConfig } from "@chakra-ui/react";
+
+const ButtonStyle: ComponentSingleStyleConfig = {
+  // Styles for the base style
+  baseStyle: {},
+  // Styles for the size variations
+  sizes: {},
+  // Styles for the visual style variations
+  variants: {
+    solid: {
+      bg: "text",
+      _hover: {
+        bg: "subtext",
+      },
+    },
+  },
+  defaultProps: {},
+  // defaultProps: {
+  //   // Here we set the base variant as the default
+  //   variant: "base",
+  // },
+};
+
+export default ButtonStyle;

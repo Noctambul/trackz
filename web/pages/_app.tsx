@@ -6,7 +6,7 @@ import { Web3Provider } from "context/Web3Context";
 import "lib/augmented-types";
 import type { AppProps } from "next/app";
 import Head from "next/head";
-import chakraTheme from "../lib/chakra-theme";
+import chakraTheme from "../lib/chakra-theme/index";
 import "../styles/global.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
