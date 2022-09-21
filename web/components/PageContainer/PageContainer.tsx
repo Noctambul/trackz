@@ -18,7 +18,7 @@ export default function PageContainer({
   return (
     <>
       <div
-        className={`fixed top-12 bottom-14 w-screen overflow-y-scroll ${
+        className={`fixed top-12 bottom-14 w-screen overflow-y-scroll bg-bgc ${
           disableMargins ? "" : marginStyles
         }`}
       >

@@ -46,12 +46,12 @@ export default function AudioControlls(): JSX.Element {
         onClick={toPreviousTrack}
         disabled={!canPrev}
         className={`hidden ${
-          canPrev ? "fill-white" : "fill-lightgray"
+          canPrev ? "fill-text" : "fill-lightgray"
         } text-2xl sm:block`}
         aria-label="Previous Track"
       />
       <IconBtn
-        className="fill-white stroke-white text-4xl"
+        className="fill-text stroke-text text-4xl"
         onClick={() => (isPlaying ? pause() : play())}
         Icon={isPlaying ? IoPauseCircleOutline : IoPlayCircleOutline}
         aria-label={isPlaying ? "Pause Track" : "Play Track"}
@@ -60,7 +60,7 @@ export default function AudioControlls(): JSX.Element {
         Icon={TbPlayerSkipForward}
         onClick={toNextTrack}
         className={`hidden ${
-          canNext ? "fill-white" : "fill-lightgray"
+          canNext ? "fill-text" : "fill-lightgray"
         } text-2xl sm:block`}
         disabled={!canNext}
         aria-label="Next Track"

@@ -28,8 +28,8 @@ export default function ProgressBar({
   const { formatTime } = useTime();
 
   return (
-    <div className="flex w-full items-center justify-between sm:shrink">
-      <div className="mr-2 hidden w-10 min-w-[40px] text-xs text-gray-300 sm:block">
+    <div className="flex w-full items-center justify-between text-xs text-text sm:shrink">
+      <div className="mr-2 hidden w-10 min-w-[40px] sm:block">
         {formatTime(progress)}
       </div>
 
@@ -63,7 +63,7 @@ export default function ProgressBar({
         </SliderThumb>
       </Slider>
       <div
-        className="ml-2 hidden w-10 min-w-[40px] text-xs text-gray-300 sm:block"
+        className="ml-2 hidden w-10 min-w-[40px]  sm:block"
         aria-label="Duration"
       >
         {formatTime(duration)}

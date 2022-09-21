@@ -9,7 +9,7 @@ export default function Header(): JSX.Element {
         as="h1"
         fontSize={{ base: "3xl", sm: "2xl" }}
         aria-label="Home Page"
-        color="primary"
+        color="text"
       >
         <Link href="/">TRACKZ</Link>
       </Heading>
