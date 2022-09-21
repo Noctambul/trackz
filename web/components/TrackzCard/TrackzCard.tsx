@@ -5,6 +5,7 @@ import { useIpfs } from "hooks/useIpfs";
 import { useTime } from "hooks/useTime";
 import AudioTrackz from "models/AudioTrackz";
 import Image from "next/image";
+import Link from "next/link";
 import { IoPauseCircleOutline, IoPlayCircleOutline } from "react-icons/io5";
 
 type Props = {
@@ -47,8 +48,14 @@ export default function TrackzCard({
 
   const InfoSection = (
     <div className="ml-2 flex w-full flex-col justify-center pr-14">
-      <span className="truncate text-lg text-text" aria-label="Title">
-        {trackz.name}
+      <span aria-label="Title">
+        <Link
+          href={`/trackzs/${trackz.id}`}
+          className="truncate text-lg text-text"
+          aria-label="Title"
+        >
+          {trackz.name}
+        </Link>
       </span>
       <span className="truncate text-sm text-subtext" aria-label="Author">
         by {trackz.metadata.creator}
@@ -74,16 +81,19 @@ export default function TrackzCard({
 
   return (
     <div className="flex w-full" aria-label={`Trackz Card ${trackz.id}`}>
-      <div className="aspect-square relative h-[126px] w-[126px] shrink-0 border border-stone-300">
-        {trackz.metadata.coverUri && (
-          <Image
-            src={resolveLink(trackz.metadata.coverUri)}
-            layout="fill"
-            objectFit="cover"
-            alt={trackz.name}
-          />
-        )}
-      </div>
+      <Link href={`/trackzs/${trackz.id}`}>
+        <div className="aspect-square relative h-[126px] w-[126px] shrink-0 border border-lightgray">
+          {trackz.metadata.coverUri && (
+            <Image
+              src={resolveLink(trackz.metadata.coverUri)}
+              layout="fill"
+              objectFit="cover"
+              alt={trackz.name}
+              className="cursor-pointer"
+            />
+          )}
+        </div>
+      </Link>
       <div className="ml-4 flex w-full flex-col justify-between overflow-hidden">
         <div className="mb-1 flex">
           {PlayButton}

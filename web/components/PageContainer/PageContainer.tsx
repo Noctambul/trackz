@@ -1,15 +1,36 @@
-import React from "react";
+import { Container, Spinner } from "@chakra-ui/react";
+import { PropsWithChildren } from "react";
 import Footer from "./Footer";
 import Header from "./Header";
 
-type Props = React.PropsWithChildren;
+type Props = PropsWithChildren<{
+  isLoading?: boolean;
+  disableMargins?: boolean;
+}>;
 
-export default function PageContainer({ children }: Props): JSX.Element {
+export default function PageContainer({
+  children,
+  isLoading = false,
+  disableMargins = false,
+}: Props): JSX.Element {
+  const marginStyles = "py-5 px-5 sm:py-8 sm:px-10";
+
   return (
     <>
-      <div className="mt-20 flex w-screen select-none justify-center px-2 pb-28 sm:mt-24">
-        {children}
+      <div
+        className={`fixed top-12 bottom-14 w-screen overflow-y-scroll ${
+          disableMargins ? "" : marginStyles
+        }`}
+      >
+        {isLoading ? (
+          <Container centerContent h="500px" style={{ display: "flex" }}>
+            <Spinner size="xl" />
+          </Container>
+        ) : (
+          children
+        )}
       </div>
+      )
       <Footer />
       <Header />
     </>

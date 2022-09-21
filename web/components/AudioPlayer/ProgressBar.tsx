@@ -21,7 +21,7 @@ interface Props {
 export default function ProgressBar({
   progress,
   duration,
-  disabled,
+  disabled = false,
   onSearch,
   onSearchEnd,
 }: Props): JSX.Element {
@@ -32,12 +32,22 @@ export default function ProgressBar({
       <div className="mr-2 hidden w-10 min-w-[40px] text-xs text-gray-300 sm:block">
         {formatTime(progress)}
       </div>
+
+      {/* <SliderRender
+        min={0}
+        max={duration}
+        value={progress}
+        isDisabled={disabled} // And duration === 0
+        onChange={onSearch}
+        onChangeEnd={onSearchEnd}
+      /> */}
+
       <Slider
         aria-label="Track progress"
         min={0}
         max={duration}
         value={progress}
-        isDisabled={disabled || !duration}
+        isDisabled={disabled} // And duration === 0
         onChange={onSearch}
         onChangeEnd={onSearchEnd}
         focusThumbOnChange={false}
@@ -47,7 +57,6 @@ export default function ProgressBar({
         </SliderTrack>
         <SliderThumb
           boxSize={{ base: 4, sm: 5 }}
-          _hover={{ boxSize: 6, animation: 500 }}
           bg={{ base: "primary", sm: "white" }}
         >
           <Box color={{ base: "primary", sm: "tomato" }} as={BsSoundwave} />

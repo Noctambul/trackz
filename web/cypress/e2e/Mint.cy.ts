@@ -16,7 +16,7 @@ describe("Mint Page", () => {
     it("displays a connect wallet button", () => {
       cy.get(`[aria-label="Mint"]`).should("not.exist");
       cy.get(`form button[aria-label="Connect wallet"]`)
-        .should("be.visible")
+        .should("exist")
         .click();
       cy.get(`[aria-label="Mint"]`).should("be.visible");
     });

@@ -20,6 +20,10 @@ export default class AudioTrackz {
     return this.metadata.name;
   }
 
+  get creator() {
+    return this.metadata.creator;
+  }
+
   get duration(): number {
     return this.howl.duration();
   }
@@ -30,6 +34,10 @@ export default class AudioTrackz {
 
   get isLoaded(): boolean {
     return this.state === "loaded";
+  }
+
+  get isReady(): boolean {
+    return this.isLoaded && this.duration > 0;
   }
 
   get isPlaying(): boolean {
