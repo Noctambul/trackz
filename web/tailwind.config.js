@@ -11,6 +11,7 @@ module.exports = {
         text: "#1E2336",
         subtext: "#636674",
         lightgray: colors.gray[400],
+        // #F9F9F9 light grey for background
       },
       fontFamily: {
         dmsans: ["DM Sans", "sans-serif"],

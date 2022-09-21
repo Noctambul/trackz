@@ -59,14 +59,23 @@ export default function TrackPage(): JSX.Element {
               {track?.creator}
             </Heading>
           </div>
+
           <p>{track?.metadata.description}</p>
-          <div>
+
+          <div className="flex gap-2">
             {track?.metadata.tags?.split(",").map((tag) => (
               <Tag bg="bgc" color="white" variant="solid" key={tag}>
                 {tag}
               </Tag>
             ))}
           </div>
+
+          <p className="font-bold">Edition of {track?.metadata.totalSupply}</p>
+
+          <p>
+            Medium: JPG | 1080x1080px | 358.13KB. Minted on: Tuesday, September
+            20, 2022.
+          </p>
         </div>
       </div>
     </PageContainer>

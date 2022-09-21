@@ -30,6 +30,7 @@ export default function useMint() {
     coverFile,
     royalties,
     supply,
+    tags,
   }: MintInputs) => {
     if (isTestMode)
       return fetch("/api/mint", {
@@ -67,6 +68,7 @@ export default function useMint() {
           description,
           musicUri: uploadedMusic,
           coverUri: uploadedCover,
+          tags,
         },
       };
       const signedPayloadReq = await fetch("/api/mint", {

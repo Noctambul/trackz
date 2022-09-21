@@ -25,10 +25,22 @@ export default async function mint(req: NextApiRequest, res: NextApiResponse) {
       description: metadata.description || "",
       image: metadata.coverUri || "",
       animation_url: metadata.musicUri, //fs.readFileSync("path/to/image.png"), // This can be an image url or file
-      attributes: [
-        { trait_type: "tags", value: metadata.tags || "" },
-        { trait_type: "artist", value: authorAddress },
-      ],
+      custom_property: "coucou",
+      creator: authorAddress,
+      // attributes: [
+      //   { trait_type: "tags", value: metadata.tags || "" },
+      //   { trait_type: "artist", value: authorAddress },
+      // ],
+      attributes: {
+        tags: metadata.tags || "",
+        artist: authorAddress,
+        type: "mp3",
+      },
+      // properties: {
+      //   custom_tag: metadata.tags || "",
+      //   custom_artist: authorAddress,
+      //   custom_prop: "bonjour",
+      // },
     };
 
     // Generate the signature for the page NFT
