@@ -17,7 +17,7 @@ describe("Navigation", () => {
       openUserMenu();
       cy.get(`button[aria-label="Disconnect wallet"]`)
         .should("exist")
-        .should("contain.text", "Unsync")
+        .should("contain.text", "Disconnect")
         .click();
       cy.get(`button[aria-label="Connect wallet"]`).should("exist");
     });

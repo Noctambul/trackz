@@ -54,7 +54,7 @@ export default function ConnectButton(): JSX.Element {
               onClick={disconnectWallet}
               aria-label="Disconnect wallet"
             >
-              Unsync
+              Disconnect
             </MenuItem>
           </MenuList>
         </Menu>
