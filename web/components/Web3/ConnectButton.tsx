@@ -5,7 +5,6 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
-  useConst,
 } from "@chakra-ui/react";
 import { useWeb3 } from "context/Web3Context";
 import { useRouter } from "next/router";
@@ -15,11 +14,6 @@ export default function ConnectButton(): JSX.Element {
   const { address, connectWallet, disconnectWallet } = useWeb3();
   const router = useRouter();
   const itemIconSize = "1.2rem";
-  const itemProps = useConst({
-    _hover: { color: "primary", bg: "bgc" },
-    _focus: { color: "primary", bg: "bgc" },
-    color: "white",
-  });
 
   return (
     <div>
@@ -41,7 +35,6 @@ export default function ConnectButton(): JSX.Element {
           </MenuButton>
           <MenuList bg="bgc">
             <MenuItem
-              {...itemProps}
               icon={<FiMusic fontSize={itemIconSize} />}
               onClick={() => router.push("/mint")}
               aria-label="Create track"
@@ -49,7 +42,6 @@ export default function ConnectButton(): JSX.Element {
               Create
             </MenuItem>
             <MenuItem
-              {...itemProps}
               icon={<FiLogOut fontSize={itemIconSize} />}
               onClick={disconnectWallet}
               aria-label="Disconnect wallet"
