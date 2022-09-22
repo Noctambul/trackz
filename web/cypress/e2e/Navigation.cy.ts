@@ -7,7 +7,7 @@ describe("Navigation", () => {
     it("can connect wallet", () => {
       cy.get(`button[aria-label="Connect wallet"]`)
         .should("exist")
-        .should("contain.text", "Sync")
+        .should("contain.text", "Connect Wallet")
         .click();
       openUserMenu().should("exist");
     });
