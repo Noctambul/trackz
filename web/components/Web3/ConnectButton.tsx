@@ -59,7 +59,7 @@ export default function ConnectButton(): JSX.Element {
           </MenuList>
         </Menu>
       ) : (
-        <Button onClick={connectWallet} aria-label="Connect wallet">
+        <Button size="sm" onClick={connectWallet} aria-label="Connect wallet">
           Connect Wallet
         </Button>
       )}
