@@ -12,9 +12,9 @@ export default function Header(): JSX.Element {
         color="text"
       >
         <Link href="/">
-          <>
+          <span role="button">
             TRACK<span className="text-primary">Z</span>
-          </>
+          </span>
         </Link>
       </Heading>
       <nav>
