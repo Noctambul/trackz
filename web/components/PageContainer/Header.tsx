@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function Header(): JSX.Element {
   return (
-    <header className="fixed top-0 left-0 flex h-12 w-screen items-center justify-between bg-bgc px-4 text-white sm:px-10">
+    <header className="fixed top-0 left-0 z-50 flex h-12 w-screen items-center justify-between bg-bgc px-4 text-white sm:px-10">
       <Heading
         as="h1"
         fontSize={{ base: "3xl", sm: "2xl" }}
