@@ -31,9 +31,9 @@ export default function Volume({}): JSX.Element {
         </button>
       </PopoverTrigger>
       <PopoverContent
-        bg="bgc"
         display={{ base: "none", sm: "block" }}
         border={0}
+        bg="transparent"
         w={12}
         pt={4}
         pb={1}
