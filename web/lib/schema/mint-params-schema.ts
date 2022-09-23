@@ -1,8 +1,8 @@
 import { z } from "zod";
-import { ethWalletRegex } from "./zod-helpers";
+import EthWalletAddressSchema from "./eth-wallet-address-schema";
 
 const MintParamsSchema = z.object({
-  authorAddress: z.string().regex(ethWalletRegex),
+  authorAddress: EthWalletAddressSchema,
   supply: z.number(),
   royalties: z.number().int().max(20),
   metadata: z.object({

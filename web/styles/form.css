@@ -1,25 +1,64 @@
 @tailwind base;
 
 @layer base {
-  [type="text"],
-  [type="email"],
-  [type="url"],
-  [type="password"],
-  [type="number"],
-  [type="date"],
-  [type="datetime-local"],
-  [type="month"],
-  [type="search"],
-  [type="tel"],
-  [type="time"],
-  [type="week"],
-  [type="file"],
+  input[type="text"],
+  input[type="email"],
+  input[type="url"],
+  input[type="password"],
+  input[type="number"],
+  input[type="date"],
+  input[type="datetime-local"],
+  input[type="month"],
+  input[type="search"],
+  input[type="tel"],
+  input[type="time"],
+  input[type="week"],
+  input[type="file"],
   [multiple],
   textarea,
   select {
+    @apply border-text;
   }
 
-  [type="file"] {
-    @apply cursor-pointer border-0 p-0 file:ml-0 file:cursor-pointer file:rounded-lg file:rounded-r-none file:border-0 file:py-2 file:px-4 file:align-middle;
+  input[type="text"]:hover,
+  input[type="email"]:hover,
+  input[type="url"]:hover,
+  input[type="password"]:hover,
+  input[type="number"]:hover,
+  input[type="date"]:hover,
+  input[type="datetime-local"]:hover,
+  input[type="month"]:hover,
+  input[type="search"]:hover,
+  input[type="tel"]:hover,
+  input[type="time"]:hover,
+  input[type="week"]:hover,
+  input[type="file"]:hover,
+  [multiple]:hover,
+  textarea.chakra-textarea:hover,
+  select:hover {
+    @apply border-subtext;
+  }
+
+  input[type="text"]:focus,
+  input[type="email"]:focus,
+  input[type="url"]:focus,
+  input[type="password"]:focus,
+  input[type="number"]:focus,
+  input[type="date"]:focus,
+  input[type="datetime-local"]:focus,
+  input[type="month"]:focus,
+  input[type="search"]:focus,
+  input[type="tel"]:focus,
+  input[type="time"]:focus,
+  input[type="week"]:focus,
+  input[type="file"]:focus,
+  [multiple]:focus,
+  textarea.chakra-textarea:focus,
+  select:focus {
+    @apply border-primary shadow shadow-primary outline-0 outline-primary ring-0 ring-primary;
+  }
+
+  input[type="file"] {
+    @apply cursor-pointer border p-0 file:ml-0 file:cursor-pointer file:rounded-lg file:rounded-r-none file:border-0 file:py-2 file:px-4 file:align-middle;
   }
 }

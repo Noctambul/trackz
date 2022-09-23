@@ -9,9 +9,11 @@
     "start": "next start",
     "lint": "next lint",
     "cypress": "cypress open",
-    "cypress:headless": "cypress run",
+    "cypress:headless": "yarn cypress:e2e:headless && yarn cypress:component:headless",
     "cypress:component": "NEXT_PUBLIC_TEST_MODE=true cypress open --component --browser chrome",
-    "cypress:e2e": "NEXT_PUBLIC_TEST_MODE=true PORT=4000 next dev & cypress open --e2e --browser chrome --config baseUrl=http://localhost:4000"
+    "cypress:component:headless": "cypress run --headless --component",
+    "cypress:e2e": "NEXT_PUBLIC_TEST_MODE=true PORT=4000 next dev & cypress open --e2e --browser chrome --config baseUrl=http://localhost:4000",
+    "cypress:e2e:headless": "NEXT_PUBLIC_TEST_MODE=true PORT=4001 next dev & cypress run --e2e --headless --config baseUrl=http://localhost:4001"
   },
   "dependencies": {
     "@chakra-ui/react": "2.3.4",

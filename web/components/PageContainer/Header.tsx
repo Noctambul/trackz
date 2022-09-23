@@ -9,9 +9,13 @@ export default function Header(): JSX.Element {
         as="h1"
         fontSize={{ base: "3xl", sm: "2xl" }}
         aria-label="Home Page"
-        color="primary"
+        color="text"
       >
-        <Link href="/">TRACKZ</Link>
+        <Link href="/">
+          <span role="button">
+            TRACK<span className="text-primary">Z</span>
+          </span>
+        </Link>
       </Heading>
       <nav>
         <ul className="flex list-none items-center gap-10">

@@ -31,7 +31,7 @@ export default function TrackzInfos({ trackz }: Props): JSX.Element {
             {trackz.name}
           </Link>
         </span>
-        <span className="truncate text-xs text-gray-200" aria-label="Author">
+        <span className="truncate text-xs text-subtext" aria-label="Author">
           {trackz.creator}
         </span>
       </div>

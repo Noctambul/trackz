@@ -21,7 +21,7 @@ export default function AudioPlayer({
 }: AudioPlayerProps): JSX.Element {
   return (
     <div
-      className="flex h-full w-full items-center justify-around gap-6"
+      className="flex h-full w-full items-center justify-around gap-6 text-text"
       aria-label="Audio Player"
     >
       <TrackzInfos trackz={trackz.metadata} />

@@ -9,7 +9,7 @@ export default function Footer(): JSX.Element {
     <>
       {currentTrackz && (
         <footer
-          className="fixed bottom-0 left-0 h-14 w-screen bg-bgc px-4 text-white sm:px-8
+          className="fixed bottom-0 left-0 h-14 w-screen border-t bg-white px-4 text-primary sm:px-8
         "
         >
           {currentTrackz && (
