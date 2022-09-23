@@ -2,7 +2,20 @@ describe("Navigation", () => {
   context("from the Homepage", () => {
     const sync = () => cy.get(`button[aria-label="Connect wallet"]`).click();
     const openUserMenu = () => cy.get(`button[aria-label="User menu"]`).click();
-    beforeEach(() => cy.visit("/"));
+
+    beforeEach(() => {
+      cy.fixture("trackzs")
+        .as("trackzs")
+        .then((trackzs: any[]) => {
+          cy.intercept("GET", "api/trackzs", {
+            statusCode: 200,
+            body: trackzs,
+          }).as("getTrackzs");
+        });
+
+      cy.visit("/");
+    });
+    // beforeEach(() => cy.visit("/"));
 
     it("can connect wallet", () => {
       cy.get(`button[aria-label="Connect wallet"]`)
