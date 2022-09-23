@@ -21,7 +21,7 @@ export default function AudioPlayer({
   onSearch,
   onSearchEnd,
 }: AudioPlayerProps): JSX.Element {
-  const { playlist, currentIndex } = useAudio();
+  const { playlist, currentIndex, play, isPlaying } = useAudio();
 
   return (
     <div
@@ -37,7 +37,12 @@ export default function AudioPlayer({
         onSearchEnd={onSearchEnd}
       />
       <Volume />
-      <Playlist playlist={playlist} currentTrackIndex={currentIndex} />
+      <Playlist
+        playlist={playlist}
+        currentTrackIndex={currentIndex}
+        play={play}
+        isPlaying={isPlaying}
+      />
     </div>
   );
 }

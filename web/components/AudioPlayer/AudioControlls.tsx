@@ -17,30 +17,6 @@ export default function AudioControlls(): JSX.Element {
 
   return (
     <div className="flex items-center sm:space-x-6">
-      {/* <IconButton
-        aria-label="Previous track"
-        icon={<TbPlayerSkipBack />}
-        onClick={toPreviousTrack}
-        disabled={!canPrev}
-        variant="unstyled"
-      />
-      <IconButton
-        className="fill-white text-9xl"
-        aria-label={isPlaying ? "Pause track" : "Play track"}
-        icon={isPlaying ? <IoPauseCircleOutline /> : <IoPlayCircleOutline />}
-        onClick={() => (isPlaying ? pause() : play())}
-        variant="unstyled"
-        size="lg"
-        fill="white"
-      />
-      <IconButton
-        aria-label="Next track"
-        icon={<TbPlayerSkipForward />}
-        disabled={!canNext}
-        onClick={toNextTrack}
-        variant="unstyled"
-      /> */}
-
       <IconBtn
         Icon={TbPlayerSkipBack}
         onClick={toPreviousTrack}
