@@ -12,7 +12,7 @@ export default function Header(): JSX.Element {
         color="text"
       >
         <Link href="/">
-          <span role="button">
+          <span role="button" aria-label="Home">
             TRACK<span className="text-primary">Z</span>
           </span>
         </Link>
