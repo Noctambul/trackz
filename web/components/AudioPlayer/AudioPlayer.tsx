@@ -1,5 +1,7 @@
+import { useAudio } from "context/AudioContext";
 import AudioTrackz from "models/AudioTrackz";
 import AudioControlls from "./AudioControlls";
+import Playlist from "./Playlist";
 import ProgressBar from "./ProgressBar";
 import TrackzInfos from "./TrackzInfos";
 import Volume from "./Volume";
@@ -19,9 +21,11 @@ export default function AudioPlayer({
   onSearch,
   onSearchEnd,
 }: AudioPlayerProps): JSX.Element {
+  const { playlist, currentIndex } = useAudio();
+
   return (
     <div
-      className="flex h-full w-full items-center justify-around gap-6 text-text"
+      className="z-50 flex h-full w-full items-center justify-around gap-6 text-text "
       aria-label="Audio Player"
     >
       <TrackzInfos trackz={trackz.metadata} />
@@ -33,6 +37,7 @@ export default function AudioPlayer({
         onSearchEnd={onSearchEnd}
       />
       <Volume />
+      <Playlist playlist={playlist} currentTrackIndex={currentIndex} />
     </div>
   );
 }
