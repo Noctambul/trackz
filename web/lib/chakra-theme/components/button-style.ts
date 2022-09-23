@@ -16,7 +16,7 @@ const ButtonStyle: ComponentSingleStyleConfig = {
       },
     },
     audioplayer: {
-      bg: "white",
+      bg: "transparent",
       color: "text",
       _hover: { bg: "bgc" },
       _focusVisible: { boxShadow: "0 0 0 2px rgba(0,0,0, 0.1)" },
