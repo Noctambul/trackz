@@ -5,14 +5,14 @@ const InputStyle: ComponentStyleConfig = {
   variants: {
     outline: {
       field: {
-        borderColor: "text",
-        _hover: {
-          borderColor: "subtext",
-        },
-        _focus: {
-          borderColor: "primary",
-          boxShadow: "0 0 0 1px orange",
-        },
+        // borderColor: "text",
+        // _hover: {
+        //   borderColor: "subtext",
+        // },
+        // _focus: {
+        //   borderColor: "primary",
+        //   boxShadow: "0 0 0 1px orange",
+        // },
       },
     },
   },
