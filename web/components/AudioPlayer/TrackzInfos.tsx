@@ -13,7 +13,7 @@ export default function TrackzInfos({ trackz }: Props): JSX.Element {
   return (
     <div className="flex items-center" key={trackz.id}>
       <Link href={`/trackzs/${trackz.id}`}>
-        <div className="aspect-square relative h-10 w-10 shrink-0 cursor-pointer border border-stone-300 bg-white">
+        <div className="aspect-square relative h-10 w-10 shrink-0 cursor-pointer border border-lightgray bg-white">
           {trackz.coverUri && (
             <Image
               alt={trackz.name}

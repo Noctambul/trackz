@@ -17,6 +17,7 @@ export default function PageContainer({
 
   return (
     <>
+      <Header />
       <div
         className={`fixed top-12 bottom-14 w-screen overflow-y-scroll bg-bgc ${
           disableMargins ? "" : marginStyles
@@ -32,7 +33,6 @@ export default function PageContainer({
       </div>
       )
       <Footer />
-      <Header />
     </>
   );
 }

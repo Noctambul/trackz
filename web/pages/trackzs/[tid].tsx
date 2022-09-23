@@ -33,6 +33,7 @@ export default function TrackPage(): JSX.Element {
     } else if (playlist && playlist.length > 0) {
       router.push("/");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.isReady, playlist, router.query]);
 
   return (
