@@ -2,11 +2,16 @@ import { IconButton, useDisclosure } from "@chakra-ui/react";
 import AudioTrackz from "models/AudioTrackz";
 import Image from "next/image";
 import { useMemo } from "react";
-import { AiFillPauseCircle, AiFillPlayCircle } from "react-icons/ai";
+import {
+  AiFillPauseCircle,
+  AiFillPlayCircle,
+  AiOutlineCloseSquare,
+} from "react-icons/ai";
 import { RiPlayListAddFill } from "react-icons/ri";
 
 type Props = {
   playlist: AudioTrackz[];
+  removeTrack: (track: AudioTrackz) => void;
   currentTrackIndex?: number;
   play: (track: AudioTrackz) => void;
   isPlaying?: boolean;
@@ -15,6 +20,7 @@ type Props = {
 export default function Playlist({
   playlist,
   play,
+  removeTrack,
   isPlaying = false,
   currentTrackIndex = 0,
 }: Props): JSX.Element {
@@ -48,7 +54,10 @@ export default function Playlist({
                   isSelected ? "bg-lightgray" : "hover:bg-bgc"
                 } p-4  focus:bg-bgc`}
                 aria-label={`Play ${track.name}`}
-                onClick={() => play(track)}
+                onClick={() => {
+                  console.log("Play ", track.id);
+                  play(track);
+                }}
                 role="button"
               >
                 <div className="relative flex h-[38px] w-[38px] shrink-0 items-center justify-center border border-lightgray">
@@ -79,6 +88,18 @@ export default function Playlist({
                 <div className="shrink-0 text-xs text-subtext">
                   {track.formattedDuration}
                 </div>
+                <IconButton
+                  aria-label={`Remove ${track.name} from the playlist`}
+                  size="sm"
+                  variant="outline"
+                  onClick={(e) => {
+                    console.log("Remove ", track.id);
+                    e.preventDefault();
+                    e.stopPropagation();
+                    removeTrack(track);
+                  }}
+                  icon={<AiOutlineCloseSquare />}
+                />
               </div>
             );
           })}

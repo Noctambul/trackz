@@ -15,6 +15,7 @@ type TrackzPlaylistInterface = {
   previous: () => void;
   playlist: AudioTrackz[];
   setSelectedTrackz: (id: number) => void;
+  removeTrackz: (track: AudioTrackz) => void;
   canNext: boolean;
   canPrev: boolean;
   currentIndex: number;
@@ -43,6 +44,7 @@ export default function useTrackzPlaylist(
     select,
     canNext,
     canPrev,
+    setPlaylist,
   } = usePlaylist<AudioTrackz>(audioTrackzs, false);
 
   useEffect(() => {
@@ -76,8 +78,12 @@ export default function useTrackzPlaylist(
   const setSelectedTrackz = (trackId: number) =>
     select(playlist.findIndex((track) => track.id === trackId));
 
+  const removeTrackz = (track: AudioTrackz) =>
+    setPlaylist((playlist) => playlist.filter((t) => t.id !== track.id));
+
   return {
     selectedTrackz: selected,
+    removeTrackz,
     next,
     previous,
     playlist,

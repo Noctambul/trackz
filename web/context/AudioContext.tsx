@@ -16,6 +16,7 @@ export interface AudioContextInterface {
   canPrev: boolean;
   isMuted: boolean;
   playlist: AudioTrackz[];
+  removeTrackz: (track: AudioTrackz) => void;
   toggleMute: () => void;
   setVolume: (volume: number) => void;
   play: (trackz?: TrackzMetadata | AudioTrackz) => void;
@@ -47,6 +48,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     canPrev,
     playlist,
     currentIndex,
+    removeTrackz,
   } = useTrackzPlaylist(trackzMetadata);
   const [isPlaying, setIsplaying] = useState(false);
   const [trackProgress, setTrackProgress] = useState(0);
@@ -155,6 +157,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   return (
     <AudioContext.Provider
       value={{
+        removeTrackz,
         isPlaying,
         playlist,
         play,

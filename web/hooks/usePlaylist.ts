@@ -1,4 +1,23 @@
-import { useEffect, useMemo, useState } from "react";
+import {
+  useEffect,
+  useMemo,
+  useState,
+  type Dispatch,
+  type SetStateAction,
+} from "react";
+
+type PlaylistInterface<T> = {
+  setPlaylist: Dispatch<SetStateAction<T[]>>;
+  playlist: T[];
+  index: number;
+  next: () => void;
+  previous: () => void;
+  selected: T;
+  select: (index: number) => void;
+  setIsLoopMode: Dispatch<SetStateAction<boolean>>;
+  canNext: boolean;
+  canPrev: boolean;
+};
 
 /**
  * A hook that handle a playlist
@@ -7,7 +26,7 @@ import { useEffect, useMemo, useState } from "react";
 export default function usePlaylist<T>(
   initialPlaylist: T[] = [],
   loopMode = false
-) {
+): PlaylistInterface<T> {
   const [playlist, setPlaylist] = useState<T[]>(initialPlaylist);
   const [index, setIndex] = useState(0);
   const [isLoopMode, setIsLoopMode] = useState(loopMode);
