@@ -17,12 +17,15 @@ module.exports = {
         primary: colors.orange[400],
         text: colors.zinc[900],
         subtext: colors.zinc[500],
-        lightgray: colors.zinc[400],
+        lightgray: colors.zinc[300],
         bgc: "#F9F9F9",
       },
       fontFamily: {
         dmsans: ["DM Sans", "sans-serif"],
         kumbhsans: ["KumbhSans", "sans-serif"],
+      },
+      boxShadow: {
+        player: "-2px -1px 4px 0px rgba( 0, 0, 0, 0.2)",
       },
     },
   },
@@ -31,6 +34,7 @@ module.exports = {
     require("@tailwindcss/forms"),
     require("@tailwindcss/line-clamp"),
     require("@tailwindcss/aspect-ratio"),
+    require("tailwind-scrollbar-hide"),
     require("autoprefixer"),
   ],
 };
