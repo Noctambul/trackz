@@ -15,6 +15,11 @@ const ButtonStyle: ComponentSingleStyleConfig = {
         bg: "subtext",
       },
     },
+    audioplayer: {
+      bg: "white",
+      color: "text",
+      _hover: { bg: "bgc" },
+    },
   },
   defaultProps: {},
   // defaultProps: {
