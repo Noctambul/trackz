@@ -6,7 +6,7 @@ const trackzs = trackzMetadata.editions
   .map((metadata) => EditionMetadataSchema.parse(metadata))
   .reverse() as TrackzMetadata[];
 
-describe.only("Audio Player", () => {
+describe("Audio Player", () => {
   const getInPlayer = (selector: string) =>
     cy.get(`[aria-label="Audio Player"] ${selector}`);
 
@@ -45,6 +45,7 @@ describe.only("Audio Player", () => {
       });
 
     cy.visit("/");
+    volBtn().click();
   });
 
   afterEach(() => stopPlayer());
