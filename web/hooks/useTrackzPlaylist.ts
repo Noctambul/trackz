@@ -17,6 +17,7 @@ type TrackzPlaylistInterface = {
   setSelectedTrackz: (id: number) => void;
   canNext: boolean;
   canPrev: boolean;
+  currentIndex: number;
 };
 
 export default function useTrackzPlaylist(
@@ -83,5 +84,6 @@ export default function useTrackzPlaylist(
     setSelectedTrackz,
     canNext,
     canPrev,
+    currentIndex: index,
   };
 }
