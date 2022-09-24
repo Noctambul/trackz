@@ -1,9 +1,9 @@
-import useAudioTrackz from "hooks/useAudioTrackz";
-import useTrackzPlaylist from "hooks/useTrackzPlaylist";
 import AudioTrackz from "models/AudioTrackz";
 import TrackzMetadata from "models/TrackzMetadata";
 import { createContext, useContext, useEffect, useRef, useState } from "react";
-import { useWeb3 } from "./Web3Context";
+import { useWeb3 } from "../../../context/Web3Context";
+import useAudioTrackz from "../hooks/useAudioTrackz";
+import useTrackzPlaylist from "../hooks/useTrackzPlaylist";
 
 export interface AudioContextInterface {
   isPlaying: boolean;

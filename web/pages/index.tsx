@@ -1,6 +1,6 @@
 import PageContainer from "components/PageContainer/PageContainer";
 import TrackzCard from "components/TrackzCard/TrackzCard";
-import { useAudio } from "context/AudioContext";
+import { useAudio } from "features/audio/context/AudioContext";
 import type { NextPage } from "next";
 
 const Home: NextPage = () => {

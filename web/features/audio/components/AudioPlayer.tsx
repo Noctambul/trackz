@@ -1,4 +1,4 @@
-import { useAudio } from "context/AudioContext";
+import { useAudio } from "features/audio/context/AudioContext";
 import AudioTrackz from "models/AudioTrackz";
 import AudioControlls from "./AudioControlls";
 import Playlist from "./Playlist";

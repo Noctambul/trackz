@@ -1,6 +1,6 @@
 import IconButton from "components/uikit/IconButton";
 import Progress from "components/uikit/Progress";
-import useAudioTrackz from "hooks/useAudioTrackz";
+import useAudioTrackz from "features/audio/hooks/useAudioTrackz";
 import { useIpfs } from "hooks/useIpfs";
 import { useTime } from "hooks/useTime";
 import AudioTrackz from "models/AudioTrackz";
