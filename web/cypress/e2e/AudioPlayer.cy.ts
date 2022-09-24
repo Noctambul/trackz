@@ -32,7 +32,9 @@ describe("Audio Player", () => {
   const volBtn = () => player().get(`[aria-label="Volume controller"]`);
   const volSlider = () => cy.get(`[aria-label="Track volume"]`);
   const playTrackBtn = (index: number) =>
-    cy.get(`[aria-label="Play ${trackzs[index].name}"]`);
+    cy.get(
+      `[aria-label="Trackz Card ${trackzs[index].id}"] [aria-label="Play ${trackzs[index].name}"]`
+    );
 
   beforeEach(() => {
     cy.fixture("trackzs")
