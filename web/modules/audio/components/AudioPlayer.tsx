@@ -1,10 +1,10 @@
-import { useAudio } from "features/audio/context/AudioContext";
 import AudioTrackz from "models/AudioTrackz";
+import TrackzInfos from "modules/audio/components/TrackzInfos";
+import { useAudio } from "modules/audio/context/AudioContext";
+import Playlist from "../components/Playlist";
+import ProgressBar from "../components/ProgressBar";
+import Volume from "../components/Volume";
 import AudioControlls from "./AudioControlls";
-import Playlist from "./Playlist";
-import ProgressBar from "./ProgressBar";
-import TrackzInfos from "./TrackzInfos";
-import Volume from "./Volume";
 
 interface AudioPlayerProps {
   trackz: AudioTrackz;

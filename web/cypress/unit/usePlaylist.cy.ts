@@ -1,5 +1,5 @@
 import { act, renderHook } from "@testing-library/react-hooks/dom";
-import usePlaylist from "hooks/usePlaylist";
+import usePlaylist from "modules/audio/hooks/usePlaylist";
 
 describe("usePlaylist", () => {
   const defaultArray = ["a", "b", "c", "d"];

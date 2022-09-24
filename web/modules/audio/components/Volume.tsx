@@ -1,4 +1,4 @@
-import { useAudio } from "features/audio/context/AudioContext";
+import { useAudio } from "modules/audio/context/AudioContext";
 
 import {
   IconButton,

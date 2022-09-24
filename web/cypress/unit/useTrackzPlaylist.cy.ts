@@ -4,9 +4,9 @@ import {
   RenderResult,
 } from "@testing-library/react-hooks/dom";
 import { SinonSpy, SinonStub } from "cypress/types/sinon";
-import useTrackzPlaylist from "features/audio/hooks/useTrackzPlaylist";
 import { Howl } from "howler";
 import AudioTrackz from "models/AudioTrackz";
+import useTrackzPlaylist from "modules/audio/hooks/useTrackzPlaylist";
 import trackzs from "../fixtures/trackzs";
 
 describe("useTrackzPlaylist", () => {

@@ -1,5 +1,5 @@
-import AudioPlayer from "features/audio/components/AudioPlayer";
-import { useAudio } from "features/audio/context/AudioContext";
+import AudioPlayer from "modules/audio/components/AudioPlayer";
+import { useAudio } from "modules/audio/context/AudioContext";
 
 export default function Footer(): JSX.Element {
   const { trackProgress, currentTrackz, duration, onSearch, onSearchEnd } =
