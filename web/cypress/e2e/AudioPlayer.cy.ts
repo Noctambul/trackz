@@ -50,7 +50,10 @@ describe("Audio Player", () => {
     volBtn().click();
   });
 
-  afterEach(() => stopPlayer());
+  afterEach(() => {
+    stopPlayer();
+    volBtn().click();
+  });
 
   context("from the home", () => {
     it("displays the tracker with the first track selected", () => {
