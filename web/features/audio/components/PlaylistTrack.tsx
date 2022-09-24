@@ -21,7 +21,6 @@ export default function PlaylistTrack({
   track,
   play,
   remove,
-  key,
 }: Props): JSX.Element {
   return (
     <div
@@ -63,7 +62,7 @@ export default function PlaylistTrack({
       </div>
       <IconButton
         aria-label={`Remove ${track.name} from the playlist`}
-        size="sm"
+        size="xs"
         variant="outline"
         onClick={(e) => {
           console.log("Remove ", track.id);
