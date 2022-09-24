@@ -1,5 +1,5 @@
 // import IconBtn from "components/uikit/IconButton";
-import IconBtn from "components/uikit/IconButton";
+import IconBtn from "common/components/uikit/IconButton";
 import { useAudio } from "modules/audio/context/AudioContext";
 import { IoPauseCircleOutline, IoPlayCircleOutline } from "react-icons/io5";
 import { TbPlayerSkipBack, TbPlayerSkipForward } from "react-icons/tb";

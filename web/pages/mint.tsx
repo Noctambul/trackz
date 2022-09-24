@@ -12,7 +12,7 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import PageContainer from "components/PageContainer/PageContainer";
+import PageContainer from "common/components/PageContainer/PageContainer";
 import { useWeb3 } from "context/Web3Context";
 import useMint from "hooks/useMint";
 import {

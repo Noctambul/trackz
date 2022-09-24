@@ -1,5 +1,5 @@
-import PageContainer from "components/PageContainer/PageContainer";
-import TrackzCard from "components/TrackzCard/TrackzCard";
+import PageContainer from "common/components/PageContainer/PageContainer";
+import TrackzCard from "common/components/TrackzCard/TrackzCard";
 import { useAudio } from "modules/audio/context/AudioContext";
 import type { NextPage } from "next";
 
