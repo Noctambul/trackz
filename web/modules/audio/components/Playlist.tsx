@@ -9,6 +9,7 @@ type Props = {
   removeTrack: (track: AudioTrackz) => void;
   currentTrackIndex?: number;
   play: (track: AudioTrackz) => void;
+  pause: () => void;
   isPlaying?: boolean;
 };
 
@@ -16,6 +17,7 @@ export default function Playlist({
   playlist,
   play,
   removeTrack,
+  pause,
   isPlaying = false,
   currentTrackIndex = 0,
 }: Props): JSX.Element {
@@ -40,14 +42,17 @@ export default function Playlist({
         } scrollba<r-hide z-[-1] w-screen overflow-y-scroll rounded bg-white py-2 text-text shadow-player transition-all duration-500 sm:w-[400px]`}
       >
         <div className="flex w-full flex-col justify-center text-sm">
-          {playlist.map((track) => {
+          {playlist.map((track, index) => {
             const isSelected = track.id === currentTrack.id;
+            const isPassed = index < currentTrackIndex;
             return (
               <PlaylistTrack
                 key={track.id}
                 isSelected={isSelected}
                 isPlaying={isPlaying}
+                isPassed={isPassed}
                 play={play}
+                pause={pause}
                 remove={removeTrack}
                 track={track}
               />

@@ -9,33 +9,34 @@ import {
 
 type Props = {
   isSelected?: boolean;
+  isPassed?: boolean;
   isPlaying?: boolean;
   track: AudioTrackz;
   play: (track: AudioTrackz) => void;
+  pause: () => void;
   remove: (track: AudioTrackz) => void;
 };
 
 export default function PlaylistTrack({
   isSelected = false,
   isPlaying = false,
+  isPassed = false,
   track,
   play,
+  pause,
   remove,
 }: Props): JSX.Element {
+  const backgroundStyle = isSelected ? "bg-lightgray" : "hover:bg-bgc";
   return (
     <div
-      className={`group flex h-14 w-full cursor-pointer items-center gap-4 ${
-        isSelected ? "bg-lightgray" : "hover:bg-bgc"
-      } p-4  focus:bg-bgc`}
+      className={`group flex h-14 w-full cursor-pointer items-center gap-4 ${backgroundStyle} p-4`}
       aria-label={`Play ${track.name}`}
-      onClick={() => {
-        console.log("Play ", track.id);
-        play(track);
-      }}
+      onClick={() => (isPlaying ? pause() : play(track))}
       role="button"
     >
       <div className="relative flex h-[38px] w-[38px] shrink-0 items-center justify-center border border-lightgray">
         <Image
+          className={`${isPassed && "opacity-40"}`}
           src={track.coverUri}
           objectFit="cover"
           layout="fill"
@@ -46,6 +47,7 @@ export default function PlaylistTrack({
             isSelected || "hidden"
           } rounded-full bg-bgc transition-all group-hover:block `}
         >
+          {/* TODO: Should create both button and just switch between them */}
           {isPlaying && isSelected ? (
             <AiFillPauseCircle className="relative stroke-text text-3xl" />
           ) : (
@@ -53,7 +55,9 @@ export default function PlaylistTrack({
           )}
         </div>
       </div>
-      <div className="flex grow flex-col truncate">
+      <div
+        className={`flex grow flex-col truncate ${isPassed && "opacity-40"}`}
+      >
         <p className="truncate">{track.name}</p>
         <p className="truncate text-xs text-subtext">{track.creator}</p>
       </div>
