@@ -1,4 +1,4 @@
-import { useIpfs } from "hooks/useIpfs";
+import { useIpfs } from "common/hooks/useIpfs";
 import TrackzMetadata from "models/TrackzMetadata";
 import Image from "next/image";
 import Link from "next/link";

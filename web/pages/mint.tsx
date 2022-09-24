@@ -13,8 +13,8 @@ import {
 } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import PageContainer from "common/components/PageContainer/PageContainer";
+import useMint from "common/hooks/useMint";
 import { useWeb3 } from "context/Web3Context";
-import useMint from "hooks/useMint";
 import {
   default as MintFormSchema,
   MintInputs,

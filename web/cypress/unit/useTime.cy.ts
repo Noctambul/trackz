@@ -1,4 +1,4 @@
-import { useTime } from "hooks/useTime";
+import { useTime } from "common/hooks/useTime";
 
 describe("useTime", () => {
   const { formatTime } = useTime();

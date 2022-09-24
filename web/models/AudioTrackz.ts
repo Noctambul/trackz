@@ -1,5 +1,5 @@
-import { resolveLink } from "hooks/useIpfs";
-import { formatTime } from "hooks/useTime";
+import { resolveLink } from "common/hooks/useIpfs";
+import { formatTime } from "common/hooks/useTime";
 import { Howl, HowlCallback } from "howler";
 import TrackzMetadata from "./TrackzMetadata";
 

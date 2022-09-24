@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { EditionMetadata } from "@thirdweb-dev/sdk";
-import useWalletConnector from "hooks/useWalletConnector";
+import useWalletConnector from "common/hooks/useWalletConnector";
 import EditionMetadataSchema from "lib/schema/edition-metadata-schema";
 import TrackzMetadata from "models/TrackzMetadata";
 import { createContext, PropsWithChildren, useContext } from "react";

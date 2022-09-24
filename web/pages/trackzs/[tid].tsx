@@ -1,6 +1,6 @@
 import { Heading, Tag } from "@chakra-ui/react";
 import PageContainer from "common/components/PageContainer/PageContainer";
-import { useIpfs } from "hooks/useIpfs";
+import { useIpfs } from "common/hooks/useIpfs";
 import AudioTrackz from "models/AudioTrackz";
 import { useAudio } from "modules/audio/context/AudioContext";
 import Image from "next/image";
