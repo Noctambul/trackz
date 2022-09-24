@@ -1,6 +1,5 @@
-import TrackzMetadata from "common/models/TrackzMetadata";
 import AudioTrackz from "modules/audio/models/AudioTrackz";
-import { useEffect, useMemo } from "react";
+import { useEffect } from "react";
 import usePlaylist from "./usePlaylist";
 
 /**
@@ -22,19 +21,9 @@ type TrackzPlaylistInterface = {
 };
 
 export default function useTrackzPlaylist(
-  trackzs: (AudioTrackz | TrackzMetadata)[],
-  onTrackLoaded?: (track: AudioTrackz) => void,
+  trackzs: AudioTrackz[],
   preloadBuffer = DEFAULT_PRELOAD_BUFFER
 ): TrackzPlaylistInterface {
-  const audioTrackzs: AudioTrackz[] = useMemo(
-    () =>
-      trackzs.map((track) =>
-        track instanceof AudioTrackz
-          ? track
-          : new AudioTrackz(track, onTrackLoaded)
-      ),
-    [trackzs]
-  );
   const {
     selected,
     playlist,
@@ -45,7 +34,7 @@ export default function useTrackzPlaylist(
     canNext,
     canPrev,
     setPlaylist,
-  } = usePlaylist<AudioTrackz>(audioTrackzs, false);
+  } = usePlaylist<AudioTrackz>(trackzs, false);
 
   useEffect(() => {
     if (!selected) return;

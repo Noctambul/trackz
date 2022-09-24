@@ -37,7 +37,7 @@ export function useAudio(): AudioContextInterface {
 export function AudioProvider({ children }: { children: React.ReactNode }) {
   // const { isMobile } = useDeviceDetection();
   const intervalRef = useRef<ReturnType<typeof setInterval>>();
-  const { trackzMetadata } = useWeb3();
+  const { audioTrackzs } = useWeb3();
 
   const {
     selectedTrackz,
@@ -49,7 +49,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     playlist,
     currentIndex,
     removeTrackz,
-  } = useTrackzPlaylist(trackzMetadata);
+  } = useTrackzPlaylist(audioTrackzs);
   const [isPlaying, setIsplaying] = useState(false);
   const [trackProgress, setTrackProgress] = useState(0);
   const [volume, setVolume] = useState(1);
