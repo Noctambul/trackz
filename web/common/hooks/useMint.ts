@@ -6,7 +6,7 @@ import {
   useSigner,
 } from "@thirdweb-dev/react";
 import { ThirdwebSDK } from "@thirdweb-dev/sdk";
-import { useWeb3 } from "context/Web3Context";
+import { useWeb3 } from "common/context/Web3Context";
 import { MintInputs } from "lib/schema/mint-form-schema";
 import { MintParams } from "lib/schema/mint-params-schema";
 import { useState } from "react";

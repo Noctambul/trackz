@@ -1,7 +1,7 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ChainId, ThirdwebProvider } from "@thirdweb-dev/react";
-import { Web3Provider } from "context/Web3Context";
+import { Web3Provider } from "common/context/Web3Context";
 import "lib/augmented-types";
 import { AudioProvider } from "modules/audio/context/AudioContext";
 import type { AppProps } from "next/app";

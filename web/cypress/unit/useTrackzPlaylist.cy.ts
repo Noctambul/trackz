@@ -5,8 +5,8 @@ import {
 } from "@testing-library/react-hooks/dom";
 import { SinonSpy, SinonStub } from "cypress/types/sinon";
 import { Howl } from "howler";
-import AudioTrackz from "models/AudioTrackz";
 import useTrackzPlaylist from "modules/audio/hooks/useTrackzPlaylist";
+import AudioTrackz from "modules/audio/models/AudioTrackz";
 import trackzs from "../fixtures/trackzs";
 
 describe("useTrackzPlaylist", () => {

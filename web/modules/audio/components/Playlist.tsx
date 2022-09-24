@@ -1,5 +1,5 @@
 import { IconButton, useDisclosure } from "@chakra-ui/react";
-import AudioTrackz from "models/AudioTrackz";
+import AudioTrackz from "modules/audio/models/AudioTrackz";
 import { useMemo } from "react";
 import { RiPlayListAddFill } from "react-icons/ri";
 import PlaylistTrack from "./PlaylistTrack";

@@ -1,7 +1,7 @@
 import { resolveLink } from "common/hooks/useIpfs";
 import { formatTime } from "common/hooks/useTime";
+import TrackzMetadata from "common/models/TrackzMetadata";
 import { Howl, HowlCallback } from "howler";
-import TrackzMetadata from "./TrackzMetadata";
 
 type TrackCallback = (track: AudioTrackz) => void;
 

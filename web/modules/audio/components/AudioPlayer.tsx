@@ -1,6 +1,6 @@
-import AudioTrackz from "models/AudioTrackz";
 import TrackzInfos from "modules/audio/components/TrackzInfos";
 import { useAudio } from "modules/audio/context/AudioContext";
+import AudioTrackz from "modules/audio/models/AudioTrackz";
 import Playlist from "../components/Playlist";
 import ProgressBar from "../components/ProgressBar";
 import Volume from "../components/Volume";

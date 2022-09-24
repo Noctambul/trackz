@@ -1,7 +1,7 @@
-import AudioTrackz from "models/AudioTrackz";
-import TrackzMetadata from "models/TrackzMetadata";
+import TrackzMetadata from "common/models/TrackzMetadata";
+import AudioTrackz from "modules/audio/models/AudioTrackz";
 import { createContext, useContext, useEffect, useRef, useState } from "react";
-import { useWeb3 } from "../../../context/Web3Context";
+import { useWeb3 } from "../../../common/context/Web3Context";
 import useAudioTrackz from "../hooks/useAudioTrackz";
 import useTrackzPlaylist from "../hooks/useTrackzPlaylist";
 

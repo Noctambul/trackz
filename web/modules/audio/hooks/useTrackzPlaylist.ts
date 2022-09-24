@@ -1,5 +1,5 @@
-import AudioTrackz from "models/AudioTrackz";
-import TrackzMetadata from "models/TrackzMetadata";
+import TrackzMetadata from "common/models/TrackzMetadata";
+import AudioTrackz from "modules/audio/models/AudioTrackz";
 import { useEffect, useMemo } from "react";
 import usePlaylist from "./usePlaylist";
 

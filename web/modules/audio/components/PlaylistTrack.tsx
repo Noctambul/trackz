@@ -1,5 +1,5 @@
 import { IconButton } from "@chakra-ui/react";
-import AudioTrackz from "models/AudioTrackz";
+import AudioTrackz from "modules/audio/models/AudioTrackz";
 import Image from "next/image";
 import {
   AiFillPauseCircle,

@@ -1,5 +1,5 @@
+import TrackzMetadata from "common/models/TrackzMetadata";
 import EditionMetadataSchema from "lib/schema/edition-metadata-schema";
-import TrackzMetadata from "models/TrackzMetadata";
 import trackzMetadata from "../fixtures/trackzs.json";
 
 const trackzs = trackzMetadata.editions
