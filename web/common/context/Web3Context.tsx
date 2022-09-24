@@ -3,10 +3,12 @@ import { EditionMetadata } from "@thirdweb-dev/sdk";
 import useWalletConnector from "common/hooks/useWalletConnector";
 import TrackzMetadata from "common/models/TrackzMetadata";
 import EditionMetadataSchema from "lib/schema/edition-metadata-schema";
-import { createContext, PropsWithChildren, useContext } from "react";
+import AudioTrackz from "modules/audio/models/AudioTrackz";
+import { createContext, PropsWithChildren, useContext, useMemo } from "react";
 
 export interface Web3ContextInterface {
   trackzMetadata: TrackzMetadata[];
+  audioTrackzs: AudioTrackz[];
   isLoading: boolean;
   isError: boolean;
   address: string | undefined;
@@ -39,6 +41,14 @@ export function Web3Provider(props: PropsWithChildren<{}>) {
     }
   );
 
+  const audioTrackzs: AudioTrackz[] = useMemo(
+    () =>
+      data?.map((track) =>
+        track instanceof AudioTrackz ? track : new AudioTrackz(track)
+      ) || [],
+    [data]
+  );
+
   const refetchTrackzs = async () => {
     await refetch();
   };
@@ -47,6 +57,7 @@ export function Web3Provider(props: PropsWithChildren<{}>) {
     <Web3Context.Provider
       value={{
         trackzMetadata: data || [],
+        audioTrackzs,
         isLoading,
         isError,
         refetchTrackzs,
