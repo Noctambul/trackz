@@ -53,27 +53,36 @@ export default function TrackPage(): JSX.Element {
         </div>
         <div className="flex h-16 w-full flex-col gap-6">
           <div>
-            <Heading size="xl" as="h1" mt={4} mb={2}>
+            <Heading size="xl" as="h1" mt={4} mb={2} aria-label="Track Name">
               {track?.name}
             </Heading>
-            <Heading color="subtext" size="md" as="h2" ml={1}>
+            <Heading
+              color="subtext"
+              size="md"
+              as="h2"
+              ml={1}
+              aria-label="Creator"
+            >
               {track?.creator}
             </Heading>
           </div>
 
-          <p>{track?.metadata.description}</p>
+          <p aria-label="Track Description">{track?.metadata.description}</p>
 
-          <div className="flex gap-2">
+          <div className="flex gap-2" aria-label="Track Tags">
             {track?.metadata.tags?.split(",").map((tag) => (
-              <Tag bg="bgc" color="white" variant="solid" key={tag}>
+              <Tag variant="outline" key={tag}>
                 {tag}
               </Tag>
             ))}
           </div>
 
-          <p className="font-bold">Edition of {track?.metadata.totalSupply}</p>
+          <p className="font-bold" aria-label="Track Supply">
+            Edition of {track?.metadata.totalSupply}
+          </p>
 
           <p>
+            Fake <br></br>
             Medium: JPG | 1080x1080px | 358.13KB. Minted on: Tuesday, September
             20, 2022.
           </p>
