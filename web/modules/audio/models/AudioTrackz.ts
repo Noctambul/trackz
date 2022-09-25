@@ -1,6 +1,7 @@
-import { resolveLink } from "hooks/useIpfs";
+import { resolveLink } from "common/hooks/useIpfs";
+import { formatTime } from "common/hooks/useTime";
+import TrackzMetadata from "common/models/TrackzMetadata";
 import { Howl, HowlCallback } from "howler";
-import TrackzMetadata from "./TrackzMetadata";
 
 type TrackCallback = (track: AudioTrackz) => void;
 
@@ -28,6 +29,10 @@ export default class AudioTrackz {
     return this.howl.duration();
   }
 
+  get formattedDuration(): string {
+    return formatTime(this.duration);
+  }
+
   get state(): "unloaded" | "loading" | "loaded" {
     return this.howl.state();
   }
@@ -51,8 +56,19 @@ export default class AudioTrackz {
     return resolveLink(this.metadata.musicUri);
   }
 
+  /**
+   * The resolved cover uri
+   */
+  get coverUri(): string {
+    return resolveLink(this.metadata.coverUri);
+  }
+
   get progress(): number {
     return this.howl.seek();
+  }
+
+  get formattedProgress(): string {
+    return formatTime(this.progress);
   }
 
   constructor(

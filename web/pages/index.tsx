@@ -1,16 +1,17 @@
-import PageContainer from "components/PageContainer/PageContainer";
-import TrackzCard from "components/TrackzCard/TrackzCard";
-import { useAudio } from "context/AudioContext";
+import PageContainer from "common/components/PageContainer/PageContainer";
+import TrackzCard from "common/components/TrackzCard/TrackzCard";
+import { useWeb3 } from "common/context/Web3Context";
+import { useAudio } from "modules/audio/context/AudioContext";
 import type { NextPage } from "next";
 
 const Home: NextPage = () => {
-  const { playlist, play, pause, currentTrackz, isPlaying, trackProgress } =
-    useAudio();
+  const { play, pause, currentTrackz, isPlaying, trackProgress } = useAudio();
+  const { audioTrackzs, isLoading } = useWeb3();
 
   return (
-    <PageContainer isLoading={playlist.length === 0}>
+    <PageContainer isLoading={isLoading}>
       <div className="flex flex-col gap-10">
-        {playlist.map((track) => (
+        {audioTrackzs.map((track) => (
           <TrackzCard
             trackz={track}
             key={track.id}

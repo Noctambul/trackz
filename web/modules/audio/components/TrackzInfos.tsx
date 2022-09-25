@@ -1,5 +1,5 @@
-import { useIpfs } from "hooks/useIpfs";
-import TrackzMetadata from "models/TrackzMetadata";
+import { useIpfs } from "common/hooks/useIpfs";
+import TrackzMetadata from "common/models/TrackzMetadata";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -13,7 +13,7 @@ export default function TrackzInfos({ trackz }: Props): JSX.Element {
   return (
     <div className="flex items-center" key={trackz.id}>
       <Link href={`/trackzs/${trackz.id}`}>
-        <div className="aspect-square relative h-10 w-10 shrink-0 cursor-pointer border border-stone-300 bg-white">
+        <div className="aspect-square relative h-10 w-10 shrink-0 cursor-pointer border border-lightgray bg-white">
           {trackz.coverUri && (
             <Image
               alt={trackz.name}

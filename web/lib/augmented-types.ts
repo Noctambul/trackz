@@ -1,4 +1,4 @@
-import { modulo } from "hooks/useMath";
+import { modulo } from "common/hooks/useMath";
 
 Number.prototype.modulo = function (this: number, n: number) {
   "use strict";

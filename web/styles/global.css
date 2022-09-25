@@ -16,7 +16,7 @@
 
 html,
 body {
-  @apply bg-white font-dmsans text-text;
+  @apply bg-bgc font-dmsans text-text;
 }
 
 a {

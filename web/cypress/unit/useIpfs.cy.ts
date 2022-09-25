@@ -1,4 +1,4 @@
-import { useIpfs } from "hooks/useIpfs";
+import { useIpfs } from "common/hooks/useIpfs";
 
 // Skip for the moment as we don't use this feature
 describe.skip("useIpfs", () => {

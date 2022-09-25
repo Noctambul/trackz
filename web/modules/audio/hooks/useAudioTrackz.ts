@@ -1,4 +1,4 @@
-import AudioTrackz from "models/AudioTrackz";
+import AudioTrackz from "modules/audio/models/AudioTrackz";
 import { useEffect, useState } from "react";
 
 export default function useAudioTrackz(track: AudioTrackz | undefined) {

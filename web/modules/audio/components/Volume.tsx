@@ -1,6 +1,7 @@
-import { useAudio } from "context/AudioContext";
+import { useAudio } from "modules/audio/context/AudioContext";
 
 import {
+  IconButton,
   Popover,
   PopoverBody,
   PopoverContent,
@@ -19,21 +20,22 @@ export default function Volume({}): JSX.Element {
   return (
     <Popover offset={[-6, 0]} placement="top" trigger="hover">
       <PopoverTrigger>
-        <button
-          type="button"
+        <IconButton
           onClick={toggleMute}
           aria-label="Volume controller"
-        >
-          <VolumeIcon
-            className="mr-2 text-2xl"
-            aria-label={isMuted ? "Unmute" : "Mute"}
-          />
-        </button>
+          variant="audioplayer"
+          icon={
+            <VolumeIcon
+              className="mr-2 text-2xl"
+              aria-label={isMuted ? "Unmute" : "Mute"}
+            />
+          }
+        />
       </PopoverTrigger>
       <PopoverContent
         display={{ base: "none", sm: "block" }}
         border={0}
-        bg="transparent"
+        bg="bgc"
         w={12}
         pt={4}
         pb={1}

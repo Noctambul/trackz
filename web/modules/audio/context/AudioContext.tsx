@@ -1,20 +1,22 @@
-import useAudioTrackz from "hooks/useAudioTrackz";
-import useTrackzPlaylist from "hooks/useTrackzPlaylist";
-import AudioTrackz from "models/AudioTrackz";
-import TrackzMetadata from "models/TrackzMetadata";
+import TrackzMetadata from "common/models/TrackzMetadata";
+import AudioTrackz from "modules/audio/models/AudioTrackz";
 import { createContext, useContext, useEffect, useRef, useState } from "react";
-import { useWeb3 } from "./Web3Context";
+import { useWeb3 } from "../../../common/context/Web3Context";
+import useAudioTrackz from "../hooks/useAudioTrackz";
+import useTrackzPlaylist from "../hooks/useTrackzPlaylist";
 
 export interface AudioContextInterface {
   isPlaying: boolean;
   duration: number;
   trackProgress: number;
   currentTrackz: AudioTrackz | undefined;
+  currentIndex: number;
   volume: number;
   canNext: boolean;
   canPrev: boolean;
   isMuted: boolean;
   playlist: AudioTrackz[];
+  removeTrackz: (track: AudioTrackz) => void;
   toggleMute: () => void;
   setVolume: (volume: number) => void;
   play: (trackz?: TrackzMetadata | AudioTrackz) => void;
@@ -35,7 +37,7 @@ export function useAudio(): AudioContextInterface {
 export function AudioProvider({ children }: { children: React.ReactNode }) {
   // const { isMobile } = useDeviceDetection();
   const intervalRef = useRef<ReturnType<typeof setInterval>>();
-  const { trackzMetadata } = useWeb3();
+  const { audioTrackzs } = useWeb3();
 
   const {
     selectedTrackz,
@@ -45,7 +47,9 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     canNext,
     canPrev,
     playlist,
-  } = useTrackzPlaylist(trackzMetadata);
+    currentIndex,
+    removeTrackz,
+  } = useTrackzPlaylist(audioTrackzs);
   const [isPlaying, setIsplaying] = useState(false);
   const [trackProgress, setTrackProgress] = useState(0);
   const [volume, setVolume] = useState(1);
@@ -153,6 +157,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   return (
     <AudioContext.Provider
       value={{
+        removeTrackz,
         isPlaying,
         playlist,
         play,
@@ -160,6 +165,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
         toNextTrack,
         toPreviousTrack,
         currentTrackz: selectedTrackz,
+        currentIndex,
         duration,
         trackProgress,
         onSearch,

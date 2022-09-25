@@ -1,6 +1,6 @@
-import TrackzCard from "components/TrackzCard/TrackzCard";
-import { formatTime } from "hooks/useTime";
-import AudioTrackz from "models/AudioTrackz";
+import TrackzCard from "common/components/TrackzCard/TrackzCard";
+import { formatTime } from "common/hooks/useTime";
+import AudioTrackz from "modules/audio/models/AudioTrackz";
 import trackzs from "../fixtures/trackzs";
 
 describe("TrackzCard.tsx", () => {

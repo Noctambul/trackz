@@ -1,4 +1,4 @@
-import useMath from "hooks/useMath";
+import useMath from "common/hooks/useMath";
 
 describe("useMath", () => {
   const { modulo } = useMath();

@@ -1,4 +1,4 @@
-import Button from "components/uikit/Button";
+import Button from "common/components/uikit/Button";
 
 describe("uikit/Button.tsx", () => {
   it("displays the content", () => {

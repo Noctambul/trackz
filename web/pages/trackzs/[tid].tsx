@@ -1,8 +1,8 @@
 import { Heading, Tag } from "@chakra-ui/react";
-import PageContainer from "components/PageContainer/PageContainer";
-import { useAudio } from "context/AudioContext";
-import { useIpfs } from "hooks/useIpfs";
-import AudioTrackz from "models/AudioTrackz";
+import PageContainer from "common/components/PageContainer/PageContainer";
+import { useIpfs } from "common/hooks/useIpfs";
+import { useAudio } from "modules/audio/context/AudioContext";
+import AudioTrackz from "modules/audio/models/AudioTrackz";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -33,6 +33,7 @@ export default function TrackPage(): JSX.Element {
     } else if (playlist && playlist.length > 0) {
       router.push("/");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.isReady, playlist, router.query]);
 
   return (

@@ -1,6 +1,5 @@
-import AudioTrackz from "models/AudioTrackz";
-import TrackzMetadata from "models/TrackzMetadata";
-import { useEffect, useMemo } from "react";
+import AudioTrackz from "modules/audio/models/AudioTrackz";
+import { useEffect } from "react";
 import usePlaylist from "./usePlaylist";
 
 /**
@@ -15,24 +14,16 @@ type TrackzPlaylistInterface = {
   previous: () => void;
   playlist: AudioTrackz[];
   setSelectedTrackz: (id: number) => void;
+  removeTrackz: (track: AudioTrackz) => void;
   canNext: boolean;
   canPrev: boolean;
+  currentIndex: number;
 };
 
 export default function useTrackzPlaylist(
-  trackzs: (AudioTrackz | TrackzMetadata)[],
-  onTrackLoaded?: (track: AudioTrackz) => void,
+  trackzs: AudioTrackz[],
   preloadBuffer = DEFAULT_PRELOAD_BUFFER
 ): TrackzPlaylistInterface {
-  const audioTrackzs: AudioTrackz[] = useMemo(
-    () =>
-      trackzs.map((track) =>
-        track instanceof AudioTrackz
-          ? track
-          : new AudioTrackz(track, onTrackLoaded)
-      ),
-    [trackzs]
-  );
   const {
     selected,
     playlist,
@@ -42,7 +33,8 @@ export default function useTrackzPlaylist(
     select,
     canNext,
     canPrev,
-  } = usePlaylist<AudioTrackz>(audioTrackzs, false);
+    setPlaylist,
+  } = usePlaylist<AudioTrackz>(trackzs, false);
 
   useEffect(() => {
     if (!selected) return;
@@ -75,13 +67,18 @@ export default function useTrackzPlaylist(
   const setSelectedTrackz = (trackId: number) =>
     select(playlist.findIndex((track) => track.id === trackId));
 
+  const removeTrackz = (track: AudioTrackz) =>
+    setPlaylist((playlist) => playlist.filter((t) => t.id !== track.id));
+
   return {
     selectedTrackz: selected,
+    removeTrackz,
     next,
     previous,
     playlist,
     setSelectedTrackz,
     canNext,
     canPrev,
+    currentIndex: index,
   };
 }
