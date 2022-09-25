@@ -28,6 +28,8 @@ export default function usePlaylist<T>(
   loopMode = false
 ): PlaylistInterface<T> {
   const [playlist, setPlaylist] = useState<T[]>(initialPlaylist);
+  const [canNext, setCanNext] = useState(false);
+  const [canPrev, setCanPrev] = useState(false);
   const [index, setIndex] = useState(0);
   const [isLoopMode, setIsLoopMode] = useState(loopMode);
   const selected = useMemo(() => {
@@ -38,8 +40,10 @@ export default function usePlaylist<T>(
     setPlaylist(initialPlaylist);
   }, [initialPlaylist]);
 
-  const canNext = isLoopMode || index !== playlist.length - 1;
-  const canPrev = isLoopMode || index !== 0;
+  useEffect(() => {
+    setCanNext(isLoopMode || index !== playlist.length - 1);
+    setCanPrev(isLoopMode || index !== 0);
+  }, [isLoopMode, index, playlist]);
 
   const next = () => {
     if (canNext) setIndex((i) => (++i).modulo(playlist.length));
@@ -49,7 +53,9 @@ export default function usePlaylist<T>(
     if (canPrev) setIndex((i) => (--i).modulo(playlist.length));
   };
 
-  const select = (index: number) => setIndex(index);
+  const select = (index: number) => {
+    if (index >= 0 && index < playlist.length) setIndex(index);
+  };
 
   return {
     setPlaylist,
