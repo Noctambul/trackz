@@ -39,7 +39,7 @@ export default function Playlist({
       <div
         className={`fixed right-0 bottom-14 ${
           isOpen ? "visible top-0 sm:top-44" : "invisible top-[100vh]"
-        } scrollba<r-hide z-[-1] w-screen overflow-y-scroll rounded bg-white py-2 text-text shadow-player transition-all duration-500 sm:w-[400px]`}
+        } z-[-1] w-screen overflow-y-scroll rounded bg-white py-2 text-text shadow-player transition-all duration-500 scrollbar-hide sm:w-[400px]`}
         aria-label="Playlist"
       >
         <div className="flex w-full flex-col justify-center text-sm">

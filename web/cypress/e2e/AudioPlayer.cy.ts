@@ -31,6 +31,8 @@ describe("Audio Player", () => {
   const pauseBtn = () => player().get(`[aria-label="Pause Track"]`);
   const volBtn = () => player().get(`[aria-label="Volume controller"]`);
   const volSlider = () => cy.get(`[aria-label="Track volume"]`);
+  const trackzCardElt = (index: number) =>
+    cy.get(`[aria-label="Trackz Card ${trackzs[index].id}"]`);
   const playlistBtn = () => player().get(`[aria-label="Playlist Button"]`);
   const playlistContainer = () => player().get(`[aria-label="Playlist"]`);
   const playlistTrack = (index: number) =>
@@ -187,9 +189,11 @@ describe("Audio Player", () => {
       playlistBtn().click();
       playlistTrack(1).should("exist");
       playlistTrackRemoveBtn(1).click();
+      trackzCardElt(1).should("exist");
       playlistTrack(1).should("not.exist");
       playlistTrack(0).should("exist");
       playlistTrackRemoveBtn(0).click();
+      trackzCardElt(0).should("exist");
       playlistTrack(0).should("not.exist");
       playlistTrack(2)
         .get(`[data-test-play="${trackzs[2].id}"]`)
