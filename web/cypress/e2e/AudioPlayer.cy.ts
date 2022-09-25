@@ -31,6 +31,10 @@ describe("Audio Player", () => {
   const pauseBtn = () => player().get(`[aria-label="Pause Track"]`);
   const volBtn = () => player().get(`[aria-label="Volume controller"]`);
   const volSlider = () => cy.get(`[aria-label="Track volume"]`);
+  const playlistBtn = () => player().get(`[aria-label="Playlist Button"]`);
+  const playlistContainer = () => player().get(`[aria-label="Playlist"]`);
+  const playlistTrack = (index: number) =>
+    playlistContainer().get(`[aria-label="Track ${trackzs[index].name}"]`);
   const playTrackBtn = (index: number) =>
     cy.get(
       `[aria-label="Trackz Card ${trackzs[index].id}"] [aria-label="Play ${trackzs[index].name}"]`
@@ -63,65 +67,119 @@ describe("Audio Player", () => {
     });
   });
 
-  it("can switch between trackz", () => {
-    prevBtn().should("be.disabled");
-    nextBtn().should("be.enabled");
-    nextBtn().click();
-    shouldHaveTrack(1);
-    prevBtn().should("be.enabled");
-    nextBtn().click();
-    shouldHaveTrack(2);
-    nextBtn().should("be.disabled");
-    prevBtn().should("be.enabled");
-    prevBtn().click();
-    shouldHaveTrack(1);
-    nextBtn().should("be.enabled");
-    prevBtn().should("be.enabled");
+  context("audio controlls", () => {
+    it("can switch between trackz", () => {
+      prevBtn().should("be.disabled");
+      nextBtn().should("be.enabled");
+      nextBtn().click();
+      shouldHaveTrack(1);
+      prevBtn().should("be.enabled");
+      nextBtn().click();
+      shouldHaveTrack(2);
+      nextBtn().should("be.disabled");
+      prevBtn().should("be.enabled");
+      prevBtn().click();
+      shouldHaveTrack(1);
+      nextBtn().should("be.enabled");
+      prevBtn().should("be.enabled");
+    });
+
+    it("automatically play audio when switching track", () => {
+      nextBtn().click();
+      playBtn().should("not.exist");
+      pauseBtn().should("exist");
+    });
+
+    it("can play and pause music", () => {
+      pauseBtn().should("not.exist");
+      playBtn().should("exist");
+      playBtn().click();
+      pauseBtn().should("exist");
+      playBtn().should("not.exist");
+      pauseBtn().click();
+      pauseBtn().should("not.exist");
+      playBtn().should("exist");
+    });
+
+    it("can change the volume", () => {
+      volBtn().should("exist");
+      volSlider().should("not.be.visible");
+      volBtn().trigger("mouseover");
+      volSlider().should("be.visible");
+      volBtn().trigger("mouseout");
+      volSlider().should("not.be.visible");
+    });
   });
 
-  it("automatically play audio when switching track", () => {
-    nextBtn().click();
-    playBtn().should("not.exist");
-    pauseBtn().should("exist");
+  context("trackz cards", () => {
+    it("can play a track from a card", () => {
+      playBtn().should("exist");
+      playTrackBtn(2).click();
+      pauseBtn().should("exist");
+      shouldHaveTrack(2);
+      nextBtn().should("be.disabled");
+      playTrackBtn(1).click();
+      shouldHaveTrack(1);
+    });
+
+    it("can pause a track from a card", () => {
+      playTrackBtn(1).click();
+      pauseBtn().should("exist");
+      playBtn().should("not.exist");
+      playTrackBtn(1).click();
+      playBtn().should("exist");
+      pauseBtn().should("not.exist");
+    });
   });
 
-  it("can play and pause music", () => {
-    pauseBtn().should("not.exist");
-    playBtn().should("exist");
-    playBtn().click();
-    pauseBtn().should("exist");
-    playBtn().should("not.exist");
-    pauseBtn().click();
-    pauseBtn().should("not.exist");
-    playBtn().should("exist");
-  });
+  context("playlist", () => {
+    it("shows and hides by clicking the button", () => {
+      playlistContainer().should("not.be.visible");
+      playlistBtn().click();
+      playlistContainer().should("be.visible");
+      playlistBtn().click();
+      playlistContainer().should("not.be.visible");
+    });
 
-  it("can change the volume", () => {
-    volBtn().should("exist");
-    volSlider().should("not.be.visible");
-    volBtn().trigger("mouseover");
-    volSlider().should("be.visible");
-    volBtn().trigger("mouseout");
-    volSlider().should("not.be.visible");
-  });
+    it("can play and pause a track", () => {
+      playlistBtn().click();
+      playlistTrack(1).click();
+      playlistTrack(1).get(`[data-test-pause]`).should("be.visible");
+      pauseBtn().should("be.visible");
+      playBtn().should("not.exist");
+      playlistTrack(1).click();
+      playlistTrack(1).get(`[data-test-play]`).should("be.visible");
+      pauseBtn().should("not.exist");
+      playBtn().should("be.visible");
+      playlistTrack(2).click();
+      playlistTrack(2).get(`[data-test-pause]`).should("be.visible");
+      playlistTrack(0).click();
+      playlistTrack(0).get(`[data-test-pause]`).should("be.visible");
+    });
 
-  it("can play a track from a card", () => {
-    playBtn().should("exist");
-    playTrackBtn(2).click();
-    pauseBtn().should("exist");
-    shouldHaveTrack(2);
-    nextBtn().should("be.disabled");
-    playTrackBtn(1).click();
-    shouldHaveTrack(1);
-  });
+    it("has the same track selected than the player", () => {
+      playlistBtn().click();
+      playlistTrack(0).get(`[data-test-play]`).should("be.visible");
+      shouldHaveTrack(0);
+      nextBtn().click();
+      playlistTrack(0).get(`[data-test-play]`).should("not.be.visible");
+      playlistTrack(1).get(`[data-test-pause]`).should("be.visible");
+      shouldHaveTrack(1);
+      pauseBtn().click();
+      playlistTrack(1).get(`[data-test-play]`).should("be.visible");
+    });
 
-  it("can pause a track from a card", () => {
-    playTrackBtn(1).click();
-    pauseBtn().should("exist");
-    playBtn().should("not.exist");
-    playTrackBtn(1).click();
-    playBtn().should("exist");
-    pauseBtn().should("not.exist");
+    it("has a disabled style on the previous trackzs", () => {
+      playlistBtn().click();
+      playlistTrack(2).click();
+      playlistTrack(0).get(`img`).should("have.class", "opacity-40");
+      playlistTrack(1).get(`img`).should("have.class", "opacity-40");
+      playlistTrack(0).click();
+      console.log("Track", trackzs[0].name);
+      cy.pause();
+      playlistTrack(0).get(`img`).should("not.have.class", "opacity-40");
+      playlistTrack(1).get(`img`).should("not.have.class", "opacity-40");
+    });
   });
 });
 
