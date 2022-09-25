@@ -52,12 +52,12 @@ export default function PlaylistTrack({
           {/* TODO: Should create both button and just switch between them */}
           {isPlaying && isSelected ? (
             <AiFillPauseCircle
-              data-test-pause
+              data-test-pause={track.id}
               className="relative stroke-text text-3xl"
             />
           ) : (
             <AiFillPlayCircle
-              data-test-play
+              data-test-play={track.id}
               className="relative stroke-text text-3xl"
             />
           )}
@@ -73,7 +73,7 @@ export default function PlaylistTrack({
         {track.formattedDuration}
       </div>
       <IconButton
-        aria-label={`Remove ${track.name} from the playlist`}
+        aria-label="Remove from the playlist"
         size="xs"
         variant="outline"
         onClick={(e) => {

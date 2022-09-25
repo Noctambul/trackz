@@ -35,6 +35,10 @@ describe("Audio Player", () => {
   const playlistContainer = () => player().get(`[aria-label="Playlist"]`);
   const playlistTrack = (index: number) =>
     playlistContainer().get(`[aria-label="Track ${trackzs[index].name}"]`);
+  const playlistTrackRemoveBtn = (index: number) =>
+    player().get(
+      `[aria-label="Track ${trackzs[index].name}"] [aria-label="Remove from the playlist"]`
+    );
   const playTrackBtn = (index: number) =>
     cy.get(
       `[aria-label="Trackz Card ${trackzs[index].id}"] [aria-label="Play ${trackzs[index].name}"]`
@@ -175,10 +179,22 @@ describe("Audio Player", () => {
       playlistTrack(0).get(`img`).should("have.class", "opacity-40");
       playlistTrack(1).get(`img`).should("have.class", "opacity-40");
       playlistTrack(0).click();
-      console.log("Track", trackzs[0].name);
-      cy.pause();
       playlistTrack(0).get(`img`).should("not.have.class", "opacity-40");
       playlistTrack(1).get(`img`).should("not.have.class", "opacity-40");
+    });
+
+    it("removes a track from the playlist", () => {
+      playlistBtn().click();
+      playlistTrack(1).should("exist");
+      playlistTrackRemoveBtn(1).click();
+      playlistTrack(1).should("not.exist");
+      playlistTrack(0).should("exist");
+      playlistTrackRemoveBtn(0).click();
+      playlistTrack(0).should("not.exist");
+      playlistTrack(2)
+        .get(`[data-test-play="${trackzs[2].id}"]`)
+        .should("be.visible");
+      shouldHaveTrack(2);
     });
   });
 });
