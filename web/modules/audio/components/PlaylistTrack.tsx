@@ -26,12 +26,14 @@ export default function PlaylistTrack({
   pause,
   remove,
 }: Props): JSX.Element {
+  const isPlayingMe = isPlaying && isSelected;
   const backgroundStyle = isSelected ? "bg-lightgray" : "hover:bg-bgc";
+
   return (
     <div
       className={`group flex h-14 w-full cursor-pointer items-center gap-4 ${backgroundStyle} p-4`}
-      aria-label={`Play ${track.name}`}
-      onClick={() => (isPlaying ? pause() : play(track))}
+      aria-label={`Track ${track.name}`}
+      onClick={() => (isPlayingMe ? pause() : play(track))}
       role="button"
     >
       <div className="relative flex h-[38px] w-[38px] shrink-0 items-center justify-center border border-lightgray">
@@ -49,9 +51,15 @@ export default function PlaylistTrack({
         >
           {/* TODO: Should create both button and just switch between them */}
           {isPlaying && isSelected ? (
-            <AiFillPauseCircle className="relative stroke-text text-3xl" />
+            <AiFillPauseCircle
+              data-test-pause
+              className="relative stroke-text text-3xl"
+            />
           ) : (
-            <AiFillPlayCircle className="relative stroke-text text-3xl" />
+            <AiFillPlayCircle
+              data-test-play
+              className="relative stroke-text text-3xl"
+            />
           )}
         </div>
       </div>

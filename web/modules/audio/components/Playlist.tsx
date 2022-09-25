@@ -32,14 +32,15 @@ export default function Playlist({
       <IconButton
         onClick={onToggle}
         variant="audioplayer"
-        aria-label="Playlist"
+        aria-label="Playlist Button"
         icon={<RiPlayListAddFill size={22} />}
       />
 
       <div
         className={`fixed right-0 bottom-14 ${
-          isOpen ? "top-0 sm:top-44" : "top-[100vh]"
+          isOpen ? "visible top-0 sm:top-44" : "invisible top-[100vh]"
         } scrollba<r-hide z-[-1] w-screen overflow-y-scroll rounded bg-white py-2 text-text shadow-player transition-all duration-500 sm:w-[400px]`}
+        aria-label="Playlist"
       >
         <div className="flex w-full flex-col justify-center text-sm">
           {playlist.map((track, index) => {
