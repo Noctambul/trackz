@@ -12,8 +12,12 @@ export default function Header(): JSX.Element {
         color="text"
       >
         <Link href="/">
-          <span role="button" aria-label="Home">
-            TRACK<span className="text-primary">Z</span>
+          <span
+            role="button"
+            aria-label="Home"
+            className="after:text-primary after:content-['Z']"
+          >
+            TRACK
           </span>
         </Link>
       </Heading>
