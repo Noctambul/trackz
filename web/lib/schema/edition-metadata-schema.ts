@@ -2,7 +2,39 @@ import { z } from "zod";
 import BigNumberSchema from "./big-number-schema";
 import EthWalletAddressSchema from "./eth-wallet-address-schema";
 
-const attributeKeys = ["artist", "creator", "tags"] as const;
+export const MusicalGenres = [
+  "rock",
+  "drum-and-bass",
+  "techno",
+  "dubstep",
+  "trap",
+  "metal",
+  "r-and-b",
+  "hip-hop",
+  "rap",
+  "disco",
+  "latin",
+  "dance-and-edm",
+  "folk-and-singer-songwriter",
+  "deep-house",
+  "indie",
+  "dancehall",
+  "ambient",
+  "experimental",
+  "pop",
+  "world",
+  "soundtrack",
+  "house",
+  "reggae",
+  "reggaeton",
+  "alternative-rock",
+  "electronic",
+  "unclassifiable",
+] as const;
+export const MusicalGenreEnumSchema = z.enum(MusicalGenres);
+export type MusicalGenre = z.infer<typeof MusicalGenreEnumSchema>;
+
+const attributeKeys = ["artist", "creator", "tags", "genre"] as const;
 
 const EditionMetadataSchema = z
   .object({
@@ -44,6 +76,7 @@ const EditionMetadataSchema = z
       coverUri: nft.metadata.image,
       musicUri: nft.metadata.animation_url,
       tags: nft.metadata.attributes?.tags,
+      genre: nft.metadata.attributes?.genre,
     };
   });
 

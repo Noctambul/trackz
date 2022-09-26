@@ -16,6 +16,7 @@ export default function useMint() {
   const [isLoading, setIsLoading] = useState(false);
   const { trackzEditionContract } = useEnvironment();
   const { address } = useWeb3();
+  // TODO: useContract
   const contract = useEdition(trackzEditionContract);
   const isOnWrongNetwork = useNetworkMismatch();
   const signer = useSigner();
@@ -31,6 +32,7 @@ export default function useMint() {
     royalties,
     supply,
     tags,
+    genres,
   }: MintInputs) => {
     if (isTestMode)
       return fetch("/api/mint", {
@@ -40,8 +42,11 @@ export default function useMint() {
     if (isLoading) return;
     if (!address || !signer) throw new Error("Wallet not connected");
     if (isOnWrongNetwork) {
-      switchNetwork && switchNetwork(ChainId.Rinkeby);
-      return;
+      if (switchNetwork) {
+        switchNetwork(ChainId.Rinkeby);
+      } else {
+        throw new Error("Wrong network. Please switch and try again.");
+      }
     }
 
     setIsLoading(true);
@@ -69,6 +74,7 @@ export default function useMint() {
           musicUri: uploadedMusic,
           coverUri: uploadedCover,
           tags,
+          genres,
         },
       };
       const signedPayloadReq = await fetch("/api/mint", {
@@ -103,6 +109,7 @@ export default function useMint() {
 
       return nft;
     } catch (e) {
+      console.error(e);
       throw new Error("An error occurred while trying to mint : " + e);
     } finally {
       setIsLoading(false);

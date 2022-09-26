@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { MusicalGenreEnumSchema } from "./edition-metadata-schema";
 import EthWalletAddressSchema from "./eth-wallet-address-schema";
 
 const MintParamsSchema = z.object({
@@ -22,6 +23,7 @@ const MintParamsSchema = z.object({
       )
       .optional(),
     tags: z.string().optional(),
+    genres: MusicalGenreEnumSchema.array().default([]),
   }),
 });
 
