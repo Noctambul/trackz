@@ -21,6 +21,7 @@ module.exports = {
         primary: colors.orange[400],
         text: colors.zinc[900],
         subtext: colors.zinc[500],
+        mediumgray: colors.zinc[400],
         lightgray: colors.zinc[300],
         bgc: "#F9F9F9",
       },

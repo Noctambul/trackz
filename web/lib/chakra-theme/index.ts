@@ -4,6 +4,7 @@ import tailwindConfig from "../../tailwind.config";
 import Button from "./components/button-style";
 import Input from "./components/input-style";
 import Menu from "./components/menu-style";
+import Tag from "./components/tag-style";
 import Textarea from "./components/textarea-style";
 
 const tailwind = resolveConfig(tailwindConfig);
@@ -21,6 +22,7 @@ const theme = extendTheme({
     Menu,
     Input,
     Textarea,
+    Tag,
   },
 });
 
