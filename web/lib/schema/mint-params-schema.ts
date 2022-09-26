@@ -23,7 +23,7 @@ const MintParamsSchema = z.object({
       )
       .optional(),
     tags: z.string().optional(),
-    genres: MusicalGenreEnumSchema.array().default([]),
+    genres: MusicalGenreEnumSchema.array().default([]).optional(),
   }),
 });
 
