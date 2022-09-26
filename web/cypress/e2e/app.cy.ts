@@ -1,7 +1,7 @@
 describe("Navigation", () => {
   it("should display the title", () => {
     cy.visit("/");
-    cy.get("h1").contains("TRACKZ");
+    cy.get("h1").contains("TRACK");
   });
 });
 
