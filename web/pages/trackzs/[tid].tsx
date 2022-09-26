@@ -69,6 +69,20 @@ export default function TrackPage(): JSX.Element {
 
           <p aria-label="Track Description">{track?.metadata.description}</p>
 
+          <Heading size="md" as="h3" aria-label="Track Tags">
+            Musical Genres
+          </Heading>
+          <div className="flex gap-2" aria-label="Track Tags">
+            {track?.metadata.genres?.map((genre) => (
+              <Tag variant="outline" key={genre}>
+                {genre}
+              </Tag>
+            ))}
+          </div>
+
+          <Heading size="md" as="h3" aria-label="Track Tags">
+            Tags
+          </Heading>
           <div className="flex gap-2" aria-label="Track Tags">
             {track?.metadata.tags?.split(",").map((tag) => (
               <Tag variant="outline" key={tag}>

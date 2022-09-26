@@ -34,7 +34,7 @@ export const MusicalGenres = [
 export const MusicalGenreEnumSchema = z.enum(MusicalGenres);
 export type MusicalGenre = z.infer<typeof MusicalGenreEnumSchema>;
 
-const attributeKeys = ["artist", "creator", "tags", "genre"] as const;
+const attributeKeys = ["artist", "creator", "tags", "genres"] as const;
 
 const EditionMetadataSchema = z
   .object({
@@ -59,6 +59,16 @@ const EditionMetadataSchema = z
             acc[val.trait_type] = val.value;
             return acc;
           }, {} as Record<typeof attributeKeys[number], string>)
+        )
+        .or(
+          z
+            .object({
+              artist: z.string(),
+              creator: z.string(),
+              tags: z.string(),
+              genres: z.string(),
+            })
+            .partial()
         ),
     }),
   })
@@ -76,7 +86,7 @@ const EditionMetadataSchema = z
       coverUri: nft.metadata.image,
       musicUri: nft.metadata.animation_url,
       tags: nft.metadata.attributes?.tags,
-      genre: nft.metadata.attributes?.genre,
+      genre: nft.metadata.attributes?.genres,
     };
   });
 
