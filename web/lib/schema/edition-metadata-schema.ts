@@ -2,7 +2,39 @@ import { z } from "zod";
 import BigNumberSchema from "./big-number-schema";
 import EthWalletAddressSchema from "./eth-wallet-address-schema";
 
-const attributeKeys = ["artist", "creator", "tags"] as const;
+export const MusicalGenres = [
+  "rock",
+  "drum-and-bass",
+  "techno",
+  "dubstep",
+  "trap",
+  "metal",
+  "r-and-b",
+  "hip-hop",
+  "rap",
+  "disco",
+  "latin",
+  "dance-and-edm",
+  "folk-and-singer-songwriter",
+  "deep-house",
+  "indie",
+  "dancehall",
+  "ambient",
+  "experimental",
+  "pop",
+  "world",
+  "soundtrack",
+  "house",
+  "reggae",
+  "reggaeton",
+  "alternative-rock",
+  "electronic",
+  "unclassifiable",
+] as const;
+export const MusicalGenreEnumSchema = z.enum(MusicalGenres);
+export type MusicalGenre = z.infer<typeof MusicalGenreEnumSchema>;
+
+const attributeKeys = ["artist", "creator", "tags", "genres"] as const;
 
 const EditionMetadataSchema = z
   .object({
@@ -27,6 +59,16 @@ const EditionMetadataSchema = z
             acc[val.trait_type] = val.value;
             return acc;
           }, {} as Record<typeof attributeKeys[number], string>)
+        )
+        .or(
+          z
+            .object({
+              artist: z.string(),
+              creator: z.string(),
+              tags: z.string(),
+              genres: z.array(z.string()), //.transform((str: string) => str.split(",")),
+            })
+            .partial()
         ),
     }),
   })
@@ -44,6 +86,10 @@ const EditionMetadataSchema = z
       coverUri: nft.metadata.image,
       musicUri: nft.metadata.animation_url,
       tags: nft.metadata.attributes?.tags,
+      genres:
+        typeof nft.metadata.attributes?.genres === "string"
+          ? [nft.metadata.attributes?.genres]
+          : nft.metadata.attributes?.genres || [],
     };
   });
 

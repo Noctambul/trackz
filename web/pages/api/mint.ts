@@ -34,6 +34,7 @@ export default async function mint(req: NextApiRequest, res: NextApiResponse) {
         tags: metadata.tags || "",
         artist: authorAddress,
         type: "mp3",
+        genres: metadata.genres,
       },
       // properties: {
       //   custom_tag: metadata.tags || "",

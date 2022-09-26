@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { MusicalGenreEnumSchema } from "./edition-metadata-schema";
 import { zodAudioFile, zodImageFile } from "./zod-helpers";
 
 const MintFormSchema: z.ZodSchema<any, z.ZodTypeDef, any> = z.object({
@@ -10,6 +11,7 @@ const MintFormSchema: z.ZodSchema<any, z.ZodTypeDef, any> = z.object({
     .max(30, { message: "Title must contain at most 30 characters" }),
   description: z.string().optional(),
   tags: z.string().optional(),
+  genres: MusicalGenreEnumSchema.array().default([]),
   supply: z.preprocess(
     (str) => parseInt(str as string, 10),
     z.number().int().positive()

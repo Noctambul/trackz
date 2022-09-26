@@ -8,4 +8,5 @@ export default interface TrackzMetadata {
   musicUri: string;
   tags?: string;
   price?: number;
+  genres?: string[];
 }

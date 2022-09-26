@@ -13,14 +13,16 @@ import {
 } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import PageContainer from "common/components/PageContainer/PageContainer";
+import TagSelector from "common/components/uikit/TagSelector";
 import { useWeb3 } from "common/context/Web3Context";
 import useMint from "common/hooks/useMint";
+import { MusicalGenres } from "lib/schema/edition-metadata-schema";
 import {
   default as MintFormSchema,
   MintInputs,
 } from "lib/schema/mint-form-schema";
 import { useRouter } from "next/router";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
 
 export default function MintPage(): JSX.Element {
   const { mintWithSignature, currentStateLabel } = useMint();
@@ -31,6 +33,7 @@ export default function MintPage(): JSX.Element {
   const {
     handleSubmit,
     register,
+    control,
     formState: { errors, isSubmitting },
   } = useForm<MintInputs>({
     mode: "onChange",
@@ -44,7 +47,7 @@ export default function MintPage(): JSX.Element {
 
       await router.push("/");
       toast({
-        id: "mint",
+        id: "mint-succeed",
         title: "Mint succeed",
         description: `${data.name} is now available on the plateform`,
         status: "success",
@@ -53,8 +56,9 @@ export default function MintPage(): JSX.Element {
         position: "top",
       });
     } catch (e) {
+      console.error(e);
       toast({
-        id: "mint",
+        id: "mint-failed",
         title: "Mint failed",
         description: `Impossible to mint ${data.name}, please try again`,
         status: "error",
@@ -62,7 +66,6 @@ export default function MintPage(): JSX.Element {
         isClosable: true,
         position: "top",
       });
-      throw e;
     }
   };
 
@@ -134,6 +137,21 @@ export default function MintPage(): JSX.Element {
           <FormErrorMessage>
             {errors.description?.message as string}
           </FormErrorMessage>
+        </FormControl>
+
+        <FormControl isInvalid={!!errors.genres} isDisabled={isSubmitting}>
+          <FormLabel>Musical Genres</FormLabel>
+          <Controller
+            control={control}
+            name="genres"
+            render={({ field: { onChange, onBlur, value, ref } }) => (
+              <TagSelector
+                options={MusicalGenres}
+                onChange={onChange}
+                value={value}
+              />
+            )}
+          />
         </FormControl>
 
         <FormControl isInvalid={!!errors.tags} isDisabled={isSubmitting}>
