@@ -12,13 +12,13 @@ const MintParamsSchema = z.object({
     musicUri: z
       .string()
       .regex(
-        /^ipfs:\/\/[a-zA-Z0-9]{46}\/[0-9-a-zA-Z]*.mp3$/g,
+        /^ipfs:\/\/[a-zA-Z0-9]{46}\/.*?.mp3$/g,
         "musicUri has wrong format"
       ),
     coverUri: z
       .string()
       .regex(
-        /^ipfs:\/\/[a-zA-Z0-9]{46}\/[0-9-a-zA-Z]*.(jpg|png|jpeg|bmp|gif|heic)$/g,
+        /^ipfs:\/\/[a-zA-Z0-9]{46}\/.*?.(jpg|png|jpeg|bmp|gif|heic)$/g,
         "coverUri has wrong format"
       )
       .optional(),

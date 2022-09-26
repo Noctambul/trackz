@@ -10,7 +10,7 @@ export default function Test(): JSX.Element {
       <div className="flex h-screen w-screen items-center justify-center">
         <TagSelector
           options={MusicalGenres}
-          values={genres}
+          value={genres}
           onChange={setGenres}
         />
       </div>
