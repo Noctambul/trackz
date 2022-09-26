@@ -66,7 +66,7 @@ const EditionMetadataSchema = z
               artist: z.string(),
               creator: z.string(),
               tags: z.string(),
-              genres: z.string().array(), //.transform((str: string) => str.split(",")),
+              genres: z.array(z.string()), //.transform((str: string) => str.split(",")),
             })
             .partial()
         ),
@@ -86,7 +86,10 @@ const EditionMetadataSchema = z
       coverUri: nft.metadata.image,
       musicUri: nft.metadata.animation_url,
       tags: nft.metadata.attributes?.tags,
-      genres: nft.metadata.attributes?.genres,
+      genres:
+        typeof nft.metadata.attributes?.genres === "string"
+          ? [nft.metadata.attributes?.genres]
+          : nft.metadata.attributes?.genres || [],
     };
   });
 
