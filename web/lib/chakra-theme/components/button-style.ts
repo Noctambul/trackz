@@ -11,7 +11,19 @@ const ButtonStyle: ComponentSingleStyleConfig = {
   variants: {
     solid: {
       bg: "text",
+      _disabled: {
+        bg: "mediumgray",
+      },
+      _loading: {
+        bg: "mediumgray",
+      },
       _hover: {
+        _disabled: {
+          bg: "mediumgray",
+        },
+        _loading: {
+          bg: "mediumgray",
+        },
         bg: "subtext",
       },
     },
