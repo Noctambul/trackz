@@ -38,13 +38,13 @@ export default function TagSelector({
         ))}
       </div>
       <div className="flex flex-wrap gap-2 border p-4">
-        {value.map((genre: string) => (
-          <Tag key={genre}>
-            <TagLabel>{genre}</TagLabel>
+        {value.map((val: string) => (
+          <Tag key={val}>
+            <TagLabel>{val}</TagLabel>
             <TagCloseButton
               onClick={(e) => {
                 e.preventDefault();
-                onChange(value.filter((v: string) => v !== genre));
+                onChange(value.filter((v: string) => v !== val));
               }}
             />
           </Tag>

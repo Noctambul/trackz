@@ -66,7 +66,7 @@ const EditionMetadataSchema = z
               artist: z.string(),
               creator: z.string(),
               tags: z.string(),
-              genres: z.string(),
+              genres: z.string().array(), //.transform((str: string) => str.split(",")),
             })
             .partial()
         ),
@@ -86,7 +86,7 @@ const EditionMetadataSchema = z
       coverUri: nft.metadata.image,
       musicUri: nft.metadata.animation_url,
       tags: nft.metadata.attributes?.tags,
-      genre: nft.metadata.attributes?.genres,
+      genres: nft.metadata.attributes?.genres,
     };
   });
 
