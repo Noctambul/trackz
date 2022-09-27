@@ -7,7 +7,7 @@ import {
 } from "react";
 
 type PlaylistInterface<T> = {
-  // setPlaylist: Dispatch<SetStateAction<T[]>>;
+  setPlaylist: Dispatch<SetStateAction<T[]>>;
   playlist: T[];
   index: number;
   next: () => void;
@@ -82,5 +82,6 @@ export default function usePlaylist<T>(
     canNext,
     canPrev,
     removeIndex,
+    setPlaylist,
   };
 }

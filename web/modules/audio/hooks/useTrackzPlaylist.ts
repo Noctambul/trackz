@@ -1,5 +1,5 @@
 import AudioTrackz from "modules/audio/models/AudioTrackz";
-import { useEffect } from "react";
+import { Dispatch, SetStateAction, useEffect } from "react";
 import usePlaylist from "./usePlaylist";
 
 /**
@@ -9,6 +9,7 @@ import usePlaylist from "./usePlaylist";
 const DEFAULT_PRELOAD_BUFFER = 3;
 
 type TrackzPlaylistInterface = {
+  setPlaylist: Dispatch<SetStateAction<AudioTrackz[]>>;
   selectedTrackz: AudioTrackz | undefined;
   next: () => void;
   previous: () => void;
@@ -34,6 +35,7 @@ export default function useTrackzPlaylist(
     canNext,
     canPrev,
     removeIndex,
+    setPlaylist,
   } = usePlaylist<AudioTrackz>(trackzs, false);
 
   useEffect(() => {
@@ -85,5 +87,6 @@ export default function useTrackzPlaylist(
     canNext,
     canPrev,
     currentIndex: index,
+    setPlaylist,
   };
 }
