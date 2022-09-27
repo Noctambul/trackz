@@ -77,7 +77,6 @@ export default function PlaylistTrack({
         size="xs"
         variant="outline"
         onClick={(e) => {
-          console.log("Remove ", track.id);
           e.preventDefault();
           e.stopPropagation();
           remove(track);

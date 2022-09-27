@@ -33,7 +33,7 @@ export default function useTrackzPlaylist(
     select,
     canNext,
     canPrev,
-    setPlaylist,
+    removeIndex,
   } = usePlaylist<AudioTrackz>(trackzs, false);
 
   useEffect(() => {
@@ -67,8 +67,13 @@ export default function useTrackzPlaylist(
   const setSelectedTrackz = (trackId: number) =>
     select(playlist.findIndex((track) => track.id === trackId));
 
-  const removeTrackz = (track: AudioTrackz) =>
-    setPlaylist((playlist) => playlist.filter((t) => t.id !== track.id));
+  const removeTrackz = (track: AudioTrackz) => {
+    // Stop the track if it is the one that is playing
+    if (track.isPlaying) {
+      track.stop();
+    }
+    removeIndex(playlist.findIndex((t) => t.id === track.id));
+  };
 
   return {
     selectedTrackz: selected,

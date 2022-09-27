@@ -7,13 +7,14 @@ import {
 } from "react";
 
 type PlaylistInterface<T> = {
-  setPlaylist: Dispatch<SetStateAction<T[]>>;
+  // setPlaylist: Dispatch<SetStateAction<T[]>>;
   playlist: T[];
   index: number;
   next: () => void;
   previous: () => void;
   selected: T;
   select: (index: number) => void;
+  removeIndex: (index: number) => void;
   setIsLoopMode: Dispatch<SetStateAction<boolean>>;
   canNext: boolean;
   canPrev: boolean;
@@ -57,8 +58,20 @@ export default function usePlaylist<T>(
     if (index >= 0 && index < playlist.length) setIndex(index);
   };
 
+  const removeIndex = (removeIndex: number) => {
+    if (removeIndex < 0 || removeIndex >= playlist.length) return;
+
+    const cloned = [...playlist];
+    cloned.splice(removeIndex, 1);
+    setPlaylist(cloned);
+
+    // If the index is before the current selected index then we have to modify it accordingly
+    if (removeIndex < index) {
+      setIndex(index - 1);
+    }
+  };
+
   return {
-    setPlaylist,
     playlist,
     index,
     next,
@@ -68,5 +81,6 @@ export default function usePlaylist<T>(
     setIsLoopMode,
     canNext,
     canPrev,
+    removeIndex,
   };
 }
