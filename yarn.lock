@@ -2291,10 +2291,10 @@
   resolved "https://registry.yarnpkg.com/@thirdweb-dev/contracts/-/contracts-3.1.6.tgz#184d41c2af4738bd83f5469acbfd4f6d81e8ace5"
   integrity sha512-1SqEs/Zcxl/8BC6o6KBN8ETvthRFBDduJ7TXx60R9JS3RqrhdWID8XFmlHGEQevx0JW9KkovheOrsykX2zxNTA==
 
-"@thirdweb-dev/react@3.0.8":
-  version "3.0.8"
-  resolved "https://registry.yarnpkg.com/@thirdweb-dev/react/-/react-3.0.8.tgz#31eb39e2c9ff4b5aad21e0f65faabf1c1c3895ee"
-  integrity sha512-ugYmnuXBy5KfC+gefFm8YJUBDm8tzQkJJVYDgXUjpu9T1WkiNqpSdTiMNG4C6+Mhh4Zp6SjGG4O6Znc0YpLh6A==
+"@thirdweb-dev/react@3.1.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@thirdweb-dev/react/-/react-3.1.0.tgz#b54c6371711d571da2ab3d80fb3213d665e6107b"
+  integrity sha512-VHoaP9ZcbTCoE2rQyXDgnZ/niVjsaR1vwxp5Gd5/bt/4wOoOK6foClR9/WF3b8HN2OKgtqBsPm9zLRFrhN0R0Q==
   dependencies:
     "@emotion/react" "^11.10.0"
     "@emotion/styled" "^11.10.0"
@@ -2303,7 +2303,7 @@
     "@gnosis.pm/safe-ethers-lib" "1.1.0"
     "@react-icons/all-files" "^4.1.0"
     "@tanstack/react-query" "^4.0.10"
-    "@zag-js/menu" "^0.1.11"
+    "@zag-js/menu" "0.1.14"
     "@zag-js/react" "0.1.16"
     color "^4.2.3"
     copy-to-clipboard "^3.3.2"
@@ -2891,7 +2891,7 @@
   resolved "https://registry.yarnpkg.com/@zag-js/interact-outside/-/interact-outside-0.1.4.tgz#9ab962abb48494b6821c0508054f2b608e795276"
   integrity sha512-GeDWrb9WrJ8tQTaPF1KaUUfVbAotM/1ltdHnksa+03uQ+WVOgmDF+6Qmd57EnQgGu7htpA2dNLHsqXAp6aPrrQ==
 
-"@zag-js/menu@^0.1.11":
+"@zag-js/menu@0.1.14":
   version "0.1.14"
   resolved "https://registry.yarnpkg.com/@zag-js/menu/-/menu-0.1.14.tgz#696434a8f3b222fb0fe9f9342ab92bbdac081195"
   integrity sha512-T/NUHMjiI50IOQS4I9DyMLHL/LUwoXvOLrYoVgNCxyyDWfCtBWSztBYNiVHUhJFCVlPfLkyevcxl6JRIjvQkPA==
