@@ -49,6 +49,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     playlist,
     currentIndex,
     removeTrackz,
+    setPlaylist,
   } = useTrackzPlaylist(audioTrackzs);
   const [isPlaying, setIsplaying] = useState(false);
   const [trackProgress, setTrackProgress] = useState(0);
@@ -90,9 +91,25 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
 
   const play = (track?: TrackzMetadata | AudioTrackz) => {
     const metadata = track instanceof AudioTrackz ? track.metadata : track;
-    if (metadata && selectedTrackz && metadata.id != selectedTrackz?.id) {
-      selectedTrackz.stop();
-      setSelectedTrackz(metadata.id);
+
+    if (metadata && track) {
+      const isInPlaylist = playlist.find((t) => t.id === metadata.id);
+
+      if (!isInPlaylist) {
+        const audioTrack =
+          track instanceof AudioTrackz
+            ? track
+            : audioTrackzs.find((t) => t.id === track.id);
+
+        if (!audioTrack) return;
+
+        setPlaylist([audioTrack]);
+      }
+
+      if (selectedTrackz && metadata.id !== selectedTrackz.id) {
+        selectedTrackz.stop();
+        setSelectedTrackz(metadata.id);
+      }
     }
     setIsplaying(true);
   };

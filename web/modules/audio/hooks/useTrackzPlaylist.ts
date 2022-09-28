@@ -1,5 +1,5 @@
 import AudioTrackz from "modules/audio/models/AudioTrackz";
-import { useEffect } from "react";
+import { Dispatch, SetStateAction, useEffect } from "react";
 import usePlaylist from "./usePlaylist";
 
 /**
@@ -9,6 +9,7 @@ import usePlaylist from "./usePlaylist";
 const DEFAULT_PRELOAD_BUFFER = 3;
 
 type TrackzPlaylistInterface = {
+  setPlaylist: Dispatch<SetStateAction<AudioTrackz[]>>;
   selectedTrackz: AudioTrackz | undefined;
   next: () => void;
   previous: () => void;
@@ -33,6 +34,7 @@ export default function useTrackzPlaylist(
     select,
     canNext,
     canPrev,
+    removeIndex,
     setPlaylist,
   } = usePlaylist<AudioTrackz>(trackzs, false);
 
@@ -67,8 +69,13 @@ export default function useTrackzPlaylist(
   const setSelectedTrackz = (trackId: number) =>
     select(playlist.findIndex((track) => track.id === trackId));
 
-  const removeTrackz = (track: AudioTrackz) =>
-    setPlaylist((playlist) => playlist.filter((t) => t.id !== track.id));
+  const removeTrackz = (track: AudioTrackz) => {
+    // Stop the track if it is the one that is playing
+    if (track.isPlaying) {
+      track.stop();
+    }
+    removeIndex(playlist.findIndex((t) => t.id === track.id));
+  };
 
   return {
     selectedTrackz: selected,
@@ -80,5 +87,6 @@ export default function useTrackzPlaylist(
     canNext,
     canPrev,
     currentIndex: index,
+    setPlaylist,
   };
 }

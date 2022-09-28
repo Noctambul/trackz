@@ -200,6 +200,29 @@ describe("Audio Player", () => {
         .should("be.visible");
       shouldHaveTrack(2);
     });
+
+    it("removes a track that is before the current selected one", () => {
+      playlistBtn().click();
+      playlistTrack(2).click();
+      shouldHaveTrack(2);
+      playlistTrackRemoveBtn(0).click();
+      shouldHaveTrack(2);
+      pauseBtn().should("be.visible");
+      playlistTrackRemoveBtn(1).click();
+      shouldHaveTrack(2);
+      pauseBtn().should("be.visible");
+    });
+
+    it("reset the playlist when playing a track that is not in the playlist", () => {
+      playlistBtn().click();
+      playlistTrackRemoveBtn(1).click();
+      playTrackBtn(1).click();
+      shouldHaveTrack(1);
+      playlistTrack(1).should("be.visible");
+      playlistTrack(0).should("not.exist");
+      playlistTrack(2).should("not.exist");
+      pauseBtn().should("be.visible");
+    });
   });
 });
 
