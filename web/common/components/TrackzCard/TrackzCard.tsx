@@ -11,9 +11,9 @@ export default function TrackzCard({ track }: Props): JSX.Element {
   const { resolveLink } = useIpfs();
 
   return (
-    <div className="flex h-[400px] w-[330px] flex-col items-center rounded-lg bg-white py-2 shadow-md">
+    <div className="flex h-full w-full flex-col items-center rounded-lg bg-white py-2 shadow-md">
       <Link href={`trackzs/${track.id}`}>
-        <div className="aspect-square relative h-[330px] w-[320px] cursor-pointer overflow-hidden rounded-md border border-lightgray">
+        <div className="aspect-square relative h-full w-[calc(100%-0.9rem)] cursor-pointer overflow-hidden rounded-md border border-lightgray">
           <Image
             src={track.coverUri}
             alt={track.name}
