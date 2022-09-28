@@ -38,7 +38,10 @@ export default function usePlaylist<T>(
   }, [index, playlist]);
 
   useEffect(() => {
-    setPlaylist(initialPlaylist);
+    if (playlist.length === 0) {
+      setPlaylist(initialPlaylist);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialPlaylist]);
 
   useEffect(() => {
