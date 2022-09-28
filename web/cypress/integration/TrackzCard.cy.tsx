@@ -1,4 +1,4 @@
-import TrackzCard from "common/components/TrackzCard/TrackzCard";
+import TrackzCard from "common/components/TrackzCard/TrackzCardSoundcloud";
 import { formatTime } from "common/hooks/useTime";
 import AudioTrackz from "modules/audio/models/AudioTrackz";
 import trackzs from "../fixtures/trackzs";
