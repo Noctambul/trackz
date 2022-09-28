@@ -7,7 +7,7 @@ type Props = {
 
 export default function TrackzCardList({ trackzs }: Props): JSX.Element {
   return (
-    <div className="grid grid-flow-row grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3  lg:grid-cols-4">
+    <div className="grid grid-flow-row grid-cols-1 gap-8 sm:grid-cols-2  md:grid-cols-3 lg:grid-cols-4">
       {trackzs.map((track) => (
         <div
           key={track.id}
