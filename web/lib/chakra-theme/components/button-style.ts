@@ -30,6 +30,9 @@ const ButtonStyle: ComponentSingleStyleConfig = {
     link: {
       _hover: {
         color: "mediumgray",
+        _disabled: {
+          color: "inherit",
+        },
       },
     },
     audioplayer: {

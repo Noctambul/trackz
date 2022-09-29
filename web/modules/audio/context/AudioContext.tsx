@@ -26,6 +26,7 @@ export interface AudioContextInterface {
   toNextTrack: () => void;
   addTrackz: (track: AudioTrackz) => void;
   removeAt: (index: number) => void;
+  clearPlaylist: () => void;
 }
 
 const AudioContext = createContext<AudioContextInterface | null>(null);
@@ -50,6 +51,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     playlist,
     currentIndex,
     removeAt,
+    clearPlaylist,
     setPlaylist,
     addTrackz,
   } = useTrackzPlaylist(audioTrackzs);
@@ -196,6 +198,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
         isMuted,
         toggleMute,
         addTrackz,
+        clearPlaylist,
       }}
     >
       {children}

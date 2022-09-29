@@ -17,6 +17,7 @@ type TrackzPlaylistInterface = {
   addTrackz: (track: AudioTrackz) => void;
   setSelectedTrackz: (id: number) => void;
   removeAt: (index: number) => void;
+  clearPlaylist: () => void;
   canNext: boolean;
   canPrev: boolean;
   currentIndex: number;
@@ -36,6 +37,7 @@ export default function useTrackzPlaylist(
     canNext,
     canPrev,
     removeAt: remove,
+    clear,
     add,
     setPlaylist,
   } = usePlaylist<AudioTrackz>(trackzs, false);
@@ -83,6 +85,7 @@ export default function useTrackzPlaylist(
   };
 
   return {
+    clearPlaylist: clear,
     selectedTrackz: selected,
     addTrackz: add,
     removeAt,

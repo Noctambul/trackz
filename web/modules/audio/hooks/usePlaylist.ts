@@ -16,6 +16,7 @@ type PlaylistInterface<T> = {
   selected: T;
   select: (index: number) => void;
   removeAt: (index: number) => void;
+  clear: () => void;
   setIsLoopMode: Dispatch<SetStateAction<boolean>>;
   canNext: boolean;
   canPrev: boolean;
@@ -79,6 +80,8 @@ export default function usePlaylist<T>(
     setPlaylist([...playlist, item]);
   };
 
+  const clear = () => setPlaylist([selected]);
+
   return {
     playlist,
     index,
@@ -92,5 +95,6 @@ export default function usePlaylist<T>(
     add,
     removeAt,
     setPlaylist,
+    clear,
   };
 }
