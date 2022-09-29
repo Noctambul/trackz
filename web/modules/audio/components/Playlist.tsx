@@ -1,4 +1,5 @@
 import { IconButton, useDisclosure } from "@chakra-ui/react";
+import { AiOutlineClose } from "react-icons/ai";
 import { RiPlayListAddFill } from "react-icons/ri";
 import { useAudio } from "../context/AudioContext";
 import PlaylistTrack from "./PlaylistTrack";
@@ -25,6 +26,15 @@ export default function Playlist({}: Props): JSX.Element {
         } z-[-1] w-screen overflow-y-scroll rounded bg-white py-2 text-text shadow-player transition-all duration-500 scrollbar-hide sm:w-[400px]`}
         aria-label="Playlist"
       >
+        <div className="flex h-12 flex-row-reverse px-2">
+          <IconButton
+            color="text"
+            variant="link"
+            icon={<AiOutlineClose size={20} />}
+            aria-label="Close Playlist"
+            onClick={onToggle}
+          />
+        </div>
         <div className="flex w-full flex-col justify-center text-sm">
           {playlist.map((track, index) => {
             const isSelected = index === currentIndex;
