@@ -14,7 +14,7 @@ type Props = {
   track: AudioTrackz;
   play: (track: AudioTrackz) => void;
   pause: () => void;
-  remove: (track: AudioTrackz) => void;
+  remove: () => void;
 };
 
 export default function PlaylistTrack({
@@ -79,7 +79,7 @@ export default function PlaylistTrack({
         onClick={(e) => {
           e.preventDefault();
           e.stopPropagation();
-          remove(track);
+          remove();
         }}
         icon={<AiOutlineCloseSquare />}
       />

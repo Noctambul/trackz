@@ -16,7 +16,6 @@ export interface AudioContextInterface {
   canPrev: boolean;
   isMuted: boolean;
   playlist: AudioTrackz[];
-  removeTrackz: (track: AudioTrackz) => void;
   toggleMute: () => void;
   setVolume: (volume: number) => void;
   play: (trackz?: TrackzMetadata | AudioTrackz) => void;
@@ -25,6 +24,8 @@ export interface AudioContextInterface {
   onSearchEnd: (seconds: number) => void;
   toPreviousTrack: () => void;
   toNextTrack: () => void;
+  addTrackz: (track: AudioTrackz) => void;
+  removeAt: (index: number) => void;
 }
 
 const AudioContext = createContext<AudioContextInterface | null>(null);
@@ -48,8 +49,9 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     canPrev,
     playlist,
     currentIndex,
-    removeTrackz,
+    removeAt,
     setPlaylist,
+    addTrackz,
   } = useTrackzPlaylist(audioTrackzs);
   const [isPlaying, setIsplaying] = useState(false);
   const [trackProgress, setTrackProgress] = useState(0);
@@ -174,7 +176,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   return (
     <AudioContext.Provider
       value={{
-        removeTrackz,
+        removeAt,
         isPlaying,
         playlist,
         play,
@@ -193,6 +195,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
         canPrev,
         isMuted,
         toggleMute,
+        addTrackz,
       }}
     >
       {children}

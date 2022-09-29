@@ -14,8 +14,9 @@ type TrackzPlaylistInterface = {
   next: () => void;
   previous: () => void;
   playlist: AudioTrackz[];
+  addTrackz: (track: AudioTrackz) => void;
   setSelectedTrackz: (id: number) => void;
-  removeTrackz: (track: AudioTrackz) => void;
+  removeAt: (index: number) => void;
   canNext: boolean;
   canPrev: boolean;
   currentIndex: number;
@@ -34,7 +35,8 @@ export default function useTrackzPlaylist(
     select,
     canNext,
     canPrev,
-    removeIndex,
+    removeAt: remove,
+    add,
     setPlaylist,
   } = usePlaylist<AudioTrackz>(trackzs, false);
 
@@ -69,17 +71,21 @@ export default function useTrackzPlaylist(
   const setSelectedTrackz = (trackId: number) =>
     select(playlist.findIndex((track) => track.id === trackId));
 
-  const removeTrackz = (track: AudioTrackz) => {
+  const removeAt = (removeIndex: number) => {
+    const track = playlist[removeIndex];
+
     // Stop the track if it is the one that is playing
     if (track.isPlaying) {
       track.stop();
     }
-    removeIndex(playlist.findIndex((t) => t.id === track.id));
+
+    remove(removeIndex);
   };
 
   return {
     selectedTrackz: selected,
-    removeTrackz,
+    addTrackz: add,
+    removeAt,
     next,
     previous,
     playlist,

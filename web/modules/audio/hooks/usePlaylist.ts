@@ -9,12 +9,13 @@ import {
 type PlaylistInterface<T> = {
   setPlaylist: Dispatch<SetStateAction<T[]>>;
   playlist: T[];
+  add: (item: T) => void;
   index: number;
   next: () => void;
   previous: () => void;
   selected: T;
   select: (index: number) => void;
-  removeIndex: (index: number) => void;
+  removeAt: (index: number) => void;
   setIsLoopMode: Dispatch<SetStateAction<boolean>>;
   canNext: boolean;
   canPrev: boolean;
@@ -61,7 +62,7 @@ export default function usePlaylist<T>(
     if (index >= 0 && index < playlist.length) setIndex(index);
   };
 
-  const removeIndex = (removeIndex: number) => {
+  const removeAt = (removeIndex: number) => {
     if (removeIndex < 0 || removeIndex >= playlist.length) return;
 
     const cloned = [...playlist];
@@ -74,6 +75,10 @@ export default function usePlaylist<T>(
     }
   };
 
+  const add = (item: T) => {
+    setPlaylist([...playlist, item]);
+  };
+
   return {
     playlist,
     index,
@@ -84,7 +89,8 @@ export default function usePlaylist<T>(
     setIsLoopMode,
     canNext,
     canPrev,
-    removeIndex,
+    add,
+    removeAt,
     setPlaylist,
   };
 }
