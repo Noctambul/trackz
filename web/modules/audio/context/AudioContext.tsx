@@ -16,7 +16,6 @@ export interface AudioContextInterface {
   canPrev: boolean;
   isMuted: boolean;
   playlist: AudioTrackz[];
-  removeTrackz: (track: AudioTrackz) => void;
   toggleMute: () => void;
   setVolume: (volume: number) => void;
   play: (trackz?: TrackzMetadata | AudioTrackz) => void;
@@ -25,6 +24,9 @@ export interface AudioContextInterface {
   onSearchEnd: (seconds: number) => void;
   toPreviousTrack: () => void;
   toNextTrack: () => void;
+  addTrackz: (track: AudioTrackz) => void;
+  removeAt: (index: number) => void;
+  clearPlaylist: () => void;
 }
 
 const AudioContext = createContext<AudioContextInterface | null>(null);
@@ -48,8 +50,10 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     canPrev,
     playlist,
     currentIndex,
-    removeTrackz,
+    removeAt,
+    clearPlaylist,
     setPlaylist,
+    addTrackz,
   } = useTrackzPlaylist(audioTrackzs);
   const [isPlaying, setIsplaying] = useState(false);
   const [trackProgress, setTrackProgress] = useState(0);
@@ -68,15 +72,15 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     selectedTrackz?.volume(volume);
     setIsMuted(volume === 0);
-  }, [volume, selectedTrackz]);
+  }, [volume, selectedTrackz, currentIndex]);
 
   useEffect(() => {
     selectedTrackz?.mute(isMuted);
-  }, [isMuted, selectedTrackz]);
+  }, [isMuted, selectedTrackz, currentIndex]);
 
   useEffect(() => {
     setTrackProgress(Math.round(selectedTrackz?.progress || 0));
-  }, [selectedTrackz]);
+  }, [selectedTrackz, currentIndex]);
 
   useEffect(() => {
     if (isPlaying) {
@@ -87,7 +91,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
       selectedTrackz?.pause();
     }
     // Use callback to add starttimer to the dependencies or usememo ?
-  }, [isPlaying, selectedTrackz]);
+  }, [isPlaying, selectedTrackz, currentIndex]);
 
   const play = (track?: TrackzMetadata | AudioTrackz) => {
     const metadata = track instanceof AudioTrackz ? track.metadata : track;
@@ -95,6 +99,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     if (metadata && track) {
       const isInPlaylist = playlist.find((t) => t.id === metadata.id);
 
+      // If not in the playlist then set a new playlist
       if (!isInPlaylist) {
         const audioTrack =
           track instanceof AudioTrackz
@@ -174,7 +179,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   return (
     <AudioContext.Provider
       value={{
-        removeTrackz,
+        removeAt,
         isPlaying,
         playlist,
         play,
@@ -193,6 +198,8 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
         canPrev,
         isMuted,
         toggleMute,
+        addTrackz,
+        clearPlaylist,
       }}
     >
       {children}

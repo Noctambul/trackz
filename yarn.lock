@@ -3724,7 +3724,6 @@ available-typed-arrays@^1.0.5:
 
 "avsc@https://github.com/Bundlr-Network/avsc#csp-fixes":
   version "5.4.7"
-  uid a730cc8018b79e114b6a3381bbb57760a24c6cef
   resolved "https://github.com/Bundlr-Network/avsc#a730cc8018b79e114b6a3381bbb57760a24c6cef"
 
 aws-sign2@~0.7.0:

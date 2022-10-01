@@ -37,10 +37,7 @@ export default function TrackPage(): JSX.Element {
   }, [router.isReady, playlist, router.query]);
 
   return (
-    <PageContainer
-      isLoading={!Boolean(track)}
-      // disableMargins
-    >
+    <PageContainer isLoading={!Boolean(track)}>
       <div className="flex h-full w-full flex-col items-center">
         <div className="relative h-[95vh] w-full">
           <Image
@@ -84,11 +81,14 @@ export default function TrackPage(): JSX.Element {
             Tags
           </Heading>
           <div className="flex gap-2" aria-label="Track Tags">
-            {track?.metadata.tags?.split(",").map((tag) => (
-              <Tag variant="outline" key={tag}>
-                {tag}
-              </Tag>
-            ))}
+            {track?.metadata.tags
+              ?.split(",")
+              .filter((tag) => Boolean(tag))
+              .map((tag) => (
+                <Tag variant="outline" key={tag}>
+                  {tag.trim()}
+                </Tag>
+              ))}
           </div>
 
           <p className="font-bold" aria-label="Track Supply">

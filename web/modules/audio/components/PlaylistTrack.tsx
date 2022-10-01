@@ -14,7 +14,7 @@ type Props = {
   track: AudioTrackz;
   play: (track: AudioTrackz) => void;
   pause: () => void;
-  remove: (track: AudioTrackz) => void;
+  remove: () => void;
 };
 
 export default function PlaylistTrack({
@@ -31,7 +31,7 @@ export default function PlaylistTrack({
 
   return (
     <div
-      className={`group flex h-14 w-full cursor-pointer items-center gap-4 ${backgroundStyle} p-4`}
+      className={`group flex h-14 w-full cursor-pointer items-center gap-4 ${backgroundStyle} px-4`}
       aria-label={`Track ${track.name}`}
       onClick={() => (isPlayingMe ? pause() : play(track))}
       role="button"
@@ -75,13 +75,13 @@ export default function PlaylistTrack({
       <IconButton
         aria-label="Remove from the playlist"
         size="xs"
-        variant="outline"
+        variant="link"
         onClick={(e) => {
           e.preventDefault();
           e.stopPropagation();
-          remove(track);
+          remove();
         }}
-        icon={<AiOutlineCloseSquare />}
+        icon={<AiOutlineCloseSquare size={18} />}
       />
     </div>
   );

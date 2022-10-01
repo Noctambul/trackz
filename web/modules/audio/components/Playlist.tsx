@@ -1,31 +1,23 @@
 import { IconButton, useDisclosure } from "@chakra-ui/react";
-import AudioTrackz from "modules/audio/models/AudioTrackz";
-import { useMemo } from "react";
-import { RiPlayListAddFill } from "react-icons/ri";
+import { AiOutlineClose } from "react-icons/ai";
+import { CgPlayListRemove } from "react-icons/cg";
+import { RiPlayList2Fill } from "react-icons/ri";
+import { useAudio } from "../context/AudioContext";
 import PlaylistTrack from "./PlaylistTrack";
 
-type Props = {
-  playlist: AudioTrackz[];
-  removeTrack: (track: AudioTrackz) => void;
-  currentTrackIndex?: number;
-  play: (track: AudioTrackz) => void;
-  pause: () => void;
-  isPlaying?: boolean;
-};
+type Props = {};
 
-export default function Playlist({
-  playlist,
-  play,
-  removeTrack,
-  pause,
-  isPlaying = false,
-  currentTrackIndex = 0,
-}: Props): JSX.Element {
+export default function Playlist({}: Props): JSX.Element {
   const { isOpen, onToggle } = useDisclosure();
-  const currentTrack = useMemo(
-    () => playlist[currentTrackIndex],
-    [playlist, currentTrackIndex]
-  );
+  const {
+    playlist,
+    currentIndex,
+    play,
+    pause,
+    isPlaying,
+    removeAt,
+    clearPlaylist,
+  } = useAudio();
 
   return (
     <>
@@ -33,7 +25,7 @@ export default function Playlist({
         onClick={onToggle}
         variant="audioplayer"
         aria-label="Playlist Button"
-        icon={<RiPlayListAddFill size={22} />}
+        icon={<RiPlayList2Fill size={22} />}
       />
 
       <div
@@ -42,19 +34,36 @@ export default function Playlist({
         } z-[-1] w-screen overflow-y-scroll rounded bg-white py-2 text-text shadow-player transition-all duration-500 scrollbar-hide sm:w-[400px]`}
         aria-label="Playlist"
       >
+        <div className="flex h-12 flex-row-reverse border-b px-2">
+          <IconButton
+            color="text"
+            variant="link"
+            icon={<AiOutlineClose size={20} />}
+            aria-label="Close Playlist"
+            onClick={onToggle}
+          />
+          <IconButton
+            color="text"
+            variant="link"
+            icon={<CgPlayListRemove size={20} />}
+            aria-label="Clear Playlist"
+            isDisabled={playlist.length <= 1}
+            onClick={clearPlaylist}
+          />
+        </div>
         <div className="flex w-full flex-col justify-center text-sm">
           {playlist.map((track, index) => {
-            const isSelected = track.id === currentTrack.id;
-            const isPassed = index < currentTrackIndex;
+            const isSelected = index === currentIndex;
+            const isPassed = index < currentIndex;
             return (
               <PlaylistTrack
-                key={track.id}
+                key={index}
                 isSelected={isSelected}
                 isPlaying={isPlaying}
                 isPassed={isPassed}
                 play={play}
                 pause={pause}
-                remove={removeTrack}
+                remove={() => removeAt(index)}
                 track={track}
               />
             );

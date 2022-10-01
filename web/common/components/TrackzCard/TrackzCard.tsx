@@ -1,119 +1,93 @@
-import IconButton from "common/components/uikit/IconButton";
-import Progress from "common/components/uikit/Progress";
-import { useIpfs } from "common/hooks/useIpfs";
-import { useTime } from "common/hooks/useTime";
-import useAudioTrackz from "modules/audio/hooks/useAudioTrackz";
+import { IconButton as ChakraIconButton } from "@chakra-ui/react";
 import AudioTrackz from "modules/audio/models/AudioTrackz";
 import Image from "next/image";
 import Link from "next/link";
-import { IoPauseCircleOutline, IoPlayCircleOutline } from "react-icons/io5";
+import { RiPauseFill, RiPlayFill, RiPlayListAddFill } from "react-icons/ri";
 
 type Props = {
-  trackz: AudioTrackz;
-  trackProgress: number;
+  track: AudioTrackz;
   /** Is the given trackz the one currently selected by the player */
   isSelected: boolean;
   /** Is the player playing a track */
   isPlaying: boolean;
   play: (trackz: AudioTrackz) => void;
   pause: () => void;
+  addToPlaylist: (track: AudioTrackz) => void;
 };
 
 export default function TrackzCard({
-  trackz,
-  trackProgress,
+  track,
   play,
   pause,
   isSelected,
   isPlaying,
+  addToPlaylist,
 }: Props): JSX.Element {
-  const { resolveLink } = useIpfs();
-  const { formatTime } = useTime();
-  const { duration } = useAudioTrackz(trackz);
+  const iconSize = 20;
+  const iconBtnStyle =
+    "m-1 opacity-0 transition-opacity group-hover:opacity-80";
 
-  const MarketSection = (
-    <div className="mt-auto flex items-center justify-between text-lightgray">
-      <div className="mt-auto" aria-label="Supply">
-        Supply
-        <br />x{trackz.metadata.totalSupply}
-      </div>
-      <div aria-label="Price">
-        Price
-        <br />
-        {trackz.metadata.price} Tz
-      </div>
-      <button type="button">Collect</button>
-    </div>
-  );
+  const isPlayingMe = () => isPlaying && isSelected;
 
-  const InfoSection = (
-    <div className="ml-2 flex w-full flex-col justify-center pr-14">
-      <span aria-label="Title">
-        <Link
-          href={`/trackzs/${trackz.id}`}
-          className="truncate text-lg text-text"
-          aria-label="Title"
-        >
-          {trackz.name}
-        </Link>
-      </span>
-      <span className="truncate text-sm text-subtext" aria-label="Author">
-        by {trackz.metadata.creator}
-      </span>
-      {/* <p className="line-clamp-2 my-1 italic">{trackz.description}</p> */}
-    </div>
-  );
-
-  const isPlayingMe = () => {
-    return isPlaying && isSelected;
-  };
-  const PlayButton = (
-    <IconButton
-      Icon={isPlayingMe() ? IoPauseCircleOutline : IoPlayCircleOutline}
-      size="5xl"
-      className="fill-text stroke-text text-5xl"
-      onClick={() => {
-        isPlayingMe() ? pause() : play(trackz);
+  const PlayChakraButton = (
+    <ChakraIconButton
+      className={iconBtnStyle}
+      aria-label={`Play ${track.name}`}
+      isRound={true}
+      icon={
+        isPlayingMe() ? (
+          <RiPauseFill size={iconSize} />
+        ) : (
+          <RiPlayFill size={iconSize} />
+        )
+      }
+      onClick={(e) => {
+        e.preventDefault();
+        isPlayingMe() ? pause() : play(track);
       }}
-      aria-label={`Play ${trackz.name}`}
+      size="lg"
+    />
+  );
+
+  const AddToPlaylistBtn = (
+    <ChakraIconButton
+      className={iconBtnStyle}
+      icon={<RiPlayListAddFill size={iconSize} />}
+      aria-label={`Add ${track.name} to playlist`}
+      colorScheme="whiteAlpha"
+      size="lg"
+      isRound={true}
+      onClick={(e) => {
+        e.preventDefault();
+        addToPlaylist(track);
+      }}
     />
   );
 
   return (
-    <div className="flex w-full" aria-label={`Trackz Card ${trackz.id}`}>
-      <Link href={`/trackzs/${trackz.id}`}>
-        <div className="aspect-square relative h-[126px] w-[126px] shrink-0 border border-lightgray">
-          {trackz.metadata.coverUri && (
-            <Image
-              src={resolveLink(trackz.metadata.coverUri)}
-              layout="fill"
-              objectFit="cover"
-              alt={trackz.name}
-              className="cursor-pointer"
-            />
-          )}
+    <div
+      className="flex h-full w-full max-w-sm  flex-col items-center rounded-lg border bg-white py-2 shadow-md shadow-mediumgray"
+      aria-label={`Trackz Card ${track.id}`}
+    >
+      <Link href={`trackzs/${track.id}`}>
+        <div className="aspect-square group relative h-full w-[calc(100%-0.9rem)] cursor-pointer overflow-hidden rounded-md ">
+          <Image
+            src={track.coverUri}
+            alt={track.name}
+            layout="fill"
+            objectFit="cover"
+          />
+          <div className="absolute bottom-0 flex w-full justify-between gap-2">
+            {PlayChakraButton}
+            {AddToPlaylistBtn}
+          </div>
         </div>
       </Link>
-      <div className="ml-4 flex w-full flex-col justify-between overflow-hidden">
-        <div className="mb-1 flex">
-          {PlayButton}
-          {InfoSection}
+      <div className="my-2 w-full px-2">
+        <div className="truncate text-lg text-text">
+          <Link href={`trackzs/${track.id}`}>{track.name}</Link>
         </div>
-        <div className="flex h-full items-center">
-          <Progress
-            value={isSelected && duration > 0 ? trackProgress : 0}
-            max={duration}
-            className="mx-2 pr-2"
-          />
-          {true ? (
-            <div className="text-xs" aria-label="Duration">
-              {formatTime(duration)}
-            </div>
-          ) : (
-            <></>
-          )}
-        </div>
-        {MarketSection}
+        <div className="truncate text-sm text-subtext">{track.creator}</div>
       </div>
     </div>
   );

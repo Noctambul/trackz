@@ -1,5 +1,5 @@
 import PageContainer from "common/components/PageContainer/PageContainer";
-import TrackzCard from "common/components/TrackzCard/TrackzCard";
+import TrackzCardList from "common/components/TrackzCard/TrackzCardList";
 import { useWeb3 } from "common/context/Web3Context";
 import { useAudio } from "modules/audio/context/AudioContext";
 import type { NextPage } from "next";
@@ -10,7 +10,8 @@ const Home: NextPage = () => {
 
   return (
     <PageContainer isLoading={isLoading}>
-      <div className="flex flex-col gap-10">
+      <TrackzCardList trackzs={audioTrackzs} />
+      {/* <div className="flex flex-col gap-10">
         {audioTrackzs.map((track) => (
           <TrackzCard
             trackz={track}
@@ -22,7 +23,7 @@ const Home: NextPage = () => {
             isSelected={currentTrackz == track}
           />
         ))}
-      </div>
+      </div> */}
     </PageContainer>
   );
 };

@@ -27,6 +27,14 @@ const ButtonStyle: ComponentSingleStyleConfig = {
         bg: "subtext",
       },
     },
+    link: {
+      _hover: {
+        color: "mediumgray",
+        _disabled: {
+          color: "inherit",
+        },
+      },
+    },
     audioplayer: {
       bg: "transparent",
       color: "text",
