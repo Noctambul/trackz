@@ -3,16 +3,16 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ChainId, ThirdwebProvider } from "@thirdweb-dev/react";
 import { Web3Provider } from "common/context/Web3Context";
 import "lib/augmented-types";
+import chakraTheme from "lib/chakra-theme";
 import { AudioProvider } from "modules/audio/context/AudioContext";
 import type { AppProps } from "next/app";
 import Head from "next/head";
-import chakraTheme from "../lib/chakra-theme/index";
 import "../styles/global.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
   /* https://github.com/thirdweb-dev/js/tree/main/packages/react#advanced-configuration */
   const thirdwebProps = {
-    desiredChainId: ChainId.Rinkeby,
+    desiredChainId: ChainId.Goerli,
     dAppMeta: {
       name: "Trackz",
       description: "Your sound on chain",

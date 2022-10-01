@@ -43,7 +43,7 @@ export default function useMint() {
     if (!address || !signer) throw new Error("Wallet not connected");
     if (isOnWrongNetwork) {
       if (switchNetwork) {
-        switchNetwork(ChainId.Rinkeby);
+        switchNetwork(ChainId.Goerli);
       } else {
         throw new Error("Wrong network. Please switch and try again.");
       }
