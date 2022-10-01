@@ -13,7 +13,7 @@ export default function PageContainer({
   isLoading = false,
   disableMargins = false,
 }: Props): JSX.Element {
-  const marginStyles = "py-5 px-5 sm:py-8 sm:px-10";
+  const marginStyles = "py-5 px-5 sm:py-10 sm:px-10";
 
   return (
     <>

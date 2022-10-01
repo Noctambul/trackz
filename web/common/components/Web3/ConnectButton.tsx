@@ -42,6 +42,13 @@ export default function ConnectButton(): JSX.Element {
               Create
             </MenuItem>
             <MenuItem
+              icon={<FiUser fontSize={itemIconSize} />}
+              aria-label="Profile"
+              onClick={() => router.push(`/users/${address}`)}
+            >
+              Profile
+            </MenuItem>
+            <MenuItem
               icon={<FiLogOut fontSize={itemIconSize} />}
               onClick={disconnectWallet}
               aria-label="Disconnect wallet"
