@@ -84,7 +84,6 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     if (isPlaying) {
-      console.log("AudioContext play selectedTrackz");
       selectedTrackz?.play();
       startTimer();
     } else {
@@ -126,7 +125,6 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   };
 
   const toNextTrack = () => {
-    console.log("toNextTrack");
     selectedTrackz?.stop();
     next();
     setIsplaying(true);

@@ -84,11 +84,14 @@ export default function TrackPage(): JSX.Element {
             Tags
           </Heading>
           <div className="flex gap-2" aria-label="Track Tags">
-            {track?.metadata.tags?.split(",").map((tag) => (
-              <Tag variant="outline" key={tag}>
-                {tag}
-              </Tag>
-            ))}
+            {track?.metadata.tags
+              ?.split(",")
+              .filter((tag) => Boolean(tag))
+              .map((tag) => (
+                <Tag variant="outline" key={tag}>
+                  {tag.trim()}
+                </Tag>
+              ))}
           </div>
 
           <p className="font-bold" aria-label="Track Supply">
