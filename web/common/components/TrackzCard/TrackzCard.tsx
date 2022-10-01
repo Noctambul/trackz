@@ -69,7 +69,7 @@ export default function TrackzCard({
       className="flex h-full w-full max-w-sm  flex-col items-center rounded-lg border bg-white py-2 shadow-md shadow-mediumgray"
       aria-label={`Trackz Card ${track.id}`}
     >
-      <Link href={`trackzs/${track.id}`}>
+      <Link href={`/trackzs/${track.id}`}>
         <div className="aspect-square group relative h-full w-[calc(100%-0.9rem)] cursor-pointer overflow-hidden rounded-md ">
           <Image
             src={track.coverUri}
@@ -85,9 +85,11 @@ export default function TrackzCard({
       </Link>
       <div className="my-2 w-full px-2">
         <div className="truncate text-lg text-text">
-          <Link href={`trackzs/${track.id}`}>{track.name}</Link>
+          <Link href={`/trackzs/${track.id}`}>{track.name}</Link>
         </div>
-        <div className="truncate text-sm text-subtext">{track.creator}</div>
+        <div className="truncate text-sm text-subtext">
+          <Link href={`/users/${track.creator}`}>{track.creator}</Link>
+        </div>
       </div>
     </div>
   );

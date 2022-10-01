@@ -32,7 +32,7 @@ export default async function mint(req: NextApiRequest, res: NextApiResponse) {
       // ],
       attributes: {
         tags: metadata.tags || "",
-        artist: authorAddress,
+        // artist: authorAddress, //TODO: Should be the author pseudo
         type: "mp3",
         genres: metadata.genres,
       },
