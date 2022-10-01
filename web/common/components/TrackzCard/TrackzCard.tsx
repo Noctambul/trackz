@@ -65,7 +65,10 @@ export default function TrackzCard({
   );
 
   return (
-    <div className="flex h-full w-full max-w-sm  flex-col items-center rounded-lg bg-white py-2 shadow-md">
+    <div
+      className="flex h-full w-full max-w-sm  flex-col items-center rounded-lg border bg-white py-2 shadow-md shadow-mediumgray"
+      aria-label={`Trackz Card ${track.id}`}
+    >
       <Link href={`trackzs/${track.id}`}>
         <div className="aspect-square group relative h-full w-[calc(100%-0.9rem)] cursor-pointer overflow-hidden rounded-md ">
           <Image

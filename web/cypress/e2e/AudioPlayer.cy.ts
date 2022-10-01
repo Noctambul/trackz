@@ -186,15 +186,35 @@ describe("Audio Player", () => {
     });
 
     it("removes a track from the playlist", () => {
-      playlistBtn().click();
-      playlistTrack(1).should("exist");
-      playlistTrackRemoveBtn(1).click();
-      trackzCardElt(1).should("exist");
-      playlistTrack(1).should("not.exist");
-      playlistTrack(0).should("exist");
-      playlistTrackRemoveBtn(0).click();
-      trackzCardElt(0).should("exist");
-      playlistTrack(0).should("not.exist");
+      playlistBtn().click().log("Open the playlist");
+      playlistTrack(1)
+        .should("exist")
+        .log(`Trackz '${trackzs[1].name}' exists in the playlist`);
+      playlistTrackRemoveBtn(1)
+        .click()
+        .log(`Remove track '${trackzs[1].name}' from the playlist`);
+      trackzCardElt(1)
+        .should("exist")
+        .log(`TrackzCard '${trackzs[1].name}' still exists`);
+      playlistTrack(1)
+        .should("not.exist")
+        .log(
+          `Trackz '${trackzs[1].name}' does not exists in the playlist anymore`
+        );
+      playlistTrack(0)
+        .should("exist")
+        .log(`Trackz ${trackzs[0].name} exists in the playlist`);
+      playlistTrackRemoveBtn(0)
+        .click()
+        .log(`Remove track '${trackzs[1].name}' from the playlist`);
+      trackzCardElt(0)
+        .should("exist")
+        .log(`TrackzCard '${trackzs[0].name}' still exists`);
+      playlistTrack(0)
+        .should("not.exist")
+        .log(
+          `Trackz '${trackzs[0].name}' does not exists in the playlist anymore`
+        );
       playlistTrack(2)
         .get(`[data-test-play="${trackzs[2].id}"]`)
         .should("be.visible");
