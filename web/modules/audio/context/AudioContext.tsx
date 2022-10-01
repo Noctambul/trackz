@@ -72,18 +72,19 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     selectedTrackz?.volume(volume);
     setIsMuted(volume === 0);
-  }, [volume, selectedTrackz]);
+  }, [volume, selectedTrackz, currentIndex]);
 
   useEffect(() => {
     selectedTrackz?.mute(isMuted);
-  }, [isMuted, selectedTrackz]);
+  }, [isMuted, selectedTrackz, currentIndex]);
 
   useEffect(() => {
     setTrackProgress(Math.round(selectedTrackz?.progress || 0));
-  }, [selectedTrackz]);
+  }, [selectedTrackz, currentIndex]);
 
   useEffect(() => {
     if (isPlaying) {
+      console.log("AudioContext play selectedTrackz");
       selectedTrackz?.play();
       startTimer();
     } else {
@@ -91,7 +92,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
       selectedTrackz?.pause();
     }
     // Use callback to add starttimer to the dependencies or usememo ?
-  }, [isPlaying, selectedTrackz]);
+  }, [isPlaying, selectedTrackz, currentIndex]);
 
   const play = (track?: TrackzMetadata | AudioTrackz) => {
     const metadata = track instanceof AudioTrackz ? track.metadata : track;
@@ -99,6 +100,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     if (metadata && track) {
       const isInPlaylist = playlist.find((t) => t.id === metadata.id);
 
+      // If not in the playlist then set a new playlist
       if (!isInPlaylist) {
         const audioTrack =
           track instanceof AudioTrackz
@@ -124,6 +126,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   };
 
   const toNextTrack = () => {
+    console.log("toNextTrack");
     selectedTrackz?.stop();
     next();
     setIsplaying(true);
