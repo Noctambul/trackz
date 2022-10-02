@@ -7,7 +7,7 @@ export default function Header(): JSX.Element {
       <Link href="/">
         <h1
           aria-label="Home Page"
-          className="text-3xl text-text after:text-primary after:content-['Z'] sm:text-2xl"
+          className="cursor-pointer text-4xl font-bold text-text after:text-primary after:content-['Z'] sm:text-2xl"
         >
           TRACK
         </h1>

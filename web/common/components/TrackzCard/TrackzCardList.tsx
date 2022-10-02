@@ -13,7 +13,7 @@ export default function TrackzCardList({ trackzs }: Props): JSX.Element {
       {trackzs.map((track) => (
         <div
           key={track.id}
-          className="flex h-[400px] items-center justify-center sm:h-[300px]"
+          className="flex h-[400px] items-center justify-center sm:h-[270px]"
         >
           <TrackzCard
             track={track}
