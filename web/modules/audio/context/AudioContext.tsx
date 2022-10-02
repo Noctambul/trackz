@@ -150,7 +150,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     startPlaying = false
   ) => {
     setTrackzPlaylist(playlist);
-    // if (!isPlaying && startPlaying) setIsplaying(true);
+    if (startPlaying) playTrack();
   };
 
   return (

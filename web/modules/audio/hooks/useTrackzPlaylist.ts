@@ -79,7 +79,7 @@ export default function useTrackzPlaylist(
     } else {
       selectedTrackz?.pause();
     }
-  }, [isPlaying, selectedTrackz]);
+  }, [isPlaying, selectedTrackz, index]);
 
   const toNext = () => {
     selectedTrackz?.stop();
@@ -100,13 +100,8 @@ export default function useTrackzPlaylist(
         : indexOrTrack;
 
     if (playIndex === undefined) playIndex = index;
-    if (playIndex < 0 || playIndex >= playlist.length) return;
 
-    const trackToPlay = playlist[playIndex];
-    if (selectedTrackz && selectedTrackz.id !== trackToPlay.id) {
-      selectedTrackz.stop();
-    }
-
+    selectedTrackz?.stop();
     select(playIndex);
     setIsPlaying(true);
   };

@@ -125,7 +125,7 @@ export default class AudioTrackz {
   }
 
   play() {
-    this.howl.play();
+    if (!this.isPlaying) this.howl.play();
   }
 
   pause() {
