@@ -58,6 +58,7 @@ export default function Playlist({}: Props): JSX.Element {
             return (
               <PlaylistTrack
                 key={index}
+                trackIndex={index}
                 isSelected={isSelected}
                 isPlaying={isPlaying}
                 isPassed={isPassed}
