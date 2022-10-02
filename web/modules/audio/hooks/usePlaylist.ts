@@ -70,11 +70,17 @@ export default function usePlaylist<T>(
   };
 
   const next = () => {
-    if (canNext) setIndex((index + 1).modulo(playlist.length));
+    if (canNext)
+      _setPlaylist(({ list, index }) => {
+        return { index: (index + 1).modulo(playlist.length), list };
+      });
   };
 
   const previous = () => {
-    if (canPrev) setIndex((index - 1).modulo(playlist.length));
+    if (canPrev)
+      _setPlaylist(({ list, index }) => {
+        return { index: (index - 1).modulo(playlist.length), list };
+      });
   };
 
   const select = (index: number) => {
