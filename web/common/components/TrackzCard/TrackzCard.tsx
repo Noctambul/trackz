@@ -70,7 +70,7 @@ export default function TrackzCard({
       aria-label={`Trackz Card ${track.id}`}
     >
       <Link href={`/trackzs/${track.id}`}>
-        <div className="aspect-square group relative h-full w-[calc(100%-0.2rem)] cursor-pointer overflow-hidden rounded-md shadow">
+        <div className="aspect-square group relative h-full w-[calc(100%-0.2rem)] cursor-pointer overflow-hidden rounded-md">
           <Image
             src={track.coverUri}
             alt={track.name}
