@@ -84,10 +84,10 @@ export default function TrackzCard({
         </div>
       </Link>
       <div className="my-2 w-full px-2">
-        <div className="truncate text-lg text-text">
+        <div className="text-md truncate text-text">
           <Link href={`/trackzs/${track.id}`}>{track.name}</Link>
         </div>
-        <div className="truncate text-sm text-subtext">
+        <div className="truncate text-xs text-subtext">
           <Link href={`/users/${track.creator}`}>{track.creator}</Link>
         </div>
       </div>
