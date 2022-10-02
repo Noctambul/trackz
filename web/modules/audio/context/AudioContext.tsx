@@ -1,15 +1,7 @@
 import { useWeb3 } from "common/context/Web3Context";
 import TrackzMetadata from "common/models/TrackzMetadata";
 import AudioTrackz from "modules/audio/models/AudioTrackz";
-import {
-  createContext,
-  Dispatch,
-  SetStateAction,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 import useAudioTrackz from "../hooks/useAudioTrackz";
 import useTrackzPlaylist from "../hooks/useTrackzPlaylist";
 
@@ -35,7 +27,7 @@ export interface AudioContextInterface {
   addTrackz: (track: AudioTrackz) => void;
   removeAt: (index: number) => void;
   clearPlaylist: () => void;
-  setPlaylist: Dispatch<SetStateAction<AudioTrackz[]>>;
+  setPlaylist: (playlist: AudioTrackz[], startPlaying?: boolean) => void;
 }
 
 const AudioContext = createContext<AudioContextInterface | null>(null);
@@ -61,7 +53,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     currentIndex,
     removeAt,
     clearPlaylist,
-    setPlaylist,
+    setPlaylist: setTrackzPlaylist,
     addTrackz,
   } = useTrackzPlaylist(audioTrackzs);
   const [isPlaying, setIsplaying] = useState(false);
@@ -77,6 +69,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   //     // TODO: Remove Timer here
   //   };
   // });
+  console.log("Selected", selectedTrackz);
 
   useEffect(() => {
     selectedTrackz?.volume(volume);
@@ -117,7 +110,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
 
         if (!audioTrack) return;
 
-        setPlaylist([audioTrack]);
+        setTrackzPlaylist([audioTrack]);
       }
 
       if (selectedTrackz && metadata.id !== selectedTrackz.id) {
@@ -185,6 +178,14 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
 
   const toggleMute = () => setIsMuted((muted) => !muted);
 
+  const setPlaylistAndPlay = (
+    playlist: AudioTrackz[],
+    startPlaying = false
+  ) => {
+    setTrackzPlaylist(playlist);
+    // if (!isPlaying && startPlaying) setIsplaying(true);
+  };
+
   return (
     <AudioContext.Provider
       value={{
@@ -209,7 +210,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
         toggleMute,
         addTrackz,
         clearPlaylist,
-        setPlaylist,
+        setPlaylist: setPlaylistAndPlay,
       }}
     >
       {children}
