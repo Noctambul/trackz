@@ -69,7 +69,6 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
   //     // TODO: Remove Timer here
   //   };
   // });
-  console.log("Selected", selectedTrackz);
 
   useEffect(() => {
     selectedTrackz?.volume(volume);

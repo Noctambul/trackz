@@ -41,7 +41,7 @@ export default function PlaylistTrack({
       data-selected={isSelected}
     >
       <span className="mr-[-1rem] min-w-[1rem] text-xs text-subtext">
-        {trackIndex}.
+        {trackIndex + 1}.
       </span>
       <div className="relative flex h-[38px] w-[38px] shrink-0 items-center justify-center border border-lightgray">
         <Image

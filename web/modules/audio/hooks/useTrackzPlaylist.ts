@@ -1,5 +1,5 @@
 import AudioTrackz from "modules/audio/models/AudioTrackz";
-import { Dispatch, SetStateAction, useEffect } from "react";
+import { useEffect } from "react";
 import usePlaylist from "./usePlaylist";
 
 /**
@@ -9,7 +9,7 @@ import usePlaylist from "./usePlaylist";
 const DEFAULT_PRELOAD_BUFFER = 3;
 
 type TrackzPlaylistInterface = {
-  setPlaylist: Dispatch<SetStateAction<AudioTrackz[]>>;
+  setPlaylist: (list: AudioTrackz[]) => void;
   selectedTrackz: AudioTrackz | undefined;
   next: () => void;
   previous: () => void;
