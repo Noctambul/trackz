@@ -88,7 +88,7 @@ export default function TrackzCard({
           <Link href={`/trackzs/${track.id}`}>{track.name}</Link>
         </div>
         <div className="truncate text-xs text-subtext">
-          <Link href={`/users/${track.creator}`}>{track.creator}</Link>
+          <Link href={`/users/${track.creator}`}>{track.formatedCreator}</Link>
         </div>
       </div>
     </div>

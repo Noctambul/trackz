@@ -4,6 +4,7 @@ import { useIpfs } from "common/hooks/useIpfs";
 import { useAudio } from "modules/audio/context/AudioContext";
 import AudioTrackz from "modules/audio/models/AudioTrackz";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { z } from "zod";
@@ -60,7 +61,9 @@ export default function TrackPage(): JSX.Element {
               ml={1}
               aria-label="Creator"
             >
-              {track?.creator}
+              <Link href={`/users/${track?.creator}`}>
+                {track?.formatedCreator}
+              </Link>
             </Heading>
           </div>
 
