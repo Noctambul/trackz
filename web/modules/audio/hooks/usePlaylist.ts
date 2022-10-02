@@ -18,7 +18,7 @@ type PlaylistInterface<T> = {
   index: number;
   next: () => void;
   previous: () => void;
-  selected: T;
+  selected: T | undefined;
   select: (index: number) => void;
   removeAt: (index: number) => void;
   clear: () => void;
@@ -57,7 +57,7 @@ export default function usePlaylist<T>(
   }, [initialPlaylist]);
 
   const setIndex = (i: number) => {
-    if (i < 0 && i >= playlist.length) return;
+    if (i < 0 || i >= playlist.length) return;
     _setPlaylist({ index: i, list: playlist });
   };
 

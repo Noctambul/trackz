@@ -13,7 +13,7 @@ type Props = {
   isPlaying?: boolean;
   track: AudioTrackz;
   trackIndex: number;
-  play: (track: AudioTrackz) => void;
+  play: (trackIndex: number) => void;
   pause: () => void;
   remove: () => void;
 };
@@ -36,7 +36,7 @@ export default function PlaylistTrack({
       className={`group flex h-14 w-full cursor-pointer items-center gap-4 ${backgroundStyle} px-4`}
       aria-label={`Track ${track.name}`}
       data-playlist-index={trackIndex}
-      onClick={() => (isPlayingMe ? pause() : play(track))}
+      onClick={() => (isPlayingMe ? pause() : play(trackIndex))}
       role="button"
       data-selected={isSelected}
     >

@@ -1,5 +1,4 @@
 import { useWeb3 } from "common/context/Web3Context";
-import TrackzMetadata from "common/models/TrackzMetadata";
 import AudioTrackz from "modules/audio/models/AudioTrackz";
 import { createContext, useContext, useEffect, useRef, useState } from "react";
 import useAudioTrackz from "../hooks/useAudioTrackz";
@@ -18,7 +17,7 @@ export interface AudioContextInterface {
   playlist: AudioTrackz[];
   toggleMute: () => void;
   setVolume: (volume: number) => void;
-  play: (trackz?: TrackzMetadata | AudioTrackz) => void;
+  play: (trackzOrPlaylistIndex?: number | AudioTrackz) => void;
   pause: () => void;
   onSearch: (seconds: number) => void;
   onSearchEnd: (seconds: number) => void;
@@ -44,11 +43,13 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
 
   const {
     selectedTrackz,
-    setSelectedTrackz,
-    next,
-    previous,
+    play: playTrack,
+    pause,
+    toNext,
+    toPrev,
     canNext,
     canPrev,
+    isPlaying,
     playlist,
     currentIndex,
     removeAt,
@@ -56,7 +57,6 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     setPlaylist: setTrackzPlaylist,
     addTrackz,
   } = useTrackzPlaylist(audioTrackzs);
-  const [isPlaying, setIsplaying] = useState(false);
   const [trackProgress, setTrackProgress] = useState(0);
   const [volume, setVolume] = useState(1);
   const [isMuted, setIsMuted] = useState(false);
@@ -85,56 +85,24 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     if (isPlaying) {
-      selectedTrackz?.play();
       startTimer();
     } else {
       stopTimer();
-      selectedTrackz?.pause();
     }
     // Use callback to add starttimer to the dependencies or usememo ?
-  }, [isPlaying, selectedTrackz, currentIndex]);
+  }, [isPlaying, selectedTrackz]);
 
-  const play = (track?: TrackzMetadata | AudioTrackz) => {
-    const metadata = track instanceof AudioTrackz ? track.metadata : track;
+  const play = (track?: AudioTrackz | number) => {
+    if (!track) return playTrack(track);
 
-    if (metadata && track) {
-      const isInPlaylist = playlist.find((t) => t.id === metadata.id);
-
+    if (track instanceof AudioTrackz) {
+      const isInPlaylist = playlist.find((t) => t.id === track.id);
       // If not in the playlist then set a new playlist
       if (!isInPlaylist) {
-        const audioTrack =
-          track instanceof AudioTrackz
-            ? track
-            : audioTrackzs.find((t) => t.id === track.id);
-
-        if (!audioTrack) return;
-
-        setTrackzPlaylist([audioTrack]);
-      }
-
-      if (selectedTrackz && metadata.id !== selectedTrackz.id) {
-        selectedTrackz.stop();
-        setSelectedTrackz(metadata.id);
+        setTrackzPlaylist([track]);
       }
     }
-    setIsplaying(true);
-  };
-
-  const pause = () => {
-    setIsplaying(false);
-    stopTimer();
-  };
-
-  const toNextTrack = () => {
-    selectedTrackz?.stop();
-    next();
-    setIsplaying(true);
-  };
-
-  const toPreviousTrack = () => {
-    selectedTrackz?.stop();
-    previous();
-    setIsplaying(true);
+    playTrack(track);
   };
 
   const startTimer = () => {
@@ -170,7 +138,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     setTrackProgress(currentProgress);
 
     if (!isPlaying) {
-      setIsplaying(true);
+      playTrack();
     }
     startTimer();
   };
@@ -193,8 +161,8 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
         playlist,
         play,
         pause,
-        toNextTrack,
-        toPreviousTrack,
+        toNextTrack: toNext,
+        toPreviousTrack: toPrev,
         currentTrackz: selectedTrackz,
         currentIndex,
         duration,
