@@ -202,6 +202,7 @@ describe("Audio Player", () => {
         addToPlaylist(1).click().click().click();
         playlistEltAt(4).click();
         isTrackPlaying(4);
+        shouldHaveTrack(4);
       });
     });
 
