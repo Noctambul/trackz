@@ -93,8 +93,13 @@ export default function usePlaylist<T>(
     const list = [...playlist];
     list.splice(removeIndex, 1);
     _setPlaylist({
-      // If the index is before the current selected index then we have to modify it accordingly
-      index: removeIndex <= index ? index - 1 : index,
+      // If the index is before the current selected index or
+      // If the index is over the playlist length
+      // then we have to modify it accordingly
+      index:
+        removeIndex < index || removeIndex === playlist.length - 1
+          ? index - 1
+          : index,
       list,
     });
   };

@@ -241,6 +241,7 @@ describe("Audio Player", () => {
           .get(`[data-test-play="${trackzs[2].id}"]`)
           .should("be.visible");
         shouldHaveTrack(2);
+        player().should("be.visible").log("The player should still be visible");
       });
 
       it("removes a track that is before the current selected one", () => {

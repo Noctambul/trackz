@@ -64,7 +64,7 @@ export default function useTrackzPlaylist(
       for (let count = index; count < preloadBuffer + index; count++) {
         const i = count % playlist.length;
         const track = playlist[i];
-        if (track.state === "unloaded") {
+        if (track?.state === "unloaded") {
           track.load();
         }
       }
