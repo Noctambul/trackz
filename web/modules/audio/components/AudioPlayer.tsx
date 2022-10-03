@@ -29,7 +29,7 @@ export default function AudioPlayer({
       className="z-50 flex h-full w-full items-center justify-around gap-6 text-text "
       aria-label="Audio Player"
     >
-      <TrackzInfos trackz={trackz.metadata} />
+      <TrackzInfos trackz={trackz} />
       <AudioControlls />
       <ProgressBar
         progress={trackProgress}

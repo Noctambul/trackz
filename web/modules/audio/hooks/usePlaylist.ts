@@ -6,14 +6,19 @@ import {
   type SetStateAction,
 } from "react";
 
+interface Playlist<T> {
+  index: number;
+  list: T[];
+}
+
 type PlaylistInterface<T> = {
-  setPlaylist: Dispatch<SetStateAction<T[]>>;
+  setPlaylist: (list: T[]) => void;
   playlist: T[];
   add: (item: T) => void;
   index: number;
   next: () => void;
   previous: () => void;
-  selected: T;
+  selected: T | undefined;
   select: (index: number) => void;
   removeAt: (index: number) => void;
   clear: () => void;
@@ -22,41 +27,60 @@ type PlaylistInterface<T> = {
   canPrev: boolean;
 };
 
-/**
- * A hook that handle a playlist
- * @returns
- */
 export default function usePlaylist<T>(
   initialPlaylist: T[] = [],
   loopMode = false
 ): PlaylistInterface<T> {
-  const [playlist, setPlaylist] = useState<T[]>(initialPlaylist);
-  const [canNext, setCanNext] = useState(false);
-  const [canPrev, setCanPrev] = useState(false);
-  const [index, setIndex] = useState(0);
   const [isLoopMode, setIsLoopMode] = useState(loopMode);
-  const selected = useMemo(() => {
-    return playlist[index];
-  }, [index, playlist]);
+  const [_playlist, _setPlaylist] = useState<Playlist<T>>({
+    index: 0,
+    list: initialPlaylist,
+  });
 
+  const index = _playlist.index;
+  const playlist = _playlist.list;
+  const selected = playlist[index];
+
+  const canNext = useMemo(
+    () => isLoopMode || index !== playlist.length - 1,
+    [index, isLoopMode, playlist.length]
+  );
+
+  const canPrev = useMemo(() => isLoopMode || index !== 0, [index, isLoopMode]);
+
+  // TODO: Hack
   useEffect(() => {
-    if (playlist.length === 0) {
-      setPlaylist(initialPlaylist);
+    if (playlist.length === 0 && initialPlaylist.length > 0) {
+      _setPlaylist({ index: 0, list: initialPlaylist });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialPlaylist]);
 
-  useEffect(() => {
-    setCanNext(isLoopMode || index !== playlist.length - 1);
-    setCanPrev(isLoopMode || index !== 0);
-  }, [isLoopMode, index, playlist]);
+  const setIndex = (i: number) => {
+    if (i < 0 || i >= playlist.length) return;
+    _setPlaylist({ index: i, list: playlist });
+  };
+
+  const setPlaylist = (list: T[] = []) => {
+    const index = Math.max(
+      0,
+      list.findIndex((o) => o === selected)
+    );
+    _setPlaylist({ index, list });
+  };
 
   const next = () => {
-    if (canNext) setIndex((i) => (++i).modulo(playlist.length));
+    if (canNext)
+      _setPlaylist(({ list, index }) => {
+        return { index: (index + 1).modulo(playlist.length), list };
+      });
   };
 
   const previous = () => {
-    if (canPrev) setIndex((i) => (--i).modulo(playlist.length));
+    if (canPrev)
+      _setPlaylist(({ list, index }) => {
+        return { index: (index - 1).modulo(playlist.length), list };
+      });
   };
 
   const select = (index: number) => {
@@ -66,21 +90,25 @@ export default function usePlaylist<T>(
   const removeAt = (removeIndex: number) => {
     if (removeIndex < 0 || removeIndex >= playlist.length) return;
 
-    const cloned = [...playlist];
-    cloned.splice(removeIndex, 1);
-    setPlaylist(cloned);
-
-    // If the index is before the current selected index then we have to modify it accordingly
-    if (removeIndex < index) {
-      setIndex(index - 1);
-    }
+    const list = [...playlist];
+    list.splice(removeIndex, 1);
+    _setPlaylist({
+      // If the index is before the current selected index or
+      // If the index is over the playlist length
+      // then we have to modify it accordingly
+      index:
+        removeIndex < index || removeIndex === playlist.length - 1
+          ? index - 1
+          : index,
+      list,
+    });
   };
 
   const add = (item: T) => {
-    setPlaylist([...playlist, item]);
+    _setPlaylist({ index, list: [...playlist, item] });
   };
 
-  const clear = () => setPlaylist([selected]);
+  const clear = () => setPlaylist(selected ? [selected] : []);
 
   return {
     playlist,

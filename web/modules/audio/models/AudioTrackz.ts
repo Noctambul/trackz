@@ -1,6 +1,7 @@
 import { resolveLink } from "common/hooks/useIpfs";
 import { formatTime } from "common/hooks/useTime";
 import TrackzMetadata from "common/models/TrackzMetadata";
+import { formatWallet } from "common/utils/format";
 import { Howl, HowlCallback } from "howler";
 
 type TrackCallback = (track: AudioTrackz) => void;
@@ -23,6 +24,10 @@ export default class AudioTrackz {
 
   get creator() {
     return this.metadata.creator;
+  }
+
+  get formatedCreator() {
+    return formatWallet(this.creator) || "";
   }
 
   get duration(): number {
@@ -120,7 +125,7 @@ export default class AudioTrackz {
   }
 
   play() {
-    this.howl.play();
+    if (!this.isPlaying) this.howl.play();
   }
 
   pause() {

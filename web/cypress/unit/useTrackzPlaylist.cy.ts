@@ -1,8 +1,4 @@
-import {
-  act,
-  renderHook,
-  RenderResult,
-} from "@testing-library/react-hooks/dom";
+import { renderHook, RenderResult } from "@testing-library/react-hooks/dom";
 import { SinonSpy, SinonStub } from "cypress/types/sinon";
 import { Howl } from "howler";
 import useTrackzPlaylist from "modules/audio/hooks/useTrackzPlaylist";
@@ -49,26 +45,26 @@ describe.skip("useTrackzPlaylist", () => {
     });
   });
 
-  context("when swithcing through Trackz", () => {
-    it("switch the selected Trackz correctly", () => {
-      expect(result.current.selectedTrackz?.metadata.id).to.eq(trackzs[0].id);
-      act(() => result.current.previous());
-      expect(result.current.selectedTrackz?.metadata.id).to.eq(trackzs[0].id);
-      act(() => result.current.next());
-      expect(result.current.selectedTrackz?.metadata.id).to.eq(trackzs[1].id);
-      act(() => result.current.next());
-      expect(result.current.selectedTrackz?.metadata.id).to.eq(trackzs[2].id);
-      act(() => result.current.previous());
-      expect(result.current.selectedTrackz?.metadata.id).to.eq(trackzs[1].id);
-    });
+  // context("when swithcing through Trackz", () => {
+  //   it("switch the selected Trackz correctly", () => {
+  //     expect(result.current.selectedTrackz?.metadata.id).to.eq(trackzs[0].id);
+  //     act(() => result.current.previous());
+  //     expect(result.current.selectedTrackz?.metadata.id).to.eq(trackzs[0].id);
+  //     act(() => result.current.next());
+  //     expect(result.current.selectedTrackz?.metadata.id).to.eq(trackzs[1].id);
+  //     act(() => result.current.next());
+  //     expect(result.current.selectedTrackz?.metadata.id).to.eq(trackzs[2].id);
+  //     act(() => result.current.previous());
+  //     expect(result.current.selectedTrackz?.metadata.id).to.eq(trackzs[1].id);
+  //   });
 
-    it("preload next Trackz if needed", () => {
-      // Hard to test has we stub the load method that also changes the loading state
-      const initialCalls = stub.getCalls().length;
-      act(() => result.current.next());
-      expect(stub).to.be.callCount(initialCalls + 1);
-    });
-  });
+  //   it("preload next Trackz if needed", () => {
+  //     // Hard to test has we stub the load method that also changes the loading state
+  //     const initialCalls = stub.getCalls().length;
+  //     act(() => result.current.next());
+  //     expect(stub).to.be.callCount(initialCalls + 1);
+  //   });
+  // });
 });
 
 export {};

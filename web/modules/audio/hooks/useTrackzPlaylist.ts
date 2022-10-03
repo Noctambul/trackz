@@ -1,5 +1,5 @@
 import AudioTrackz from "modules/audio/models/AudioTrackz";
-import { Dispatch, SetStateAction, useEffect } from "react";
+import { useEffect, useState } from "react";
 import usePlaylist from "./usePlaylist";
 
 /**
@@ -9,26 +9,29 @@ import usePlaylist from "./usePlaylist";
 const DEFAULT_PRELOAD_BUFFER = 3;
 
 type TrackzPlaylistInterface = {
-  setPlaylist: Dispatch<SetStateAction<AudioTrackz[]>>;
   selectedTrackz: AudioTrackz | undefined;
-  next: () => void;
-  previous: () => void;
   playlist: AudioTrackz[];
-  addTrackz: (track: AudioTrackz) => void;
-  setSelectedTrackz: (id: number) => void;
-  removeAt: (index: number) => void;
-  clearPlaylist: () => void;
+  currentIndex: number;
+  isPlaying: boolean;
   canNext: boolean;
   canPrev: boolean;
-  currentIndex: number;
+  addTrackz: (track: AudioTrackz) => void;
+  setPlaylist: (list: AudioTrackz[]) => void;
+  removeAt: (index: number) => void;
+  clearPlaylist: () => void;
+  toNext: () => void;
+  toPrev: () => void;
+  play: (indexOrTrackz?: AudioTrackz | number | undefined) => void;
+  pause: () => void;
 };
 
 export default function useTrackzPlaylist(
   trackzs: AudioTrackz[],
   preloadBuffer = DEFAULT_PRELOAD_BUFFER
 ): TrackzPlaylistInterface {
+  const [isPlaying, setIsPlaying] = useState(false);
   const {
-    selected,
+    selected: selectedTrackz,
     playlist,
     index,
     next,
@@ -43,13 +46,13 @@ export default function useTrackzPlaylist(
   } = usePlaylist<AudioTrackz>(trackzs, false);
 
   useEffect(() => {
-    if (!selected) return;
+    if (!selectedTrackz) return;
 
-    const track = selected;
+    const track = selectedTrackz;
     track.onended(next);
     return () => track.offended(next);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selected]);
+  }, [selectedTrackz]);
 
   useEffect(() => {
     /**
@@ -61,7 +64,7 @@ export default function useTrackzPlaylist(
       for (let count = index; count < preloadBuffer + index; count++) {
         const i = count % playlist.length;
         const track = playlist[i];
-        if (track.state === "unloaded") {
+        if (track?.state === "unloaded") {
           track.load();
         }
       }
@@ -70,32 +73,63 @@ export default function useTrackzPlaylist(
     preload();
   }, [index, playlist, preloadBuffer]);
 
-  const setSelectedTrackz = (trackId: number) =>
-    select(playlist.findIndex((track) => track.id === trackId));
+  useEffect(() => {
+    if (isPlaying) {
+      selectedTrackz?.play();
+    } else {
+      selectedTrackz?.pause();
+    }
+  }, [isPlaying, selectedTrackz, index]);
+
+  const toNext = () => {
+    selectedTrackz?.stop();
+    next();
+    setIsPlaying(true);
+  };
+
+  const toPrev = () => {
+    selectedTrackz?.stop();
+    previous();
+    setIsPlaying(true);
+  };
+
+  const play = (indexOrTrack?: AudioTrackz | number | undefined): void => {
+    let playIndex: number | undefined =
+      indexOrTrack instanceof AudioTrackz
+        ? playlist.findIndex((track) => track.id === indexOrTrack.id)
+        : indexOrTrack;
+
+    if (playIndex === undefined) playIndex = index;
+
+    selectedTrackz?.stop();
+    select(playIndex);
+    setIsPlaying(true);
+  };
+
+  const pause = () => setIsPlaying(false);
 
   const removeAt = (removeIndex: number) => {
-    const track = playlist[removeIndex];
-
     // Stop the track if it is the one that is playing
-    if (track.isPlaying) {
-      track.stop();
+    if (playlist[removeIndex].isPlaying) {
+      playlist[removeIndex].stop();
     }
-
     remove(removeIndex);
   };
 
   return {
+    play,
+    pause,
     clearPlaylist: clear,
-    selectedTrackz: selected,
+    selectedTrackz,
     addTrackz: add,
     removeAt,
-    next,
-    previous,
+    toNext,
+    toPrev,
     playlist,
-    setSelectedTrackz,
     canNext,
     canPrev,
     currentIndex: index,
     setPlaylist,
+    isPlaying,
   };
 }

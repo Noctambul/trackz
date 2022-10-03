@@ -58,9 +58,11 @@ export default function Playlist({}: Props): JSX.Element {
             return (
               <PlaylistTrack
                 key={index}
+                trackIndex={index}
                 isSelected={isSelected}
                 isPlaying={isPlaying}
                 isPassed={isPassed}
+                isRemovable={playlist.length > 1}
                 play={play}
                 pause={pause}
                 remove={() => removeAt(index)}

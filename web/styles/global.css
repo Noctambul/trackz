@@ -1,6 +1,31 @@
 @import "form.css";
 
 @tailwind base;
+
+@layer base {
+  html,
+  body {
+    @apply bg-bgc font-dmsans text-text;
+  }
+
+  /* 
+   * chakra-ui set default font-size: inherit for all headings.
+   * "body" is here to set a more specific selector
+   */
+  body h1 {
+    @apply text-4xl;
+  }
+  body h2 {
+    @apply text-xl;
+  }
+  body h3 {
+    @apply text-lg;
+  }
+  a {
+    @apply duration-200 hover:text-primary;
+  }
+}
+
 @tailwind components;
 @tailwind utilities;
 
@@ -12,13 +37,4 @@
 @font-face {
   font-family: "KumbhSans";
   src: url("../fonts/KumbhSans-Regular.ttf");
-}
-
-html,
-body {
-  @apply bg-bgc font-dmsans text-text;
-}
-
-a {
-  @apply duration-200 hover:text-primary;
 }

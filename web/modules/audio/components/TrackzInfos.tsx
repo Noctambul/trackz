@@ -1,10 +1,10 @@
 import { useIpfs } from "common/hooks/useIpfs";
-import TrackzMetadata from "common/models/TrackzMetadata";
 import Image from "next/image";
 import Link from "next/link";
+import AudioTrackz from "../models/AudioTrackz";
 
 interface Props {
-  trackz: TrackzMetadata;
+  trackz: AudioTrackz;
 }
 
 export default function TrackzInfos({ trackz }: Props): JSX.Element {
@@ -30,7 +30,9 @@ export default function TrackzInfos({ trackz }: Props): JSX.Element {
           <Link href={`/trackzs/${trackz.id}`}>{trackz.name}</Link>
         </span>
         <span className="truncate text-xs text-subtext" aria-label="Author">
-          <Link href={`/users/${trackz.creator}`}>{trackz.creator}</Link>
+          <Link href={`/users/${trackz.creator}`}>
+            {trackz.formatedCreator}
+          </Link>
         </span>
       </div>
     </div>

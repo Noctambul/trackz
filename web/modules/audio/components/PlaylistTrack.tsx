@@ -11,8 +11,10 @@ type Props = {
   isSelected?: boolean;
   isPassed?: boolean;
   isPlaying?: boolean;
+  isRemovable?: boolean;
   track: AudioTrackz;
-  play: (track: AudioTrackz) => void;
+  trackIndex: number;
+  play: (trackIndex: number) => void;
   pause: () => void;
   remove: () => void;
 };
@@ -21,6 +23,8 @@ export default function PlaylistTrack({
   isSelected = false,
   isPlaying = false,
   isPassed = false,
+  isRemovable = true,
+  trackIndex,
   track,
   play,
   pause,
@@ -33,9 +37,14 @@ export default function PlaylistTrack({
     <div
       className={`group flex h-14 w-full cursor-pointer items-center gap-4 ${backgroundStyle} px-4`}
       aria-label={`Track ${track.name}`}
-      onClick={() => (isPlayingMe ? pause() : play(track))}
+      data-playlist-index={trackIndex}
+      onClick={() => (isPlayingMe ? pause() : play(trackIndex))}
       role="button"
+      data-selected={isSelected}
     >
+      <span className="mr-[-1rem] min-w-[1rem] text-xs text-subtext">
+        {trackIndex + 1}.
+      </span>
       <div className="relative flex h-[38px] w-[38px] shrink-0 items-center justify-center border border-lightgray">
         <Image
           className={`${isPassed && "opacity-40"}`}
@@ -81,6 +90,7 @@ export default function PlaylistTrack({
           e.stopPropagation();
           remove();
         }}
+        isDisabled={!isRemovable}
         icon={<AiOutlineCloseSquare size={18} />}
       />
     </div>
