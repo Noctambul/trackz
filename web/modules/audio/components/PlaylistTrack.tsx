@@ -11,6 +11,7 @@ type Props = {
   isSelected?: boolean;
   isPassed?: boolean;
   isPlaying?: boolean;
+  isRemovable?: boolean;
   track: AudioTrackz;
   trackIndex: number;
   play: (trackIndex: number) => void;
@@ -22,6 +23,7 @@ export default function PlaylistTrack({
   isSelected = false,
   isPlaying = false,
   isPassed = false,
+  isRemovable = true,
   trackIndex,
   track,
   play,
@@ -88,6 +90,7 @@ export default function PlaylistTrack({
           e.stopPropagation();
           remove();
         }}
+        isDisabled={!isRemovable}
         icon={<AiOutlineCloseSquare size={18} />}
       />
     </div>
