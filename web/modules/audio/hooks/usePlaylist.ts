@@ -94,7 +94,7 @@ export default function usePlaylist<T>(
     list.splice(removeIndex, 1);
     _setPlaylist({
       // If the index is before the current selected index then we have to modify it accordingly
-      index: removeIndex < index ? index - 1 : index,
+      index: removeIndex <= index ? index - 1 : index,
       list,
     });
   };
