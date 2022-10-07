@@ -25,6 +25,6 @@
       "style",
       "styles"
     ],
-    "solidity.defaultCompiler": "localFile",
+    "solidity.defaultCompiler": "localNodeModule",
   }
 }
