@@ -16,7 +16,7 @@
     "cypress:e2e:headless": "NEXT_PUBLIC_TEST_MODE=true PORT=4001 next dev & cypress run --e2e --headless --config baseUrl=http://localhost:4001"
   },
   "dependencies": {
-    "@chakra-ui/react": "2.3.5",
+    "@chakra-ui/react": "2.3.6",
     "@emotion/react": "11.10.4",
     "@emotion/styled": "11.10.4",
     "@hookform/resolvers": "2.9.10",
