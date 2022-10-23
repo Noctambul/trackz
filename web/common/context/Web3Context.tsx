@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { EditionMetadata } from "@thirdweb-dev/sdk";
+import { EditionMetadataInput } from "@thirdweb-dev/sdk";
 import useWalletConnector from "common/hooks/useWalletConnector";
 import TrackzMetadata from "common/models/TrackzMetadata";
 import EditionMetadataSchema from "lib/schema/edition-metadata-schema";
@@ -72,14 +72,14 @@ export function Web3Provider(props: PropsWithChildren<{}>) {
 }
 
 const parseEditionMetadata = (
-  edition: EditionMetadata
+  edition: EditionMetadataInput
 ): TrackzMetadata | undefined => {
   const parsedResult = EditionMetadataSchema.safeParse(edition);
   // if (!parsedResult.success) console.log(parsedResult.error, edition);
   return parsedResult.success ? parsedResult.data : undefined;
 };
 
-const parseEditions = (editions: EditionMetadata[]): TrackzMetadata[] =>
+const parseEditions = (editions: EditionMetadataInput[]): TrackzMetadata[] =>
   editions
     .map((edition) => parseEditionMetadata(edition))
     .filter((track) => track !== undefined)
