@@ -20,7 +20,7 @@
     "@emotion/react": "11.10.5",
     "@emotion/styled": "11.10.5",
     "@hookform/resolvers": "2.9.10",
-    "@tanstack/react-query": "4.13.0",
+    "@tanstack/react-query": "4.13.4",
     "@thirdweb-dev/react": "3.4.4",
     "@thirdweb-dev/sdk": "3.4.4",
     "ethers": "5.7.2",
