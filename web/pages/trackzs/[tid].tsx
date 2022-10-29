@@ -4,7 +4,7 @@ import { useIpfs } from "common/hooks/useIpfs";
 import { useAudio } from "modules/audio/context/AudioContext";
 import AudioTrackz from "modules/audio/models/AudioTrackz";
 import Head from "next/head";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";

@@ -1,6 +1,6 @@
 import { IconButton as ChakraIconButton } from "@chakra-ui/react";
 import AudioTrackz from "modules/audio/models/AudioTrackz";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import Link from "next/link";
 import { RiPauseFill, RiPlayFill, RiPlayListAddFill } from "react-icons/ri";
 

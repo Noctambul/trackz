@@ -1,5 +1,5 @@
 import { useIpfs } from "common/hooks/useIpfs";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import Link from "next/link";
 import AudioTrackz from "../models/AudioTrackz";
 
