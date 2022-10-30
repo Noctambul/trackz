@@ -1,6 +1,6 @@
 import { useAddress, useDisconnect, useMetamask } from "@thirdweb-dev/react";
 import { useCallback, useMemo, useState } from "react";
-import useEnvironment from "./useEnvironment";
+import useEnvironment from "../../../common/hooks/useEnvironment";
 
 export default function useWalletConnector() {
   const [TRACKZ_TEST_WALLET_ADDRESS, setTRACKZ_TEST_WALLET_ADDRESS] =

@@ -6,7 +6,7 @@ import {
   MenuItem,
   MenuList,
 } from "@chakra-ui/react";
-import { useWeb3 } from "common/context/Web3Context";
+import { useWeb3 } from "modules/web3/context/Web3Context";
 import { useRouter } from "next/router";
 import { FiLogOut, FiMusic, FiUser } from "react-icons/fi";
 

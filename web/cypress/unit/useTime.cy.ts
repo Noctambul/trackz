@@ -1,4 +1,4 @@
-import { useTime } from "common/hooks/useTime";
+import { useTime } from "modules/audio/hooks/useTime";
 
 describe("useTime", () => {
   const { formatTime } = useTime();
