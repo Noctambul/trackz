@@ -1,10 +1,10 @@
 import { IconButton } from "@chakra-ui/react";
 import PageContainer from "common/components/PageContainer/PageContainer";
 import TrackzCardList from "common/components/TrackzCard/TrackzCardList";
-import { useWeb3 } from "common/context/Web3Context";
 import { formatWallet } from "common/utils/format";
 import EthWalletAddressSchema from "lib/schema/eth-wallet-address-schema";
 import { useAudio } from "modules/audio/context/AudioContext";
+import { useWeb3 } from "modules/web3/context/Web3Context";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useMemo } from "react";

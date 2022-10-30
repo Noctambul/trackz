@@ -1,8 +1,8 @@
 import IconButton from "common/components/uikit/IconButton";
 import Progress from "common/components/uikit/Progress";
 import { useIpfs } from "common/hooks/useIpfs";
-import { useTime } from "common/hooks/useTime";
 import useAudioTrackz from "modules/audio/hooks/useAudioTrackz";
+import { useTime } from "modules/audio/hooks/useTime";
 import AudioTrackz from "modules/audio/models/AudioTrackz";
 import Image from "next/image";
 import Link from "next/link";

@@ -5,7 +5,7 @@ import {
   SliderThumb,
   SliderTrack,
 } from "@chakra-ui/react";
-import { useTime } from "common/hooks/useTime";
+import { useTime } from "modules/audio/hooks/useTime";
 import { BsSoundwave } from "react-icons/bs";
 
 interface Props {

@@ -14,13 +14,13 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import PageContainer from "common/components/PageContainer/PageContainer";
 import TagSelector from "common/components/uikit/TagSelector";
-import { useWeb3 } from "common/context/Web3Context";
 import useMint from "common/hooks/useMint";
 import { MusicalGenres } from "lib/schema/edition-metadata-schema";
 import {
   default as MintFormSchema,
   MintInputs,
 } from "lib/schema/mint-form-schema";
+import { useWeb3 } from "modules/web3/context/Web3Context";
 import { useRouter } from "next/router";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 

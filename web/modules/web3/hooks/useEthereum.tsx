@@ -1,30 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 import { EditionMetadataInput } from "@thirdweb-dev/sdk";
-import useWalletConnector from "common/hooks/useWalletConnector";
 import TrackzMetadata from "common/models/TrackzMetadata";
 import EditionMetadataSchema from "lib/schema/edition-metadata-schema";
+import useWalletConnector from "modules/audio/hooks/useWalletConnector";
 import AudioTrackz from "modules/audio/models/AudioTrackz";
-import { createContext, PropsWithChildren, useContext, useMemo } from "react";
+import { useMemo } from "react";
+import { Web3Interface } from "../context/Web3Context";
 
-export interface EthereumContextInterface {
-  trackzMetadata: TrackzMetadata[];
+export default function useEthereum(): Web3Interface & {
   audioTrackzs: AudioTrackz[];
-  isLoading: boolean;
-  isError: boolean;
-  address: string | undefined;
-  connectWallet: () => Promise<any>;
-  disconnectWallet: () => Promise<any>;
-  refetchTrackzs: () => Promise<void>;
-}
-
-const EthereumContext = createContext<EthereumContextInterface | null>(null);
-
-export function useEthereum(): EthereumContextInterface {
-  if (!EthereumContext) throw "EthereumContext is not defined";
-  return useContext(EthereumContext)!;
-}
-
-export function EthereumProvider(props: PropsWithChildren<{}>) {
+} {
   const { address, connectWallet, disconnectWallet } = useWalletConnector();
   const { isLoading, isError, data, error, refetch } = useQuery(
     ["trackzs"],
@@ -53,22 +38,16 @@ export function EthereumProvider(props: PropsWithChildren<{}>) {
     await refetch();
   };
 
-  return (
-    <EthereumContext.Provider
-      value={{
-        trackzMetadata: data || [],
-        audioTrackzs,
-        isLoading,
-        isError,
-        refetchTrackzs,
-        address,
-        connectWallet,
-        disconnectWallet,
-      }}
-    >
-      {props.children}
-    </EthereumContext.Provider>
-  );
+  return {
+    trackzMetadata: data || [],
+    audioTrackzs,
+    isLoading,
+    isError,
+    address,
+    connectWallet,
+    disconnectWallet,
+    refetchTrackzs,
+  };
 }
 
 const parseEditionMetadata = (

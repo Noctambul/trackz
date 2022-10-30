@@ -1,5 +1,5 @@
-import { useWeb3 } from "common/context/Web3Context";
 import AudioTrackz from "modules/audio/models/AudioTrackz";
+import { useWeb3 } from "modules/web3/context/Web3Context";
 import { createContext, useContext, useEffect, useRef, useState } from "react";
 import useAudioTrackz from "../hooks/useAudioTrackz";
 import useTrackzPlaylist from "../hooks/useTrackzPlaylist";

@@ -1,7 +1,7 @@
 import PageContainer from "common/components/PageContainer/PageContainer";
 import TrackzCardList from "common/components/TrackzCard/TrackzCardList";
-import { useWeb3 } from "common/context/Web3Context";
 import { useAudio } from "modules/audio/context/AudioContext";
+import { useWeb3 } from "modules/web3/context/Web3Context";
 import type { NextPage } from "next";
 import Head from "next/head";
 
