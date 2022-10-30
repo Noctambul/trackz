@@ -1,6 +1,7 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ChainId, ThirdwebProvider } from "@thirdweb-dev/react";
+import { EthereumProvider } from "common/context/EthereumContext";
 import { Web3Provider } from "common/context/Web3Context";
 import "lib/augmented-types";
 import chakraTheme from "lib/chakra-theme";
@@ -28,14 +29,16 @@ function MyApp({ Component, pageProps }: AppProps) {
     <ChakraProvider theme={chakraTheme}>
       <QueryClientProvider client={queryClient}>
         <ThirdwebProvider {...thirdwebProps}>
-          <Web3Provider>
-            <AudioProvider>
-              <Head>
-                <link rel="shortcut icon" href="/favicon.png" />
-              </Head>
-              <Component {...pageProps} />
-            </AudioProvider>
-          </Web3Provider>
+          <EthereumProvider>
+            <Web3Provider>
+              <AudioProvider>
+                <Head>
+                  <link rel="shortcut icon" href="/favicon.png" />
+                </Head>
+                <Component {...pageProps} />
+              </AudioProvider>
+            </Web3Provider>
+          </EthereumProvider>
         </ThirdwebProvider>
       </QueryClientProvider>
     </ChakraProvider>

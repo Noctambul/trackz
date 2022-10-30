@@ -1,10 +1,9 @@
-import { useQuery } from "@tanstack/react-query";
 import { EditionMetadataInput } from "@thirdweb-dev/sdk";
-import useWalletConnector from "common/hooks/useWalletConnector";
 import TrackzMetadata from "common/models/TrackzMetadata";
 import EditionMetadataSchema from "lib/schema/edition-metadata-schema";
 import AudioTrackz from "modules/audio/models/AudioTrackz";
-import { createContext, PropsWithChildren, useContext, useMemo } from "react";
+import { createContext, PropsWithChildren, useContext } from "react";
+import { useEthereum } from "./EthereumContext";
 
 export interface Web3ContextInterface {
   trackzMetadata: TrackzMetadata[];
@@ -25,38 +24,21 @@ export function useWeb3(): Web3ContextInterface {
 }
 
 export function Web3Provider(props: PropsWithChildren<{}>) {
-  const { address, connectWallet, disconnectWallet } = useWalletConnector();
-  const { isLoading, isError, data, error, refetch } = useQuery(
-    ["trackzs"],
-    async () => {
-      const res = await fetch("/api/trackzs");
-
-      if (!res.ok)
-        throw new Error(`Server responds with status ${res.status} : ${res}`);
-
-      const json = await res.json();
-      const retrievedNfts = json.editions;
-      const trackzs = parseEditions(retrievedNfts);
-      return trackzs;
-    }
-  );
-
-  const audioTrackzs: AudioTrackz[] = useMemo(
-    () =>
-      data?.map((track) =>
-        track instanceof AudioTrackz ? track : new AudioTrackz(track)
-      ) || [],
-    [data]
-  );
-
-  const refetchTrackzs = async () => {
-    await refetch();
-  };
+  const {
+    trackzMetadata,
+    audioTrackzs,
+    isLoading,
+    isError,
+    refetchTrackzs,
+    address,
+    connectWallet,
+    disconnectWallet,
+  } = useEthereum();
 
   return (
     <Web3Context.Provider
       value={{
-        trackzMetadata: data || [],
+        trackzMetadata,
         audioTrackzs,
         isLoading,
         isError,
