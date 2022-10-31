@@ -1,7 +1,7 @@
 import TrackzMetadata from "common/models/TrackzMetadata";
 import AudioTrackz from "modules/audio/models/AudioTrackz";
 import { createContext, PropsWithChildren, useContext } from "react";
-import useEthereum from "../hooks/useEthereum";
+import useTezos from "../hooks/useTezos";
 
 export interface Web3ContextInterface {
   trackzMetadata: TrackzMetadata[];
@@ -39,15 +39,14 @@ export function Web3Provider(props: PropsWithChildren<{}>) {
     address,
     connectWallet,
     disconnectWallet,
-    audioTrackzs,
     refetchTrackzs,
-  } = useEthereum();
+  } = useTezos();
 
   return (
     <Web3Context.Provider
       value={{
         trackzMetadata,
-        audioTrackzs,
+        audioTrackzs: [],
         isLoading,
         isError,
         refetchTrackzs,
