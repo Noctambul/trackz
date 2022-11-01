@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import TrackzMetadata from "common/models/TrackzMetadata";
 import isNumeric from "validator/lib/isNumeric";
 import { string, z } from "zod";
 import { Web3Interface } from "../context/Web3Context";
@@ -15,10 +16,8 @@ export default function useTezos(): Web3Interface {
       if (!res.ok)
         throw new Error(`Server responds with status ${res.status} : ${res}`);
 
-      const json = await res.json();
-      debugger;
-
-      return [];
+      const json: RaribleResponse = await res.json();
+      return parseItems(json.items);
     }
   );
 
@@ -29,7 +28,7 @@ export default function useTezos(): Web3Interface {
   async function refetchTrackzs() {}
 
   return {
-    trackzMetadata: [],
+    trackzMetadata: data || [],
     isLoading: isLoading,
     isError: isError,
     address: undefined,
@@ -46,25 +45,65 @@ const ContentAnimationSchema = z.object({
   url: z.string(),
 });
 
-type ContentAnimationMetadata = z.infer<typeof ContentAnimationSchema>;
+const attributeKeys = ["artist", "creator", "tags", "genres"] as const;
 
 const RaribleItemSchema = z.object({
   creators: z.string().array(),
   deleted: z.boolean(),
   id: string(),
-  lastUpdatedAt: z.date(),
-  mintedAt: z.date(),
+  lastUpdatedAt: z.string(),
+  mintedAt: z.string(),
   meta: z.object({
     name: z.string(),
     description: z.string(),
     attributes: z.object({ key: z.string(), value: z.string() }).array(),
-    content: ContentAnimationSchema.array(),
+    content: ContentAnimationSchema.array()
+      .nonempty()
+      .refine((contents) =>
+        contents.some(
+          (c) => c["@type"] === "AUDIO",
+          "There is no audio content associated to the Item"
+        )
+      ),
   }),
   supply: z.string().refine(isNumeric),
   tokenId: z.string().refine(isNumeric),
-  totaStock: z.string().refine(isNumeric),
+  totalStock: z.string().refine(isNumeric),
 });
 
-type RaribleItemMetadata = z.infer<typeof RaribleItemSchema>;
+const RaribleResponseSchema = z.object({
+  continuation: z.string(),
+  items: RaribleItemSchema.array(),
+});
 
-// const parseItemMetadata = ()
+type ContentAnimationMetadata = z.infer<typeof ContentAnimationSchema>;
+type RaribleItemMetadata = z.infer<typeof RaribleItemSchema>;
+type RaribleResponse = z.infer<typeof RaribleResponseSchema>;
+
+const parseItemMetadata = (
+  item: RaribleItemMetadata
+): TrackzMetadata | undefined => {
+  const result = RaribleItemSchema.safeParse(item);
+  if (!result.success) {
+    console.log(result.error, item);
+    return;
+  }
+
+  return {
+    id: parseInt(item.tokenId),
+    name: item.meta.name,
+    creator: item.creators[0],
+    description: item.meta.description,
+    totalSupply: parseInt(item.totalStock),
+    musicUri: item.meta.content.find((c) => c["@type"] === "AUDIO")!.url,
+    coverUri: item.meta.content.find((c) => c["@type"] === "IMAGE")?.url,
+    tags: "",
+    genres: [],
+  };
+};
+
+const parseItems = (items: RaribleItemMetadata[]): TrackzMetadata[] =>
+  items
+    .map((item) => parseItemMetadata(item))
+    .filter((trackz) => trackz !== undefined)
+    .reverse() as TrackzMetadata[];

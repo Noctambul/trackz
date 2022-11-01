@@ -3,13 +3,9 @@ import { EditionMetadataInput } from "@thirdweb-dev/sdk";
 import TrackzMetadata from "common/models/TrackzMetadata";
 import EditionMetadataSchema from "lib/schema/edition-metadata-schema";
 import useWalletConnector from "modules/audio/hooks/useWalletConnector";
-import AudioTrackz from "modules/audio/models/AudioTrackz";
-import { useMemo } from "react";
 import { Web3Interface } from "../context/Web3Context";
 
-export default function useEthereum(): Web3Interface & {
-  audioTrackzs: AudioTrackz[];
-} {
+export default function useEthereum(): Web3Interface {
   const { address, connectWallet, disconnectWallet } = useWalletConnector();
   const { isLoading, isError, data, error, refetch } = useQuery(
     ["trackzs"],
@@ -26,21 +22,12 @@ export default function useEthereum(): Web3Interface & {
     }
   );
 
-  const audioTrackzs: AudioTrackz[] = useMemo(
-    () =>
-      data?.map((track) =>
-        track instanceof AudioTrackz ? track : new AudioTrackz(track)
-      ) || [],
-    [data]
-  );
-
   const refetchTrackzs = async () => {
     await refetch();
   };
 
   return {
     trackzMetadata: data || [],
-    audioTrackzs,
     isLoading,
     isError,
     address,

@@ -1,6 +1,6 @@
 import TrackzMetadata from "common/models/TrackzMetadata";
 import AudioTrackz from "modules/audio/models/AudioTrackz";
-import { createContext, PropsWithChildren, useContext } from "react";
+import { createContext, PropsWithChildren, useContext, useMemo } from "react";
 import useTezos from "../hooks/useTezos";
 
 export interface Web3ContextInterface {
@@ -42,11 +42,21 @@ export function Web3Provider(props: PropsWithChildren<{}>) {
     refetchTrackzs,
   } = useTezos();
 
+  const audioTrackzs: AudioTrackz[] = useMemo(
+    () =>
+      trackzMetadata?.map((track) =>
+        track instanceof AudioTrackz ? track : new AudioTrackz(track)
+      ) || [],
+    [trackzMetadata]
+  );
+
+  console.log(trackzMetadata);
+
   return (
     <Web3Context.Provider
       value={{
         trackzMetadata,
-        audioTrackzs: [],
+        audioTrackzs,
         isLoading,
         isError,
         refetchTrackzs,

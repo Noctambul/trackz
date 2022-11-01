@@ -9,6 +9,7 @@ const nextConfig = {
       "placeholder.com",
       "via.placeholder.com",
       "picsum.photos",
+      "ipfs.io",
     ],
   },
 };
