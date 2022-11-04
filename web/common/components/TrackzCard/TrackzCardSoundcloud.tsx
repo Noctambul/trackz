@@ -4,7 +4,7 @@ import { useIpfs } from "common/hooks/useIpfs";
 import { useTime } from "common/hooks/useTime";
 import useAudioTrackz from "modules/audio/hooks/useAudioTrackz";
 import AudioTrackz from "modules/audio/models/AudioTrackz";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import Link from "next/link";
 import { IoPauseCircleOutline, IoPlayCircleOutline } from "react-icons/io5";
 

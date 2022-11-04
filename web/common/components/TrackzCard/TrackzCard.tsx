@@ -1,6 +1,6 @@
 import { IconButton as ChakraIconButton } from "@chakra-ui/react";
 import AudioTrackz from "modules/audio/models/AudioTrackz";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import Link from "next/link";
 import { RiPauseFill, RiPlayFill, RiPlayListAddFill } from "react-icons/ri";
 
@@ -69,8 +69,8 @@ export default function TrackzCard({
       className="flex h-full w-full max-w-sm  flex-col items-center rounded-lg border bg-white py-0.5 shadow-md shadow-mediumgray"
       aria-label={`Trackz Card ${track.id}`}
     >
-      <Link href={`/trackzs/${track.id}`}>
-        <div className="aspect-square group relative h-full w-[calc(100%-0.2rem)] cursor-pointer overflow-hidden rounded-md">
+      <div className="aspect-square group relative h-full w-[calc(100%-0.2rem)] cursor-pointer overflow-hidden rounded-md">
+        <Link href={`/trackzs/${track.id}`}>
           <Image
             src={track.coverUri}
             alt={track.name}
@@ -81,8 +81,8 @@ export default function TrackzCard({
             {PlayChakraButton}
             {AddToPlaylistBtn}
           </div>
-        </div>
-      </Link>
+        </Link>
+      </div>
       <div className="my-2 w-full px-2">
         <div className="text-md truncate text-text">
           <Link href={`/trackzs/${track.id}`}>{track.name}</Link>
