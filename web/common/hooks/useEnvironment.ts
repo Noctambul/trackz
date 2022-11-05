@@ -28,6 +28,15 @@ export default function useEnvironment() {
       .parse(process.env.NEXT_PUBLIC_TEST_MODE)
   );
 
+  const nftStorageApiKey = useConst(() =>
+    z
+      .string({
+        required_error:
+          "NEXT_PUBLIC_NFT_STORAGE_API_KEY is required as an environment variable",
+      })
+      .parse(process.env.NEXT_PUBLIC_NFT_STORAGE_API_KEY)
+  );
+
   // const environment = z
   //   .enum(["development", "production", "test"], {
   //     required_error: "NEXT_PUBLIC_ENVIRONMENT is required",
@@ -41,5 +50,5 @@ export default function useEnvironment() {
   //   })
   //   .parse(process.env.NEXT_PUBLIC_IPFS_PROVIDER_URI);
 
-  return { trackzEditionContract, isTestMode };
+  return { trackzEditionContract, isTestMode, nftStorageApiKey };
 }
