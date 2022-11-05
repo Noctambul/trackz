@@ -14,20 +14,19 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import PageContainer from "common/components/PageContainer/PageContainer";
 import TagSelector from "common/components/uikit/TagSelector";
-import useMint from "common/hooks/useMint";
 import { MusicalGenres } from "lib/schema/edition-metadata-schema";
 import {
   default as MintFormSchema,
   MintInputs,
 } from "lib/schema/mint-form-schema";
 import { useWeb3 } from "modules/web3/context/Web3Context";
+import useTezosMint from "modules/web3/hooks/useTezosMint";
 import { useRouter } from "next/router";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 
 export default function MintPage(): JSX.Element {
-  const { mintWithSignature, currentStateLabel } = useMint();
-  const { address, connectWallet } = useWeb3();
-  const { refetchTrackzs } = useWeb3();
+  const { mint, currentStateLabel } = useTezosMint();
+  const { address, connectWallet, refetchTrackzs } = useWeb3();
   const toast = useToast();
   const router = useRouter();
   const {
@@ -42,7 +41,7 @@ export default function MintPage(): JSX.Element {
 
   const onSubmit: SubmitHandler<MintInputs> = async (data) => {
     try {
-      await mintWithSignature(data);
+      await mint(data);
       refetchTrackzs();
 
       await router.push("/");

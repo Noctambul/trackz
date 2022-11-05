@@ -1,6 +1,6 @@
 import {
   ChainId,
-  useEdition,
+  useContract,
   useNetwork,
   useNetworkMismatch,
   useSigner,
@@ -10,14 +10,13 @@ import { MintInputs } from "lib/schema/mint-form-schema";
 import { MintParams } from "lib/schema/mint-params-schema";
 import { useWeb3 } from "modules/web3/context/Web3Context";
 import { useState } from "react";
-import useEnvironment from "./useEnvironment";
+import useEnvironment from "../../../common/hooks/useEnvironment";
 
 export default function useMint() {
   const [isLoading, setIsLoading] = useState(false);
   const { trackzEditionContract } = useEnvironment();
   const { address } = useWeb3();
-  // TODO: useContract
-  const contract = useEdition(trackzEditionContract);
+  const contract = useContract(trackzEditionContract, "edition").contract;
   const isOnWrongNetwork = useNetworkMismatch();
   const signer = useSigner();
   const [, switchNetwork] = useNetwork();

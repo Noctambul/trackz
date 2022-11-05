@@ -50,8 +50,6 @@ export function Web3Provider(props: PropsWithChildren<{}>) {
     [trackzMetadata]
   );
 
-  console.log(trackzMetadata);
-
   return (
     <Web3Context.Provider
       value={{

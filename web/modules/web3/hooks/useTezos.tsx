@@ -1,10 +1,31 @@
 import { useQuery } from "@tanstack/react-query";
+import { BeaconWallet } from "@taquito/beacon-wallet";
+import { TezosToolkit } from "@taquito/taquito";
 import TrackzMetadata from "common/models/TrackzMetadata";
+import { useEffect, useState } from "react";
 import isNumeric from "validator/lib/isNumeric";
 import { string, z } from "zod";
 import { Web3Interface } from "../context/Web3Context";
 
 export default function useTezos(): Web3Interface {
+  const Tezos = new TezosToolkit(
+    "https://tezos-prod.cryptonomic-infra.tech:443"
+    // "https://testnet-tezos.giganode.io/"
+  );
+  const [wallet, setWallet] = useState(
+    new BeaconWallet({ name: "User Wallet" })
+  );
+  const [address, setAddress] = useState<string | undefined>();
+
+  Tezos.setWalletProvider(wallet);
+
+  useEffect(() => {
+    (async () => {
+      const activeAccount = await wallet.client.getActiveAccount();
+      setAddress(activeAccount?.address);
+    })();
+  }, [wallet.client]);
+
   const { isLoading, isError, data, error, refetch } = useQuery(
     ["trackzs"],
     async () => {
@@ -21,17 +42,36 @@ export default function useTezos(): Web3Interface {
     }
   );
 
-  async function connectWallet() {}
+  async function connectWallet() {
+    try {
+      console.log("Requesting permissions...");
+      const permissions = await wallet.client.requestPermissions();
+      console.log("Got permissions:", permissions);
+      setAddress(permissions.address);
+    } catch (error) {
+      console.error("Got error:", error);
+    }
+  }
 
-  async function disconnectWallet() {}
+  async function disconnectWallet() {
+    try {
+      await wallet.clearActiveAccount();
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setAddress(undefined);
+    }
+  }
 
-  async function refetchTrackzs() {}
+  async function refetchTrackzs() {
+    await refetch();
+  }
 
   return {
     trackzMetadata: data || [],
     isLoading: isLoading,
     isError: isError,
-    address: undefined,
+    address,
     connectWallet,
     disconnectWallet,
     refetchTrackzs,
