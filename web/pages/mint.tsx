@@ -25,8 +25,8 @@ import { useRouter } from "next/router";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 
 export default function MintPage(): JSX.Element {
-  const { mint, currentStateLabel } = useTezosMint();
   const { address, connectWallet, refetchTrackzs } = useWeb3();
+  const { mint, currentStateLabel } = useTezosMint(address);
   const toast = useToast();
   const router = useRouter();
   const {
@@ -194,6 +194,7 @@ export default function MintPage(): JSX.Element {
 
         {SubmitButton}
       </form>
+      <button onClick={mint}>Test Mint</button>
     </PageContainer>
   );
 }

@@ -37,6 +37,15 @@ export default function useEnvironment() {
       .parse(process.env.NEXT_PUBLIC_NFT_STORAGE_API_KEY)
   );
 
+  const raribleTrackzContract = useConst(() =>
+    z
+      .string({
+        required_error:
+          "NEXT_PUBLIC_RARIBLE_TRACKZ_CONTRACT is required as an environment variable",
+      })
+      .parse(process.env.NEXT_PUBLIC_RARIBLE_TRACKZ_CONTRACT)
+  );
+
   // const environment = z
   //   .enum(["development", "production", "test"], {
   //     required_error: "NEXT_PUBLIC_ENVIRONMENT is required",
@@ -50,5 +59,10 @@ export default function useEnvironment() {
   //   })
   //   .parse(process.env.NEXT_PUBLIC_IPFS_PROVIDER_URI);
 
-  return { trackzEditionContract, isTestMode, nftStorageApiKey };
+  return {
+    trackzEditionContract,
+    isTestMode,
+    nftStorageApiKey,
+    raribleTrackzContract,
+  };
 }

@@ -1,0 +1,9 @@
+{
+  "name": "tezos-archetype",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "deploy": "completium-cli deploy ./contract/counter.arl --named Counter"
+  }
+}

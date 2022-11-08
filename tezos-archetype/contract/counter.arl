@@ -1,0 +1,32 @@
+archetype counter
+
+variable counter : nat = 0
+constant counterMax : nat = 100
+
+entry main(originalCounter: nat) {
+  require {
+    rI1: counter < counterMax otherwise "COUNTER_IS_MAX";
+    rI2: counter > 0 otherwise "COUNTER_EQUALS_ZERO";
+  }
+  effect {
+    counter := originalCounter
+  }
+}
+
+entry increment() {
+  require {
+    r1: counter < counterMax otherwise "COUNTER_IS_MAX";
+  }
+  effect {
+    counter += 1
+  }
+}
+
+entry decrement() {
+  require {
+    r2: counter > 0 otherwise "COUNTER_EQUALS_ZERO";
+  }
+  effect {
+    counter -= 1
+  }
+}
