@@ -41,7 +41,7 @@
     "@tailwindcss/typography": "0.5.7",
     "@testing-library/react-hooks": "8.0.1",
     "@types/howler": "2.2.7",
-    "@types/node": "18.11.9",
+    "@types/node": "18.19.130",
     "@types/react": "18.0.25",
     "@types/react-dom": "18.0.8",
     "@types/validator": "13.7.10",
