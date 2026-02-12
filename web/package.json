@@ -24,7 +24,7 @@
     "@thirdweb-dev/react": "3.5.1",
     "@thirdweb-dev/sdk": "3.5.1",
     "ethers": "5.7.2",
-    "framer-motion": "7.6.4",
+    "framer-motion": "7.10.3",
     "howler": "2.2.3",
     "next": "12.3.2",
     "react": "18.2.0",
